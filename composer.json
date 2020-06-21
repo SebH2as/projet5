@@ -1,0 +1,10 @@
+{
+    "name": "sebh2as/revue",
+    "description": "revue philolitique",
+    "autoload": {
+        "psr-4": {
+            "Projet5\\": "Src/"
+        }
+    },
+    "require": {}
+}
