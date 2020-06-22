@@ -1,0 +1,189 @@
+header
+{
+    width:100%;
+    height: 98vh;
+    display: flex;
+    @include flexCenter(column);
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    position: relative;
+    #border
+    {
+        background-color: rgba(0, 0, 0, 0);
+        border: solid 10px $primaryBackgroundColorDark;
+        border-top-style: none;
+        top: 6vh;
+        width: 56%;
+        height: 92%;
+        position: absolute;
+        
+        z-index: 1;
+    }
+
+    #borderLeft
+    {
+        background-color: rgba(0, 0, 0, 0);
+        border: solid 10px $primaryBackgroundColorDark;
+        border-top-style: none;
+        top: 6vh;
+        left: 22%;
+        width: 16%;
+        position: absolute;
+        
+        z-index: 1;
+    }
+
+    #borderRight
+    {
+        background-color: rgba(0, 0, 0, 0);
+        border: solid 10px $primaryBackgroundColorDark;
+        border-top-style: none;
+        top: 6vh;
+        right: 22%;
+        width: 16%;
+        position: absolute;
+        
+        z-index: 1;
+    }
+
+    #headerImg
+    {
+        width:60%;
+        object-fit: cover;
+        height: 100%;
+        z-index: 0;
+        position: fixed;
+        
+    }
+
+    #title01 
+    {
+        position: absolute;
+        top: 65%;
+        left: 15%;
+        width:50%;
+        color: $primaryBackgroundColorLight;
+        background-color: $primaryBackgroundColorDark;
+        padding: 5px;
+        display: inline-block;
+        font-size: 40px;
+        font-family: News Cycle;
+        z-index: 1;
+        
+    }
+
+    #title02 
+    {
+        position: absolute;
+        top: 80%;
+        left: 15%;
+        width:50%;
+        color: $primaryBackgroundColorLight;
+        background-color: $primaryBackgroundColorDark;
+        padding: 5px;
+        display: inline-block;
+        font-size: 40px;
+        font-family: News Cycle;
+        z-index: 1;
+        
+    }
+
+    #numberDate 
+    {
+        position: absolute;
+        top: 1%;
+        left: 24%;
+        color: $primaryBackgroundColorLight;
+        padding: 0.5em 0.2em 0.8em 0.5em;
+        display: inline-block;
+        z-index: 1;
+        
+    }
+
+    #sentence
+    {
+        position: absolute;
+        top: 1%;
+        right: 23%;
+        color: $primaryBackgroundColorLight;
+        padding: 0.5em 0.2em 0.8em 0.5em;
+        display: inline-block;
+        z-index: 1;
+    }
+
+    #anchorEd
+    {
+        position: absolute;
+        text-decoration: none;
+        top: 15%;
+        right: 18%;
+        color: $primaryBackgroundColorLight;
+        font-family: News Cycle;
+        padding: 5px;
+        background-color: $primaryBackgroundColorDark;
+        font-size: 40px;
+        display: inline-block;
+        z-index: 2;
+        transition: font-size .25s, border-bottom .25s,border-right .25s;
+    }
+
+    #anchorEd:hover
+    {
+        font-size: 42px;
+        border-bottom: solid 5px $secondaryBacgroundColorOrange;
+        border-right: solid 5px $secondaryBacgroundColorOrange;
+    }
+
+    #anchorSum
+    {
+        position: absolute;
+        text-decoration: none;
+        top: 25%;
+        right: 18%;
+        color: $primaryBackgroundColorLight;
+        font-family: News Cycle;
+        padding: 5px;
+        background-color: $primaryBackgroundColorDark;
+        font-size: 40px;
+        display: inline-block;
+        z-index: 2;
+        transition: font-size .25s, border-bottom .25s,border-right .25s;
+
+    }
+
+    #anchorSum:hover
+    {
+        font-size: 42px;
+        border-bottom: solid 5px $secondaryBacgroundColorOrange;
+        border-right: solid 5px $secondaryBacgroundColorOrange;
+    }
+    .fa-arrow-circle-left{
+        position: absolute;
+        text-decoration: none;
+        top:45%;
+        left:18%;
+        font-size: 72px;
+        z-index: 2;
+        color: $primaryBackgroundColorLight;
+        transition: color .5s, transform .5s;
+        &:hover{
+            color: $secondaryBacgroundColorOrange;
+            transform: scale(1.1,1.1);
+        }
+    }
+    .fa-arrow-circle-right{
+        position: absolute;
+        text-decoration: none;
+        top:45%;
+        right:18%;
+        font-size: 72px;
+        z-index: 2;
+        color: $primaryBackgroundColorLight;
+        transition: color .5s, transform .5s;
+        &:hover{
+            color: $secondaryBacgroundColorOrange;
+            transform: scale(1.1,1.1);
+        }
+    }
+}
+

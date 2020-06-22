@@ -1,0 +1,390 @@
+#editorial
+{
+    width:60%;
+    height: 98vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    position: relative;
+    padding-top: 4vh;
+    .column
+    {
+        width: 33%;
+        height: 100%;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    .columnBig
+    {
+        width: 60%;
+        height: 100%;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .square
+    {
+        width: 99%;
+        height: 33%;
+        background-color: #F9FBF2;
+        margin-top: 1.25%;
+        margin-bottom: 1.25%;
+    }
+    
+    #edito
+    {
+        background-color: #F9FBF2;
+        height: 99%;
+        width: 98%;
+        position: relative;
+        h2
+        {
+            padding: 5px;
+            text-align: center;
+            position: absolute;
+            top: 0.5vh;
+            left: 0.5vh;
+            background-color: $primaryBackgroundColorLight;
+            z-index: 2;
+        }
+        
+        h3
+        {
+            margin: 0px;
+            text-align: center;
+        }
+        #editoText{
+            position: absolute;
+            top: 2vh;
+            margin: 10px;
+            border: solid 2px $secondaryBacgroundColorOrange;
+            height: 95%;
+            p
+            {
+                text-justify: distribute;
+                margin: 15px;
+            }
+        }   
+    } 
+}
+
+#summary{
+    width:60%;
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 2vh;
+    margin-bottom: 8vh;
+    position: relative;
+    padding-top: 5vh;
+        h2{
+            width: 90%;
+            background-color: $primaryBackgroundColorLight;
+            text-align: center;
+            margin-bottom: 2vh;
+            border: solid 2px $secondaryBacgroundColorOrange;
+        }
+        span{
+            position: absolute;
+            top: 5.8vh;
+            left: 20vh;
+        }
+        .fa-arrow-right{
+            color: $secondaryBacgroundColorOrange;
+            font-size: 36px;
+            
+            z-index: 3;
+        }
+
+        .containerSum
+        {
+            width: 99%;
+            height: 30vh;
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .containImg
+        {
+            width: 32%;
+            height: 96%;
+            background-color: $secondaryBacgroundColorOrange;
+            border: 3px solid $secondaryBacgroundColorOrange;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1vh;
+        }
+
+        .containText
+        {
+            width: 66%;
+            height: 96%;
+            background-color: #F9FBF2;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1vh;
+                .textInfo{
+                    
+                    width: 95%;
+                    height: 90%;
+
+                    border: 2px solid $secondaryBacgroundColorOrange;
+                    
+                        .theme{
+                            position: absolute;
+                            top: 0vh;
+                            left: .5vh;
+                            font-size: 24px;
+                            padding:5px;
+                            background-color: $primaryBackgroundColorLight;
+                            z-index: 1;
+                        }
+                        .title{
+                            text-align: center;
+                            font-size: 24px;
+                        }
+                        .extract{
+                            padding: 2vh;
+                        }
+                        a{
+                            text-align: center;
+                            text-decoration: none;
+                        }
+                }
+        }
+
+        .thumbImg
+        {
+            width:100%;
+            height: 33%;
+            margin:1px;
+            object-fit: cover;
+            transition: opacity .5s;
+            &:hover{
+                opacity: .5;
+                z-index: 2;
+                align-self: center;
+                
+            }
+            
+        }
+    
+}
+
+#sectionImg{
+    width: 60%;
+    height: 30vh;
+    position: relative;
+    top:0;
+    display: flex;
+    justify-content: center;
+        .rubricImg{
+            width: 60%;
+            height: 30%;
+            object-fit: cover;
+            position: fixed;
+        }
+}
+
+#listRubric{
+    width: 60%;
+    min-height: 95vh;
+    margin-bottom: 5vh;
+    background-color: $primaryBackgroundColorLight;
+    position: relative;
+        #titleRubric{
+            position: relative;
+            text-align: center;
+            margin-bottom: 5vh;
+            h1{
+                position: relative;
+                font-size: 48px;
+                
+                z-index: 2;
+            }
+            #separator02{
+                width: 100%;
+                height: 0;
+                border-top: 20px solid $secondaryBacgroundColorOrange;
+                position: absolute;
+                top: 40%;
+                z-index: 1;
+            }
+        }
+       
+        
+        .containerRubric
+        {
+            width: 99%;
+            height: 30vh;
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .containImg
+        {
+            width: 32%;
+            height: 96%;
+            background-color: $secondaryBacgroundColorOrange;
+            border: 3px solid $secondaryBacgroundColorOrange;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1vh;
+        }
+
+        .containText
+        {
+            width: 66%;
+            height: 96%;
+            background-color: #F9FBF2;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1vh;
+                .textInfo{
+                    
+                    width: 95%;
+                    height: 90%;
+
+                    border: 2px solid $secondaryBacgroundColorOrange;
+                    
+                        .theme{
+                            position: absolute;
+                            top: -3%;
+                            left: 1%;
+                            font-size: 24px;
+                            padding:5px;
+                            background-color: $primaryBackgroundColorLight;
+                            z-index: 1;
+                        }
+                        .number{
+                            position: absolute;
+                            top: -3%;
+                            left: 80%;
+                            font-size: 24px;
+                            padding:5px;
+                            background-color: $primaryBackgroundColorLight;
+                            z-index: 1;
+                        }
+                        .title{
+                            text-align: center;
+                            font-size: 24px;
+                        }
+                        .extract{
+                            padding: 2vh;
+                        }
+                        a{
+                            text-align: center;
+                            text-decoration: none;
+                        }
+                }
+        }
+
+        .thumbImg
+        {
+            width:100%;
+            height: 100%;
+            margin:1px;
+            object-fit: cover;
+            transition: opacity 1s;
+            &:hover{
+                opacity: .5;
+                z-index: 2;
+                align-self: center;
+                
+            }
+            
+        }
+}
+
+#article{
+    width: 60%;
+    min-height: 95vh;
+    padding-top: 3vh;
+    margin-bottom: 5vh;
+    background-color: $primaryBackgroundColorLight;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+        #titleArticle{
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 5vh;
+            h1{
+                position: relative;
+                font-size: 48px;
+                background-color: $primaryBackgroundColorLight;
+                
+                padding: 0px 15px 10px 15px;
+                z-index: 2;
+            }
+            h2{
+                position: relative;
+                font-size: 24px;
+                padding: 10px;
+                background-color: $primaryBackgroundColorLight;
+                z-index: 2;
+                border: 2px $secondaryBacgroundColorOrange;
+                border-style: solid solid dotted;
+            }
+            #separator02{
+                width: 100%;
+                height: 0;
+                border-top: 20px solid $secondaryBacgroundColorOrange;
+                position: absolute;
+                top: 46%;
+                z-index: 1;
+            }
+        }
+
+        #articleContent{
+            width: 90%;
+            border: solid 2px $secondaryBacgroundColorOrange;
+            text-align: left;
+            text-justify: auto;
+            padding:10px;
+            margin-bottom: 5vh;
+
+            h3{
+                text-decoration: underline;
+            }
+        }
+}
+
+#monCompte{
+    width: 60%;
+    min-height: 95vh;
+    padding-top: 3vh;
+    margin-bottom: 5vh;
+    background-color: $primaryBackgroundColorLight;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid 20px $secondaryBacgroundColorOrange;
+}

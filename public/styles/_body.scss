@@ -1,0 +1,9 @@
+
+body{
+    width: 100%;
+    height: auto;
+    margin: auto;
+    background-color: $primaryBackgroundColorDark;
+    @include flexCenter(column);
+    font-family: NewsCycle-Regular;
+}

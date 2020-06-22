@@ -1,0 +1,26 @@
+footer{
+    width:80%;
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: $primaryBackgroundColorDark;
+    border: 2px $secondaryBacgroundColorOrange;
+    border-style: solid solid none;
+    #media{
+        color: $secondaryBacgroundColorOrange;
+        font-size: 48px;
+        a{
+            text-decoration: none;
+            color: $primaryBackgroundColorLight;
+            &:hover{
+                color: $secondaryBacgroundColorOrange;
+            }
+        }
+        .fa{
+            padding: 15px;
+        }
+    }
+    
+}
