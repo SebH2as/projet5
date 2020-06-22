@@ -15,6 +15,11 @@ $actionMag =
     'essais',
     'fictions',
     'article',
+    'monCompte',
+    'connection',
+    'newMag',
+    'pannelMag',
+    'listMag'
 ];
 
 $actionBack =

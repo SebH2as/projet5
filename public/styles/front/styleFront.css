@@ -52,6 +52,7 @@ nav #navTop {
   margin-top: 5px;
   margin-right: 15px;
   font-size: 15px;
+  z-index: 3;
 }
 
 nav .navTopLink {
@@ -868,4 +869,4 @@ footer #media .fa {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=styleFront.css.map */

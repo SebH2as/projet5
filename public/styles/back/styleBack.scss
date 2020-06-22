@@ -1,0 +1,20 @@
+@import"./variables";
+@import"./body";
+@import"./navbar";
+@import"./sections";
+@import"./mixin";
+
+
+
+@font-face {
+    font-family: 'NewsCycle-Regular';
+    src: url('fonts/NewsCycle-Regular.ttf')format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

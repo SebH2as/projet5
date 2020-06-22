@@ -6,13 +6,14 @@
         <title><?= $title ?></title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/front/styleFront.css">
     </head>
     <body>
         <nav id="navBar">
-            <div id="separator01"></div>
             <div id="navTop">
-                <a class="navTopLink" href="">Qui sommes nous?</a><a class="navTopLink" href="">Newsletter</a><a class="navTopLink" href="">Mon compte</a>
+                <a class="navTopLink" href="">Qui sommes nous?</a>
+                <a class="navTopLink" href="">Newsletter</a>
+                <a class="navTopLink" href="index.php?action=monCompte">Mon compte</a>
             </div>
             <a id="logo" href="index.php"><?= $separator ?><span>KILOMETRAGE</span></a>
             <div id="navLinks">

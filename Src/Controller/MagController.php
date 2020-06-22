@@ -53,4 +53,39 @@ class MagController{
         $this->view->render('front/article', 'front/layout');
         
     }
+
+    public function monCompte():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    {
+
+        $this->view->render('front/monCompte', 'front/layout');
+        
+    }
+
+    public function connection():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    {
+
+        $this->view->render('back/listMag', 'back/layout');
+        
+    }
+
+    public function listMag():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    {
+
+        $this->view->render('back/listMag', 'back/layout');
+        
+    }
+
+    public function newMag():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    {
+
+        $this->view->render('back/newMag', 'back/layout');
+        
+    }
+
+    public function pannelMag():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    {
+
+        $this->view->render('back/pannelMag', 'back/layout');
+        
+    }
 }
