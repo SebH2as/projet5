@@ -1,20 +1,21 @@
 <?php $title = 'Gestion magazine'; ?>
 
 <section id="mag">
-            <h2>Revue numéro 0</h2>
+            <h2>Revue numéro <?= $magazine[0]->numberMag ?></h2>
             <span id="message">Le numéro de la revue a été modifié</span>
             <button>Aperçu</button>
             <div id="contentContainer">
-                <form id="formMag" method="POST">
-                    <h3>Revue numéro: <i>0</i></h3>
+                <form id="formMag" method="POST" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id ?>">
+                    <h3>Revue numéro: <i><?= $magazine[0]->numberMag ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="number">Modifier le numéro de la revue:</label>
                             <input type="number" id="number" name="number" min="0" max="50">    
                         </div>
-                        <input type="submit" value="Modifier">
+                        <input type="submit" name="modifNumber" value="Modifier">
                     </div>
-                    <h3>Date de parution: Octobre 2020</i></h3>
+                </form>
+                    <h3>Date de parution: <i><?= $magazine[0]->publication ?></i></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="parution">Modifier la date de parution:</label>
@@ -22,7 +23,7 @@
                         </div>
                         <input type="submit" value="Modifier">
                     </div>
-                    <h3>Thématique(s): <i>Cinéma/Politique</i></h3>
+                    <h3>Thématique(s): <i><?= $magazine[0]->topics ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="thematic">Modifier la thématique:</label>
@@ -30,7 +31,7 @@
                         </div>
                         <input type="submit" value="Modifier">
                     </div>
-                    <h3>Couverture l'image: <i>header.png</i></h3>
+                    <h3>Couverture l'image: <i><?= $magazine[0]->cover ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="thematic">Changer la couverture:</label>
@@ -38,7 +39,7 @@
                         </div>
                         <input type="submit" value="Changer">
                     </div>
-                    <h3>Titre principal: <i>Un clafoutis dans le pull-over ou l'art du dialogue chez Luc Besson</i></h3>
+                    <h3>Titre principal: <i><?= $magazine[0]->title01 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="title01">Modfier le titre principal:</label>
@@ -46,7 +47,7 @@
                         </div>
                         <input type="submit" value="Modfier">
                     </div>
-                    <h3>Titre secondaire: <i>Les aventures urbaines du Scolopandre</i></h3>
+                    <h3>Titre secondaire: <i><?= $magazine[0]->title02 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="title02">Modfier le titre secondaire:</label>

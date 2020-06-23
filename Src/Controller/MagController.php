@@ -5,18 +5,22 @@ namespace Projet5\Controller;
 
 
 use Projet5\View\View;
+use Projet5\Model\MagManager;
+use Projet5\Tools\Request;
 
 
 
 class MagController{
         
-
+    private $magManager;
     private $view;
+    private $request;
 
     public function __construct()
     {
         $this->view = new View();
-      
+        $this->magManager = new magManager();
+        $this->request = new request();
     }
 
     public function magazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
@@ -47,21 +51,21 @@ class MagController{
         
     }
 
-    public function article():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    public function article():void//méthode pour afficher la page d'un article
     {
 
         $this->view->render('front/article', 'front/layout');
         
     }
 
-    public function monCompte():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    public function monCompte():void//méthode pour afficher la page mon compte
     {
 
         $this->view->render('front/monCompte', 'front/layout');
         
     }
 
-    public function connection():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    public function connection():void//méthode pour se connecter au back
     {
 
         $this->view->render('back/listMag', 'back/layout');
@@ -82,10 +86,23 @@ class MagController{
         
     }
 
-    public function pannelMag():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    public function createNewMag():void//méthode pour créer un nouveau numéro de magazine
     {
+        if(!empty($this->request->post('number')))
+        {
+            $this->magManager->createMag((int) $this->request->post('number'));
+            $magazine = $this->magManager->findMag((int) $this->request->post('number'));
+            var_dump($magazine);
+            $this->view->render('back/pannelMag', 'back/layout', compact('magazine'));
+        }
+    }
 
-        $this->view->render('back/pannelMag', 'back/layout');
+    public function modifyMag()
+    {
+        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        var_dump($magazine);
+        $this->magManager->modifNumberMag((int) $this->request->get('idMag'), (int) $this->request->post('number'));
+        
         
     }
 }

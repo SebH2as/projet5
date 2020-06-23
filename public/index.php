@@ -18,8 +18,10 @@ $actionMag =
     'monCompte',
     'connection',
     'newMag',
+    'createNewMag',
     'pannelMag',
-    'listMag'
+    'listMag',
+    'modifyMag',
 ];
 
 $actionBack =
