@@ -24,7 +24,7 @@ class MagManager
             'newNumb' => (int) $newNumber]);
     }
 
-    public function findMag(int $numberMag):array//requête pour récupérer un numéro de magazine en fonction de son numéro avec ses articles associés
+    public function findMagByNumber(int $numberMag):array//requête pour récupérer un numéro de magazine en fonction de son numéro avec ses articles associés
     {
         $req = $this->bdd->prepare('SELECT id, numberMag, publication, creation_date, topics, cover, title01, title02, editorial, statusPub FROM mag WHERE numberMag = :numberMag ');
         
@@ -46,5 +46,37 @@ class MagManager
         return $req->execute([
             'sameid' => $idMag,
             'nwNumber' => $numberMag]);
+    }
+
+    public function modifPubliMag(int $idMag, string $publiMag):bool//requête pour modifier les mois de publication d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id = :sameid, publication = :nwPubli WHERE id = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'nwPubli' => $publiMag]);
+    }
+
+    public function modifTopicsMag(int $idMag, string $topicsMag):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id = :sameid, topics = :nwTop WHERE id = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'nwTop' => $topicsMag]);
+    }
+
+    public function modifTitle01Mag(int $idMag, string $title01Mag):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id = :sameid, title01 = :nwTitle01 WHERE id = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'nwTitle01' => $title01Mag]);
+    }
+
+    public function modifTitle02Mag(int $idMag, string $title02Mag):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id = :sameid, title02 = :nwTitle02 WHERE id = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'nwTitle02' => $title02Mag]);
     }
 }

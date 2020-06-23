@@ -6,59 +6,70 @@
             <button>Aperçu</button>
             <div id="contentContainer">
                 <form id="formMag" method="POST" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id ?>">
+                    
                     <h3>Revue numéro: <i><?= $magazine[0]->numberMag ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="number">Modifier le numéro de la revue:</label>
-                            <input type="number" id="number" name="number" min="0" max="50">    
+                            <input type="number" id="number" name="number" min="1" max="50">    
                         </div>
                         <input type="submit" name="modifNumber" value="Modifier">
                     </div>
-                </form>
-                    <h3>Date de parution: <i><?= $magazine[0]->publication ?></i></i></h3>
+                    
+                    <h3>Date de parution: <i><?php if(($magazine[0]->publication) === null) echo 'à définir'?>
+                                        <?php if(($magazine[0]->publication) !== null) echo $magazine[0]->publication ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="parution">Modifier la date de parution:</label>
                             <input type="text" id="parution" name="parution" maxlength="20" size="20">    
                         </div>
-                        <input type="submit" value="Modifier">
+                        <input type="submit" name="modifPubli" value="Modifier">
                     </div>
-                    <h3>Thématique(s): <i><?= $magazine[0]->topics ?></i></h3>
+                    
+                    <h3>Thématique(s): <i><?php if(($magazine[0]->topics) === null) echo 'à définir'?>
+                                        <?php if(($magazine[0]->topics) !== null) echo $magazine[0]->topics ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="thematic">Modifier la thématique:</label>
                             <input type="text" id="thematic" name="thematic" maxlength="30" size="30">    
                         </div>
-                        <input type="submit" value="Modifier">
+                        <input type="submit" name="modifTopics" value="Modifier">
                     </div>
+                    
                     <h3>Couverture l'image: <i><?= $magazine[0]->cover ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="thematic">Changer la couverture:</label>
-                            <input type="text" id="thematic" name="thematic" maxlength="30" size="30">    
+                            <label for="cover">Changer la couverture:</label>
+                            <input type="text" id="cover" name="cover" maxlength="30" size="30">    
                         </div>
                         <input type="submit" value="Changer">
                     </div>
-                    <h3>Titre principal: <i><?= $magazine[0]->title01 ?></i></h3>
+                    
+                    <h3>Titre principal: <i><?php if(($magazine[0]->title01) === null) echo 'à définir'?>
+                                        <?php if(($magazine[0]->title01) !== null) echo $magazine[0]->title01 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="title01">Modfier le titre principal:</label>
+                            <label for="title01">Modifier le titre principal:</label>
                             <input type="text" id="title01" name="title01" maxlength="70" size="70">    
                         </div>
-                        <input type="submit" value="Modfier">
+                        <input type="submit" name="modifTitle01" value="Modfier">
                     </div>
-                    <h3>Titre secondaire: <i><?= $magazine[0]->title02 ?></i></h3>
+                    
+                    <h3>Titre secondaire: <i><?php if(($magazine[0]->title02) === null) echo 'à définir'?>
+                                        <?php if(($magazine[0]->title02) !== null) echo $magazine[0]->title02 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="title02">Modfier le titre secondaire:</label>
+                            <label for="title02">Modifier le titre secondaire:</label>
                             <input type="text" id="title02" name="title02" maxlength="70" size="70">    
                         </div>
-                        <input type="submit" value="Modfier">
+                        <input type="submit" name="modifTitle02" value="Modfier">
                     </div>
-                    <h3>Editorial: <i>Rédigé</i></h3>
+                    
+                    <h3>Editorial: <i><?php if(($magazine[0]->editorial) === null) echo 'non rédigé'?>
+                                        <?php if(($magazine[0]->editorial) !== null) echo 'rédigé' ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="title02">Modfier ou relire l'éditorial:</label>  
+                            <label for="title02">Modifier ou relire l'éditorial:</label>  
                         </div>
                         <input type="submit" value="Modfier ou relire">
                     </div>

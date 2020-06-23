@@ -91,18 +91,47 @@ class MagController{
         if(!empty($this->request->post('number')))
         {
             $this->magManager->createMag((int) $this->request->post('number'));
-            $magazine = $this->magManager->findMag((int) $this->request->post('number'));
-            var_dump($magazine);
+            $magazineByNumber = $this->magManager->findMagByNumber((int) $this->request->post('number'));
+            $magazine = $this->magManager->findMagById((int) $magazineByNumber[0] -> id);
             $this->view->render('back/pannelMag', 'back/layout', compact('magazine'));
+            var_dump($magazine);
         }
     }
 
     public function modifyMag()
     {
+        if($this->request->post('modifNumber') !== null &&  !empty($this->request->post('number')))
+        {
+            $this->magManager->modifNumberMag((int) $this->request->get('idMag'), (int) $this->request->post('number'));
+            
+        }
+
+        if($this->request->post('modifPubli') !== null &&  !empty($this->request->post('parution')))
+        {
+            $this->magManager->modifPubliMag((int) $this->request->get('idMag'), (string) $this->request->post('parution'));
+            
+        }
+
+        if($this->request->post('modifTopics') !== null &&  !empty($this->request->post('thematic')))
+        {
+            $this->magManager->modifTopicsMag((int) $this->request->get('idMag'), (string) $this->request->post('thematic'));
+            
+        }
+
+        if($this->request->post('modifTitle01') !== null &&  !empty($this->request->post('title01')))
+        {
+            $this->magManager->modifTitle01Mag((int) $this->request->get('idMag'), (string) $this->request->post('title01'));
+            
+        }
+
+        if($this->request->post('modifTitle02') !== null &&  !empty($this->request->post('title02')))
+        {
+            $this->magManager->modifTitle02Mag((int) $this->request->get('idMag'), (string) $this->request->post('title02'));
+            
+        }
+        
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('magazine'));
         var_dump($magazine);
-        $this->magManager->modifNumberMag((int) $this->request->get('idMag'), (int) $this->request->post('number'));
-        
-        
     }
 }
