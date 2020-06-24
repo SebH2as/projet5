@@ -6,7 +6,7 @@
             <div id="borderLeft" class=" fade anim" data-rate="-1.025"></div>
             <div id="borderRight" class=" fade anim" data-rate="-1.025"></div>
             <img id="headerImg" class=" fade02" data-rate="2" src="images/testHeader06.jpg" alt="graff">
-            <h3 id="numberDate" class=" fade" data-rate="-1.025">Numéro <?= $magazine[0]->numberMag ?> Octobre 2020</h3>
+            <h3 id="numberDate" class=" fade" data-rate="-1.025">Numéro <?= $magazine[0]->numberMag ?> <?= $magazine[0]->publication ?></h3>
             <h3 id="sentence" class=" fade" data-rate="-1.025">Un magazine qui tient la route...</h3>
             <a id="anchorSum" class=" fade" data-rate="-1.025" href="#summary">Sommaire</a>
             <a id="anchorEd" class=" fade" data-rate="-1.025" href="#editorial">Edito</a>
@@ -21,7 +21,7 @@
                    <h3>Numéro Zéro Octobre 2020</h3>
                    <h2>EDITO</h2>
                    <div id="editoText">
-                        <p><?= $magazine[0]->editorial ?></p>
+                        <p><?= htmlspecialchars_decode($magazine[0]->editorial) ?></p>
                     </div>
                 </div>
             </div>

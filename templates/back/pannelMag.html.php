@@ -71,8 +71,8 @@
                         <input type="submit" name="modifTitle02" value="Modfier">
                     </div>
                     
-                    <h3>Editorial: <i><?php if(($magazine[0]->editorial) === null) echo 'non rédigé'?>
-                                        <?php if(($magazine[0]->editorial) !== null) echo 'rédigé' ?></i></h3>
+                    <h3>Editorial: <i><?php if(($magazine[0]->editorial) === null || strlen($magazine[0]->editorial) === 0 ) echo 'non rédigé'?>
+                                    <?php if(strlen($magazine[0]->editorial) > 0) echo 'rédigé'?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="title02">Modifier ou relire l'éditorial:</label>  

@@ -397,7 +397,7 @@ header .fa-arrow-circle-right:hover {
   padding: 5px;
   text-align: center;
   position: absolute;
-  top: 0.5vh;
+  top: 1.5vh;
   left: 0.5vh;
   background-color: #F9FBF2;
   z-index: 2;
@@ -409,11 +409,10 @@ header .fa-arrow-circle-right:hover {
 }
 
 #editorial #edito #editoText {
-  position: absolute;
-  top: 2vh;
   margin: 10px;
   border: solid 2px #E8871E;
-  height: 95%;
+  height: 94%;
+  min-width: 96%;
 }
 
 #editorial #edito #editoText p {

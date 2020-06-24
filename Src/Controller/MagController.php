@@ -148,6 +148,8 @@ class MagController{
     {
         
         $this->magManager->modifEditoMag((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
+        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        $this->view->render('back/editorial', 'back/layout', compact('magazine'));
     }
 
     public function previewMag()

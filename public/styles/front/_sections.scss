@@ -50,7 +50,7 @@
             padding: 5px;
             text-align: center;
             position: absolute;
-            top: 0.5vh;
+            top: 1.5vh;
             left: 0.5vh;
             background-color: $primaryBackgroundColorLight;
             z-index: 2;
@@ -62,15 +62,15 @@
             text-align: center;
         }
         #editoText{
-            position: absolute;
-            top: 2vh;
             margin: 10px;
             border: solid 2px $secondaryBacgroundColorOrange;
-            height: 95%;
+            height: 94%;
+            min-width: 96%;
             p
             {
                 text-justify: distribute;
                 margin: 15px;
+                
             }
         }   
     } 

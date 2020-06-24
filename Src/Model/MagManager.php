@@ -99,7 +99,7 @@ class MagManager
 
     public function listAllMag()
     {
-        $req = $this->bdd->prepare('SELECT id, numberMag, publication, topics, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date
+        $req = $this->bdd->prepare('SELECT id, numberMag, publication, editorial, topics, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date
         FROM mag ORDER BY numberMag');
         $req->execute();
         return $req->fetchALL(PDO::FETCH_OBJ); 
