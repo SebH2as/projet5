@@ -11,30 +11,17 @@
                     <span class="columnTitle">Nombre d'articles</span>
                     <span class="columnTitle">Statut</span>
                 </div>
-                <a id="tableRows" href="">
-                    <span class="tableContent">0</span>
-                    <span class="tableContent">Octobre 2020</span>
-                    <span class="tableContent">16/09/2020</span>
-                    <span class="tableContent">Cinéma/politique</span>
+                <?php foreach($allMag as $mag): ?>
+                <a class="tableRows" href="index.php?action=modifyMag&amp;idMag=<?= $mag->id ?>">
+                    <span class="tableContent"><?= $mag->numberMag ?></span>
+                    <span class="tableContent"><?= $mag->publication ?></span>
+                    <span class="tableContent"><?= $mag->date ?></span>
+                    <span class="tableContent"><?= $mag->topics ?></span>
                     <span class="tableContent">9</span>
-                    <span class="tableContent">publié</span>
+                    <span class="tableContent"><?php if (($mag ->statusPub) === '0') echo 'Archivé'?>
+                                            <?php if (($mag ->statusPub) === '1') echo 'En ligne'?></span>
                 </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">1</span>
-                    <span class="tableContent">Décembre 2020</span>
-                    <span class="tableContent">16/09/2020</span>
-                    <span class="tableContent">Cinéma/politique</span>
-                    <span class="tableContent">9</span>
-                    <span class="tableContent">archivé</span>
-                </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">2</span>
-                    <span class="tableContent">Février 2021</span>
-                    <span class="tableContent">16/09/2020</span>
-                    <span class="tableContent">Cinéma/politique</span>
-                    <span class="tableContent">9</span>
-                    <span class="tableContent">archivé</span>
-                </a>
+                <?php endforeach; ?>
             </div>
             <div id="pageMovers">
                 <a class="fa fa-arrow-circle-o-left" href=""></a><span>Page 1/1</span> <a class="fa fa-arrow-circle-o-right" href=""></a>

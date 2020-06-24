@@ -1,9 +1,15 @@
 <?php $title = 'Gestion magazine'; ?>
 
 <section id="mag">
-            <h2>Revue numéro <?= $magazine[0]->numberMag ?></h2>
-            <span id="message">Le numéro de la revue a été modifié</span>
-            <button>Aperçu</button>
+            <h2>Revue numéro <?= $magazine[0]->numberMag ?> créée le <?= $magazine[0]->date ?></h2>
+            <span id="message" class="<?php if ($message === null) echo 'none' ?>"><?= $message ?></span>
+
+            <div id="buttonsPannel"> 
+                <a class="buttonPannel" id="online">Mettre en ligne</a>
+                <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag=<?= $magazine[0]->id ?>" target="_blank">Aperçu</a>
+                <a class="buttonPannel" id="delete">Supprimer</a>
+            </div>
+            
             <div id="contentContainer">
                 <form id="formMag" method="POST" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id ?>">
                     
@@ -71,7 +77,7 @@
                         <div class="labelInput">
                             <label for="title02">Modifier ou relire l'éditorial:</label>  
                         </div>
-                        <input type="submit" value="Modfier ou relire">
+                        <input type="submit" name="modifEdito" value="Modfier ou relire">
                     </div>
                 </form>
             </div>

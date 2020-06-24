@@ -22,6 +22,8 @@ $actionMag =
     'pannelMag',
     'listMag',
     'modifyMag',
+    'previewMag',
+    'addEdito',
 ];
 
 $actionBack =

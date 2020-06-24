@@ -26,7 +26,7 @@ class MagManager
 
     public function findMagByNumber(int $numberMag):array//requête pour récupérer un numéro de magazine en fonction de son numéro avec ses articles associés
     {
-        $req = $this->bdd->prepare('SELECT id, numberMag, publication, creation_date, topics, cover, title01, title02, editorial, statusPub FROM mag WHERE numberMag = :numberMag ');
+        $req = $this->bdd->prepare('SELECT id, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date, topics, cover, title01, title02, editorial, statusPub FROM mag WHERE numberMag = :numberMag ');
         
         $req->execute(['numberMag' => (int) $numberMag]);
         return $req->fetchALL(PDO::FETCH_OBJ);
@@ -34,7 +34,7 @@ class MagManager
 
     public function findMagById(int $idMag):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
     {
-        $req = $this->bdd->prepare('SELECT id, numberMag, publication, creation_date, topics, cover, title01, title02, editorial, statusPub FROM mag WHERE id = :idMag ');
+        $req = $this->bdd->prepare('SELECT id, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date, topics, cover, title01, title02, editorial, statusPub FROM mag WHERE id = :idMag ');
         
         $req->execute(['idMag' => (int) $idMag]);
         return $req->fetchALL(PDO::FETCH_OBJ);
@@ -78,5 +78,30 @@ class MagManager
         return $req->execute([
             'sameid' => $idMag,
             'nwTitle02' => $title02Mag]);
+    }
+
+    public function modifEditoMag(int $idMag, string $editoMag):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id = :sameid, editorial = :nwEdito WHERE id = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'nwEdito' => $editoMag]);
+    }
+
+    /*public function modifMag(int $idMag,  $column, $content):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id = :sameid, COLUMN = :nwContent WHERE id = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'columnName' => $column,
+            'nwContent' => $content]);
+    }*/
+
+    public function listAllMag()
+    {
+        $req = $this->bdd->prepare('SELECT id, numberMag, publication, topics, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date
+        FROM mag ORDER BY numberMag');
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ); 
     }
 }
