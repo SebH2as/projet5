@@ -24,6 +24,8 @@ $actionMag =
     'modifyMag',
     'previewMag',
     'addEdito',
+    'createNewArticle',
+    'modifyArticle',
 ];
 
 $actionBack =

@@ -1,17 +1,17 @@
 <?php $title = 'Gestion magazine'; ?>
 
 <section id="mag">
-            <h2>Revue numéro <?= $magazine[0]->numberMag ?> créée le <?= $magazine[0]->date ?></h2>
+            <h2>magazine numéro <?= $magazine[0]->numberMag ?> créée le <?= $magazine[0]->date ?></h2>
             <span id="message" class="<?php if ($message === null) echo 'none' ?>"><?= $message ?></span>
 
-            <div id="buttonsPannel"> 
+            <div class="buttonsPannel"> 
                 <a class="buttonPannel" id="online">Mettre en ligne</a>
-                <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag=<?= $magazine[0]->id ?>" target="_blank">Aperçu</a>
+                <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag=<?= $magazine[0]->id_mag ?>" target="_blank">Aperçu</a>
                 <a class="buttonPannel" id="delete">Supprimer</a>
             </div>
             
             <div id="contentContainer">
-                <form id="formMag" method="POST" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id ?>">
+                <form id="formMag" method="POST" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id_mag ?>">
                     
                     <h3>Revue numéro: <i><?= $magazine[0]->numberMag ?></i></h3>
                     <div class="formRow">
@@ -84,6 +84,9 @@
         </section>
         <section id="articlesMag">
             <h2>Articles associés</h2>
+            <div class="buttonsPannel"> 
+                <a class="buttonPannel" id="createArticle" href="index.php?action=createNewArticle&amp;idMag=<?= $magazine[0]->id_mag ?>">Créer un nouvel article</a>
+            </div>
             <div id="tableContainer">
                 <div id="tableTitles">
                     <span class="columnTitle">Rubrique</span>

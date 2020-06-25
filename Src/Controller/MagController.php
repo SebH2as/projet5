@@ -6,6 +6,7 @@ namespace Projet5\Controller;
 
 use Projet5\View\View;
 use Projet5\Model\MagManager;
+use Projet5\Model\ArticleManager;
 use Projet5\Tools\Request;
 
 
@@ -13,6 +14,7 @@ use Projet5\Tools\Request;
 class MagController{
         
     private $magManager;
+    private $articleManager;
     private $view;
     private $request;
 
@@ -20,6 +22,7 @@ class MagController{
     {
         $this->view = new View();
         $this->magManager = new magManager();
+        $this->articleManager = new articleManager();
         $this->request = new request();
     }
 
@@ -93,7 +96,7 @@ class MagController{
             $message = null;
             $this->magManager->createMag((int) $this->request->post('number'));
             $magazineByNumber = $this->magManager->findMagByNumber((int) $this->request->post('number'));
-            $magazine = $this->magManager->findMagById((int) $magazineByNumber[0] -> id);
+            $magazine = $this->magManager->findMagById((int) $magazineByNumber[0] -> id_mag);
             $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
         }
     }
@@ -156,5 +159,41 @@ class MagController{
     {
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $this->view->render('back/previewMag', 'front/layout', compact('magazine'));
+    }
+
+    public function createNewArticle()
+    {
+        $message = null;
+        $this->articleManager->createArticle((int) $this->request->get('idMag'));
+        $articleMostRecent = $this->articleManager->findMostRecentArticle((int) $this->request->post('number'));
+        $article = $this->articleManager->findArticleById((int) $articleMostRecent[0] -> id_text);
+        var_dump($article);
+        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine', 'article', 'message'));
+    }
+    
+    public function modifyArticle()
+    {
+        $message = null;
+        var_dump($this->request->post('rubric'));
+        var_dump($this->request->post('title'));
+
+        if($this->request->post('modifRubric') !== null &&  !empty($this->request->post('rubric')))
+        {
+            $this->articleManager->modifRubric((int) $this->request->get('idText'), (string) $this->request->post('rubric'));
+            $message = 'Le numéro du magazine a été modifié';
+        }
+
+        if($this->request->post('modifTitle') !== null &&  !empty($this->request->post('title')))
+        {
+            $this->articleManager->modifTitle((int) $this->request->get('idText'), (string) $this->request->post('title'));
+            $message = 'Le numéro du magazine a été modifié';
+        }
+        
+        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        var_dump($article);
+        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
+        
     }
 }

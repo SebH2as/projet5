@@ -13,7 +13,7 @@
                     <span class="columnTitle">Statut</span>
                 </div>
                 <?php foreach($allMag as $mag): ?>
-                <a class="tableRows" href="index.php?action=modifyMag&amp;idMag=<?= $mag->id ?>">
+                <a class="tableRows" href="index.php?action=modifyMag&amp;idMag=<?= $mag->id_mag ?>">
                     <span class="tableContent"><?= $mag->numberMag ?></span>
                     <span class="tableContent"><?= $mag->date ?></span>
                     <span class="tableContent"><?= $mag->publication ?></span>

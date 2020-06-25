@@ -380,7 +380,7 @@ body {
   margin-bottom: 3vh;
 }
 
-#mag #buttonsPannel {
+#mag .buttonsPannel {
   width: 100%;
   margin-bottom: 5vh;
   display: -webkit-box;
@@ -390,13 +390,13 @@ body {
       justify-content: space-around;
 }
 
-#mag #buttonsPannel a {
+#mag .buttonsPannel a {
   text-decoration: none;
   text-align: center;
   color: #110B11;
 }
 
-#mag #buttonsPannel #online {
+#mag .buttonsPannel #online {
   width: 20%;
   padding: 15px;
   margin-top: 15px;
@@ -409,13 +409,13 @@ body {
   cursor: pointer;
 }
 
-#mag #buttonsPannel #online:hover {
+#mag .buttonsPannel #online:hover {
   background-color: #FBF7B1;
   -webkit-box-shadow: 0px 2px 10px #110B11;
           box-shadow: 0px 2px 10px #110B11;
 }
 
-#mag #buttonsPannel #preview {
+#mag .buttonsPannel #preview {
   width: 20%;
   padding: 15px;
   margin-top: 15px;
@@ -428,13 +428,13 @@ body {
   cursor: pointer;
 }
 
-#mag #buttonsPannel #preview:hover {
+#mag .buttonsPannel #preview:hover {
   background-color: #FBF7B1;
   -webkit-box-shadow: 0px 2px 10px #110B11;
           box-shadow: 0px 2px 10px #110B11;
 }
 
-#mag #buttonsPannel #delete {
+#mag .buttonsPannel #delete {
   width: 20%;
   padding: 15px;
   margin-top: 15px;
@@ -447,7 +447,7 @@ body {
   cursor: pointer;
 }
 
-#mag #buttonsPannel #delete:hover {
+#mag .buttonsPannel #delete:hover {
   background-color: #FBF7B1;
   -webkit-box-shadow: 0px 2px 10px #110B11;
           box-shadow: 0px 2px 10px #110B11;
@@ -638,6 +638,41 @@ body {
   font-size: 36px;
   margin-top: 2vh;
   margin-bottom: 2vh;
+}
+
+#articlesMag .buttonsPannel {
+  width: 100%;
+  margin-bottom: 5vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#articlesMag .buttonsPannel a {
+  text-decoration: none;
+  text-align: center;
+  color: #110B11;
+}
+
+#articlesMag .buttonsPannel #createArticle {
+  width: 20%;
+  padding: 15px;
+  margin-top: 15px;
+  border: solid 2px #F8F272;
+  background-color: #48A9A6;
+  border-radius: 12px;
+  font-size: 18px;
+  -webkit-box-shadow: 0px 5px 10px #110B11;
+          box-shadow: 0px 5px 10px #110B11;
+  cursor: pointer;
+}
+
+#articlesMag .buttonsPannel #createArticle:hover {
+  background-color: #FBF7B1;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
 }
 
 #articlesMag #tableContainer {
@@ -913,7 +948,7 @@ body {
   margin-left: 15px;
 }
 
-#articleInfos #contentContainer #formMag .formRow .labelInput #titleArticle {
+#articleInfos #contentContainer #formMag .formRow .labelInput #title {
   width: 60%;
   padding: 15px;
   font-size: 18px;
