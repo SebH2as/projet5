@@ -7,7 +7,7 @@
             <a id="backLink" href="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id_mag ?>">Retour au panneau de gestion du magazine</a>           
         </section>
         <section id="textEditor">
-            <div id="contentContainer">
+            <div id="contentContainer02">
                 <h3>Contenu de l'éditorial</h3>
                 <form id="formEditArticle" action="index.php?action=addEdito&amp;idMag=<?= $magazine[0]->id_mag ?>" method="POST">
                     <input type="submit" name="saveEdito" value="Enregistrer"> 

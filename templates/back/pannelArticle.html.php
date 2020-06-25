@@ -8,7 +8,8 @@
             <div id="contentContainer">
                 <form id="formMag" method="POST" action="index.php?action=modifyArticle&amp;idText=<?= $article[0]->id_text ?>&amp;idMag=<?= $magazine[0]->id_mag ?>">
                     
-                <h3>Rubrique de l'article: <i>Chronique</i></h3>
+                <h3>Rubrique de l'article: <i><?php if(($article[0]->textType) === null) echo 'à définir'?>
+                                        <?php if(($article[0]->textType) !== null) echo $article[0]->textType ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="rubric">Modifier la rubrique de l'article:</label>
@@ -21,7 +22,8 @@
                         <input type="submit" name="modifRubric" value="Modifier">
                     </div>
                     
-                    <h3>Titre de l'article: <i>Un clou dans la soupe aux chous</i></h3>
+                    <h3>Titre de l'article: <i><?php if(($article[0]->title) === null) echo 'à définir'?>
+                                        <?php if(($article[0]->title) !== null) echo $article[0]->title ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="title">Modifier le titre de l'article:</label>
@@ -30,13 +32,14 @@
                         <input type="submit" name="modifTitle" value="Modifier">
                     </div>
                     
-                    <h3>Auteur: <i>Jean Fédétonn</i></h3>
+                    <h3>Auteur: <i><?php if(($article[0]->author) === null) echo 'à définir'?>
+                                        <?php if(($article[0]->author) !== null) echo $article[0]->author ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="author">Modifier le nom de l'auteur:</label>
                             <input type="text" id="author" name="author" maxlength="30" size="30">    
                         </div>
-                        <input type="submit" value="Modifier">
+                        <input type="submit" name="modifAuthor" value="Modifier">
                     </div>
                     
                     <h3>Image associée à l'article: <i>img.png</i></h3>
@@ -45,18 +48,22 @@
                             <label for="imgArticle">Changer l'image:</label>
                             <input type="text" id="imgArticle" name="imgArticle" maxlength="30" size="30">    
                         </div>
-                        <input type="submit" value="Changer">
+                        <input type="submit" name="modifImg" value="Changer">
                     </div>
                 </form>
             </div>
         </section>
+        
         <section id="textEditor">
-            <div id="contentContainer">
+            <div id="contentContainer02">
                 <h3>Contenu de l'article</h3>
-                <form id="formEditArticle" method="POST">
-                    <textarea id="writtingSpace">
-                        
+                <form id="formEditArticle" action="index.php?action=addEdito&amp;idMag=<?= $magazine[0]->id_mag ?>" method="POST">
+                    <input type="submit" name="saveEdito" value="Enregistrer"> 
+
+                    <textarea id="writtingSpace" name="contentEdito">
+                        <?= $article[0]->content ?>
                     </textarea>
+                    <input type="submit" name="saveEdito" value="Enregistrer">
                 </form>
             </div>
         </section>

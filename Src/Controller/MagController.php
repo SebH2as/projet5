@@ -149,7 +149,6 @@ class MagController{
 
     public function addEdito()
     {
-        
         $this->magManager->modifEditoMag((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $this->view->render('back/editorial', 'back/layout', compact('magazine'));
@@ -167,7 +166,6 @@ class MagController{
         $this->articleManager->createArticle((int) $this->request->get('idMag'));
         $articleMostRecent = $this->articleManager->findMostRecentArticle((int) $this->request->post('number'));
         $article = $this->articleManager->findArticleById((int) $articleMostRecent[0] -> id_text);
-        var_dump($article);
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $this->view->render('back/pannelArticle', 'back/layout', compact('magazine', 'article', 'message'));
     }
@@ -175,8 +173,6 @@ class MagController{
     public function modifyArticle()
     {
         $message = null;
-        var_dump($this->request->post('rubric'));
-        var_dump($this->request->post('title'));
 
         if($this->request->post('modifRubric') !== null &&  !empty($this->request->post('rubric')))
         {
@@ -189,10 +185,15 @@ class MagController{
             $this->articleManager->modifTitle((int) $this->request->get('idText'), (string) $this->request->post('title'));
             $message = 'Le numéro du magazine a été modifié';
         }
+
+        if($this->request->post('modifAuthor') !== null &&  !empty($this->request->post('author')))
+        {
+            $this->articleManager->modifAuthor((int) $this->request->get('idText'), (string) $this->request->post('author'));
+            $message = 'Le numéro du magazine a été modifié';
+        }
         
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        var_dump($article);
         $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
         
     }

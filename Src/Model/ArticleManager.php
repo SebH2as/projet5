@@ -54,4 +54,12 @@ class ArticleManager
             'sameid' => $idText,
             'nwTitle' => $newTitle]);
     }
+
+    public function modifAuthor(int $idText, string $newAuthor)
+    {
+        $req = $this->bdd->prepare('UPDATE textmag SET id_text = :sameid, author = :nwAuthor WHERE id_text = :sameid ');
+        return $req->execute([
+            'sameid' => $idText,
+            'nwAuthor' => $newAuthor]);
+    }
 }
