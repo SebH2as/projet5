@@ -36,8 +36,8 @@
                                         <?php if(($magazine[0]->topics) !== null) echo $magazine[0]->topics ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="thematic">Modifier la thématique:</label>
-                            <input type="text" id="thematic" name="thematic" maxlength="30" size="30">    
+                            <label for="topics">Modifier la thématique:</label>
+                            <input type="text" id="topics" name="topics" maxlength="30" size="30">    
                         </div>
                         <input type="submit" name="modifTopics" value="Modifier">
                     </div>

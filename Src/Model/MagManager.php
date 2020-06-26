@@ -40,7 +40,7 @@ class MagManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function modifNumberMag(int $idMag, int $numberMag):bool//requête pour modifier le numéro d'un magazine
+    public function modifNumber(int $idMag, string $numberMag):bool//requête pour modifier le numéro d'un magazine
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, numberMag = :nwNumber WHERE id_mag = :sameid ');
         return $req->execute([
@@ -48,7 +48,7 @@ class MagManager
             'nwNumber' => $numberMag]);
     }
 
-    public function modifPubliMag(int $idMag, string $publiMag):bool//requête pour modifier les mois de publication d'un magazine
+    public function modifPubli(int $idMag, string $publiMag):bool//requête pour modifier les mois de publication d'un magazine
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, publication = :nwPubli WHERE id_mag = :sameid ');
         return $req->execute([
@@ -56,7 +56,7 @@ class MagManager
             'nwPubli' => $publiMag]);
     }
 
-    public function modifTopicsMag(int $idMag, string $topicsMag):bool//requête pour modifier les thématiques d'un magazine
+    public function modifTopics(int $idMag, string $topicsMag):bool//requête pour modifier les thématiques d'un magazine
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, topics = :nwTop WHERE id_mag = :sameid ');
         return $req->execute([
@@ -64,7 +64,7 @@ class MagManager
             'nwTop' => $topicsMag]);
     }
 
-    public function modifTitle01Mag(int $idMag, string $title01Mag):bool//requête pour modifier les thématiques d'un magazine
+    public function modifTitle01(int $idMag, string $title01Mag):bool//requête pour modifier les thématiques d'un magazine
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, title01 = :nwTitle01 WHERE id_mag = :sameid ');
         return $req->execute([
@@ -72,7 +72,7 @@ class MagManager
             'nwTitle01' => $title01Mag]);
     }
 
-    public function modifTitle02Mag(int $idMag, string $title02Mag):bool//requête pour modifier les thématiques d'un magazine
+    public function modifTitle02(int $idMag, string $title02Mag):bool//requête pour modifier les thématiques d'un magazine
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, title02 = :nwTitle02 WHERE id_mag = :sameid ');
         return $req->execute([
@@ -80,7 +80,7 @@ class MagManager
             'nwTitle02' => $title02Mag]);
     }
 
-    public function modifEditoMag(int $idMag, string $editoMag):bool//requête pour modifier les thématiques d'un magazine
+    public function modifEdito(int $idMag, string $editoMag):bool//requête pour modifier les thématiques d'un magazine
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, editorial = :nwEdito WHERE id_mag = :sameid ');
         return $req->execute([

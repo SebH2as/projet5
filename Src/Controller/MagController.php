@@ -8,7 +8,7 @@ use Projet5\View\View;
 use Projet5\Model\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\Tools\Request;
-
+use Projet5\Tools\DataLoader;
 
 
 class MagController{
@@ -17,6 +17,7 @@ class MagController{
     private $articleManager;
     private $view;
     private $request;
+    private $dataLoader;
 
     public function __construct()
     {
@@ -24,6 +25,7 @@ class MagController{
         $this->magManager = new magManager();
         $this->articleManager = new articleManager();
         $this->request = new request();
+        $this->dataLoader = new dataLoader();
     }
 
     public function magazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
@@ -104,42 +106,31 @@ class MagController{
     public function modifyMag()
     {
         $message = null;
+        
+        $messageText = 
+        [
+            'Le numéro du magazine a été modifié',    
+            'La date de parution du magazine a été modifiée',
+            'La thématique du magazine a été modifié',
+            'Le titre principale du magazine a été modifié',
+            'Le titre secondaire du magazine a été modifié',
+        ];
 
-        if($this->request->post('modifNumber') !== null &&  !empty($this->request->post('number')))
-        {
-            $this->magManager->modifNumberMag((int) $this->request->get('idMag'), (int) $this->request->post('number'));
-            $message = 'Le numéro du magazine a été modifié';
-        }
+        $this->dataLoader->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié');
 
-        if($this->request->post('modifPubli') !== null &&  !empty($this->request->post('parution')))
-        {
-            $this->magManager->modifPubliMag((int) $this->request->get('idMag'), (string) $this->request->post('parution'));
-            $message = 'La date de parution du magazine a été modifiée';
-        }
+        $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'flute');
 
-        if($this->request->post('modifTopics') !== null &&  !empty($this->request->post('thematic')))
-        {
-            $this->magManager->modifTopicsMag((int) $this->request->get('idMag'), (string) $this->request->post('thematic'));
-            $message = 'La thématique du magazine a été modifié';
-        }
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics');
 
-        if($this->request->post('modifTitle01') !== null &&  !empty($this->request->post('title01')))
-        {
-            $this->magManager->modifTitle01Mag((int) $this->request->get('idMag'), (string) $this->request->post('title01'));
-            $message = 'Le titre principale du magazine a été modifié';
-        }
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle01', 'title01');
 
-        if($this->request->post('modifTitle02') !== null &&  !empty($this->request->post('title02')))
-        {
-            $this->magManager->modifTitle02Mag((int) $this->request->get('idMag'), (string) $this->request->post('title02'));
-            $message = 'Le titre secondaire du magazine a été modifié';
-        }
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle02', 'title02');
 
         if($this->request->post('modifEdito') !== null)
         {
             $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
             $this->view->render('back/editorial', 'back/layout', compact('magazine'));
-            return;
+            exit();
         }
         
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
@@ -149,7 +140,7 @@ class MagController{
 
     public function addEdito()
     {
-        $this->magManager->modifEditoMag((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
+        $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $this->view->render('back/editorial', 'back/layout', compact('magazine'));
     }
@@ -174,23 +165,11 @@ class MagController{
     {
         $message = null;
 
-        if($this->request->post('modifRubric') !== null &&  !empty($this->request->post('rubric')))
-        {
-            $this->articleManager->modifRubric((int) $this->request->get('idText'), (string) $this->request->post('rubric'));
-            $message = 'Le numéro du magazine a été modifié';
-        }
+        $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric');
 
-        if($this->request->post('modifTitle') !== null &&  !empty($this->request->post('title')))
-        {
-            $this->articleManager->modifTitle((int) $this->request->get('idText'), (string) $this->request->post('title'));
-            $message = 'Le numéro du magazine a été modifié';
-        }
+        $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title');
 
-        if($this->request->post('modifAuthor') !== null &&  !empty($this->request->post('author')))
-        {
-            $this->articleManager->modifAuthor((int) $this->request->get('idText'), (string) $this->request->post('author'));
-            $message = 'Le numéro du magazine a été modifié';
-        }
+        $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author');
         
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
