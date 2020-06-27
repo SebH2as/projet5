@@ -19,21 +19,21 @@ class ArticleManager
 
     public function createArticle(int $idMag):bool//requête pour créer un nouvel artile associé à un magazine dans la bdd
     {
-        $req = $this->bdd->prepare('INSERT INTO textmag SET id_mag = :newIdMAg, creation_date = NOW()');
+        $req = $this->bdd->prepare('INSERT INTO textmag SET id_mag = :newIdMAg, date_creation = NOW()');
         return $req->execute([
             'newIdMAg' => (int) $idMag]);
     }
 
     public function findMostRecentArticle()
     {
-        $req = $this->bdd->prepare('SELECT id_text FROM textmag ORDER BY creation_date DESC ');
+        $req = $this->bdd->prepare('SELECT id_text FROM textmag ORDER BY date_creation DESC ');
         $req->execute();
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
     public function findArticleById(int $idtext):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
     {
-        $req = $this->bdd->prepare('SELECT id_text, id_mag, textType, title, author, content, articleCover, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date FROM textmag WHERE id_text = :idText ');
+        $req = $this->bdd->prepare('SELECT id_text, id_mag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date FROM textmag WHERE id_text = :idText ');
         
         $req->execute(['idText' => (int) $idtext]);
         return $req->fetchALL(PDO::FETCH_OBJ);

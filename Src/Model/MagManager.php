@@ -104,4 +104,29 @@ class MagManager
         $req->execute();
         return $req->fetchALL(PDO::FETCH_OBJ); 
     }
+
+    public function findMagByIdWithArticles(int $idMag):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
+    {
+        $req = $this->bdd->prepare('SELECT mag.id_mag, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date, topics, cover, title01, title02, editorial, statusPub,id_text, textType, title, author, articleCover, DATE_FORMAT(date_creation, \'Le %d/%m/%Y\') AS date
+        FROM mag 
+        LEFT JOIN textmag ON mag.id_mag = textmag.id_mag
+        
+        WHERE mag.id_mag = :idMag');
+        
+        $req->execute(['idMag' => (int) $idMag]);
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
+    public function findPostedEpisode(int $postId):array//requête pour récupérer un épisode publié en fonction de son id avec ses commentaires
+    {
+        $req = $this->bdd->prepare('SELECT id, author, comment, DATE_FORMAT(commentDate, \'Le %d/%m/%Y à %Hh %imin\') AS commentDate, report, posts.post_id, chapterNumber, title, content, stat, DATE_FORMAT(publiDate, \'Le %d/%m/%Y\') AS date, publiDate 
+        FROM posts
+        LEFT JOIN comments ON posts.post_id = comments.post_id 
+        
+        WHERE posts.post_id = :idPost AND stat = 1
+        ORDER BY comments.commentDate DESC');
+        
+        $req->execute(['idPost' => (int) $postId]);
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
 }

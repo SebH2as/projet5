@@ -103,28 +103,32 @@ class MagController{
         }
     }
 
+    public function addData( $manager,  $id,  $method,  $column, $text = null, $template  )
+    {
+        $message = null;
+        if($this->request->post($method) !== null &&  !empty($this->request->post($column)))
+        {
+            $this->$manager->$method( (int) $this->request->get($id), (string) $this->request->post($column));
+            $message = $text;
+            $magazine = $this->$manager->findMagByIdWithArticles((int) $this->request->get($id));
+            $this->view->render('back/' . $template  , 'back/layout', compact('magazine', 'message'));
+            end();
+        }
+    }
+
     public function modifyMag()
     {
         $message = null;
-        
-        $messageText = 
-        [
-            'Le numéro du magazine a été modifié',    
-            'La date de parution du magazine a été modifiée',
-            'La thématique du magazine a été modifié',
-            'Le titre principale du magazine a été modifié',
-            'Le titre secondaire du magazine a été modifié',
-        ];
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié');
+        $this->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié', 'pannelmag');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'flute');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'La date de publication du magazine a été modifié');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics', 'Le thème du magazine a été modifié');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle01', 'title01');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle01', 'title01', 'Le titre principal du magazine a été modifié');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle02', 'title02');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle02', 'title02', 'Le titre secondaire du magazine a été modifié');
 
         if($this->request->post('modifEdito') !== null)
         {
@@ -133,7 +137,7 @@ class MagController{
             exit();
         }
         
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
         
     }

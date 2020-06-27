@@ -95,69 +95,14 @@
                     <span class="columnTitle">Image associée</span>
                     <span class="columnTitle">Date de création</span>
                 </div>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Chronique</span>
-                    <span class="tableContent">Un os dans la soupe aux chous</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
+                <?php foreach($magazine as $article): ?>
+                <a id="tableRows" href="index.php?action=modifyArticle&amp;idMag=<?= $magazine[0]->id_mag ?>&amp;idText=<?= $article->id_text ?>">
+                    <span class="tableContent"><?= $article->textType ?></span>
+                    <span class="tableContent"><?= $article->title ?></span>
+                    <span class="tableContent"><?= $article->author ?></span>
+                    <span class="tableContent"><?= $article->articleCover ?></span>
+                    <span class="tableContent"><?= $article->date ?></span>
                 </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Chronique</span>
-                    <span class="tableContent">Un os</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
-                </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Chronique</span>
-                    <span class="tableContent">Un os dans la soupe aux chous</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
-                </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Essai</span>
-                    <span class="tableContent">Un os dans la soupe aux chous</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
-                </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Essai</span>
-                    <span class="tableContent">Un os dans la soupe aux chous et des clous dans la mayonnaise</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
-                </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Essai</span>
-                    <span class="tableContent">Un os dans la soupe aux chous</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
-                </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Fiction</span>
-                    <span class="tableContent">Un os dans la soupe aux chous</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
-                </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Fiction</span>
-                    <span class="tableContent">Un os dans la soupe aux chous</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
-                </a>
-                <a id="tableRows" href="">
-                    <span class="tableContent">Fiction</span>
-                    <span class="tableContent">Un os dans la soupe aux chous</span>
-                    <span class="tableContent">Fédétonn Jean</span>
-                    <span class="tableContent">img.png</span>
-                    <span class="tableContent">10/09/2020</span>
-                </a>
+                <?php endforeach; ?>
             </div>
-            <button>Créer un nouvel article</button>
         </section>
