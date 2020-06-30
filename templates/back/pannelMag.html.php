@@ -103,7 +103,7 @@
                     <span class="columnTitle">Date de création</span>
                 </div>
                 <?php foreach($magazine as $article): ?>
-                <a id="tableRows" href="index.php?action=modifyArticle&amp;idMag=<?= $magazine[0]->idMag ?>&amp;idText=<?= $article->id_text ?>">
+                <a class="tableRows" href="index.php?action=modifyArticle&amp;idMag=<?= $magazine[0]->idMag ?>&amp;idText=<?= $article->id_text ?>">
                     <span class="tableContent"><?= $article->textType ?></span>
                     <span class="tableContent"><?= $article->title ?></span>
                     <span class="tableContent"><?= $article->author ?></span>

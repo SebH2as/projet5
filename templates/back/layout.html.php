@@ -15,9 +15,9 @@
             <div id="backLinks">
                 <div class="dropDown">
                     <span href="">Revue <i class="fa fa-caret-down"></i></span>
-                    <div class="dropdown-content">
-                        <a href="index.php?action=newMag">Créer un nouveau magazine</a>
+                    <div class="dropdown-content"> 
                         <a href="index.php?action=listMag">gestion des magazines créés</a>
+                        <a href="index.php?action=newMag">Créer un nouveau magazine</a>
                     </div>
                 </div>
                 <div class="dropDown">

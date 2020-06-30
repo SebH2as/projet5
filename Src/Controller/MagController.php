@@ -162,47 +162,7 @@ class MagController{
         $this->view->render('back/listMag', 'back/layout', compact('allMag'));
     }
 
-    public function createNewArticle()
-    {
-        $message = null;
-        $this->articleManager->createArticle((int) $this->request->get('idMag'));
-        $articleMostRecent = $this->articleManager->findMostRecentArticle((int) $this->request->post('number'));
-        $article = $this->articleManager->findArticleById((int) $articleMostRecent[0] -> id_text);
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine', 'article', 'message'));
-    }
     
-    public function modifyArticle()
-    {
-        $message = null;
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric');
-
-        $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title');
-
-        $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author');
-        
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
-        
-    }
-
-    public function addContent()
-    {
-        $message = null;
-        $this->articleManager->modifContent((int) $this->request->get('idText'), (string) $this->request->post('content'));
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
-    }
-
-
-    public function deleteArticle()
-    {
-        $message = null;
-        $this->articleManager->deleteArticle((int) $this->request->get('idText'));
-        $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
-    }
+    
 }

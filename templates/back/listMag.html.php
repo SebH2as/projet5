@@ -1,6 +1,12 @@
 <?php $title = 'Liste Magazines'; ?>
 
 <section id="oldNumbers">
+            <?php if (empty($allMag[0])): ?>
+            <h2>Aucun magazine créé</h2>
+            <div class="buttonsPannel"> 
+                <a class="buttonPannel" id="createMag" href="">Créer un nouveau magazine</a>
+            </div>
+            <?php else: ?>
             <h2>Magazines créés</h2>
             <div id="tableContainer">
                 <div id="tableTitles">
@@ -29,4 +35,5 @@
             <div id="pageMovers">
                 <a class="fa fa-arrow-circle-o-left" href=""></a><span>Page 1/1</span> <a class="fa fa-arrow-circle-o-right" href=""></a>
             </div>
+            <?php endif; ?>
         </section>

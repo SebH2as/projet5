@@ -71,7 +71,7 @@ class ArticleManager
 
     public function modifContent(int $idtext, string $content):bool//requête pour modifier les thématiques d'un magazine
     {
-        $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, content = :nwContent WHERE id_mag = :sameid ');
+        $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, content = :nwContent WHERE id_text = :sameid ');
         return $req->execute([
             'sameid' => $idtext,
             'nwContent' => $content]);

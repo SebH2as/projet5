@@ -3,6 +3,7 @@ require('../vendor/autoload.php');
 
 
 use Projet5\Controller\MagController;
+use Projet5\Controller\ArticleController;
 use Projet5\Tools\Request;
 
 session_start();
@@ -24,51 +25,40 @@ $actionMag =
     'modifyMag',
     'previewMag',
     'addEdito',
-    'createNewArticle',
-    'modifyArticle',
     'deleteMag',
-    'deleteArticle',
-    'addContent'
+    
+    
 
 ];
 
-$actionBack =
+$actionArticle =
 [
-    'admConnect',
-    'episodes',
-    'createEpisode',
-    'reset',
-    'profil',
-    'commentDelete',
-    'comDelete',
-    'deleteR',
-    'deleteReportsFromEp',
-    'comPage',
-    'modifyEpisode',
-    'addEpisode',
-    'episodeModications',
-    'disconnection'
+    'addContent',
+    'deleteArticle',
+    'createNewArticle',
+    'modifyArticle',
+    
 ];
 
 if (($request->get('action')) !== null){
     $key = array_search($request->get('action'), $actionMag);
     $methode = $actionMag[$key]; 
     if ($methode === $request->get('action')){
-        $controller = new MagController();
+        $controller = new magController();
         $controller->$methode();
         exit();
     }
-    $key = array_search($request->get('action'), $actionBack);
-    $methode = $actionBack[$key]; 
+    $key = array_search($request->get('action'), $actionArticle);
+    $methode = $actionArticle[$key]; 
     if ($methode === $request->get('action')){
-        $controller = new BackController();
+        $controller = new articleController();
         $controller->$methode();
         exit();
     }
 }
 
 
-$controller = new MagController();
+$controller = new magController();
 $controller->magazine();
 
     

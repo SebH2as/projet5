@@ -62,12 +62,12 @@
             <div id="contentContainer02">
                 <h3>Contenu de l'article</h3>
                 <form id="formEditArticle" action="index.php?action=addContent&amp;idMag=<?= $magazine[0]->id_mag ?>&amp;idText=<?= $article[0]->id_text ?>" method="POST">
-                    <input type="submit" name="content" value="Enregistrer"> 
+                    <input type="submit" name="saveContent" value="Enregistrer"> 
 
-                    <textarea id="writtingSpace" name="contentEdito">
+                    <textarea id="writtingSpace" name="content">
                         <?= $article[0]->content ?>
                     </textarea>
-                    <input type="submit" name="content" value="Enregistrer">
+                    <input type="submit" name="saveContent" value="Enregistrer">
                 </form>
             </div>
         </section>
