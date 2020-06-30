@@ -1,17 +1,17 @@
 <?php $title = 'Gestion magazine'; ?>
 
 <section id="mag">
-            <h2>magazine numéro <?= $magazine[0]->numberMag ?> créée le <?= $magazine[0]->date ?></h2>
+            <h2>magazine numéro <?= $magazine[0]->numberMag ?> créée le <?= $magazine[0]->dateMag ?></h2>
             <span id="message" class="<?php if ($message === null) echo 'none' ?>"><?= $message ?></span>
 
             <div class="buttonsPannel"> 
                 <a class="buttonPannel" id="online">Mettre en ligne</a>
-                <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag=<?= $magazine[0]->id_mag ?>" target="_blank">Aperçu</a>
-                <a class="buttonPannel" id="delete">Supprimer</a>
+                <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag=<?= $magazine[0]->idMag ?>" target="_blank">Aperçu</a>
+                <a class="buttonPannel" id="delete" href="index.php?action=deleteMag&amp;idMag=<?= $magazine[0]->idMag ?>">Supprimer</a>
             </div>
             
             <div id="contentContainer">
-                <form id="formMag" method="POST" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id_mag ?>">
+                <form id="formMag" method="POST" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->idMag ?>">
                     
                     <h3>Revue numéro: <i><?= $magazine[0]->numberMag ?></i></h3>
                     <div class="formRow">
@@ -83,9 +83,16 @@
             </div>
         </section>
         <section id="articlesMag">
-            <h2>Articles associés</h2>
+            <?php if (($magazine[0]->articlesNb) == 0): ?>
+            <h2>Aucun article associé</h2>
             <div class="buttonsPannel"> 
-                <a class="buttonPannel" id="createArticle" href="index.php?action=createNewArticle&amp;idMag=<?= $magazine[0]->id_mag ?>">Créer un nouvel article</a>
+                <a class="buttonPannel" id="createArticle" href="index.php?action=createNewArticle&amp;idMag=<?= $magazine[0]->idMag ?>">Créer un nouvel article</a>
+            </div>
+            <?php else: ?>
+            <h2>Articles associés</h2>
+
+            <div class="buttonsPannel"> 
+                <a class="buttonPannel" id="createArticle" href="index.php?action=createNewArticle&amp;idMag=<?= $magazine[0]->idMag ?>">Créer un nouvel article</a>
             </div>
             <div id="tableContainer">
                 <div id="tableTitles">
@@ -96,13 +103,14 @@
                     <span class="columnTitle">Date de création</span>
                 </div>
                 <?php foreach($magazine as $article): ?>
-                <a id="tableRows" href="index.php?action=modifyArticle&amp;idMag=<?= $magazine[0]->id_mag ?>&amp;idText=<?= $article->id_text ?>">
+                <a id="tableRows" href="index.php?action=modifyArticle&amp;idMag=<?= $magazine[0]->idMag ?>&amp;idText=<?= $article->id_text ?>">
                     <span class="tableContent"><?= $article->textType ?></span>
                     <span class="tableContent"><?= $article->title ?></span>
                     <span class="tableContent"><?= $article->author ?></span>
                     <span class="tableContent"><?= $article->articleCover ?></span>
-                    <span class="tableContent"><?= $article->date ?></span>
+                    <span class="tableContent"><?= $article->dateArticle ?></span>
                 </a>
                 <?php endforeach; ?>
             </div>
+            <?php endif; ?>    
         </section>

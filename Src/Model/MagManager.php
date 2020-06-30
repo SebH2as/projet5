@@ -99,34 +99,34 @@ class MagManager
 
     public function listAllMag()
     {
-        $req = $this->bdd->prepare('SELECT id_mag, numberMag, publication, editorial, topics, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date
-        FROM mag ORDER BY numberMag');
+        $req = $this->bdd->prepare('SELECT mag.id_mag,id_text, numberMag, publication, editorial, topics, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
+        COUNT(articles.id_text) AS articlesNb
+        FROM mag 
+        LEFT JOIN articles ON mag.id_mag = articles.id_mag
+        GROUP BY(mag.id_mag)
+        ORDER BY numberMag');
         $req->execute();
         return $req->fetchALL(PDO::FETCH_OBJ); 
     }
 
     public function findMagByIdWithArticles(int $idMag):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
     {
-        $req = $this->bdd->prepare('SELECT mag.id_mag, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date, topics, cover, title01, title02, editorial, statusPub,id_text, textType, title, author, articleCover, DATE_FORMAT(date_creation, \'Le %d/%m/%Y\') AS date
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS dateMag, topics, cover, title01, title02, editorial, statusPub,id_text, textType, title, author, articleCover, DATE_FORMAT(date_creation, \'Le %d/%m/%Y\') AS dateArticle,
+        COUNT(articles.id_text) AS articlesNb
         FROM mag 
-        LEFT JOIN textmag ON mag.id_mag = textmag.id_mag
+        LEFT JOIN articles ON mag.id_mag = articles.id_mag
         
-        WHERE mag.id_mag = :idMag');
+        WHERE mag.id_mag = :idMag
+        GROUP BY(articles.id_text) 
+        ORDER BY textType');
         
         $req->execute(['idMag' => (int) $idMag]);
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function findPostedEpisode(int $postId):array//requête pour récupérer un épisode publié en fonction de son id avec ses commentaires
+    public function deleteMag(int $idMag):void//requête pour supprimer un épisode en fonction de son id
     {
-        $req = $this->bdd->prepare('SELECT id, author, comment, DATE_FORMAT(commentDate, \'Le %d/%m/%Y à %Hh %imin\') AS commentDate, report, posts.post_id, chapterNumber, title, content, stat, DATE_FORMAT(publiDate, \'Le %d/%m/%Y\') AS date, publiDate 
-        FROM posts
-        LEFT JOIN comments ON posts.post_id = comments.post_id 
-        
-        WHERE posts.post_id = :idPost AND stat = 1
-        ORDER BY comments.commentDate DESC');
-        
-        $req->execute(['idPost' => (int) $postId]);
-        return $req->fetchALL(PDO::FETCH_OBJ);
+        $req = $this->bdd->prepare('DELETE FROM mag WHERE id_mag = :idMag ');
+        $req->execute(['idMag' => $idMag]);
     }
 }

@@ -77,14 +77,14 @@ class MagController{
         
     }
 
-    public function listMag():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    public function listMag():void//méthode pour afficher la page récapitulatrice de tous les magazines créés
     {
         $allMag = $this->magManager->listAllMag();
         $this->view->render('back/listMag', 'back/layout', compact('allMag'));
         
     }
 
-    public function newMag():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
+    public function newMag():void//méthode pour afficher la page de création d'un nouveau magazine
     {
 
         $this->view->render('back/newMag', 'back/layout');
@@ -98,7 +98,7 @@ class MagController{
             $message = null;
             $this->magManager->createMag((int) $this->request->post('number'));
             $magazineByNumber = $this->magManager->findMagByNumber((int) $this->request->post('number'));
-            $magazine = $this->magManager->findMagById((int) $magazineByNumber[0] -> id_mag);
+            $magazine = $this->magManager->findMagByIdWithArticles((int) $magazineByNumber[0] -> id_mag);
             $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
         }
     }
@@ -155,6 +155,13 @@ class MagController{
         $this->view->render('back/previewMag', 'front/layout', compact('magazine'));
     }
 
+    public function deleteMag()
+    {
+        $this->magManager->deleteMag((int) $this->request->get('idMag'));
+        $allMag = $this->magManager->listAllMag();
+        $this->view->render('back/listMag', 'back/layout', compact('allMag'));
+    }
+
     public function createNewArticle()
     {
         $message = null;
@@ -179,5 +186,23 @@ class MagController{
         $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
         $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
         
+    }
+
+    public function addContent()
+    {
+        $message = null;
+        $this->articleManager->modifContent((int) $this->request->get('idText'), (string) $this->request->post('content'));
+        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
+    }
+
+
+    public function deleteArticle()
+    {
+        $message = null;
+        $this->articleManager->deleteArticle((int) $this->request->get('idText'));
+        $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
     }
 }

@@ -20,7 +20,7 @@
                     <span class="tableContent"><?= $mag->topics ?></span>
                     <span class="tableContent"><?php if(($mag->editorial) === null || strlen($mag->editorial) === 0 ) echo 'non rédigé'?>
                                                 <?php if(strlen($mag->editorial) > 0) echo 'rédigé'?></span>
-                    <span class="tableContent">9</span>
+                    <span class="tableContent"><?= $mag->articlesNb ?></span>
                     <span class="tableContent"><?php if (($mag ->statusPub) === '0') echo 'Archivé'?>
                                             <?php if (($mag ->statusPub) === '1') echo 'En ligne'?></span>
                 </a>

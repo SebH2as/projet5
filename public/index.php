@@ -26,6 +26,10 @@ $actionMag =
     'addEdito',
     'createNewArticle',
     'modifyArticle',
+    'deleteMag',
+    'deleteArticle',
+    'addContent'
+
 ];
 
 $actionBack =

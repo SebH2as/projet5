@@ -1,7 +1,7 @@
 <?php $title = 'Gestion éditorial'; ?>
         
         
-        <section id="articleInfos">
+        <section id="editorialSection">
             <h2>Editorial de la revue numéro <?=$magazine[0] ->numberMag?></h2>
             <span id="message"></span>
             <a id="backLink" href="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id_mag ?>">Retour au panneau de gestion du magazine</a>           

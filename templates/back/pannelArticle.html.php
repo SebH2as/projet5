@@ -3,7 +3,11 @@
         <section id="articleInfos">
             <h2>Article du magazine numéro <?= $magazine[0]->numberMag ?></h2>
             <span id="message" class="<?php if ($message === null) echo 'none' ?>"><?= $message ?></span>
-            <button>Aperçu</button>
+            <div class="buttonsPannel"> 
+                <a class="buttonPannel" id="backLink" href="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id_mag ?>">Retour au magazine</a>
+                <a class="buttonPannel" id="preview" href="index.php?action=previewArticle&amp;idMag=<?= $article[0]->id_text ?>" target="_blank">Aperçu</a>
+                <a class="buttonPannel" id="delete" href="index.php?action=deleteArticle&amp;idText=<?= $article[0]->id_text ?>&amp;idMag=<?= $magazine[0]->id_mag ?>">Supprimer</a>
+            </div>
             
             <div id="contentContainer">
                 <form id="formMag" method="POST" action="index.php?action=modifyArticle&amp;idText=<?= $article[0]->id_text ?>&amp;idMag=<?= $magazine[0]->id_mag ?>">
@@ -57,13 +61,13 @@
         <section id="textEditor">
             <div id="contentContainer02">
                 <h3>Contenu de l'article</h3>
-                <form id="formEditArticle" action="index.php?action=addEdito&amp;idMag=<?= $magazine[0]->id_mag ?>" method="POST">
-                    <input type="submit" name="saveEdito" value="Enregistrer"> 
+                <form id="formEditArticle" action="index.php?action=addContent&amp;idMag=<?= $magazine[0]->id_mag ?>&amp;idText=<?= $article[0]->id_text ?>" method="POST">
+                    <input type="submit" name="content" value="Enregistrer"> 
 
                     <textarea id="writtingSpace" name="contentEdito">
                         <?= $article[0]->content ?>
                     </textarea>
-                    <input type="submit" name="saveEdito" value="Enregistrer">
+                    <input type="submit" name="content" value="Enregistrer">
                 </form>
             </div>
         </section>
