@@ -65,10 +65,28 @@ class ArticleController{
         $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title');
 
         $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author');
+
+        if($this->request->post('modifCover') !== null )
+        {
+            $cover = $_FILES['articleCover'];
+            $ext = strtolower(substr($cover['name'], -3)) ;
+            $allowExt = array("jpg", "png");
+            if(in_array($ext, $allowExt))
+            {
+                move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
+                $this->articleManager->modifCover( (int) $this->request->get('idText'), (string) $cover['name']);
+            }       
+        }
         
         $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
         $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
         
+    }
+
+    public function previewArticle()
+    {
+        $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        $this->view->render('back/previewArticle', 'front/layout', compact('article'));
     }
 }

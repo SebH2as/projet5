@@ -5,12 +5,12 @@
             <span id="message" class="<?php if ($message === null) echo 'none' ?>"><?= $message ?></span>
             <div class="buttonsPannel"> 
                 <a class="buttonPannel" id="backLink" href="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->id_mag ?>">Retour au magazine</a>
-                <a class="buttonPannel" id="preview" href="index.php?action=previewArticle&amp;idMag=<?= $article[0]->id_text ?>" target="_blank">Aperçu</a>
+                <a class="buttonPannel" id="preview" href="index.php?action=previewArticle&amp;idText=<?= $article[0]->id_text ?>" target="_blank">Aperçu</a>
                 <a class="buttonPannel" id="delete" href="index.php?action=deleteArticle&amp;idText=<?= $article[0]->id_text ?>&amp;idMag=<?= $magazine[0]->id_mag ?>">Supprimer</a>
             </div>
             
             <div id="contentContainer">
-                <form id="formMag" method="POST" action="index.php?action=modifyArticle&amp;idText=<?= $article[0]->id_text ?>&amp;idMag=<?= $magazine[0]->id_mag ?>">
+                <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=modifyArticle&amp;idText=<?= $article[0]->id_text ?>&amp;idMag=<?= $magazine[0]->id_mag ?>">
                     
                 <h3>Rubrique de l'article: <i><?php if(($article[0]->textType) === null) echo 'à définir'?>
                                         <?php if(($article[0]->textType) !== null) echo $article[0]->textType ?></i></h3>
@@ -46,13 +46,14 @@
                         <input type="submit" name="modifAuthor" value="Modifier">
                     </div>
                     
-                    <h3>Image associée à l'article: <i>img.png</i></h3>
+                    <h3>Image associée à l'article: <i><?php if(($article[0]->articleCover) === null) echo 'à définir'?>
+                                        <?php if(($article[0]->articleCover) !== null) echo $article[0]->articleCover ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="imgArticle">Changer l'image:</label>
-                            <input type="text" id="imgArticle" name="imgArticle" maxlength="30" size="30">    
+                            <label for="articleCover">Changer l'image:</label>
+                            <input type="file" id="articleCover" name="articleCover">    
                         </div>
-                        <input type="submit" name="modifImg" value="Changer">
+                        <input type="submit" name="modifCover" value="Changer">
                     </div>
                 </form>
             </div>

@@ -88,6 +88,14 @@ class MagManager
             'nwEdito' => $editoMag]);
     }
 
+    public function modifCover(int $idMag, string $coverMag):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, cover = :nwCover WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'nwCover' => $coverMag]);
+    }
+
     /*public function modifMag(int $idMag,  $column, $content):bool//requête pour modifier les thématiques d'un magazine
     {
         $req = $this->bdd->prepare('UPDATE mag SET id = :sameid, COLUMN = :nwContent WHERE id = :sameid ');

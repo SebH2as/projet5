@@ -4,7 +4,7 @@
             <?php if (empty($allMag[0])): ?>
             <h2>Aucun magazine créé</h2>
             <div class="buttonsPannel"> 
-                <a class="buttonPannel" id="createMag" href="">Créer un nouveau magazine</a>
+                <a class="buttonPannel" id="createMag" href="index.php?action=newMag">Créer un nouveau magazine</a>
             </div>
             <?php else: ?>
             <h2>Magazines créés</h2>

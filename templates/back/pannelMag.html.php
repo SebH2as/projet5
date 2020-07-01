@@ -11,7 +11,7 @@
             </div>
             
             <div id="contentContainer">
-                <form id="formMag" method="POST" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->idMag ?>">
+                <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=modifyMag&amp;idMag=<?= $magazine[0]->idMag ?>">
                     
                     <h3>Revue numéro: <i><?= $magazine[0]->numberMag ?></i></h3>
                     <div class="formRow">
@@ -42,13 +42,13 @@
                         <input type="submit" name="modifTopics" value="Modifier">
                     </div>
                     
-                    <h3>Couverture l'image: <i><?= $magazine[0]->cover ?></i></h3>
+                    <h3>Image de couverture: <i><?= $magazine[0]->cover ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="cover">Changer la couverture:</label>
-                            <input type="text" id="cover" name="cover" maxlength="30" size="30">    
+                            <input type="file" id="cover" name="cover">    
                         </div>
-                        <input type="submit" value="Changer">
+                        <input type="submit" name="modifCover" value="Changer">
                     </div>
                     
                     <h3>Titre principal: <i><?php if(($magazine[0]->title01) === null) echo 'à définir'?>

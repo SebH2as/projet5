@@ -5,7 +5,7 @@
             <div id="border" class=" fade anim" data-rate="-1.025"></div>
             <div id="borderLeft" class=" fade anim" data-rate="-1.025"></div>
             <div id="borderRight" class=" fade anim" data-rate="-1.025"></div>
-            <img id="headerImg" class=" fade02" data-rate="2" src="images/testHeader06.jpg" alt="graff">
+            <img id="headerImg" class=" fade02" data-rate="2" src="images/<?= $magazine[0]->cover ?>" alt="graff">
             <h3 id="numberDate" class=" fade" data-rate="-1.025">Numéro <?= $magazine[0]->numberMag ?> <?= $magazine[0]->publication ?></h3>
             <h3 id="sentence" class=" fade" data-rate="-1.025">Un magazine qui tient la route...</h3>
             <a id="anchorSum" class=" fade" data-rate="-1.025" href="#summary">Sommaire</a>
@@ -52,9 +52,11 @@
             </div>
             <div class="containerSum">
                 <div id="chronicImgs" class="containImg lefters">
-                    <img id="chronicImg01" class="thumbImg" src="images/testHeader.jpg" alt="graff">
-                    <img id="chronicImg02" class="thumbImg" src="images/testHeader02.jpg" alt="graff">
-                    <img id="chronicImg03" class="thumbImg" src="images/testHeader03.jpg" alt="graff">
+                    <?php foreach($magazine as $article): ?>
+                    <?php if($article->textType === 'Chronique'): ?>
+                    <img class="thumbImg" src="images/<?=$article->articleCover ?>" alt="graff">
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
                 <div id="chronicText" class="containText righters">
                     <div class="textInfo">

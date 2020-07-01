@@ -137,6 +137,18 @@ class MagController{
             exit();
         }
         
+        if($this->request->post('modifCover') !== null )
+        {
+            $cover = $_FILES['cover'];
+            $ext = strtolower(substr($cover['name'], -3)) ;
+            $allowExt = array("jpg", "png");
+            if(in_array($ext, $allowExt))
+            {
+                move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
+                $this->magManager->modifCover( (int) $this->request->get('idMag'), (string) $cover['name']);
+            }       
+        }
+
         $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
         
@@ -151,7 +163,7 @@ class MagController{
 
     public function previewMag()
     {
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/previewMag', 'front/layout', compact('magazine'));
     }
 

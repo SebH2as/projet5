@@ -37,7 +37,7 @@ $actionArticle =
     'deleteArticle',
     'createNewArticle',
     'modifyArticle',
-    
+    'previewArticle',
 ];
 
 if (($request->get('action')) !== null){

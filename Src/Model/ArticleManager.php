@@ -31,9 +31,12 @@ class ArticleManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function findArticleById(int $idtext):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
+    public function findArticleById(int $idtext):array//requête pour récupérer un article en fonction de son id avec le numéro de magazine auquel il est associé
     {
-        $req = $this->bdd->prepare('SELECT id_text, id_mag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date FROM articles WHERE id_text = :idText ');
+        $req = $this->bdd->prepare('SELECT numberMag, id_text, articles.id_mag AS ArtIdMag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date 
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE id_text = :idText ');
         
         $req->execute(['idText' => (int) $idtext]);
         return $req->fetchALL(PDO::FETCH_OBJ);
@@ -61,6 +64,14 @@ class ArticleManager
         return $req->execute([
             'sameid' => $idText,
             'nwAuthor' => $newAuthor]);
+    }
+
+    public function modifCover(int $idText, string $coverArticle):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, articleCover = :nwCover WHERE id_text = :sameid ');
+        return $req->execute([
+            'sameid' => $idText,
+            'nwCover' => $coverArticle]);
     }
 
     public function deleteArticle(int $idText):void//requête pour supprimer un article en fonction de son id
