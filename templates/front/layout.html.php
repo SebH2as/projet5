@@ -34,5 +34,6 @@
             <div id="media"><a class="fa fa-facebook-square" href=""></a><a class="fa fa-twitter-square" href=""></a><a class="fa fa-youtube-square" href=""></a></div>
         </footer>
         <script src="js/navbar.js"></script>
+        <script src="js/summary.js"></script>
     </body>
 </html>

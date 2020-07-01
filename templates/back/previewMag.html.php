@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="containerSum">
-                <div id="chronicImgs" class="containImg lefters">
+                <div id="essaisImgs" class="containImg lefters">
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Chronique'): ?>
                     <img class="thumbImg" src="images/<?=$article->articleCover ?>" alt="graff">
