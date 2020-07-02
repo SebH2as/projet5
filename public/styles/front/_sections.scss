@@ -136,31 +136,34 @@
             background-color: #F9FBF2;
             position: relative;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             margin-bottom: 1vh;
                 .textInfo{
                     
-                    width: 95%;
+                    width: 100%;
                     height: 90%;
-
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     border: 2px solid $secondaryBacgroundColorOrange;
                     
                         .theme{
                             position: absolute;
-                            top: 0vh;
+                            top: .5vh;
                             left: .5vh;
                             font-size: 24px;
-                            padding:5px;
+                            padding:2px;
                             background-color: $primaryBackgroundColorLight;
                             z-index: 1;
                         }
                         .title{
                             text-align: center;
-                            font-size: 24px;
+                            font-size: 36px;
                         }
                         .extract{
-                            padding: 2vh;
+                            padding: .5vh;
                         }
                         a{
                             text-align: center;

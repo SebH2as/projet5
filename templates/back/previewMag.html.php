@@ -37,28 +37,34 @@
 
             <div class="containerSum">
                 <div id="chronicImgs" class="containImg lefters">
-                    <img id="chronicImg01" class="thumbImg" src="images/testHeader.jpg" alt="graff">
-                    <img id="chronicImg02" class="thumbImg" src="images/testHeader02.jpg" alt="graff">
-                    <img id="chronicImg03" class="thumbImg" src="images/testHeader03.jpg" alt="graff">
-                </div>
-                <div id="chronicText" class="containText righters">
-                    <div class="textInfo">
-                        <h3 class="theme">Chronique</h3>
-                        <h3 class="title">Un os dans la soupe aux chous</h3>
-                        <p class="extract">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat eum facilis, inventore voluptas optio magnam facere hic maiores reiciendis deserunt, culpa dignissimos adipisci esse impedit ipsum velit libero, ducimus odio.Rerum quae iusto nihil omnis voluptas distinctio voluptatem optio perspiciatis autem qui accusamus totam suscipit dolorum recusandae natus expedita atque ut, dignissimos facilis cumque quaerat corporis eveniet saepe ab! Laudantium. <a href="index.php?action=article">(Lire la suite...)</a></p>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="containerSum">
-                <div id="essaisImgs" class="containImg lefters">
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Chronique'): ?>
                     <img class="thumbImg" src="images/<?=$article->articleCover ?>" alt="graff">
                     <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
-                <div id="chronicText" class="containText righters">
+                <div id="chronicsText" class="containText righters">
+                    <?php foreach($magazine as $article): ?>
+                    <?php if($article->textType === 'Chronique'): ?>
+                    <div class="textInfo">
+                        <h3 class="theme">Chroniques</h3>
+                        <h3 class="title"><?=$article->title ?></h3>
+                        
+                        
+                    </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="containerSum">
+                <div id="essaisImgs" class="containImg lefters">
+                    <?php foreach($magazine as $article): ?>
+                    <?php if($article->textType === 'Essai'): ?>
+                    <img class="thumbImg" src="images/<?=$article->articleCover ?>" alt="graff">
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+                <div id="essaisText" class="containText righters">
                     <div class="textInfo">
                         <h3 class="theme">Essai</h3>
                         <h3 class="title">Un os dans la soupe aux chous</h3>
@@ -68,12 +74,14 @@
                 </div>
             </div>
             <div class="containerSum">
-                <div id="chronicImgs" class="containImg lefters">
-                    <img id="chronicImg01" class="thumbImg" src="images/testHeader.jpg" alt="graff">
-                    <img id="chronicImg02" class="thumbImg" src="images/testHeader02.jpg" alt="graff">
-                    <img id="chronicImg03" class="thumbImg" src="images/testHeader03.jpg" alt="graff">
+                <div id="fictionsImgs" class="containImg lefters">
+                    <?php foreach($magazine as $article): ?>
+                    <?php if($article->textType === 'Fiction'): ?>
+                    <img class="thumbImg" src="images/<?=$article->articleCover ?>" alt="graff">
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
-                <div id="chronicText" class="containText righters">
+                <div id="fictionsText" class="containText righters">
                     <div class="textInfo">
                         <h3 class="theme">Fiction</h3>
                         <h3 class="title">Un os dans la soupe aux chous</h3>
