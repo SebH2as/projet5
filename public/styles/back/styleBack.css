@@ -953,6 +953,9 @@ body {
   padding: 15px;
   border-radius: 12px;
   font-style: italic;
+}
+
+#articleInfos .none {
   display: none;
 }
 

@@ -23,18 +23,17 @@ class DataLoader{
         $this->request = new request();
     }
 
-    public function addData( $manager,  $id,  $method,  $column, $text = null )
+    public function addData( $manager,  $id,  $method,  $column, $text = null, $template, $method2  )
     {
+        $message = null;
         if($this->request->post($method) !== null &&  !empty($this->request->post($column)))
         {
             $this->$manager->$method( (int) $this->request->get($id), (string) $this->request->post($column));
-             
+            $message = $text;
+            $data = $this->$manager->$method2((int) $this->request->get($id));
+            $this->view->render('back/' . $template  , 'back/layout', compact('data', 'message'));
+            exit();
         }
-        
-    }
-
-    public function key($key){
-        return $key;
     }
 
 }

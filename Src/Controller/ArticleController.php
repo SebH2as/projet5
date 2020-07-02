@@ -9,7 +9,7 @@ use Projet5\Model\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
-
+use Projet5\Tools\Files;
 
 class ArticleController{
         
@@ -18,6 +18,7 @@ class ArticleController{
     private $view;
     private $request;
     private $dataLoader;
+    private $files;
 
     public function __construct()
     {
@@ -26,15 +27,15 @@ class ArticleController{
         $this->articleManager = new articleManager();
         $this->request = new request();
         $this->dataLoader = new dataLoader();
+        $this->files = new files();
     }
 
     public function addContent()
     {
         $message = null;
         $this->articleManager->modifContent((int) $this->request->get('idText'), (string) $this->request->post('content'));
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
+        $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
     }
 
 
@@ -42,8 +43,8 @@ class ArticleController{
     {
         $message = null;
         $this->articleManager->deleteArticle((int) $this->request->get('idText'));
-        $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
+        $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
     }
 
     public function createNewArticle()
@@ -51,36 +52,24 @@ class ArticleController{
         $message = null;
         $this->articleManager->createArticle((int) $this->request->get('idMag'));
         $articleMostRecent = $this->articleManager->findMostRecentArticle((int) $this->request->post('number'));
-        $article = $this->articleManager->findArticleById((int) $articleMostRecent[0] -> id_text);
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine', 'article', 'message'));
+        $data = $this->articleManager->findArticleById((int) $articleMostRecent[0] -> id_text);
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
     }
     
     public function modifyArticle()
     {
         $message = null;
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric');
+        $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric', 'La rubrique a été modifiée', 'pannelarticle', 'findArticleById');
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title');
+        $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title', 'Le titre a été modifiée', 'pannelarticle', 'findArticleById');
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author');
+        $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author', "L'auteur a été modifiée", 'pannelarticle', 'findArticleById');
 
-        if($this->request->post('modifCover') !== null )
-        {
-            $cover = $_FILES['articleCover'];
-            $ext = strtolower(substr($cover['name'], -3)) ;
-            $allowExt = array("jpg", "png");
-            if(in_array($ext, $allowExt))
-            {
-                move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
-                $this->articleManager->modifCover( (int) $this->request->get('idText'), (string) $cover['name']);
-            }       
-        }
-        
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('magazine','article', 'message'));
+        $this->files->addFiles('articleManager', 'modifCover', 'articleCover', 'idText', "L'image a été modifiée", 'pannelarticle', 'findArticleById');
+
+        $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
         
     }
 

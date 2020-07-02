@@ -9,6 +9,7 @@ use Projet5\Model\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
+use Projet5\Tools\Files;
 
 
 class MagController{
@@ -18,6 +19,7 @@ class MagController{
     private $view;
     private $request;
     private $dataLoader;
+    private $files;
 
     public function __construct()
     {
@@ -26,6 +28,7 @@ class MagController{
         $this->articleManager = new articleManager();
         $this->request = new request();
         $this->dataLoader = new dataLoader();
+        $this->files = new files();
     }
 
     public function magazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
@@ -98,21 +101,8 @@ class MagController{
             $message = null;
             $this->magManager->createMag((int) $this->request->post('number'));
             $magazineByNumber = $this->magManager->findMagByNumber((int) $this->request->post('number'));
-            $magazine = $this->magManager->findMagByIdWithArticles((int) $magazineByNumber[0] -> id_mag);
-            $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
-        }
-    }
-
-    public function addData( $manager,  $id,  $method,  $column, $text = null, $template  )
-    {
-        $message = null;
-        if($this->request->post($method) !== null &&  !empty($this->request->post($column)))
-        {
-            $this->$manager->$method( (int) $this->request->get($id), (string) $this->request->post($column));
-            $message = $text;
-            $magazine = $this->$manager->findMagByIdWithArticles((int) $this->request->get($id));
-            $this->view->render('back/' . $template  , 'back/layout', compact('magazine', 'message'));
-            end();
+            $data = $this->magManager->findMagByIdWithArticles((int) $magazineByNumber[0] -> id_mag);
+            $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
         }
     }
 
@@ -120,45 +110,36 @@ class MagController{
     {
         $message = null;
 
-        $this->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié', 'pannelmag');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'La date de publication du magazine a été modifié');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics', 'Le thème du magazine a été modifié');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics', 'Le thème du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle01', 'title01', 'Le titre principal du magazine a été modifié');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle01', 'title01', 'Le titre principal du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle02', 'title02', 'Le titre secondaire du magazine a été modifié');
+        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle02', 'title02', 'Le titre secondaire du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
         if($this->request->post('modifEdito') !== null)
         {
-            $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
-            $this->view->render('back/editorial', 'back/layout', compact('magazine'));
+            $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
+            $this->view->render('back/editorial', 'back/layout', compact('data'));
             exit();
         }
         
-        if($this->request->post('modifCover') !== null )
-        {
-            $cover = $_FILES['cover'];
-            $ext = strtolower(substr($cover['name'], -3)) ;
-            $allowExt = array("jpg", "png");
-            if(in_array($ext, $allowExt))
-            {
-                move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
-                $this->magManager->modifCover( (int) $this->request->get('idMag'), (string) $cover['name']);
-            }       
-        }
+        $this->files->addFiles('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag', 'findMagByIdWithArticles');
 
-        $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelMag', 'back/layout', compact('magazine', 'message'));
+
+        $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
         
     }
 
     public function addEdito()
     {
         $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
-        $magazine = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $this->view->render('back/editorial', 'back/layout', compact('magazine'));
+        $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
+        $this->view->render('back/editorial', 'back/layout', compact('data'));
     }
 
     public function previewMag()
