@@ -150,6 +150,17 @@ class MagController{
 
     public function deleteMag()
     {
+        $dataToErase = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
+        if(($dataToErase[0]->cover) !== null)
+            {
+                unlink("../public/images/".$dataToErase[0]->cover);
+            }
+        foreach ($dataToErase as $articleImgToErase) {
+            if(($articleImgToErase->articleCover) !== null)
+            {
+                unlink("../public/images/".$articleImgToErase->articleCover);
+            }
+        }
         $this->magManager->deleteMag((int) $this->request->get('idMag'));
         $allMag = $this->magManager->listAllMag();
         $this->view->render('back/listMag', 'back/layout', compact('allMag'));

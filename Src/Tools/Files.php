@@ -32,6 +32,11 @@ class Files{
             $allowExt = array("jpg", "png");
             if(in_array($ext, $allowExt))
             {
+                $dataToErase = $this->$manager->$method((int) $this->request->get($id));
+                    if(($dataToErase[0]->$content) !== null)
+                    {
+                        unlink("../public/images/".$dataToErase[0]->$content);
+                    }
                 move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
                 $this->$manager->modifCover( (int) $this->request->get($id), (string) $cover['name']);
                 

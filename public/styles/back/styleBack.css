@@ -362,9 +362,10 @@ body {
           align-items: center;
 }
 
-#newMag #contentContainer #formNewMag input {
-  width: 20%;
-  padding: 15px;
+#newMag #contentContainer #formNewMag #number {
+  width: 40%;
+  font-size: 24px;
+  padding: 30px;
   border: solid 2px #110B11;
 }
 

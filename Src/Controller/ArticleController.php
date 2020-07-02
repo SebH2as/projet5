@@ -42,6 +42,11 @@ class ArticleController{
     public function deleteArticle()
     {
         $message = null;
+        $dataToErase = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+                    if(($dataToErase[0]->articleCover) !== null)
+                    {
+                        unlink("../public/images/".$dataToErase[0]->articleCover);
+                    }
         $this->articleManager->deleteArticle((int) $this->request->get('idText'));
         $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
