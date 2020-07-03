@@ -444,7 +444,9 @@ header .fa-arrow-circle-right:hover {
 
 #summary h2 {
   width: 90%;
-  background-color: #F9FBF2;
+  font-size: 36px;
+  color: #F9FBF2;
+  background-color: #030B12;
   text-align: center;
   margin-bottom: 2vh;
   border: solid 2px #E8871E;
@@ -452,8 +454,9 @@ header .fa-arrow-circle-right:hover {
 
 #summary span {
   position: absolute;
-  top: 5.8vh;
-  left: 20vh;
+  top: 6.8vh;
+  left: 10vh;
+  color: #F9FBF2;
 }
 
 #summary .fa-arrow-right {
@@ -516,25 +519,35 @@ header .fa-arrow-circle-right:hover {
 }
 
 #summary .containText .bigTitle {
-  position: relative;
-  font-size: 36px;
-  padding: 5px;
+  position: absolute;
+  width: 98%;
+  height: 90%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border: 5px solid #E8871E;
+  background-color: #030B12;
+  color: #F9FBF2;
+  -webkit-transition: opacity 1.5s, height 1.5s;
+  transition: opacity 1.5s, height 1.5s;
 }
 
 #summary .containText .bigTitle .rubricTitle {
-  margin: 0;
-  padding: 10px;
-  width: 70vh;
-  border: 10px solid #E8871E;
+  text-align: center;
+  font-size: 36px;
+  position: absolute;
+  width: 50%;
+  border: 5px solid #E8871E;
   background-color: #030B12;
   color: #F9FBF2;
 }
@@ -567,8 +580,11 @@ header .fa-arrow-circle-right:hover {
   border: 5px solid #030B12;
   background-color: #F9FBF2;
   opacity: 0;
-  -webkit-transition: opacity 1.5s;
-  transition: opacity 1.5s;
+  z-index: 0;
+  -webkit-transition: opacity 2s;
+  transition: opacity 2s;
+  text-decoration: none;
+  color: #030B12;
 }
 
 #summary .containText .textInfo .theme {
@@ -606,14 +622,14 @@ header .fa-arrow-circle-right:hover {
   top: 6vh;
 }
 
-#summary .containText .textInfo a {
+#summary .containText .textInfo .falseLink {
   position: absolute;
   bottom: 1vh;
-  right: 2vh;
+  right: 1.5vh;
   width: 25%;
+  height: 5vh;
   font-size: 24px;
   text-align: center;
-  text-decoration: none;
   color: #E8871E;
   background-color: #030B12;
   border: 2px solid #E8871E;
@@ -636,6 +652,10 @@ header .fa-arrow-circle-right:hover {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+}
+
+#summary .opacity {
+  opacity: .5 !important;
 }
 
 #sectionImg {

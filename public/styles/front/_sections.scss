@@ -89,15 +89,18 @@
     padding-top: 5vh;
         h2{
             width: 90%;
-            background-color: $primaryBackgroundColorLight;
+            font-size: 36px;
+            color:  $primaryBackgroundColorLight;
+            background-color: $primaryBackgroundColorDark;
             text-align: center;
             margin-bottom: 2vh;
             border: solid 2px $secondaryBacgroundColorOrange;
         }
         span{
             position: absolute;
-            top: 5.8vh;
-            left: 20vh;
+            top: 6.8vh;
+            left: 10vh;
+            color:  $primaryBackgroundColorLight;
         }
         .fa-arrow-right{
             color: $secondaryBacgroundColorOrange;
@@ -141,19 +144,27 @@
             align-items: center;
             margin-bottom: 1vh;
                 .bigTitle{
-                    position: relative;
-                    font-size: 36px;
-                    padding: 5px;
+                    position: absolute;
+                    width: 98%;
+                    height: 90%;
                     display: flex;
-                    justify-content: center;
+                    flex-direction: column;
+                    justify-content: space-evenly;
                     align-items: center;
+                    border: 5px solid $secondaryBacgroundColorOrange;
+                    background-color: $primaryBackgroundColorDark;
+                    color: $primaryBackgroundColorLight;
+                    transition: opacity 1.5s, height 1.5s;
                     .rubricTitle{
-                        margin: 0;
-                        padding: 10px;
-                        width: 70vh;
-                        border: 10px solid $secondaryBacgroundColorOrange;
+                        
+                        text-align: center;
+                        font-size: 36px;
+                        position: absolute;
+                        width: 50%;
+                        border: 5px solid $secondaryBacgroundColorOrange;
                         background-color: $primaryBackgroundColorDark;
                         color: $primaryBackgroundColorLight;
+                    
                     }
                     .fa-caret-left{
                         position: absolute;
@@ -174,7 +185,11 @@
                     border: 5px solid $primaryBackgroundColorDark;
                     background-color: $primaryBackgroundColorLight;
                     opacity: 0;
-                    transition: opacity 1.5s;
+                    z-index: 0;
+                    transition: opacity 2s;
+                    text-decoration: none;
+                    color: $primaryBackgroundColorDark;
+                       
                     
                         .theme{
                             position: absolute;
@@ -208,17 +223,18 @@
                             position: absolute;
                             top: 6vh;
                         }
-                        a{
+                        .falseLink{
                             position: absolute;
                             bottom: 1vh;
-                            right: 2vh;
+                            right: 1.5vh;
                             width: 25%;
+                            height: 5vh;
                             font-size: 24px;
                             text-align: center;
-                            text-decoration: none;
                             color: $secondaryBacgroundColorOrange;
                             background-color: $primaryBackgroundColorDark;
                             border: 2px solid $secondaryBacgroundColorOrange;
+                            
                         }
                 }
         }
@@ -237,9 +253,12 @@
                 align-self: center;
                 
             }
+           
             
         }
-        
+        .opacity{
+            opacity: .5 !important;
+        }
 }
 
 #sectionImg{

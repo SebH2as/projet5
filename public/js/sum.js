@@ -35,28 +35,31 @@ class Sum {
             this.imgs[i].onclick = ()=>{
                 
                 let textIndex = i + 1;
+                
                 arrayTxts[textIndex].style.opacity = "1";
+                arrayTxts[textIndex].style.zIndex = "2";
 
                 for (let j =0; j < this.nbTxts; j++)
                 {
                     if(j !== textIndex)
                     {
+                        
                         arrayTxts[j].style.opacity = "0";
-
+                        arrayTxts[j].style.zIndex = "0";
                     }
                 }
                 
-                /*let imgIndex = i ;
-                this.arrayImgs[imgIndex].style.opacity = ".5";
+                let imgIndex = i ;
+                this.arrayImgs[imgIndex].classList.add("opacity");
 
                 for (let j =0; j < this.nbImgs; j++)
                 {
                     if(j !== imgIndex)
                     {
-                        this.arrayImgs[j].style.opacity = "1";
+                        this.arrayImgs[j].classList.remove("opacity");
 
                     }
-                }*/
+                }
                 
             }
         }

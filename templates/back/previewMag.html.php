@@ -43,14 +43,14 @@
                     <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
-                <div id="chronicsText" class="containText righters">
+                <div id="chronicsText" class="containText righters" >
                     <div class="bigTitle">
-                        <span class="fa fa-caret-left" href=""></span>
-                        <h2 class="rubricTitle">CHRONIQUES</h2>
+                        
+                        <h3 class="rubricTitle">CHRONIQUES</h3>
                     </div>
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Chronique'): ?>
-                    <div class="textInfo">
+                    <a class="textInfo" href="index.php?action=previewArticle&amp;idText=<?= $article->id_text ?>">
                         <h3 class="theme">Chroniques</h3>
                         <h3 class="title"><?=$article->title ?></h3>
                         <h4 class="author">Par <?=$article->author ?></h4>
@@ -64,11 +64,11 @@
                         }else{echo strip_tags(htmlspecialchars_decode($article->content));}
                         ?>  
                         </p>
-                        <a href="index.php?action=article">(Lire la suite...)</a>
-                    </div>
+                        <div class="falseLink">(Lire la suite...)</div>
+                    </a>
                     <?php endif; ?>
                     <?php endforeach; ?>
-                </div>
+                    </div>
             </div>
             <div class="containerSum">
                 <div id="essaisImgs" class="containImg lefters">
@@ -80,12 +80,12 @@
                 </div>
                 <div id="essaisText" class="containText righters">
                     <div class="bigTitle">
-                        <span class="fa fa-caret-left" href=""></span>
-                        <h2 class="rubricTitle">ESSAIS</h2>
+                        
+                        <h3 class="rubricTitle">ESSAIS</h3>
                     </div>
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Essai'): ?>
-                    <div class="textInfo">
+                    <a class="textInfo" href="index.php?action=previewArticle&amp;idText=<?= $article->id_text ?>">
                         <h3 class="theme">Essais</h3>
                         <h3 class="title"><?=$article->title ?></h3>
                         <p class="extract">
@@ -98,8 +98,8 @@
                         }else{echo strip_tags(htmlspecialchars_decode($article->content));}
                         ?>  
                         </p>
-                        <a href="index.php?action=article">(Lire la suite...)</a>
-                    </div>
+                        <div class="falseLink">(Lire la suite...)</div>
+                    </a>
                     <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
@@ -114,12 +114,12 @@
                 </div>
                 <div id="fictionsText" class="containText righters">
                     <div class="bigTitle">
-                        <span class="fa fa-caret-left" href=""></span>
-                        <h2 class="rubricTitle">FICTIONS</h2>
+                        
+                        <h3 class="rubricTitle">FICTIONS</h3>
                     </div>
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Fiction'): ?>
-                    <div class="textInfo">
+                    <a class="textInfo" href="index.php?action=previewArticle&amp;idText=<?= $article->id_text ?>">
                         <h3 class="theme">Fictions</h3>
                         <h3 class="title"><?=$article->title ?></h3>
                         <p class="extract">
@@ -132,8 +132,8 @@
                         }else{echo strip_tags(htmlspecialchars_decode($article->content));}
                         ?>  
                         </p>
-                        <a href="index.php?action=article">(Lire la suite...)</a>
-                    </div>
+                        <div class="falseLink">(Lire la suite...)</div>
+                    </a>
                     <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
