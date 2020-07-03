@@ -18,7 +18,7 @@
          <section id="editorial">
             <div class="columnBig" >
                 <div id="edito" class="lefters">
-                   <h3>Numéro Zéro Octobre 2020</h3>
+                   <h3>Numéro <?= $magazine[0]->numberMag ?> <?= $magazine[0]->publication ?></h3>
                    <h2>EDITO</h2>
                    <div id="editoText">
                         <p><?= htmlspecialchars_decode($magazine[0]->editorial) ?></p>
@@ -44,13 +44,27 @@
                     <?php endforeach; ?>
                 </div>
                 <div id="chronicsText" class="containText righters">
+                    <div class="bigTitle">
+                        <span class="fa fa-caret-left" href=""></span>
+                        <h2 class="rubricTitle">CHRONIQUES</h2>
+                    </div>
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Chronique'): ?>
                     <div class="textInfo">
                         <h3 class="theme">Chroniques</h3>
                         <h3 class="title"><?=$article->title ?></h3>
-                        
-                        
+                        <h4 class="author">Par <?=$article->author ?></h4>
+                        <p class="extract">
+                        <?php 
+                        if (strlen($article->content) > 800)
+                        {
+                            $espace = strpos($article->content,' ', 800); 
+                            $extr = substr($article->content,0,$espace);
+                            echo strip_tags(htmlspecialchars_decode($extr)).'(...)';
+                        }else{echo strip_tags(htmlspecialchars_decode($article->content));}
+                        ?>  
+                        </p>
+                        <a href="index.php?action=article">(Lire la suite...)</a>
                     </div>
                     <?php endif; ?>
                     <?php endforeach; ?>
@@ -65,12 +79,29 @@
                     <?php endforeach; ?>
                 </div>
                 <div id="essaisText" class="containText righters">
-                    <div class="textInfo">
-                        <h3 class="theme">Essai</h3>
-                        <h3 class="title">Un os dans la soupe aux chous</h3>
-                        <p class="extract">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat eum facilis, inventore voluptas optio magnam facere hic maiores reiciendis deserunt, culpa dignissimos adipisci esse impedit ipsum velit libero, ducimus odio.Rerum quae iusto nihil omnis voluptas distinctio voluptatem optio perspiciatis autem qui accusamus totam suscipit dolorum recusandae natus expedita atque ut, dignissimos facilis cumque quaerat corporis eveniet saepe ab! Laudantium. <a href="index.php?action=article">(Lire la suite...)</a></p>
-                        
+                    <div class="bigTitle">
+                        <span class="fa fa-caret-left" href=""></span>
+                        <h2 class="rubricTitle">ESSAIS</h2>
                     </div>
+                    <?php foreach($magazine as $article): ?>
+                    <?php if($article->textType === 'Essai'): ?>
+                    <div class="textInfo">
+                        <h3 class="theme">Essais</h3>
+                        <h3 class="title"><?=$article->title ?></h3>
+                        <p class="extract">
+                        <?php 
+                        if (strlen($article->content) > 800)
+                        {
+                            $espace = strpos($article->content,' ', 800); 
+                            $extr = substr($article->content,0,$espace);
+                            echo strip_tags(htmlspecialchars_decode($extr)).'(...)';
+                        }else{echo strip_tags(htmlspecialchars_decode($article->content));}
+                        ?>  
+                        </p>
+                        <a href="index.php?action=article">(Lire la suite...)</a>
+                    </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="containerSum">
@@ -82,12 +113,29 @@
                     <?php endforeach; ?>
                 </div>
                 <div id="fictionsText" class="containText righters">
-                    <div class="textInfo">
-                        <h3 class="theme">Fiction</h3>
-                        <h3 class="title">Un os dans la soupe aux chous</h3>
-                        <p class="extract">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat eum facilis, inventore voluptas optio magnam facere hic maiores reiciendis deserunt, culpa dignissimos adipisci esse impedit ipsum velit libero, ducimus odio.Rerum quae iusto nihil omnis voluptas distinctio voluptatem optio perspiciatis autem qui accusamus totam suscipit dolorum recusandae natus expedita atque ut, dignissimos facilis cumque quaerat corporis eveniet saepe ab! Laudantium. <a href="index.php?action=article">(Lire la suite...)</a></p>
-                        
+                    <div class="bigTitle">
+                        <span class="fa fa-caret-left" href=""></span>
+                        <h2 class="rubricTitle">FICTIONS</h2>
                     </div>
+                    <?php foreach($magazine as $article): ?>
+                    <?php if($article->textType === 'Fiction'): ?>
+                    <div class="textInfo">
+                        <h3 class="theme">Fictions</h3>
+                        <h3 class="title"><?=$article->title ?></h3>
+                        <p class="extract">
+                        <?php 
+                        if (strlen($article->content) > 800)
+                        {
+                            $espace = strpos($article->content,' ', 800); 
+                            $extr = substr($article->content,0,$espace);
+                            echo strip_tags(htmlspecialchars_decode($extr)).'(...)';
+                        }else{echo strip_tags(htmlspecialchars_decode($article->content));}
+                        ?>  
+                        </p>
+                        <a href="index.php?action=article">(Lire la suite...)</a>
+                    </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
