@@ -155,6 +155,7 @@
                     background-color: $primaryBackgroundColorDark;
                     color: $primaryBackgroundColorLight;
                     transition: opacity 1.5s, height 1.5s;
+                    z-index: 2;
                     .rubricTitle{
                         
                         text-align: center;

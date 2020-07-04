@@ -540,6 +540,7 @@ header .fa-arrow-circle-right:hover {
   color: #F9FBF2;
   -webkit-transition: opacity 1.5s, height 1.5s;
   transition: opacity 1.5s, height 1.5s;
+  z-index: 2;
 }
 
 #summary .containText .bigTitle .rubricTitle {

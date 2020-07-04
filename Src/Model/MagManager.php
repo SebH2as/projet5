@@ -126,7 +126,7 @@ class MagManager
         
         WHERE mag.id_mag = :idMag
         GROUP BY(articles.id_text) 
-        ORDER BY textType');
+        ORDER BY textType, date_creation');
         
         $req->execute(['idMag' => (int) $idMag]);
         return $req->fetchALL(PDO::FETCH_OBJ);
