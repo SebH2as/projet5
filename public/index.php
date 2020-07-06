@@ -26,7 +26,8 @@ $actionMag =
     'previewMag',
     'addEdito',
     'deleteMag',
-    
+    'setOnlineMag',
+    'setSavedMag'
     
 
 ];

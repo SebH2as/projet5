@@ -27,13 +27,18 @@
                     <span class="tableContent"><?php if(($mag->editorial) === null || strlen($mag->editorial) === 0 ) echo 'non rédigé'?>
                                                 <?php if(strlen($mag->editorial) > 0) echo 'rédigé'?></span>
                     <span class="tableContent"><?= $mag->articlesNb ?></span>
-                    <span class="tableContent"><?php if (($mag ->statusPub) === '0') echo 'Archivé'?>
+                    <span class="tableContent"><?php if (($mag ->statusPub) === '0') echo 'Sauvegardé'?>
                                             <?php if (($mag ->statusPub) === '1') echo 'En ligne'?></span>
                 </a>
                 <?php endforeach; ?>
             </div>
-            <div id="pageMovers">
-                <a class="fa fa-arrow-circle-o-left" href=""></a><span>Page 1/1</span> <a class="fa fa-arrow-circle-o-right" href=""></a>
+            <div id="pageMovers<?php if($totalpages < 2) echo 'Hidden'?>">
+                <a class="fa fa-arrow-circle-o-left <?php if($currentpage === 1) echo 'hidden'?>" href="index.php?action=listMag&amp;currentpage=<?= $currentpage - 1?>"></a>
+                <span><?='Page ' . $currentpage . '/' . $totalpages?></span> 
+                <a class="fa fa-arrow-circle-o-right <?php if($currentpage === (int) $totalpages ) echo 'hidden' ?>" href="index.php?action=listMag&amp;currentpage=<?= $currentpage + 1?>"></a>
+            </div>
+            <div class="buttonsPannel"> 
+                <a class="buttonPannel" id="createMag" href="index.php?action=newMag">Créer un nouveau magazine</a>
             </div>
             <?php endif; ?>
         </section>

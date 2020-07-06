@@ -33,8 +33,9 @@ class MagController{
 
     public function magazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
     {
-
-        $this->view->render('front/magazine', 'front/layout');
+        $getIdMag = $this->magManager->getLastPublishedMag();
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $getIdMag[0]->id_mag);
+        $this->view->render('front/magazine', 'front/layout', compact('magazine'));
         
     }
 
@@ -82,15 +83,30 @@ class MagController{
 
     public function listMag():void//méthode pour afficher la page récapitulatrice de tous les magazines créés
     {
-        $allMag = $this->magManager->listAllMag();
-        $this->view->render('back/listMag', 'back/layout', compact('allMag'));
+        $totalMag = $this->magManager->countMag();
+        $nbByPage = 5;
+        $totalpages = (int) ceil($totalMag[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            } 
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+        
+        $allMag = $this->magManager->listAllMag((int) $offset, (int) $nbByPage);
+        $this->view->render('back/listMag', 'back/layout', compact('totalMag', 'allMag','nbByPage', 'offset', 'currentpage', 'totalpages'));
         
     }
 
     public function newMag():void//méthode pour afficher la page de création d'un nouveau magazine
     {
 
-        $this->view->render('back/newMag', 'back/layout');
+        $totalMag = $this->magManager->countMag();
+        $this->view->render('back/newMag', 'back/layout', compact('totalMag'));
         
     }
 
@@ -110,7 +126,7 @@ class MagController{
     {
         $message = null;
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
+        /*$this->dataLoader->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');*/
 
         $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
@@ -162,11 +178,26 @@ class MagController{
             }
         }
         $this->magManager->deleteMag((int) $this->request->get('idMag'));
-        $allMag = $this->magManager->listAllMag();
-        $this->view->render('back/listMag', 'back/layout', compact('allMag'));
+        $this->ListMag();
     }
 
-    
+    public function setOnlineMag()
+    {
+        $message = 'le magazine a été mis en ligne';
+        $this->magManager->setOnlineMag((int) $this->request->get('idMag'));
+
+        $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
+    }
+
+    public function setSavedMag()
+    {
+        $message = 'le magazine a été sauvegardé';
+        $this->magManager->setSavedMag((int) $this->request->get('idMag'));
+
+        $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
+    }
 
     
 }

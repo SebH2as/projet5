@@ -295,6 +295,23 @@ body {
   padding: 10px;
 }
 
+#oldNumbers #pageMoversHidden {
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50%;
+}
+
+#oldNumbers .hidden {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #beab6adf !important;
+}
+
 #newMag {
   position: relative;
   width: 60%;
@@ -344,6 +361,7 @@ body {
 
 #newMag #contentContainer #formNewMag {
   font-size: 24px;
+  width: 30%;
   background-color: #48A9A6;
   padding: 15px;
   border: solid 2px #110B11;
@@ -363,9 +381,10 @@ body {
 }
 
 #newMag #contentContainer #formNewMag #number {
+  text-align: center;
   width: 40%;
   font-size: 24px;
-  padding: 30px;
+  padding: 20px;
   border: solid 2px #110B11;
 }
 

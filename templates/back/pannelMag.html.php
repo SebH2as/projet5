@@ -5,22 +5,26 @@
             <span id="message" class="<?php if ($message === null) echo 'none' ?>"><?= $message ?></span>
 
             <div class="buttonsPannel"> 
-                <a class="buttonPannel" id="online">Mettre en ligne</a>
+                <?php if($data[0]->statusPub === '0'): ?>
+                <a class="buttonPannel" id="online" href="index.php?action=setOnlineMag&amp;idMag=<?= $data[0]->idMag ?>">Mettre en ligne</a>
+                <?php endif; ?>
+                <?php if($data[0]->statusPub === '1'): ?>
+                <a class="buttonPannel" id="online" href="index.php?action=setSavedMag&amp;idMag=<?= $data[0]->idMag ?>">Sauvegarder</a>
+                <?php endif; ?>
                 <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag=<?= $data[0]->idMag ?>" target="_blank">Aperçu</a>
                 <a class="buttonPannel" id="delete" href="index.php?action=deleteMag&amp;idMag=<?= $data[0]->idMag ?>">Supprimer</a>
             </div>
             
             <div id="contentContainer">
                 <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=modifyMag&amp;idMag=<?= $data[0]->idMag ?>">
-                    
-                    <h3>Revue numéro: <i><?= $data[0]->numberMag ?></i></h3>
+                    <!--<h3>Revue numéro: <i><?= $data[0]->numberMag ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="number">Modifier le numéro de la revue:</label>
                             <input type="number" id="number" name="number" min="1" max="50">    
                         </div>
                         <input type="submit" name="modifNumber" value="Modifier">
-                    </div>
+                    </div>-->
                     
                     <h3>Date de parution: <i><?php if(($data[0]->publication) === null) echo 'à définir'?>
                                         <?php if(($data[0]->publication) !== null) echo $data[0]->publication ?></i></h3>

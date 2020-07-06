@@ -105,16 +105,36 @@ class MagManager
             'nwContent' => $content]);
     }*/
 
-    public function listAllMag()
+    public function countMag():array // requete pour compter le nombre d'épisodes total
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(*) FROM mag');
+        $req->execute();
+        return $req->fetch();
+    }
+
+    public function listAllMag($offset, $nbByPage)
     {
         $req = $this->bdd->prepare('SELECT mag.id_mag,id_text, numberMag, publication, editorial, topics, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
         COUNT(articles.id_text) AS articlesNb
         FROM mag 
         LEFT JOIN articles ON mag.id_mag = articles.id_mag
         GROUP BY(mag.id_mag)
-        ORDER BY numberMag');
+        ORDER BY numberMag
+        LIMIT :offset, :limitation ');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
         $req->execute();
-        return $req->fetchALL(PDO::FETCH_OBJ); 
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
+    public function getLastPublishedMag()
+    {
+        $req = $this->bdd->prepare('SELECT id_mag
+        FROM mag
+        WHERE statusPub = 1
+        ORDER BY creation_date DESC ');
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
     public function findMagByIdWithArticles(int $idMag):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
@@ -132,9 +152,37 @@ class MagManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
+    public function findOnlineMagWithArticles(int $idMag):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
+    {
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS dateMag, topics, cover, title01, title02, editorial, statusPub,articles.id_mag AS articleIdMag, id_text, textType, content, title, author, articleCover, DATE_FORMAT(date_creation, \'Le %d/%m/%Y\') AS dateArticle
+        
+        FROM mag
+        LEFT JOIN articles ON mag.id_mag = articles.id_mag 
+        WHERE mag.id_mag = :idMag 
+        GROUP BY(articles.id_text) 
+        ORDER BY textType, date_creation');
+        
+        $req->execute(['idMag' => (int) $idMag]);
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
     public function deleteMag(int $idMag):void//requête pour supprimer un épisode en fonction de son id
     {
         $req = $this->bdd->prepare('DELETE FROM mag WHERE id_mag = :idMag ');
         $req->execute(['idMag' => $idMag]);
+    }
+
+    public function setOnlineMag(int $idMag)
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, statusPub = 1 WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag]);
+    }
+
+    public function setSavedMag(int $idMag)
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, statusPub = 0 WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag]);
     }
 }
