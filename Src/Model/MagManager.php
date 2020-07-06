@@ -112,6 +112,27 @@ class MagManager
         return $req->fetch();
     }
 
+    public function countPublishedMag():array // requete pour compter le nombre d'épisodes total
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(*) FROM mag WHERE statusPub = 1');
+        $req->execute();
+        return $req->fetch();
+    }
+
+    public function previousMag(int $idMag)
+    {
+        $req = $this->bdd->prepare('SELECT id_mag FROM mag WHERE id_mag < :idMag AND statusPub = 1 ORDER BY creation_date DESC LIMIT 1');
+        $req->execute(['idMag' => (int) $idMag]);
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
+    public function nextMag(int $idMag)
+    {
+        $req = $this->bdd->prepare('SELECT id_mag FROM mag WHERE id_mag > :idMag AND statusPub = 1 ORDER BY creation_date LIMIT 1');
+        $req->execute(['idMag' => (int) $idMag]);
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
     public function listAllMag($offset, $nbByPage)
     {
         $req = $this->bdd->prepare('SELECT mag.id_mag,id_text, numberMag, publication, editorial, topics, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,

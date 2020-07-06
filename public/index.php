@@ -27,7 +27,9 @@ $actionMag =
     'addEdito',
     'deleteMag',
     'setOnlineMag',
-    'setSavedMag'
+    'setSavedMag',
+    'previousMag',
+    'nextMag'
     
 
 ];
@@ -60,6 +62,6 @@ if (($request->get('action')) !== null){
 
 
 $controller = new magController();
-$controller->magazine();
+$controller->lastMagazine();
 
     

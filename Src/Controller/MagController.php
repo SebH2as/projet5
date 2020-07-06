@@ -31,12 +31,40 @@ class MagController{
         $this->files = new files();
     }
 
-    public function magazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
+    public function lastMagazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
     {
         $getIdMag = $this->magManager->getLastPublishedMag();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $getIdMag[0]->id_mag);
+       
+
         $this->view->render('front/magazine', 'front/layout', compact('magazine'));
         
+    }
+
+    public function previousMag()
+    {
+        $previousMag = $this->magManager->previousMag((int) $this->request->get('idMag'));
+        if(!empty($previousMag))
+        {
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $previousMag[0]->id_mag);
+            $this->view->render('front/magazine', 'front/layout', compact('magazine'));
+            exit();
+        }
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/magazine', 'front/layout', compact('magazine'));
+    }
+
+    public function nextMag()
+    {
+        $nextMag = $this->magManager->nextMag((int) $this->request->get('idMag'));
+        if(!empty($nextMag))
+        {
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $nextMag[0]->id_mag);
+            $this->view->render('front/magazine', 'front/layout', compact('magazine'));
+            exit();
+        }
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/magazine', 'front/layout', compact('magazine'));
     }
 
     public function chronics():void//méthode pour afficher la page récapitulatrice de toutes les chroniques publiées
