@@ -55,22 +55,22 @@
                         <input type="submit" class="button01" name="modifCover" value="Changer">
                     </div>
                     
-                    <h3>Titre principal: <i><?php if(($data[0]->title01) === null) echo 'à définir'?>
+                    <h3>Titre 1: <i><?php if(($data[0]->title01) === null) echo 'à définir'?>
                                         <?php if(($data[0]->title01) !== null) echo $data[0]->title01 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="title01">Modifier le titre principal:</label>
+                            <label for="title01">Modifier le titre 1:</label>
                             <input type="text" id="title01" name="title01" maxlength="70" size="70">    
                         </div>
                         <input type="submit" class="modifTitle" name="modifTitle01" value="Modifier">
                         <input type="submit" class="deleteTitle" name="deleteTitle01" value="Supprimmer">
                     </div>
                     
-                    <h3>Titre secondaire: <i><?php if(($data[0]->title02) === null) echo 'à définir'?>
+                    <h3>Titre 2: <i><?php if(($data[0]->title02) === null) echo 'à définir'?>
                                         <?php if(($data[0]->title02) !== null) echo $data[0]->title02 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="title02">Modifier le titre secondaire:</label>
+                            <label for="title02">Modifier le titre 2:</label>
                             <input type="text" id="title02" name="title02" maxlength="70" size="70">    
                         </div>
                         <input type="submit" class="modifTitle" name="modifTitle02" value="Modifier">

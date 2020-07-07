@@ -21,7 +21,6 @@ class Sum {
         for (let i = 0; i < this.nbImgs; i++) 
         {
             this.imgs[i].style.height = this.height + "%";
-            
         }
        
     }
