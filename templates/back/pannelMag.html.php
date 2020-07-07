@@ -31,9 +31,9 @@
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="parution">Modifier la date de parution:</label>
-                            <input type="text" id="parution" name="parution" maxlength="20" size="20">    
+                            <input type="text" id="parution" name="parution" maxlength="30" size="30">    
                         </div>
-                        <input type="submit" name="modifPubli" value="Modifier">
+                        <input type="submit" class="button01" name="modifPubli" value="Modifier">
                     </div>
                     
                     <h3>Thématique(s): <i><?php if(($data[0]->topics) === null) echo 'à définir'?>
@@ -43,7 +43,7 @@
                             <label for="topics">Modifier la thématique:</label>
                             <input type="text" id="topics" name="topics" maxlength="30" size="30">    
                         </div>
-                        <input type="submit" name="modifTopics" value="Modifier">
+                        <input type="submit" class="button01" name="modifTopics" value="Modifier">
                     </div>
                     
                     <h3>Image de couverture: <i><?= $data[0]->cover ?></i></h3>
@@ -52,7 +52,7 @@
                             <label for="cover">Changer la couverture:</label>
                             <input type="file" id="cover" name="cover">    
                         </div>
-                        <input type="submit" name="modifCover" value="Changer">
+                        <input type="submit" class="button01" name="modifCover" value="Changer">
                     </div>
                     
                     <h3>Titre principal: <i><?php if(($data[0]->title01) === null) echo 'à définir'?>
@@ -62,7 +62,8 @@
                             <label for="title01">Modifier le titre principal:</label>
                             <input type="text" id="title01" name="title01" maxlength="70" size="70">    
                         </div>
-                        <input type="submit" name="modifTitle01" value="Modfier">
+                        <input type="submit" class="modifTitle" name="modifTitle01" value="Modifier">
+                        <input type="submit" class="deleteTitle" name="deleteTitle01" value="Supprimmer">
                     </div>
                     
                     <h3>Titre secondaire: <i><?php if(($data[0]->title02) === null) echo 'à définir'?>
@@ -72,7 +73,8 @@
                             <label for="title02">Modifier le titre secondaire:</label>
                             <input type="text" id="title02" name="title02" maxlength="70" size="70">    
                         </div>
-                        <input type="submit" name="modifTitle02" value="Modfier">
+                        <input type="submit" class="modifTitle" name="modifTitle02" value="Modifier">
+                        <input type="submit" class="deleteTitle" name="deleteTitle02" value="Supprimmer">
                     </div>
                     
                     <h3>Editorial: <i><?php if(($data[0]->editorial) === null || strlen($data[0]->editorial) === 0 ) echo 'non rédigé'?>
@@ -81,7 +83,7 @@
                         <div class="labelInput">
                             <label for="title02">Modifier ou relire l'éditorial:</label>  
                         </div>
-                        <input type="submit" name="modifEdito" value="Modfier ou relire">
+                        <input type="submit" class="button01" name="modifEdito" value="Modfier ou relire">
                     </div>
                 </form>
             </div>

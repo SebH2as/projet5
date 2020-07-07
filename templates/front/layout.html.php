@@ -15,7 +15,7 @@
                 <a class="navTopLink" href="">Newsletter</a>
                 <a class="navTopLink" href="index.php?action=monCompte">Mon compte</a>
             </div>
-            <a id="logo" href="index.php"><?= $separator ?><span>KILOMETRAGE</span></a>
+            <div id="logo" href="index.php"><?= $separator ?><span>KILOMETRAGE</span></div>
             <div id="navLinks">
                 <a class="navBottomLink fa fa-home" href="index.php"></a>
                 <a id="link01" class="navBottomLink" href="index.php?action=chronics">CHRONIQUES</a>

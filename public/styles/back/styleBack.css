@@ -632,8 +632,16 @@ body {
   margin-left: 15px;
 }
 
+#mag #contentContainer #formMag .formRow .labelInput #cover {
+  width: 45%;
+  padding: 15px;
+  font-size: 14px;
+  border: solid 2px #110B11;
+  margin-left: 15px;
+}
+
 #mag #contentContainer #formMag .formRow .labelInput #title01 {
-  width: 60%;
+  width: 55%;
   padding: 15px;
   font-size: 18px;
   border: solid 2px #110B11;
@@ -641,14 +649,14 @@ body {
 }
 
 #mag #contentContainer #formMag .formRow .labelInput #title02 {
-  width: 60%;
+  width: 55%;
   padding: 15px;
   font-size: 18px;
   border: solid 2px #110B11;
   margin-left: 15px;
 }
 
-#mag #contentContainer #formMag .formRow input[type=submit] {
+#mag #contentContainer #formMag .formRow .button01 {
   width: 20%;
   padding: 15px;
   margin-top: 15px;
@@ -662,7 +670,51 @@ body {
   margin: 15px;
 }
 
-#mag #contentContainer #formMag .formRow input[type=submit]:hover {
+#mag #contentContainer #formMag .formRow .button01:hover {
+  background-color: #FBF7B1;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+}
+
+#mag #contentContainer #formMag .formRow .modifTitle {
+  width: 10%;
+  padding: 5px;
+  margin-top: 15px;
+  border: solid 2px #F8F272;
+  background-color: #48A9A6;
+  border-radius: 12px;
+  font-size: 18px;
+  -webkit-box-shadow: 0px 5px 10px #110B11;
+          box-shadow: 0px 5px 10px #110B11;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 15px;
+}
+
+#mag #contentContainer #formMag .formRow .modifTitle:hover {
+  background-color: #FBF7B1;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+}
+
+#mag #contentContainer #formMag .formRow .deleteTitle {
+  width: 10%;
+  padding: 5px;
+  margin-top: 15px;
+  border: solid 2px #F8F272;
+  background-color: #48A9A6;
+  border-radius: 12px;
+  font-size: 18px;
+  -webkit-box-shadow: 0px 5px 10px #110B11;
+          box-shadow: 0px 5px 10px #110B11;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  background-color: #d80000;
+  margin: 15px;
+}
+
+#mag #contentContainer #formMag .formRow .deleteTitle:hover {
   background-color: #FBF7B1;
   -webkit-box-shadow: 0px 2px 10px #110B11;
           box-shadow: 0px 2px 10px #110B11;
@@ -1059,17 +1111,17 @@ body {
 }
 
 #articleInfos #contentContainer #formMag .formRow .labelInput #title {
-  width: 60%;
+  width: 55%;
   padding: 15px;
   font-size: 18px;
   border: solid 2px #110B11;
   margin-left: 15px;
 }
 
-#articleInfos #contentContainer #formMag .formRow .labelInput #imgArticle {
-  width: 60%;
+#articleInfos #contentContainer #formMag .formRow .labelInput #articleCover {
+  width: 45%;
   padding: 15px;
-  font-size: 18px;
+  font-size: 14px;
   border: solid 2px #110B11;
   margin-left: 15px;
 }
@@ -1176,6 +1228,9 @@ body {
   padding: 15px;
   border-radius: 12px;
   font-style: italic;
+}
+
+#editorialSection .none {
   display: none;
 }
 

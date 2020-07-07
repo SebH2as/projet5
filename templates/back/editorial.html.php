@@ -3,7 +3,7 @@
         
         <section id="editorialSection">
             <h2>Editorial de la revue numéro <?=$data[0] ->numberMag?></h2>
-            <span id="message"></span>
+            <span id="message" class="<?php if ($message === null) echo 'none' ?>"><?= $message ?></span>
             <a id="backLink" href="index.php?action=modifyMag&amp;idMag=<?= $data[0]->id_mag ?>">Retour au panneau de gestion du magazine</a>           
         </section>
         <section id="textEditor">

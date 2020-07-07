@@ -35,9 +35,10 @@ class MagController{
     {
         $getIdMag = $this->magManager->getLastPublishedMag();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $getIdMag[0]->id_mag);
-       
+        $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
+        $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
 
-        $this->view->render('front/magazine', 'front/layout', compact('magazine'));
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
         
     }
 
@@ -47,11 +48,15 @@ class MagController{
         if(!empty($previousMag))
         {
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $previousMag[0]->id_mag);
-            $this->view->render('front/magazine', 'front/layout', compact('magazine'));
+            $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
+            $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
+            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
             exit();
         }
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/magazine', 'front/layout', compact('magazine'));
+        $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
+        $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
     }
 
     public function nextMag()
@@ -60,11 +65,15 @@ class MagController{
         if(!empty($nextMag))
         {
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $nextMag[0]->id_mag);
-            $this->view->render('front/magazine', 'front/layout', compact('magazine'));
+            $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
+            $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
+            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
             exit();
         }
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/magazine', 'front/layout', compact('magazine'));
+        $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
+        $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
     }
 
     public function chronics():void//méthode pour afficher la page récapitulatrice de toutes les chroniques publiées
@@ -167,7 +176,8 @@ class MagController{
         if($this->request->post('modifEdito') !== null)
         {
             $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
-            $this->view->render('back/editorial', 'back/layout', compact('data'));
+            $message = null;
+            $this->view->render('back/editorial', 'back/layout', compact('data', 'message'));
             exit();
         }
         
@@ -181,9 +191,11 @@ class MagController{
 
     public function addEdito()
     {
+        
         $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
         $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $this->view->render('back/editorial', 'back/layout', compact('data'));
+        $message = "L'éditorial a été modifié";
+        $this->view->render('back/editorial', 'back/layout', compact('data', 'message'));
     }
 
     public function previewMag()

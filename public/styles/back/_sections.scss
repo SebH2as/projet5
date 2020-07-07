@@ -335,15 +335,22 @@
                                     border: solid 2px $blackColor;
                                     margin-left: 15px;
                                 }
+                                #cover{
+                                    width: 45%;
+                                    padding: 15px;
+                                    font-size: 14px;
+                                    border: solid 2px $blackColor;
+                                    margin-left: 15px;
+                                }
                                 #title01{
-                                    width: 60%;
+                                    width: 55%;
                                     padding: 15px;
                                     font-size: 18px;
                                     border: solid 2px $blackColor;
                                     margin-left: 15px;
                                 }
                                 #title02{
-                                    width: 60%;
+                                    width: 55%;
                                     padding: 15px;
                                     font-size: 18px;
                                     border: solid 2px $blackColor;
@@ -351,8 +358,21 @@
                                 }
                             
                         }
-                        input[type=submit]{
+                        .button01{
                             @include buttonBack;
+                            margin: 15px;
+                        }
+                        .modifTitle{
+                            @include buttonBack2;
+                            font-size: 14px;
+                            margin: 15px;
+                        }
+                        .deleteTitle
+                        {
+                            @include buttonBack2;
+                            font-size: 14px;
+                            text-align: center;
+                            background-color: rgb(216, 0, 0);
                             margin: 15px;
                         }
                         
@@ -597,16 +617,16 @@
                                     margin-left: 15px;
                                 }
                                 #title{
-                                    width: 60%;
+                                    width: 55%;
                                     padding: 15px;
                                     font-size: 18px;
                                     border: solid 2px $blackColor;
                                     margin-left: 15px;
                                 }
-                                #imgArticle{
-                                    width: 60%;
+                                #articleCover{
+                                    width: 45%;
                                     padding: 15px;
-                                    font-size: 18px;
+                                    font-size: 14px;
                                     border: solid 2px $blackColor;
                                     margin-left: 15px;
                                 }
@@ -673,6 +693,8 @@
         padding: 15px;
         border-radius: 12px;
         font-style: italic;
+    }
+    .none{
         display: none;
     }
     #contentContainer{

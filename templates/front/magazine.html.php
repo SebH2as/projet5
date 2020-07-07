@@ -12,8 +12,8 @@
             <a id="anchorEd" class=" fade" data-rate="-1.025" href="#editorial">Edito</a>
             <h2 id="title01" class=" fade" data-rate="-1.025"><?= $magazine[0]->title01 ?></h2>
             <h2 id="title02" class=" fade" data-rate="-1.025"><?= $magazine[0]->title02 ?></h2>
-            <a class="fa fa-arrow-circle-left" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
-            <a class="fa fa-arrow-circle-right" href="index.php?action=nextMag&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
+            <a class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
+            <a class="fa fa-arrow-circle-right<?php if (empty($next)) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
          </header>
          <section id="editorial">
             <div class="columnBig" >

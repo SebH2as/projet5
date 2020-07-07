@@ -72,6 +72,13 @@ class MagManager
             'nwTitle01' => $title01Mag]);
     }
 
+    public function deleteTitle01(int $idMag):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('DELETE title01 SET id_mag = :sameid FROM mag WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag]);
+    }
+
     public function modifTitle02(int $idMag, string $title02Mag):bool//requête pour modifier les thématiques d'un magazine
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, title02 = :nwTitle02 WHERE id_mag = :sameid ');
@@ -179,7 +186,7 @@ class MagManager
         
         FROM mag
         LEFT JOIN articles ON mag.id_mag = articles.id_mag 
-        WHERE mag.id_mag = :idMag 
+        WHERE mag.id_mag = :idMag AND statusPub = 1
         GROUP BY(articles.id_text) 
         ORDER BY textType, date_creation');
         

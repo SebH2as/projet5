@@ -200,7 +200,7 @@ header #title01 {
   position: absolute;
   top: 65%;
   left: 15%;
-  width: 50%;
+  max-width: 50%;
   color: #F9FBF2;
   background-color: #030B12;
   padding: 5px;
@@ -214,7 +214,7 @@ header #title02 {
   position: absolute;
   top: 80%;
   left: 15%;
-  width: 50%;
+  max-width: 50%;
   color: #F9FBF2;
   background-color: #030B12;
   padding: 5px;
@@ -227,7 +227,8 @@ header #title02 {
 header #numberDate {
   position: absolute;
   top: 1%;
-  left: 24%;
+  left: 22%;
+  font-size: 18px;
   color: #F9FBF2;
   padding: 0.5em 0.2em 0.8em 0.5em;
   display: inline-block;
