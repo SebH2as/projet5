@@ -170,8 +170,11 @@ class MagController{
         $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics', 'Le thème du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
         $this->dataLoader->addData('magManager', 'idMag', 'modifTitle01', 'title01', 'Le titre principal du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
+        $this->dataLoader->deleteData('magManager', 'idMag', 'deleteTitle01', 'title01', 'Le titre principal du magazine a été supprimmé', 'pannelmag', 'findMagByIdWithArticles');
 
         $this->dataLoader->addData('magManager', 'idMag', 'modifTitle02', 'title02', 'Le titre secondaire du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
+        $this->dataLoader->deleteData('magManager', 'idMag', 'deleteTitle02', 'title02', 'Le titre secondaire du magazine a été supprimmé', 'pannelmag', 'findMagByIdWithArticles');
+
 
         if($this->request->post('modifEdito') !== null)
         {

@@ -36,4 +36,17 @@ class DataLoader{
         }
     }
 
+    public function deleteData( $manager,  $id,  $method,  $column, $text = null, $template, $method2  )
+    {
+        $message = null;
+        if($this->request->post($method) !== null &&  empty($this->request->post($column)))
+        {
+            $this->$manager->$method( (int) $this->request->get($id));
+            $message = $text;
+            $data = $this->$manager->$method2((int) $this->request->get($id));
+            $this->view->render('back/' . $template  , 'back/layout', compact('data', 'message'));
+            exit();
+        }
+    }
+
 }

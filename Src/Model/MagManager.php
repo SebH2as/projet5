@@ -74,7 +74,7 @@ class MagManager
 
     public function deleteTitle01(int $idMag):bool//requête pour modifier les thématiques d'un magazine
     {
-        $req = $this->bdd->prepare('DELETE title01 SET id_mag = :sameid FROM mag WHERE id_mag = :sameid ');
+        $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, title01 = null WHERE id_mag = :sameid ');
         return $req->execute([
             'sameid' => $idMag]);
     }
@@ -85,6 +85,13 @@ class MagManager
         return $req->execute([
             'sameid' => $idMag,
             'nwTitle02' => $title02Mag]);
+    }
+
+    public function deleteTitle02(int $idMag):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, title02 = null WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag]);
     }
 
     public function modifEdito(int $idMag, string $editoMag):bool//requête pour modifier les thématiques d'un magazine
