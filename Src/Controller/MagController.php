@@ -78,43 +78,43 @@ class MagController{
 
     public function chronics():void//méthode pour afficher la page récapitulatrice de toutes les chroniques publiées
     {
-
-        $this->view->render('front/chronics', 'front/layout');
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/chronics', 'front/layout', compact('magazine'));
         
     }
 
     public function essais():void//méthode pour afficher la page récapitulatrice de toutes les essais publiés
     {
-
-        $this->view->render('front/essais', 'front/layout');
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/essais', 'front/layout', compact('magazine'));
         
     }
 
     public function fictions():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
     {
-
-        $this->view->render('front/fictions', 'front/layout');
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/fictions', 'front/layout', compact('magazine'));
         
     }
 
     public function article():void//méthode pour afficher la page d'un article
     {
-
-        $this->view->render('front/article', 'front/layout');
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/article', 'front/layout', compact('magazine'));
         
     }
 
     public function monCompte():void//méthode pour afficher la page mon compte
     {
-
-        $this->view->render('front/monCompte', 'front/layout');
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/monCompte', 'front/layout', compact('magazine'));
         
     }
 
     public function nousRejoindre():void//méthode pour afficher la page mon compte
     {
-
-        $this->view->render('front/nousRejoindre', 'front/layout');
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/nousRejoindre', 'front/layout', compact('magazine'));
         
     }
 

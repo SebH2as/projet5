@@ -12,15 +12,15 @@
         <nav id="navBar">
             <div id="navTop">
                 <a class="navTopLink" href="">Qui sommes nous?</a>
-                <a class="navTopLink" href="index.php?action=nousRejoindre">Nous rejoindre</a>
-                <a class="navTopLink" href="index.php?action=monCompte">Mon compte</a>
+                <a class="navTopLink" href="index.php?action=nousRejoindre&amp;idMag=<?= $magazine[0]->idMag ?>">Nous rejoindre</a>
+                <a class="navTopLink" href="index.php?action=monCompte&amp;idMag=<?= $magazine[0]->idMag ?>">Mon compte</a>
             </div>
             <div id="logo" href="index.php"><?= $separator ?><span>KILOMETRAGE</span></div>
             <div id="navLinks">
                 <a class="navBottomLink fa fa-home" href="index.php"></a>
-                <a id="link01" class="navBottomLink" href="index.php?action=chronics">CHRONIQUES</a>
-                <a class="navBottomLink" href="index.php?action=essais">ESSAIS</a>
-                <a class="navBottomLink" href="index.php?action=fictions">FICTIONS</a>
+                <a id="link01" class="navBottomLink" href="index.php?action=chronics&amp;idMag=<?= $magazine[0]->idMag ?>"">CHRONIQUES</a>
+                <a class="navBottomLink" href="index.php?action=essais&amp;idMag=<?= $magazine[0]->idMag ?>"">ESSAIS</a>
+                <a class="navBottomLink" href="index.php?action=fictions&amp;idMag=<?= $magazine[0]->idMag ?>"">FICTIONS</a>
                 <a class="navBottomLink fa fa-search" href=""></a>
             </div>           
             <div id="popupInfos">

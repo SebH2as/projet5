@@ -419,24 +419,18 @@
             position: relative;
             width: 100%;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-evenly;
             align-items: center;
             margin-bottom: 5vh;
             h1{
                 position: relative;
                 font-size: 48px;
-                background-color: $primaryBackgroundColorLight;
-                
-                padding: 0px 15px 10px 15px;
                 z-index: 2;
             }
             h2{
                 position: relative;
-                font-size: 24px;
-                padding: 10px;
-                background-color: $primaryBackgroundColorLight;
+                font-size: 48px;
                 z-index: 2;
-                border: 2px solid $secondaryBacgroundColorOrange;
             }
             #separator02{
                 width: 100%;
@@ -475,7 +469,7 @@
             font-size: 24px;
             width: 50%;
             padding-top: 2vh;
-            padding-bottom: 2vh;
+            padding-bottom: 1vh;
             margin-bottom: 5vh;
             input{
                 width: 80%;
@@ -492,9 +486,9 @@
                 font-size: 18px;
                 background-color: $secondaryBacgroundColorOrange;
                 border: 2px solid $primaryBackgroundColorDark;
-                .fa{
+                .fa-info{
                     position: absolute;
-                    right: 30%;
+                    right: 34%;
                     top: 15%;
                     font-size: 18px;
                     cursor: help;
@@ -513,6 +507,7 @@
             #register{
                 background-color: $secondaryBacgroundColorOrange;
                 border: 2px solid $primaryBackgroundColorDark;
+                font-size: 24px;
                 &:hover{
                     background-color: $primaryBackgroundColorDark;
                     color: $primaryBackgroundColorLight;

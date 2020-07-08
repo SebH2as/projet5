@@ -886,8 +886,9 @@ header .fa-arrow-circle-right:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -897,18 +898,13 @@ header .fa-arrow-circle-right:hover {
 #article #titleArticle h1 {
   position: relative;
   font-size: 48px;
-  background-color: #F9FBF2;
-  padding: 0px 15px 10px 15px;
   z-index: 2;
 }
 
 #article #titleArticle h2 {
   position: relative;
-  font-size: 24px;
-  padding: 10px;
-  background-color: #F9FBF2;
+  font-size: 48px;
   z-index: 2;
-  border: 2px solid #E8871E;
 }
 
 #article #titleArticle #separator02 {
@@ -962,7 +958,7 @@ header .fa-arrow-circle-right:hover {
   font-size: 24px;
   width: 50%;
   padding-top: 2vh;
-  padding-bottom: 2vh;
+  padding-bottom: 1vh;
   margin-bottom: 5vh;
 }
 
@@ -984,9 +980,9 @@ header .fa-arrow-circle-right:hover {
   border: 2px solid #030B12;
 }
 
-#article #formSignIn label .fa {
+#article #formSignIn label .fa-info {
   position: absolute;
-  right: 30%;
+  right: 34%;
   top: 15%;
   font-size: 18px;
   cursor: help;
@@ -1005,6 +1001,7 @@ header .fa-arrow-circle-right:hover {
 #article #formSignIn #register {
   background-color: #E8871E;
   border: 2px solid #030B12;
+  font-size: 24px;
 }
 
 #article #formSignIn #register:hover {
