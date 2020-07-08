@@ -1,5 +1,8 @@
 <?php $title = 'Kilométrage'; ?>
 <?php $separator = ''; ?>
+<?php $script = '<script src="js/navbar.js"></script>
+        <script src="js/animation.js"></script>
+        <script src="js/sum.js"></script>'; ?>
 
         <header>
             <div id="border" class=" fade anim" data-rate="-1.025"></div>
@@ -26,7 +29,10 @@
                 </div>
             </div>
             <div class="column">
-                <div class="square topers"></div>
+                <div class="square topers">
+                    <h3>Courrier des lecteurs</h3>
+                    <a class="fa fa-envelope"></a>
+                </div>
                 <div class="square topers"></div>
                 <div class="square topers"></div>
             </div>

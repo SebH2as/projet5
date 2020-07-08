@@ -12,7 +12,7 @@
         <nav id="navBar">
             <div id="navTop">
                 <a class="navTopLink" href="">Qui sommes nous?</a>
-                <a class="navTopLink" href="">Newsletter</a>
+                <a class="navTopLink" href="index.php?action=nousRejoindre">Nous rejoindre</a>
                 <a class="navTopLink" href="index.php?action=monCompte">Mon compte</a>
             </div>
             <div id="logo" href="index.php"><?= $separator ?><span>KILOMETRAGE</span></div>
@@ -26,15 +26,13 @@
             <div id="popupInfos">
                 <p>infos</p>
             </div>
-         </nav>
+        </nav>
 
-         <?= $content ?>
+        <?= $content ?>
 
-         <footer>
+        <footer>
             <div id="media"><a class="fa fa-facebook-square" href=""></a><a class="fa fa-twitter-square" href=""></a><a class="fa fa-youtube-square" href=""></a></div>
         </footer>
-        <script src="js/navbar.js"></script>
-        <script src="js/animation.js"></script>
-        <script src="js/sum.js"></script>
+        <?= $script ?>
     </body>
 </html>

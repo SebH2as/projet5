@@ -17,6 +17,7 @@ $actionMag =
     'fictions',
     'article',
     'monCompte',
+    'nousRejoindre',
     'connection',
     'newMag',
     'createNewMag',

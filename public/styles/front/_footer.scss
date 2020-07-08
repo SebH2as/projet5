@@ -1,13 +1,15 @@
 footer{
-    width:80%;
+    width:60%;
     height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: absolute;
+    left: 20%;
+    bottom: 0;
     background-color: $primaryBackgroundColorDark;
-    border: 2px $secondaryBacgroundColorOrange;
-    border-style: solid solid none;
+    border: 2px solid $secondaryBacgroundColorOrange;
+    
     #media{
         color: $secondaryBacgroundColorOrange;
         font-size: 48px;

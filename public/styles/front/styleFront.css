@@ -1,7 +1,12 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   width: 100%;
   height: auto;
-  margin: auto;
+  margin: 0 0 8vh;
   background-color: #030B12;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -374,6 +379,29 @@ header .fa-arrow-circle-right:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#editorial .column .square {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 200px;
+  color: #E8871E;
+}
+
+#editorial .column .square h3 {
+  font-size: 36px;
+  color: #030B12;
 }
 
 #editorial .columnBig {
@@ -880,8 +908,7 @@ header .fa-arrow-circle-right:hover {
   padding: 10px;
   background-color: #F9FBF2;
   z-index: 2;
-  border: 2px #E8871E;
-  border-style: solid solid dotted;
+  border: 2px solid #E8871E;
 }
 
 #article #titleArticle #separator02 {
@@ -891,6 +918,98 @@ header .fa-arrow-circle-right:hover {
   position: absolute;
   top: 46%;
   z-index: 1;
+}
+
+#article #infos {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #E8871E;
+  margin-bottom: 5vh;
+  padding-left: 5vh;
+  padding-right: 5vh;
+  border-top: 5px solid #030B12;
+  border-bottom: 5px solid #030B12;
+}
+
+#article #infos span {
+  text-align: center;
+  font-size: 18px;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+#article #formSignIn {
+  background-color: #F9FBF2;
+  border: 5px solid #E8871E;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 24px;
+  width: 50%;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  margin-bottom: 5vh;
+}
+
+#article #formSignIn input {
+  width: 80%;
+  font-size: 18px;
+  border: 2px solid #030B12;
+  border-top: none;
+  padding: 2px;
+  margin-bottom: 2vh;
+}
+
+#article #formSignIn label {
+  text-align: center;
+  position: relative;
+  width: 80%;
+  font-size: 18px;
+  background-color: #E8871E;
+  border: 2px solid #030B12;
+}
+
+#article #formSignIn label .fa {
+  position: absolute;
+  right: 30%;
+  top: 15%;
+  font-size: 18px;
+  cursor: help;
+  color: #030B12;
+}
+
+#article #formSignIn label .fa-circle {
+  position: absolute;
+  right: 3.25%;
+  font-size: 24px;
+  top: 15%;
+  color: #F9FBF2;
+  cursor: help;
+}
+
+#article #formSignIn #register {
+  background-color: #E8871E;
+  border: 2px solid #030B12;
+}
+
+#article #formSignIn #register:hover {
+  background-color: #030B12;
+  color: #F9FBF2;
 }
 
 #article #articleContent {
@@ -911,7 +1030,7 @@ header .fa-arrow-circle-right:hover {
   min-height: 95vh;
   padding-top: 3vh;
   margin-bottom: 5vh;
-  background-color: #F9FBF2;
+  background-color: #E8871E;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -927,7 +1046,7 @@ header .fa-arrow-circle-right:hover {
 }
 
 footer {
-  width: 80%;
+  width: 60%;
   height: 8vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -938,10 +1057,11 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: relative;
+  position: absolute;
+  left: 20%;
+  bottom: 0;
   background-color: #030B12;
-  border: 2px #E8871E;
-  border-style: solid solid none;
+  border: 2px solid #E8871E;
 }
 
 footer #media {

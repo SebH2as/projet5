@@ -111,6 +111,13 @@ class MagController{
         
     }
 
+    public function nousRejoindre():void//méthode pour afficher la page mon compte
+    {
+
+        $this->view->render('front/nousRejoindre', 'front/layout');
+        
+    }
+
     public function connection():void//méthode pour se connecter au back
     {
 

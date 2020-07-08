@@ -18,6 +18,18 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+        .square{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 200px;
+            color: $secondaryBacgroundColorOrange;
+            h3{
+                font-size: 36px;
+                color: $primaryBackgroundColorDark;
+            }
+        }
     }
     
     .columnBig
@@ -424,8 +436,7 @@
                 padding: 10px;
                 background-color: $primaryBackgroundColorLight;
                 z-index: 2;
-                border: 2px $secondaryBacgroundColorOrange;
-                border-style: solid solid dotted;
+                border: 2px solid $secondaryBacgroundColorOrange;
             }
             #separator02{
                 width: 100%;
@@ -434,6 +445,78 @@
                 position: absolute;
                 top: 46%;
                 z-index: 1;
+            }
+            
+        }
+        #infos{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: $secondaryBacgroundColorOrange;
+            margin-bottom: 5vh;
+            padding-left: 5vh;
+            padding-right: 5vh;
+            border-top: 5px solid $primaryBackgroundColorDark;
+            border-bottom: 5px solid $primaryBackgroundColorDark;
+            span{
+                text-align: center;
+                font-size: 18px;
+                padding-top: 2vh;
+                padding-bottom: 2vh;
+            }
+        }
+        #formSignIn{
+            background-color: $primaryBackgroundColorLight;
+            border: 5px solid $secondaryBacgroundColorOrange;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            width: 50%;
+            padding-top: 2vh;
+            padding-bottom: 2vh;
+            margin-bottom: 5vh;
+            input{
+                width: 80%;
+                font-size: 18px;
+                border: 2px solid $primaryBackgroundColorDark;
+                border-top: none;
+                padding: 2px;
+                margin-bottom: 2vh;
+            }
+            label{
+                text-align: center;
+                position: relative;
+                width: 80%;
+                font-size: 18px;
+                background-color: $secondaryBacgroundColorOrange;
+                border: 2px solid $primaryBackgroundColorDark;
+                .fa{
+                    position: absolute;
+                    right: 30%;
+                    top: 15%;
+                    font-size: 18px;
+                    cursor: help;
+                    color: $primaryBackgroundColorDark;
+                }
+                .fa-circle{
+                    position: absolute;
+                    right: 3.25%;
+                    font-size: 24px;
+                    top: 15%;
+                    color: $primaryBackgroundColorLight;
+                    cursor: help;
+                }
+                
+            }
+            #register{
+                background-color: $secondaryBacgroundColorOrange;
+                border: 2px solid $primaryBackgroundColorDark;
+                &:hover{
+                    background-color: $primaryBackgroundColorDark;
+                    color: $primaryBackgroundColorLight;
+                }
             }
         }
 
@@ -456,7 +539,7 @@
     min-height: 95vh;
     padding-top: 3vh;
     margin-bottom: 5vh;
-    background-color: $primaryBackgroundColorLight;
+    background-color:  $secondaryBacgroundColorOrange;
     position: relative;
     display: flex;
     flex-direction: column;
