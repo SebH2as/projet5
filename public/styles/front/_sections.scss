@@ -295,6 +295,7 @@
     margin-bottom: 5vh;
     background-color: $primaryBackgroundColorLight;
     position: relative;
+    
         #titleRubric{
             position: relative;
             text-align: center;
@@ -324,6 +325,7 @@
             justify-content: space-evenly;
             flex-wrap: wrap;
             align-items: center;
+            text-decoration: none;
         }
 
         .containImg
@@ -349,11 +351,13 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 1vh;
+            color: $primaryBackgroundColorDark;
+            
                 .textInfo{
                     
                     width: 95%;
                     height: 90%;
-
+                    
                     border: 2px solid $secondaryBacgroundColorOrange;
                     
                         .theme{
@@ -380,10 +384,11 @@
                         }
                         .extract{
                             padding: 2vh;
+                            
                         }
                         a{
                             text-align: center;
-                            text-decoration: none;
+                            
                         }
                 }
         }
@@ -403,6 +408,43 @@
             }
             
         }
+        #pageMovers{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5vh;;
+            align-self: center;
+                a{
+                    width: 30%;
+                    text-align: center;
+                    font-size: 54px;
+                    text-decoration: none;
+                    color: $primaryBackgroundColorDark;
+                    &:hover{
+                        color: $secondaryBacgroundColorOrange;
+                    }
+                }
+                span{
+                    background-color: $secondaryBacgroundColorOrange;
+                    border: solid 2px $primaryBackgroundColorDark;
+                    font-size: 24px;
+                    padding: 10px;;
+                }
+        }
+        #pageMoversHidden{
+            display: none;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+        .hidden{
+            cursor: not-allowed;
+            pointer-events: none;
+            color: #eceee3 !important;
+            
+            
+        }
 }
 
 #article{
@@ -419,25 +461,39 @@
             position: relative;
             width: 100%;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-around;
             align-items: center;
             margin-bottom: 5vh;
+            
+            
+            a{
+                text-decoration: none;
+                color: $primaryBackgroundColorDark;
+            }
             h1{
                 position: relative;
-                font-size: 48px;
+                font-size: 36px;
                 z-index: 2;
+                color: $primaryBackgroundColorDark;
+                
             }
             h2{
                 position: relative;
-                font-size: 48px;
+                font-size: 36px;
                 z-index: 2;
+                color: $primaryBackgroundColorDark;
+                padding-left: 1vh;
+                padding-right: 1vh;
+                &:hover{
+                    color: $primaryBackgroundColorLight;
+                }
             }
             #separator02{
                 width: 100%;
                 height: 0;
-                border-top: 20px solid $secondaryBacgroundColorOrange;
+                border-top: 36px solid $secondaryBacgroundColorOrange;
                 position: absolute;
-                top: 46%;
+                top: 24%;
                 z-index: 1;
             }
             
@@ -522,6 +578,7 @@
             text-justify: auto;
             padding:10px;
             margin-bottom: 5vh;
+            color: $primaryBackgroundColorDark;
 
             h3{
                 text-decoration: underline;

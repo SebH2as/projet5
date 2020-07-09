@@ -10,22 +10,41 @@
     </head>
     <body>
         <nav id="navBar">
+        <?php if ($preview === 1): ?>
             <div id="navTop">
+                <a class="navTopLink" >Qui sommes nous?</a>
+                <a class="navTopLink" >Nous rejoindre</a>
+                <a class="navTopLink" >Se connecter</a>
+            </div>
+            <div id="logo" ><?= $separator ?><span>KILOMETRAGE</span></div>
+            <div id="navLinks">
+                <a class="navBottomLink fa fa-home" ></a>
+                <a id="link01" class="navBottomLink" >CHRONIQUES</a>
+                <a class="navBottomLink" >ESSAIS</a>
+                <a class="navBottomLink" >FICTIONS</a>
+                <a class="navBottomLink fa fa-search"></a>
+            </div>           
+            <div id="popupInfos">
+                <p>infos</p>
+            </div>
+            <?php else: ?>
+                <div id="navTop">
                 <a class="navTopLink" href="">Qui sommes nous?</a>
                 <a class="navTopLink" href="index.php?action=nousRejoindre&amp;idMag=<?= $magazine[0]->idMag ?>">Nous rejoindre</a>
-                <a class="navTopLink" href="index.php?action=monCompte&amp;idMag=<?= $magazine[0]->idMag ?>">Mon compte</a>
+                <a class="navTopLink" href="index.php?action=monCompte&amp;idMag=<?= $magazine[0]->idMag ?>">Se connecter</a>
             </div>
-            <div id="logo" href="index.php"><?= $separator ?><span>KILOMETRAGE</span></div>
+            <div id="logo"><?= $separator ?><span>KILOMETRAGE</span></div>
             <div id="navLinks">
                 <a class="navBottomLink fa fa-home" href="index.php"></a>
-                <a id="link01" class="navBottomLink" href="index.php?action=chronics&amp;idMag=<?= $magazine[0]->idMag ?>"">CHRONIQUES</a>
-                <a class="navBottomLink" href="index.php?action=essais&amp;idMag=<?= $magazine[0]->idMag ?>"">ESSAIS</a>
-                <a class="navBottomLink" href="index.php?action=fictions&amp;idMag=<?= $magazine[0]->idMag ?>"">FICTIONS</a>
+                <a id="link01" class="navBottomLink" href="index.php?action=chroniques&amp;idMag=<?= $magazine[0]->idMag ?>">CHRONIQUES</a>
+                <a class="navBottomLink" href="index.php?action=essais&amp;idMag=<?= $magazine[0]->idMag ?>">ESSAIS</a>
+                <a class="navBottomLink" href="index.php?action=fictions&amp;idMag=<?= $magazine[0]->idMag ?>">FICTIONS</a>
                 <a class="navBottomLink fa fa-search" href=""></a>
             </div>           
             <div id="popupInfos">
                 <p>infos</p>
             </div>
+            <?php endif; ?>
         </nav>
 
         <?= $content ?>

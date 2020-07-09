@@ -1,7 +1,9 @@
 <?php $title = 'Article'; ?>
 <?php $separator = '<div id="separator01"></div>'; ?>
+<?php $script = '<script src="js/navbar.js"></script>'; ?>
+<?php $preview = 1 ; ?>
 
-<div id="sectionImg">
+        <div id="sectionImg">
             <img class="rubricImg" src="images/<?= $article[0]->articleCover ?>" alt="graff">
         </div>
         <section id="article">

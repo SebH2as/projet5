@@ -1,6 +1,7 @@
 <?php $title = 'Nous rejoindre'; ?>
 <?php $separator = '<div id="separator01"></div>'; ?>
 <?php $script = '<script src="js/navbar.js"></script>'; ?>
+<?php $preview = 0 ; ?>
 
 <div id="sectionImg">
             <img class="rubricImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">

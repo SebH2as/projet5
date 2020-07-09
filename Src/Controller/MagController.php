@@ -31,6 +31,16 @@ class MagController{
         $this->files = new files();
     }
 
+    public function magazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
+    {
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
+        $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
+
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
+        
+    }
+
     public function lastMagazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
     {
         $getIdMag = $this->magManager->getLastPublishedMag();
@@ -76,31 +86,75 @@ class MagController{
         $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
     }
 
-    public function chronics():void//méthode pour afficher la page récapitulatrice de toutes les chroniques publiées
+    public function chroniques():void//méthode pour afficher la page récapitulatrice de toutes les chroniques publiées
     {
-        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/chronics', 'front/layout', compact('magazine'));
+        $totalChroniques = $this->articleManager->countPublishedChroniques();
+        $nbByPage = 6;
+        $totalpages = (int) ceil($totalChroniques[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            } 
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
         
+        $articles = $this->articleManager->listAllPublishedChroniques((int) $offset, (int) $nbByPage);
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/chroniques', 'front/layout', compact('magazine', 'articles','totalChroniques', 'nbByPage','currentpage', 'offset', 'totalpages'));
     }
 
     public function essais():void//méthode pour afficher la page récapitulatrice de toutes les essais publiés
     {
-        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/essais', 'front/layout', compact('magazine'));
+        $totalEssais = $this->articleManager->countPublishedEssais();
+        $nbByPage = 6;
+        $totalpages = (int) ceil($totalEssais[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            } 
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
         
+        $articles = $this->articleManager->listAllPublishedEssais((int) $offset, (int) $nbByPage);
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/essais', 'front/layout', compact('magazine', 'articles','totalEssais', 'nbByPage','currentpage', 'offset', 'totalpages'));
     }
 
     public function fictions():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
     {
-        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/fictions', 'front/layout', compact('magazine'));
+        $totalFictions = $this->articleManager->countPublishedFictions();
+        $nbByPage = 6;
+        $totalpages = (int) ceil($totalFictions[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            } 
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
         
+        $articles = $this->articleManager->listAllPublishedFictions((int) $offset, (int) $nbByPage);
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/fictions', 'front/layout', compact('magazine', 'articles','totalFictions', 'nbByPage','currentpage', 'offset', 'totalpages'));
     }
 
     public function article():void//méthode pour afficher la page d'un article
     {
+        $currentpage = 1;
+        $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/article', 'front/layout', compact('magazine'));
+        $this->view->render('front/article', 'front/layout', compact('magazine', 'article', 'currentpage'));
         
     }
 

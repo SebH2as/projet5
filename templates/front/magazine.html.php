@@ -3,6 +3,7 @@
 <?php $script = '<script src="js/navbar.js"></script>
         <script src="js/animation.js"></script>
         <script src="js/sum.js"></script>'; ?>
+<?php $preview = 0 ; ?>
 
         <header>
             <div id="border" class=" fade anim" data-rate="-1.025"></div>
@@ -55,7 +56,7 @@
                     </div>
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Chronique'): ?>
-                    <a class="textInfo" href="index.php?action=previewArticle&amp;idText=<?= $article->id_text ?>">
+                    <a class="textInfo" href="index.php?action=article&amp;idText=<?= $article->id_text ?>&amp;idMag=<?= $article->idMag ?>">
                         <h3 class="theme">Chroniques</h3>
                         <h3 class="title"><?=$article->title ?></h3>
                         <h4 class="author">Par <?=$article->author ?></h4>
@@ -90,7 +91,7 @@
                     </div>
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Essai'): ?>
-                    <a class="textInfo" href="index.php?action=previewArticle&amp;idText=<?= $article->id_text ?>">
+                    <a class="textInfo" href="index.php?action=article&amp;idText=<?= $article->id_text ?>&amp;idMag=<?= $article->idMag ?>">
                         <h3 class="theme">Essais</h3>
                         <h3 class="title"><?=$article->title ?></h3>
                         <p class="extract">
@@ -124,7 +125,7 @@
                     </div>
                     <?php foreach($magazine as $article): ?>
                     <?php if($article->textType === 'Fiction'): ?>
-                    <a class="textInfo" href="index.php?action=previewArticle&amp;idText=<?= $article->id_text ?>">
+                    <a class="textInfo" href="index.php?action=article&amp;idText=<?= $article->id_text ?>&amp;idMag=<?= $article->idMag ?>">
                         <h3 class="theme">Fictions</h3>
                         <h3 class="title"><?=$article->title ?></h3>
                         <p class="extract">

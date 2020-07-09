@@ -12,7 +12,7 @@ $request = new Request();
 
 $actionMag = 
 [
-    'chronics',
+    'chroniques',
     'essais',
     'fictions',
     'article',
@@ -30,7 +30,8 @@ $actionMag =
     'setOnlineMag',
     'setSavedMag',
     'previousMag',
-    'nextMag'
+    'nextMag',
+    'magazine'
     
 
 ];

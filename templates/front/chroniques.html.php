@@ -1,4 +1,4 @@
-<?php $title = 'Fictions'; ?>
+<?php $title = 'Chroniques'; ?>
 <?php $separator = '<div id="separator01"></div>'; ?>
 <?php $script = '<script src="js/navbar.js"></script>'; ?>
 <?php $preview = 0 ; ?>
@@ -8,21 +8,21 @@
          </div>
          <section id="listRubric">
              
-            <div id="titleRubric"><h1>TOUTES LES FICTIONS</h1><div id="separator02"></div></div>
-            <div id="pageMovers<?php if($totalpages < 2) echo 'Hidden'?>">
+             <div id="titleRubric"><h1>TOUTES LES CHRONIQUES</h1><div id="separator02"></div></div>
+             <div id="pageMovers<?php if($totalpages < 2) echo 'Hidden'?>">
                 <a class="fa fa-arrow-circle-o-left <?php if($currentpage === 1) echo 'hidden'?>" href="index.php?action=fictions&amp;currentpage=<?= $currentpage - 1?>&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
                 <span><?='Page ' . $currentpage . '/' . $totalpages?></span> 
                 <a class="fa fa-arrow-circle-o-right <?php if($currentpage === (int) $totalpages ) echo 'hidden' ?>" href="index.php?action=fictions&amp;currentpage=<?= $currentpage + 1?>&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
             </div>
             <?php foreach($articles as $article): ?>
-            <?php if($article->textType === 'Fiction'): ?>
+            <?php if($article->textType === 'Chronique'): ?>
             <a class="containerRubric" href="index.php?action=article&amp;idText=<?= $article->id_text ?>&amp;idMag=<?= $article->idMag ?>">
                 <div id="chronicImgs" class="containImg lefters">
                     <img class="thumbImg" src="images/<?=$article->articleCover ?>" alt="graff">
                 </div>
                 <div id="rubricText" class="containText righters">
                     <div class="textInfo">
-                        <h3 class="theme">Fictions</h3><h3 class="number">Revue N°<?=$article->numberMag ?></h3>
+                        <h3 class="theme">Chroniques</h3><h3 class="number">Revue N°<?=$article->numberMag ?></h3>
                         <h3 class="title"><?=$article->title ?></h3>
                         <p class="extract">
                         <?php 

@@ -87,4 +87,76 @@ class ArticleManager
             'sameid' => $idtext,
             'nwContent' => $content]);
     }
+
+    public function ListAllPublishedFictions($offset, $nbByPage)
+    {
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE textType = "Fiction" AND statusPub = 1
+        ORDER BY numberMag DESC
+        LIMIT :offset, :limitation');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
+    public function countPublishedFictions():array // requete pour compter le nombre d'épisodes total
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(*) 
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE textType = "Fiction" AND statusPub = 1');
+        $req->execute();
+        return $req->fetch();
+    }
+
+    public function ListAllPublishedChroniques($offset, $nbByPage)
+    {
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE textType = "Chronique" AND statusPub = 1
+        ORDER BY numberMag DESC
+        LIMIT :offset, :limitation');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
+    public function countPublishedChroniques():array // requete pour compter le nombre d'épisodes total
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(*) 
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE textType = "Chronique" AND statusPub = 1');
+        $req->execute();
+        return $req->fetch();
+    }
+
+    public function ListAllPublishedEssais($offset, $nbByPage)
+    {
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE textType = "Essai" AND statusPub = 1
+        ORDER BY numberMag DESC
+        LIMIT :offset, :limitation');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
+    public function countPublishedEssais():array // requete pour compter le nombre d'épisodes total
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(*) 
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE textType = "Essai" AND statusPub = 1');
+        $req->execute();
+        return $req->fetch();
+    }
 }
