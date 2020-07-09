@@ -2,6 +2,7 @@
 <?php $separator = '<div id="separator01"></div>'; ?>
 <?php $script = '<script src="js/navbar.js"></script>'; ?>
 <?php $preview = 0 ; ?>
+<?php $active = 3 ; ?>
 
 <div id="sectionImg">
             <img class="rubricImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">

@@ -125,6 +125,11 @@ nav .navBottomLink:hover {
   text-decoration: underline;
 }
 
+nav .navBottomLink.active {
+  color: #E8871E;
+  text-decoration: underline;
+}
+
 nav #popupInfos {
   position: absolute;
   width: 60%;

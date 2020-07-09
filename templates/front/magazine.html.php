@@ -4,6 +4,7 @@
         <script src="js/animation.js"></script>
         <script src="js/sum.js"></script>'; ?>
 <?php $preview = 0 ; ?>
+<?php $active = 1 ; ?>
 
         <header>
             <div id="border" class=" fade anim" data-rate="-1.025"></div>

@@ -41,8 +41,7 @@ class Sum {
                 for (let j =0; j < this.nbTxts; j++)
                 {
                     if(j !== textIndex)
-                    {
-                        
+                    { 
                         arrayTxts[j].style.opacity = "0";
                         arrayTxts[j].style.zIndex = "0";
                     }

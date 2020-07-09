@@ -74,6 +74,10 @@ nav{
             color: $secondaryBacgroundColorOrange;
             text-decoration: underline;
         }
+        &.active{
+            color: $secondaryBacgroundColorOrange;
+            text-decoration: underline;
+        }
         
     }
 

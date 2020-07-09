@@ -19,7 +19,7 @@
             <div id="logo" ><?= $separator ?><span>KILOMETRAGE</span></div>
             <div id="navLinks">
                 <a class="navBottomLink fa fa-home" ></a>
-                <a id="link01" class="navBottomLink" >CHRONIQUES</a>
+                <a class="navBottomLink" >CHRONIQUES</a>
                 <a class="navBottomLink" >ESSAIS</a>
                 <a class="navBottomLink" >FICTIONS</a>
                 <a class="navBottomLink fa fa-search"></a>
@@ -35,10 +35,10 @@
             </div>
             <div id="logo"><?= $separator ?><span>KILOMETRAGE</span></div>
             <div id="navLinks">
-                <a class="navBottomLink fa fa-home" href="index.php"></a>
-                <a id="link01" class="navBottomLink" href="index.php?action=chroniques&amp;idMag=<?= $magazine[0]->idMag ?>">CHRONIQUES</a>
-                <a class="navBottomLink" href="index.php?action=essais&amp;idMag=<?= $magazine[0]->idMag ?>">ESSAIS</a>
-                <a class="navBottomLink" href="index.php?action=fictions&amp;idMag=<?= $magazine[0]->idMag ?>">FICTIONS</a>
+                <a class="navBottomLink fa fa-home<?php if ($active === 1) echo ' active' ?>" href="index.php"></a>
+                <a class="navBottomLink<?php if ($active === 2) echo ' active' ?>" href="index.php?action=chroniques&amp;idMag=<?= $magazine[0]->idMag ?>">CHRONIQUES</a>
+                <a class="navBottomLink<?php if ($active === 3) echo ' active' ?>" href="index.php?action=essais&amp;idMag=<?= $magazine[0]->idMag ?>">ESSAIS</a>
+                <a class="navBottomLink<?php if ($active === 4) echo ' active' ?>" href="index.php?action=fictions&amp;idMag=<?= $magazine[0]->idMag ?>">FICTIONS</a>
                 <a class="navBottomLink fa fa-search" href=""></a>
             </div>           
             <div id="popupInfos">
