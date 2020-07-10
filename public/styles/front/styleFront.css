@@ -360,6 +360,9 @@ header .infoBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  opacity: 0;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
 }
 
 header .infoBox span {
@@ -386,6 +389,7 @@ header .hidden {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  opacity: 0;
 }
 
 header .hidden span {
@@ -1020,7 +1024,16 @@ header .hidden span {
   padding-right: 1vh;
 }
 
-#article #titleArticle h2:hover {
+#article #titleArticle h3 {
+  position: relative;
+  font-size: 36px;
+  z-index: 2;
+  color: #030B12;
+  padding-left: 1vh;
+  padding-right: 1vh;
+}
+
+#article #titleArticle h3:hover {
   color: #F9FBF2;
 }
 
@@ -1145,6 +1158,9 @@ header .hidden span {
   display: -ms-flexbox;
   display: flex;
   border: 2px solid #030B12;
+  opacity: 0;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
 }
 
 #article #formSignIn .infoBox span {

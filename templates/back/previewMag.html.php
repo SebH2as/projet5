@@ -1,5 +1,11 @@
 <?php $title = 'aperçu magazine'; ?>
 <?php $separator = ''; ?>
+<?php $script = '<script src="js/navbar.js"></script>
+        <script src="js/animation.js"></script>
+        <script src="js/infoBox.js"></script>
+        <script src="js/sum.js"></script>'; ?>
+<?php $preview = 1 ; ?>
+<?php $active = 0 ; ?>
 
 <header>
             <div id="border" class=" fade anim" data-rate="-1.025"></div>

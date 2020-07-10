@@ -198,6 +198,8 @@ header
         justify-content: center;
         align-items: center;
         display: flex;
+        opacity: 0;
+        transition: opacity 1s;
         span{
             font-size: 14px;
             background-color: $primaryBackgroundColorLight;
@@ -217,6 +219,7 @@ header
         justify-content: center;
         align-items: center;
         display: flex;
+        opacity: 0;
         span{
             font-size: 14px;
             background-color: $primaryBackgroundColorLight;

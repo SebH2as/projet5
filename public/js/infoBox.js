@@ -16,10 +16,12 @@ class InfoBox{
         {
             this.infoBoxes[i].parentElement.onmouseover = ()=>{
                 this.infoBoxes[i].classList.remove("hidden");
+                this.infoBoxes[i].style.opacity = '1';
             }
 
             this.infoBoxes[i].parentElement.onmouseout = ()=>{
                 this.infoBoxes[i].classList.add("hidden");
+                this.infoBoxes[i].style.opacity = '0';
             }
         }
     }

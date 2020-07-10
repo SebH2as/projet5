@@ -484,6 +484,14 @@
                 color: $primaryBackgroundColorDark;
                 padding-left: 1vh;
                 padding-right: 1vh;
+            }
+            h3{
+                position: relative;
+                font-size: 36px;
+                z-index: 2;
+                color: $primaryBackgroundColorDark;
+                padding-left: 1vh;
+                padding-right: 1vh;
                 &:hover{
                     color: $primaryBackgroundColorLight;
                 }
@@ -582,6 +590,8 @@
                 align-items: center;
                 display: flex;
                 border: 2px solid $primaryBackgroundColorDark;
+                opacity: 0 ;
+                transition: opacity .5s;
                 span{
                     font-size: 14px;
                     text-align: left;
