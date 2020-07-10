@@ -167,8 +167,50 @@ class MagController{
 
     public function nousRejoindre():void//méthode pour afficher la page mon compte
     {
+        $error = null;
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/nousRejoindre', 'front/layout', compact('magazine'));
+        $this->view->render('front/nousRejoindre', 'front/layout', compact('magazine', 'error'));
+    }
+
+    public function addUser():void
+    {
+        $isError = true;
+        
+        $error = 'Au moins un des champs est vide';
+        if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
+        && $this->request->post('mail') !== null &&  !empty($this->request->post('mail'))
+        && $this->request->post('mail2') !== null &&  !empty($this->request->post('mail2'))
+        && $this->request->post('password') !== null &&  !empty($this->request->post('password'))
+        && $this->request->post('password2') !== null &&  !empty($this->request->post('password2')))
+        {
+            if(strlen($this->request->post('pseudo')) < 3 || strlen($this->request->post('pseudo')) > 15)
+            {
+                $error = 'Le pseudo choisi n\'est pas valide';
+
+                if(($this->request->post('mail')) !== ($this->request->post('mail2')))
+                {
+                    $error = 'Les emails renseignés ne correspondent pas';
+                    
+                    if(($this->request->post('password')) !== ($this->request->post('password2')))
+                    {
+                        $error = 'Les mots de passe renseignés ne correspondent pas';   
+                        
+                    }
+                }
+            }
+            if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')))
+                        {
+
+                        }
+
+
+            
+        }
+        if($isError)
+        {
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/nousRejoindre', 'front/layout', compact('magazine', 'error'));
+        }
         
     }
 

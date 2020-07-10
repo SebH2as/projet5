@@ -8,8 +8,6 @@ class NavBar{
 
     stickyBar()
     { 
-      let current = location.href;  
-              console.log(current);
       window.addEventListener("scroll", ()=>{
         let nav = this.navBar;
         nav.classList.toggle("sticky", window.scrollY > 0);

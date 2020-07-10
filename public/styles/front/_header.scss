@@ -172,9 +172,10 @@ header
         transition: color .5s, transform .5s;
         &:hover{
             color: $secondaryBacgroundColorOrange;
-            transform: scale(1.1,1.1);
+            
         }
     }
+    
     .fa-arrow-circle-right{
         position: absolute;
         text-decoration: none;
@@ -186,8 +187,45 @@ header
         transition: color .5s, transform .5s;
         &:hover{
             color: $secondaryBacgroundColorOrange;
-            transform: scale(1.1,1.1);
+            
         }
+    }
+    .infoBox{
+        position: absolute;
+        z-index: 2;
+        top: -6vh;
+        left: -1vh;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        span{
+            font-size: 14px;
+            background-color: $primaryBackgroundColorLight;
+            border: 3px solid $primaryBackgroundColorDark;
+            border-radius: 10px;
+            text-align: center;
+            padding: 1vh;
+            color: $primaryBackgroundColorDark;
+        }
+        
+    }
+    .hidden{
+        position: absolute;
+        z-index: -2;
+        bottom: -5vh;
+        left: -.75vh;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        span{
+            font-size: 14px;
+            background-color: $primaryBackgroundColorLight;
+            text-align: center;
+            padding: 1vh;
+            color: $primaryBackgroundColorDark;
+            display: none;
+        }
+        
     }
 }
 

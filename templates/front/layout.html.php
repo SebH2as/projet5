@@ -41,9 +41,6 @@
                 <a class="navBottomLink<?php if ($active === 4) echo ' active' ?>" href="index.php?action=fictions&amp;idMag=<?= $magazine[0]->idMag ?>">FICTIONS</a>
                 <a class="navBottomLink fa fa-search" href=""></a>
             </div>           
-            <div id="popupInfos">
-                <p>infos</p>
-            </div>
             <?php endif; ?>
         </nav>
 

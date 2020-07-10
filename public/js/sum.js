@@ -27,23 +27,21 @@ class Sum {
 
     linkingArrays()
     {
-        let arrayTxts = this.arrayTxts;
-        
         for (let i = 0; i < this.nbImgs; i++) 
         {
             this.imgs[i].onclick = ()=>{
                 
                 let textIndex = i + 1;
                 
-                arrayTxts[textIndex].style.opacity = "1";
-                arrayTxts[textIndex].style.zIndex = "2";
+                this.arrayTxts[textIndex].style.opacity = "1";
+                this.arrayTxts[textIndex].style.zIndex = "2";
 
                 for (let j =0; j < this.nbTxts; j++)
                 {
                     if(j !== textIndex)
                     { 
-                        arrayTxts[j].style.opacity = "0";
-                        arrayTxts[j].style.zIndex = "0";
+                        this.arrayTxts[j].style.opacity = "0";
+                        this.arrayTxts[j].style.zIndex = "0";
                     }
                 }
                 

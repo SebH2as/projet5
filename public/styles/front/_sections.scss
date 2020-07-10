@@ -515,6 +515,17 @@
                 padding-bottom: 2vh;
             }
         }
+        #error{
+            color: $primaryBackgroundColorDark;
+            background-color: rgb(238, 41, 41);
+            padding: 5px;
+            font-size: 24px;
+            border: 3px solid $primaryBackgroundColorDark;
+            margin-bottom: 2vh;
+            &.none{
+                display: none;
+            }
+        }
         #formSignIn{
             background-color: $primaryBackgroundColorLight;
             border: 5px solid $secondaryBacgroundColorOrange;
@@ -534,6 +545,7 @@
                 border-top: none;
                 padding: 2px;
                 margin-bottom: 2vh;
+                text-align: center;
             }
             label{
                 text-align: center;
@@ -560,7 +572,44 @@
                 }
                 
             }
-            #register{
+            .infoBox{
+                position: absolute;
+                z-index: 2;
+                top: -5vh;
+                width: 300px;
+                left: 1vh;
+                justify-content: flex-start;
+                align-items: center;
+                display: flex;
+                border: 2px solid $primaryBackgroundColorDark;
+                span{
+                    font-size: 14px;
+                    text-align: left;
+                    background-color: $primaryBackgroundColorLight;
+                    
+                    padding: 1vh;
+                    color: $primaryBackgroundColorDark;
+                }
+                
+            }
+            .hidden{
+                position: absolute;
+                z-index: -2;
+                bottom: -5vh;
+                left: -.75vh;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                span{
+                    font-size: 14px;
+                    background-color: $primaryBackgroundColorLight;
+                    text-align: center;
+                    padding: 1vh;
+                    color: $primaryBackgroundColorDark;
+                    display: none;
+                }
+            }
+            #saver{
                 background-color: $secondaryBacgroundColorOrange;
                 border: 2px solid $primaryBackgroundColorDark;
                 font-size: 24px;

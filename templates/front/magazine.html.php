@@ -2,23 +2,24 @@
 <?php $separator = ''; ?>
 <?php $script = '<script src="js/navbar.js"></script>
         <script src="js/animation.js"></script>
+        <script src="js/infoBox.js"></script>
         <script src="js/sum.js"></script>'; ?>
 <?php $preview = 0 ; ?>
-<?php $active = 1 ; ?>
+<?php $active = 0 ; ?>
 
         <header>
-            <div id="border" class=" fade anim" data-rate="-1.025"></div>
-            <div id="borderLeft" class=" fade anim" data-rate="-1.025"></div>
-            <div id="borderRight" class=" fade anim" data-rate="-1.025"></div>
-            <img id="headerImg" class=" fade02" data-rate="2" src="images/<?= $magazine[0]->cover ?>" alt="graff">
-            <h3 id="numberDate" class=" fade" data-rate="-1.025">Numéro <?= $magazine[0]->numberMag ?> <?= $magazine[0]->publication ?></h3>
-            <h3 id="sentence" class=" fade" data-rate="-1.025">Un magazine qui tient la route...</h3>
-            <a id="anchorSum" class=" fade" data-rate="-1.025" href="#summary">Sommaire</a>
-            <a id="anchorEd" class=" fade" data-rate="-1.025" href="#editorial">Edito</a>
-            <h2 id="title01" class=" fade" data-rate="-1.025"><?= $magazine[0]->title01 ?></h2>
-            <h2 id="title02" class=" fade" data-rate="-1.025"><?= $magazine[0]->title02 ?></h2>
-            <a id="arrowLeft" class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
-            <a class="fa fa-arrow-circle-right<?php if (empty($next)) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
+            <div id="border"></div>
+            <div id="borderLeft"></div>
+            <div id="borderRight"></div>
+            <img id="headerImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">
+            <h3 id="numberDate">Numéro <?= $magazine[0]->numberMag ?> <?= $magazine[0]->publication ?></h3>
+            <h3 id="sentence">Un magazine qui tient la route...</h3>
+            <a id="anchorSum" href="#summary">Sommaire</a>
+            <a id="anchorEd" href="#editorial">Edito</a>
+            <h2 id="title01"><?= $magazine[0]->title01 ?></h2>
+            <h2 id="title02"><?= $magazine[0]->title02 ?></h2>
+            <a id="arrowLeft" class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine précédent</span></div></a>
+            <a class="fa fa-arrow-circle-right<?php if (empty($next)) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine suivant</span></div></a>
         </header>
         <section id="editorial">
             <div class="columnBig" >

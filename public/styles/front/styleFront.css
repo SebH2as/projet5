@@ -326,8 +326,6 @@ header .fa-arrow-circle-left {
 
 header .fa-arrow-circle-left:hover {
   color: #E8871E;
-  -webkit-transform: scale(1.1, 1.1);
-          transform: scale(1.1, 1.1);
 }
 
 header .fa-arrow-circle-right {
@@ -346,8 +344,57 @@ header .fa-arrow-circle-right {
 
 header .fa-arrow-circle-right:hover {
   color: #E8871E;
-  -webkit-transform: scale(1.1, 1.1);
-          transform: scale(1.1, 1.1);
+}
+
+header .infoBox {
+  position: absolute;
+  z-index: 2;
+  top: -6vh;
+  left: -1vh;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header .infoBox span {
+  font-size: 14px;
+  background-color: #F9FBF2;
+  border: 3px solid #030B12;
+  border-radius: 10px;
+  text-align: center;
+  padding: 1vh;
+  color: #030B12;
+}
+
+header .hidden {
+  position: absolute;
+  z-index: -2;
+  bottom: -5vh;
+  left: -.75vh;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header .hidden span {
+  font-size: 14px;
+  background-color: #F9FBF2;
+  text-align: center;
+  padding: 1vh;
+  color: #030B12;
+  display: none;
 }
 
 #editorial {
@@ -1009,6 +1056,19 @@ header .fa-arrow-circle-right:hover {
   padding-bottom: 2vh;
 }
 
+#article #error {
+  color: #030B12;
+  background-color: #ee2929;
+  padding: 5px;
+  font-size: 24px;
+  border: 3px solid #030B12;
+  margin-bottom: 2vh;
+}
+
+#article #error.none {
+  display: none;
+}
+
 #article #formSignIn {
   background-color: #F9FBF2;
   border: 5px solid #E8871E;
@@ -1039,6 +1099,7 @@ header .fa-arrow-circle-right:hover {
   border-top: none;
   padding: 2px;
   margin-bottom: 2vh;
+  text-align: center;
 }
 
 #article #formSignIn label {
@@ -1068,13 +1129,64 @@ header .fa-arrow-circle-right:hover {
   cursor: help;
 }
 
-#article #formSignIn #register {
+#article #formSignIn .infoBox {
+  position: absolute;
+  z-index: 2;
+  top: -5vh;
+  width: 300px;
+  left: 1vh;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 2px solid #030B12;
+}
+
+#article #formSignIn .infoBox span {
+  font-size: 14px;
+  text-align: left;
+  background-color: #F9FBF2;
+  padding: 1vh;
+  color: #030B12;
+}
+
+#article #formSignIn .hidden {
+  position: absolute;
+  z-index: -2;
+  bottom: -5vh;
+  left: -.75vh;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#article #formSignIn .hidden span {
+  font-size: 14px;
+  background-color: #F9FBF2;
+  text-align: center;
+  padding: 1vh;
+  color: #030B12;
+  display: none;
+}
+
+#article #formSignIn #saver {
   background-color: #E8871E;
   border: 2px solid #030B12;
   font-size: 24px;
 }
 
-#article #formSignIn #register:hover {
+#article #formSignIn #saver:hover {
   background-color: #030B12;
   color: #F9FBF2;
 }

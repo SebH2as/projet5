@@ -31,7 +31,8 @@ $actionMag =
     'setSavedMag',
     'previousMag',
     'nextMag',
-    'magazine'
+    'magazine',
+    'addUser'
     
 
 ];
