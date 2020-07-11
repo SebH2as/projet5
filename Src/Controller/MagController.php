@@ -7,6 +7,7 @@ namespace Projet5\Controller;
 use Projet5\View\View;
 use Projet5\Model\MagManager;
 use Projet5\Model\ArticleManager;
+use Projet5\Model\UsersManager;
 use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
@@ -16,6 +17,7 @@ class MagController{
         
     private $magManager;
     private $articleManager;
+    private $usersManager;
     private $view;
     private $request;
     private $dataLoader;
@@ -26,6 +28,7 @@ class MagController{
         $this->view = new View();
         $this->magManager = new magManager();
         $this->articleManager = new articleManager();
+        $this->usersManager = new usersManager();
         $this->request = new request();
         $this->dataLoader = new dataLoader();
         $this->files = new files();
@@ -186,23 +189,25 @@ class MagController{
             if(strlen($this->request->post('pseudo')) < 3 || strlen($this->request->post('pseudo')) > 15)
             {
                 $error = 'Le pseudo choisi n\'est pas valide';
-
-                if(($this->request->post('mail')) !== ($this->request->post('mail2')))
-                {
-                    $error = 'Les emails renseignés ne correspondent pas';
-                    
-                    if(($this->request->post('password')) !== ($this->request->post('password2')))
-                    {
-                        $error = 'Les mots de passe renseignés ne correspondent pas';   
-                        
-                    }
-                }
+            }
+            if(($this->request->post('mail')) !== ($this->request->post('mail2')))
+            {
+                $error = 'Les emails renseignés ne correspondent pas';
+            }
+            if(($this->request->post('password')) !== ($this->request->post('password2')))
+            {
+                $error = 'Les mots de passe renseignés ne correspondent pas';   
+                
             }
             if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')))
                         {
-
+                            $error =null;
+                            $this->usersManager->addUser((string) $this->request->post('pseudo'),(string) $this->request->post('mail'),(string) password_hash($this->request->post('password'), PASSWORD_DEFAULT));
+                            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+                            $this->view->render('front/confirmation', 'front/layout', compact('magazine', 'error'));
+                            exit();
                         }
-
+            $error = 'Le mot de passe choisi n\'est pas valide';
 
             
         }

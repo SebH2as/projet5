@@ -32,7 +32,7 @@
                 <label for="mail2">Confirmez votre adresse mail</label>
                 <input type="text" id="mail2" name="mail2" maxlength="50" size="50">
                 
-                <label for="password">Choisissez un mot de passe <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Votre mot de passe doit avoir au moins 8 caractères, pas plus de 50 et doit comporter au moins un caractère spécial et un chiffre.</span></div></i></label>
+                <label for="password">Choisissez un mot de passe <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Votre mot de passe doit avoir au moins 8 caractères, pas plus de 50 et doit comporter au moins une majuscule, un caractère spécial et un chiffre.</span></div></i></label>
                 <input type="password" id="password" name="password" maxlength="50" size="50">  
                 
                 <label for="password2">Confirmez votre mot de passe</label>
