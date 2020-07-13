@@ -17,12 +17,45 @@ class UsersManager
         $this->bdd = $this->dataBase->getConnection();
     }
 
-    public function addUser($pseudo, $email, $password)
+    public function addUser($pseudo, $email, $password, $key)
     {
-        $req = $this->bdd->prepare('INSERT INTO users SET pseudo = :newpseudo, email = :newemail, p_w = :newpassword, inscription_date = NOW()');
+        $req = $this->bdd->prepare('INSERT INTO users SET pseudo = :newpseudo, email = :newemail, p_w = :newpassword, inscription_date = NOW(), confirmkey = :newkey, actived = 0');
         return $req->execute([
             'newpseudo' => (string) $pseudo,
             'newemail' => (string) $email,
+            'newkey' => (int) $key,
             'newpassword' => (string) $password]);
+    }
+
+    public function getKeyByPseudo($pseudo)
+    {
+        $req = $this->bdd->prepare('SELECT confirmkey FROM users WHERE pseudo = :newpseudo');
+        $req->execute([
+            'newpseudo' => (string) $pseudo]);
+        return $req->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function activeCount($pseudo)
+    {
+        $req = $this->bdd->prepare('UPDATE users SET actived = 1 WHERE pseudo = :newpseudo ');
+        $req->execute([
+            'newpseudo' => (string) $pseudo]);
+    }
+    
+
+    public function pseudoUser($pseudo)
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(pseudo) FROM users WHERE pseudo = :newpseudo');
+        $req->execute([
+            'newpseudo' => (string) $pseudo]);
+        return $req->fetch();
+    }
+
+    public function emailUser($email)
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(pseudo) FROM users WHERE email = :newemail');
+        $req->execute([
+            'newemail' => (string) $email]);
+        return $req->fetch();
     }
 }

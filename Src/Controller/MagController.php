@@ -186,30 +186,46 @@ class MagController{
         && $this->request->post('password') !== null &&  !empty($this->request->post('password'))
         && $this->request->post('password2') !== null &&  !empty($this->request->post('password2')))
         {
-            if(strlen($this->request->post('pseudo')) < 3 || strlen($this->request->post('pseudo')) > 15)
+            $error = 'Le pseudo choisi n\'est pas valide';
+            if(strlen($this->request->post('pseudo')) > 3 && strlen($this->request->post('pseudo')) < 15)
             {
-                $error = 'Le pseudo choisi n\'est pas valide';
-            }
-            if(($this->request->post('mail')) !== ($this->request->post('mail2')))
-            {
-                $error = 'Les emails renseignés ne correspondent pas';
-            }
-            if(($this->request->post('password')) !== ($this->request->post('password2')))
-            {
-                $error = 'Les mots de passe renseignés ne correspondent pas';   
-                
-            }
-            if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')))
+                $error = 'Le pseudo choisi est déjà utilisé';
+                $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudo'));
+                if( ($pseudoThere[0]) < 1)
+                {
+                    $error = 'Les emails renseignés ne correspondent pas';
+                    if(($this->request->post('mail')) === ($this->request->post('mail2')))
+                    {
+                        $error = 'L\' email choisi est déjà utilisé';
+                        $emailThere = $this->usersManager->emailUser( $this->request->post('mail'));
+                        if( ($emailThere[0]) < 1)
                         {
-                            $error =null;
-                            $this->usersManager->addUser((string) $this->request->post('pseudo'),(string) $this->request->post('mail'),(string) password_hash($this->request->post('password'), PASSWORD_DEFAULT));
-                            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-                            $this->view->render('front/confirmation', 'front/layout', compact('magazine', 'error'));
-                            exit();
-                        }
-            $error = 'Le mot de passe choisi n\'est pas valide';
+                            $error = 'Les mots de passe renseignés ne correspondent pas'; 
+                            if(($this->request->post('password')) === ($this->request->post('password2')))
+                            {
+                                $error = 'Le mot de passe choisi n\'est pas valide';
+                                if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')))
+                                {
+                                    $error =null;
+                                    $key = '';
+                                    for($i = 1; $i<6 ; $i++)
+                                    {
+                                        $key .= mt_rand(0,9);
+                                    }
 
-            
+                                    $this->usersManager->addUser((string) $this->request->post('pseudo'),(string) $this->request->post('mail'),(string) password_hash($this->request->post('password'), PASSWORD_DEFAULT),(int) $key);
+                                    $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+                                    $this->view->render('front/activation', 'front/layout', compact('magazine', 'error'));
+                                    var_dump($this->usersManager->pseudoUser($this->request->post('pseudo')));
+                                    exit();
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                }
+            }  
         }
         if($isError)
         {
@@ -217,6 +233,33 @@ class MagController{
             $this->view->render('front/nousRejoindre', 'front/layout', compact('magazine', 'error'));
         }
         
+    }
+
+    public function activation()
+    {
+        $isError = true;
+        
+        $error = 'Veuillez renseigner tous les champs';
+        if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
+        && $this->request->post('code') !== null &&  !empty($this->request->post('code')))
+        {
+            $error = 'Le code n\'est pas valide';
+            $userKey = $this->usersManager->getKeyByPseudo($this->request->post('pseudo'));
+            if(($this->request->post('code')) === $userKey[0]->confirmkey)
+            {
+                $this->usersManager->activeCount($this->request->post('pseudo'));
+                $error = 'Votre compte a été activé';
+                $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+                $this->view->render('front/activation', 'front/layout', compact('magazine', 'error'));
+                exit();
+            }
+        }
+
+        if($isError)
+        {
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/activation', 'front/layout', compact('magazine', 'error'));
+        }
     }
 
     public function connection():void//méthode pour se connecter au back

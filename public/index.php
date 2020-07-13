@@ -32,7 +32,8 @@ $actionMag =
     'previousMag',
     'nextMag',
     'magazine',
-    'addUser'
+    'addUser',
+    'activation'
     
 
 ];
