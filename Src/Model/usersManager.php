@@ -27,6 +27,14 @@ class UsersManager
             'newpassword' => (string) $password]);
     }
 
+    public function getUserByPseudo($pseudo)
+    {
+        $req = $this->bdd->prepare('SELECT * FROM users WHERE pseudo = :newpseudo AND actived = 1');
+        $req->execute([
+            'newpseudo' => (string) $pseudo]);
+        return $req->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function getKeyByPseudo($pseudo)
     {
         $req = $this->bdd->prepare('SELECT confirmkey FROM users WHERE pseudo = :newpseudo');

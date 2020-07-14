@@ -623,6 +623,7 @@
                 background-color: $secondaryBacgroundColorOrange;
                 border: 2px solid $primaryBackgroundColorDark;
                 font-size: 24px;
+                cursor: pointer;
                 &:hover{
                     background-color: $primaryBackgroundColorDark;
                     color: $primaryBackgroundColorLight;

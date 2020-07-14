@@ -4,6 +4,7 @@ require('../vendor/autoload.php');
 
 use Projet5\Controller\MagController;
 use Projet5\Controller\ArticleController;
+use Projet5\Controller\UserController;
 use Projet5\Tools\Request;
 
 session_start();
@@ -12,13 +13,6 @@ $request = new Request();
 
 $actionMag = 
 [
-    'chroniques',
-    'essais',
-    'fictions',
-    'article',
-    'monCompte',
-    'nousRejoindre',
-    'connection',
     'newMag',
     'createNewMag',
     'pannelMag',
@@ -32,10 +26,7 @@ $actionMag =
     'previousMag',
     'nextMag',
     'magazine',
-    'addUser',
-    'activation'
     
-
 ];
 
 $actionArticle =
@@ -45,6 +36,20 @@ $actionArticle =
     'createNewArticle',
     'modifyArticle',
     'previewArticle',
+    'chroniques',
+    'essais',
+    'fictions',
+    'article',
+];
+
+$actionUser =
+[
+    'monCompte',
+    'nousRejoindre',
+    'connectionPage',
+    'addUser',
+    'activation',
+    'connection'
 ];
 
 if (($request->get('action')) !== null){
@@ -59,6 +64,13 @@ if (($request->get('action')) !== null){
     $methode = $actionArticle[$key]; 
     if ($methode === $request->get('action')){
         $controller = new articleController();
+        $controller->$methode();
+        exit();
+    }
+    $key = array_search($request->get('action'), $actionUser);
+    $methode = $actionUser[$key]; 
+    if ($methode === $request->get('action')){
+        $controller = new userController();
         $controller->$methode();
         exit();
     }

@@ -15,7 +15,7 @@
             </div>
             <div id="infos">
                 <span>
-                    Pour activer votre compte, saisissez le code qui vient de vous avoir été communiqué par email.
+                    Pour activer votre compte, saisissez le code que vous venez de recevoir par email.
                 </span>
             </div>
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
