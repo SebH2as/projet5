@@ -12,6 +12,7 @@ use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
 use Projet5\Tools\Session;
+use Projet5\Tools\Auth;
 
 
 class MagController{
@@ -24,6 +25,7 @@ class MagController{
     private $dataLoader;
     private $files;
     private $session;
+    private $auth;
 
     public function __construct()
     {
@@ -35,9 +37,10 @@ class MagController{
         $this->dataLoader = new dataLoader();
         $this->files = new files();
         $this->session = new session();
+        $this->auth = new auth();
     }
 
-    public function magazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
+    public function magazine():void//méthode pour afficher la page d'accueil et le magazine demandé
     {
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
         $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
@@ -49,12 +52,13 @@ class MagController{
 
     public function lastMagazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
     {
+        $user = $this->auth->user();
         $getIdMag = $this->magManager->getLastPublishedMag();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $getIdMag[0]->id_mag);
         $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
         $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
 
-        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
         
     }
 

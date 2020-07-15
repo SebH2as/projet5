@@ -644,6 +644,51 @@
                 text-decoration: underline;
             }
         }
+        #infosCount
+        {
+            display: flex;
+            justify-content: space-evenly;
+            width: 96%;
+            #infosPerso{
+                width: 45%;
+                padding: 1vh;
+                display: flex;
+                flex-direction: column;
+                border: 5px solid $primaryBackgroundColorDark;
+                h2{
+                    text-align: center;
+                    margin-bottom: 3vh;
+                    text-decoration: underline;
+                }
+                .infos{
+                    margin-bottom: 2vh;
+                    font-size: 18px;
+                }
+
+            }
+            #blockLinks{
+                width: 45%;
+                display: flex;
+                flex-direction: column;
+                .countLinks{
+                    background-color: $secondaryBacgroundColorOrange;
+                    border: 2px solid $primaryBackgroundColorDark;
+                    font-size: 24px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    text-align: center;
+                    color: $primaryBackgroundColorDark;
+                    font-weight: 900;
+                    margin: 2vh;
+                    padding: 1vh;
+                    &:hover{
+                        background-color: $primaryBackgroundColorDark;
+                        color: $primaryBackgroundColorLight;
+                    }
+                }
+            }
+        }
+       
 }
 
 #monCompte{

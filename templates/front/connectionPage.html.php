@@ -23,9 +23,6 @@
                 <label for="pseudo">Pseudo:</label>
                 <input type="text" id="pseudo" name="pseudo" maxlength="70" size="70">
 
-                <label for="mail">Email:</label>
-                <input type="text" id="mail" name="mail" maxlength="70" size="70">
-
                 <label for="password">Mdp:</label>
                 <input type="password" id="password" name="password" maxlength="70" size="70">  
 

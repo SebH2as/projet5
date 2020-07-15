@@ -15,9 +15,28 @@
             </div>
             <div id="infos">
                 <span>
-                    Pour devenir un membre de la communauté Kilométrage rien de plus simple: il vous
-                    suffit de remplir le formulaire ci-dessous. Vous pourrez alors nous écrire via la rubrique courrier des
-                    lecteurs, pour être éventuellement publié dans le numéro suivant, et vous recevrez, si vous le désirez, notre newsletter.
+                   Bienvenu sur votre compte Kilométrage. Vous êtes connecté en tant que <b><?= $user->pseudo ?></b>. Vous pouvez changer vos informations personnelles, 
+                   nous envoyer une lettre ou vous abonner à notre newsletter en cliquant sur les liens ci-dessous.
                 </span>
             </div>
+            <div id="infosCount">
+                <div id="infosPerso">
+                    <h2>Vos informations personnelles</h2>
+                    <p class="infos"><b>Pseudo:</b>   <?= $user->pseudo ?></p>
+                    <p class="infos"><b>Mail:</b>   <?= $user->email ?></p>
+                    <p class="infos"><b>Membre depuis le:</b>   <?= $user->dateUser ?></p>
+                    <p class="infos"><b>Newsletter:</b>  </p>
+                </div>
+                <div id="blockLinks">
+                    <a class="countLinks" href="index.php">Modifier mes informations personnelles</a>
+                    <a class="countLinks">Nous écrire un courrier</a>
+                    <a class="countLinks">S'abonner à notre newsletter</a>
+                    <a class="countLinks" href="index.php?action=userDeco">Se déconnecter de mon compte</a>
+                </div>
+            </div>
+            
+            
+            
+
+            
         </section>

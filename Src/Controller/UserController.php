@@ -12,6 +12,7 @@ use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
 use Projet5\Tools\Session;
+use Projet5\Tools\Auth;
 
 
 class UserController{
@@ -24,6 +25,7 @@ class UserController{
     private $dataLoader;
     private $files;
     private $session;
+    private $auth;
 
     public function __construct()
     {
@@ -35,14 +37,14 @@ class UserController{
         $this->dataLoader = new dataLoader();
         $this->files = new files();
         $this->session = new session();
+        $this->auth = new auth();
     }
 
     public function monCompte():void//méthode pour afficher la page mon compte
     {
-        $this->session->userControl();
-        $userSession = $this->session->getSessionData('userConnected');
+        $user = $this->auth->user();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'userSession'));
+        $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user'));
         
     }
 
@@ -150,21 +152,46 @@ class UserController{
 
     public function connection()
     {
-        $error = 'Une erreur est survenue, veuillez recommencer';
+        $error = 'Pseudo ou mot de passe incorrect';
         if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
-        && $this->request->post('mail') !== null &&  !empty($this->request->post('mail'))
+        && $this->request->post('password') !== null &&  !empty($this->request->post('password')))
+        {
+            $user = $this->auth->login($this->request->post('pseudo'), $this->request->post('password'));
+            if($user)
+            {
+                $this->monCompte();
+                exit();
+            }
+        }
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/connectionPage', 'front/layout', compact('magazine', 'error'));
+    }
+
+    public function userDeco()
+    {
+        session_unset();
+        session_destroy();
+        session_write_close();
+        header('location: index.php');
+    }
+
+    /*public function connection()
+    {
+        $error = 'Pseudo ou mot de passe incorrect';
+        if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
         && $this->request->post('password') !== null &&  !empty($this->request->post('password')))
         {
             $user = $this->usersManager->getUserByPseudo($this->request->post('pseudo'));
             if(!empty($user))
             {
-                if($user[0]->p_w !== null){
-                    if(password_verify(((string) $this->request->post('password')), (string) $user[0]->p_w))
+                if($user->p_w !== null){
+                    if(password_verify(((string) $this->request->post('password')), (string) $user->p_w))
                     {
                         $this->session->setSessionData('userConnected', '1');
-                        $this->session->setSessionData('pseudo', $user[0]->pseudo);
+                        $this->session->setSessionData('pseudo', $user->pseudo);
+                        $userSession = $this->session->getSessionData('userConnected');
                         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-                        $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'error'));
+                        $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'error', 'userSession', 'user'));
                         exit();
                     }  
                 }
@@ -172,7 +199,7 @@ class UserController{
         }
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
         $this->view->render('front/connectionPage', 'front/layout', compact('magazine', 'error'));
-    }
+    }*/
 
 
 }

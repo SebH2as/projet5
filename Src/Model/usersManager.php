@@ -5,6 +5,7 @@ namespace Projet5\Model;
 
 use \PDO ;
 use Projet5\Tools\Database;
+use Projet5\Tools\User;
 
 class UsersManager
 {
@@ -29,10 +30,18 @@ class UsersManager
 
     public function getUserByPseudo($pseudo)
     {
-        $req = $this->bdd->prepare('SELECT * FROM users WHERE pseudo = :newpseudo AND actived = 1');
+        $req = $this->bdd->prepare('SELECT * , DATE_FORMAT(inscription_date, \'%d/%m/%Y\') AS dateUser FROM users WHERE pseudo = :newpseudo AND actived = 1');
         $req->execute([
             'newpseudo' => (string) $pseudo]);
-        return $req->fetchAll(PDO::FETCH_OBJ);
+        return $req->fetchObject(User::class);
+    }
+
+    public function getUserById($id)
+    {
+        $req = $this->bdd->prepare('SELECT * , DATE_FORMAT(inscription_date, \'%d/%m/%Y\') AS dateUser FROM users WHERE id_user = :id AND actived = 1');
+        $req->execute([
+            'id' => (string) $id]);
+        return $req->fetchObject(User::class);
     }
 
     public function getKeyByPseudo($pseudo)

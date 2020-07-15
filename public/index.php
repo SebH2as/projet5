@@ -49,7 +49,8 @@ $actionUser =
     'connectionPage',
     'addUser',
     'activation',
-    'connection'
+    'connection',
+    'userDeco'
 ];
 
 if (($request->get('action')) !== null){

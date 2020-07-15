@@ -1222,6 +1222,69 @@ header .hidden span {
   text-decoration: underline;
 }
 
+#article #infosCount {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 96%;
+}
+
+#article #infosCount #infosPerso {
+  width: 45%;
+  padding: 1vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border: 5px solid #030B12;
+}
+
+#article #infosCount #infosPerso h2 {
+  text-align: center;
+  margin-bottom: 3vh;
+  text-decoration: underline;
+}
+
+#article #infosCount #infosPerso .infos {
+  margin-bottom: 2vh;
+  font-size: 18px;
+}
+
+#article #infosCount #blockLinks {
+  width: 45%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#article #infosCount #blockLinks .countLinks {
+  background-color: #E8871E;
+  border: 2px solid #030B12;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  color: #030B12;
+  font-weight: 900;
+  margin: 2vh;
+  padding: 1vh;
+}
+
+#article #infosCount #blockLinks .countLinks:hover {
+  background-color: #030B12;
+  color: #F9FBF2;
+}
+
 #monCompte {
   width: 60%;
   min-height: 95vh;
