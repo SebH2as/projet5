@@ -5,6 +5,7 @@ namespace Projet5\Controller;
 
 
 use Projet5\View\View;
+use Projet5\Controller\MagController;
 use Projet5\Model\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\Model\UsersManager;
@@ -18,6 +19,7 @@ use Projet5\Tools\Auth;
 class UserController{
         
     private $magManager;
+    private $magController;
     private $articleManager;
     private $usersManager;
     private $view;
@@ -30,6 +32,7 @@ class UserController{
     public function __construct()
     {
         $this->view = new View();
+        $this->magController = new magController();
         $this->magManager = new magManager();
         $this->articleManager = new articleManager();
         $this->usersManager = new usersManager();
@@ -40,11 +43,16 @@ class UserController{
         $this->auth = new auth();
     }
 
-    public function monCompte():void//méthode pour afficher la page mon compte
+    public function monCompte():void//méthode pour afficher la page mon compte si l'utilisateur est connecté
     {
         $user = $this->auth->user();
-        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user'));
+        if($user)
+        {
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user'));
+            exit();
+        }
+        header('location: index.php');
         
     }
 
@@ -142,7 +150,7 @@ class UserController{
         }
     }
 
-    public function connectionPage():void//méthode pour se connecter au back
+    public function connectionPage():void //méthode pour afficher la page de connection
     {
         $error = null;
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
@@ -150,7 +158,7 @@ class UserController{
         
     }
 
-    public function connection()
+    public function connection():void //méthode pour se connecter au compte utilisateur ou au backoffice
     {
         $error = 'Pseudo ou mot de passe incorrect';
         if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
@@ -159,8 +167,17 @@ class UserController{
             $user = $this->auth->login($this->request->post('pseudo'), $this->request->post('password'));
             if($user)
             {
-                $this->monCompte();
-                exit();
+                if($user->role === '0')
+                {
+                    $this->monCompte();
+                    exit();
+                }
+                if($user->role === '1')
+                {
+                    $this->magController->listMag();
+                    exit();
+                }
+               
             }
         }
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
@@ -175,31 +192,6 @@ class UserController{
         header('location: index.php');
     }
 
-    /*public function connection()
-    {
-        $error = 'Pseudo ou mot de passe incorrect';
-        if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
-        && $this->request->post('password') !== null &&  !empty($this->request->post('password')))
-        {
-            $user = $this->usersManager->getUserByPseudo($this->request->post('pseudo'));
-            if(!empty($user))
-            {
-                if($user->p_w !== null){
-                    if(password_verify(((string) $this->request->post('password')), (string) $user->p_w))
-                    {
-                        $this->session->setSessionData('userConnected', '1');
-                        $this->session->setSessionData('pseudo', $user->pseudo);
-                        $userSession = $this->session->getSessionData('userConnected');
-                        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-                        $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'error', 'userSession', 'user'));
-                        exit();
-                    }  
-                }
-            }
-        }
-        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/connectionPage', 'front/layout', compact('magazine', 'error'));
-    }*/
 
 
 }

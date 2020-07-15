@@ -32,7 +32,7 @@
                 <a class="navTopLink" href="">Qui sommes nous?</a>
                 <a class="navTopLink" href="index.php?action=nousRejoindre&amp;idMag=<?= $magazine[0]->idMag ?>">Nous rejoindre</a>
                 <?php if (isset($user)): ?>
-                <a class="navTopLink" href="index.php?action=monCompte&amp;idMag=<?= $magazine[0]->idMag ?>">Mon compte</a>
+                <a class="navTopLink" href="index.php?action=monCompte&amp;idMag=<?= $magazine[0]->idMag ?>">Mon compte(<?=$user->pseudo?>)</a>
                 <?php else: ?>
                 <a class="navTopLink" href="index.php?action=connectionPage&amp;idMag=<?= $magazine[0]->idMag ?>">Se connecter</a>
                 <?php endif; ?>

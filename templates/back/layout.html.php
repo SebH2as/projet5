@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 <div class="dropDown">
-                    <span href="">Newsletter <i class="fa fa-caret-down"></i></span>
+                    <span href="">Courrier <i class="fa fa-caret-down"></i></span>
                     <div class="dropdown-content">
-                        <a href="#">Ecrire une newsletter</a>
+                        <a href="#">Gestion du courrier</a>
                         <a href="#">Gestion des newsletters</a>
                     </div>
                 </div>
@@ -35,11 +35,7 @@
                     </div>
                 </div>
                 <div class="dropDown">
-                    <span href="">Courrier <i class="fa fa-caret-down"></i></span>
-                    <div class="dropdown-content">
-                        <a href="#">Gestion du courrier</a>
-                        <a href="#">Link 2</a>
-                    </div>
+                    <a href="index.php?action=userDeco">Déconnection</a>
                 </div>
             </div>
         </nav>

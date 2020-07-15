@@ -109,6 +109,11 @@ body {
   background-color: #FBF7B1;
 }
 
+#navBack #backLinks .dropDown a {
+  text-decoration: none;
+  color: black;
+}
+
 #oldNumbers {
   position: relative;
   width: 60%;

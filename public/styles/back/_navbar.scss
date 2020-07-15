@@ -52,7 +52,12 @@
                     border-right: solid 2px $blackColor;
                     &:hover{background-color: $secondaryBacgroundColorYellowLight;}
                   }
+                
               }
+            a{
+                text-decoration: none;
+                color: black
+            }
         }
     }
     

@@ -31,6 +31,11 @@ class Session
     
     public function getSessionData(string $session_name ): ?string
     {
+        if (isset($_SESSION[$session_name])) 
+        {
         return $_SESSION[$session_name];
+        }
+        unset($_SESSION[$session_name]);
+        return null;
     }
 }

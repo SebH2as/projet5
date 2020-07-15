@@ -42,11 +42,12 @@ class MagController{
 
     public function magazine():void//méthode pour afficher la page d'accueil et le magazine demandé
     {
+        $user = $this->auth->user();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
         $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
         $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
 
-        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous','user'));
         
     }
 
@@ -67,16 +68,18 @@ class MagController{
         $previousMag = $this->magManager->previousMag((int) $this->request->get('idMag'));
         if(!empty($previousMag))
         {
+            $user = $this->auth->user();
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $previousMag[0]->id_mag);
             $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
             $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
-            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
+            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
             exit();
         }
+        $user = $this->auth->user();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
         $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
         $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
-        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
     }
 
     public function nextMag()
@@ -84,16 +87,18 @@ class MagController{
         $nextMag = $this->magManager->nextMag((int) $this->request->get('idMag'));
         if(!empty($nextMag))
         {
+            $user = $this->auth->user();
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $nextMag[0]->id_mag);
             $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
             $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
-            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
+            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
             exit();
         }
+        $user = $this->auth->user();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
         $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
         $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
-        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous'));
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
     }
 
     
