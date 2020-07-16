@@ -60,4 +60,14 @@ class Auth{
         }
         return null;
     }
+
+    public function requireRole(string $role): void
+    {
+        $user = $this->user();
+        if($user === null || $user->role !== $role)
+        {
+            header('location: index.php');
+            exit();
+        }
+    }
 }

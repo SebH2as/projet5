@@ -104,6 +104,7 @@ class MagController{
     
     public function listMag():void//méthode pour afficher la page récapitulatrice de tous les magazines créés
     {
+        $this->auth->requireRole('1');
         $totalMag = $this->magManager->countMag();
         $nbByPage = 5;
         $totalpages = (int) ceil($totalMag[0]/$nbByPage);
@@ -125,7 +126,7 @@ class MagController{
 
     public function newMag():void//méthode pour afficher la page de création d'un nouveau magazine
     {
-
+        $this->auth->requireRole('1');
         $totalMag = $this->magManager->countMag();
         $this->view->render('back/newMag', 'back/layout', compact('totalMag'));
         
@@ -133,6 +134,7 @@ class MagController{
 
     public function createNewMag():void//méthode pour créer un nouveau numéro de magazine
     {
+        $this->auth->requireRole('1');
         if(!empty($this->request->post('number')))
         {
             $message = null;
@@ -145,6 +147,7 @@ class MagController{
 
     public function modifyMag()
     {
+        $this->auth->requireRole('1');
         $message = null;
 
         /*$this->dataLoader->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');*/
@@ -178,7 +181,7 @@ class MagController{
 
     public function addEdito()
     {
-        
+        $this->auth->requireRole('1');
         $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
         $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $message = "L'éditorial a été modifié";
@@ -187,12 +190,14 @@ class MagController{
 
     public function previewMag()
     {
+        $this->auth->requireRole('1');
         $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/previewMag', 'front/layout', compact('magazine'));
     }
 
     public function deleteMag()
     {
+        $this->auth->requireRole('1');
         $dataToErase = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         if(($dataToErase[0]->cover) !== null)
             {
@@ -210,6 +215,7 @@ class MagController{
 
     public function setOnlineMag()
     {
+        $this->auth->requireRole('1');
         $message = 'le magazine a été mis en ligne';
         $this->magManager->setOnlineMag((int) $this->request->get('idMag'));
 
@@ -219,6 +225,7 @@ class MagController{
 
     public function setSavedMag()
     {
+        $this->auth->requireRole('1');
         $message = 'le magazine a été sauvegardé';
         $this->magManager->setSavedMag((int) $this->request->get('idMag'));
 

@@ -630,6 +630,104 @@
                 }
             }
         }
+        #formLetter{
+            background-color: $primaryBackgroundColorLight;
+            border: 5px solid $secondaryBacgroundColorOrange;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            width: 80%;
+            height: 95vh;
+            padding-top: 2vh;
+            padding-bottom: 1vh;
+            margin-bottom: 5vh;
+            input{
+                width: 95%;
+                height: 100%;
+                font-size: 18px;
+                border: 2px solid $primaryBackgroundColorDark;
+                border-top: none;
+                padding: 2px;
+                margin-bottom: 2vh;
+            }
+            label{
+                text-align: center;
+                position: relative;
+                width: 95%;
+                font-size: 18px;
+                background-color: $secondaryBacgroundColorOrange;
+                border: 2px solid $primaryBackgroundColorDark;
+                .fa-info{
+                    position: absolute;
+                    right: 34%;
+                    top: 15%;
+                    font-size: 18px;
+                    cursor: help;
+                    color: $primaryBackgroundColorDark;
+                }
+                .fa-circle{
+                    position: absolute;
+                    right: 3.25%;
+                    font-size: 24px;
+                    top: 15%;
+                    color: $primaryBackgroundColorLight;
+                    cursor: help;
+                }
+                
+            }
+            .infoBox{
+                position: absolute;
+                z-index: 2;
+                top: -5vh;
+                width: 300px;
+                left: 1vh;
+                justify-content: flex-start;
+                align-items: center;
+                display: flex;
+                border: 2px solid $primaryBackgroundColorDark;
+                opacity: 0 ;
+                transition: opacity .5s;
+                span{
+                    font-size: 14px;
+                    text-align: left;
+                    background-color: $primaryBackgroundColorLight;
+                    
+                    padding: 1vh;
+                    color: $primaryBackgroundColorDark;
+                }
+                
+            }
+            .hidden{
+                position: absolute;
+                z-index: -2;
+                bottom: -5vh;
+                left: -.75vh;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                span{
+                    font-size: 14px;
+                    background-color: $primaryBackgroundColorLight;
+                    text-align: center;
+                    padding: 1vh;
+                    color: $primaryBackgroundColorDark;
+                    display: none;
+                }
+            }
+            #saver{
+                background-color: $secondaryBacgroundColorOrange;
+                border: 2px solid $primaryBackgroundColorDark;
+                font-size: 24px;
+                cursor: pointer;
+                height: 5vh;
+                &:hover{
+                    background-color: $primaryBackgroundColorDark;
+                    color: $primaryBackgroundColorLight;
+                }
+            }
+        }
 
         #articleContent{
             width: 90%;

@@ -50,7 +50,8 @@ $actionUser =
     'addUser',
     'activation',
     'connection',
-    'userDeco'
+    'userDeco',
+    'nousEcrire'
 ];
 
 if (($request->get('action')) !== null){

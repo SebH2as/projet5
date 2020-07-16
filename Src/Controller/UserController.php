@@ -192,6 +192,17 @@ class UserController{
         header('location: index.php');
     }
 
-
+    public function nousEcrire()
+    {
+        $user = $this->auth->user();
+        if($user)
+        {
+            $error = null;
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/nousEcrire', 'front/layout', compact('magazine', 'user', 'error'));
+            exit();
+        }
+        header('location: index.php');
+    }
 
 }

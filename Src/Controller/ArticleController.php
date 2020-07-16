@@ -10,6 +10,7 @@ use Projet5\Model\ArticleManager;
 use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
+use Projet5\Tools\Auth;
 
 class ArticleController{
         
@@ -19,6 +20,7 @@ class ArticleController{
     private $request;
     private $dataLoader;
     private $files;
+    private $auth;
 
     public function __construct()
     {
@@ -28,10 +30,12 @@ class ArticleController{
         $this->request = new request();
         $this->dataLoader = new dataLoader();
         $this->files = new files();
+        $this->auth = new auth();
     }
 
     public function addContent()
     {
+        $this->auth->requireRole('1');
         $message = null;
         $this->articleManager->modifContent((int) $this->request->get('idText'), (string) $this->request->post('content'));
         $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
@@ -41,6 +45,7 @@ class ArticleController{
 
     public function deleteArticle()
     {
+        $this->auth->requireRole('1');
         $message = null;
         $dataToErase = $this->articleManager->findArticleById((int) $this->request->get('idText'));
                     if(($dataToErase[0]->articleCover) !== null)
@@ -54,6 +59,7 @@ class ArticleController{
 
     public function createNewArticle()
     {
+        $this->auth->requireRole('1');
         $message = null;
         $this->articleManager->createArticle((int) $this->request->get('idMag'));
         $articleMostRecent = $this->articleManager->findMostRecentArticle((int) $this->request->post('number'));
@@ -63,6 +69,7 @@ class ArticleController{
     
     public function modifyArticle()
     {
+        $this->auth->requireRole('1');
         $message = null;
 
         $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric', 'La rubrique a été modifiée', 'pannelarticle', 'findArticleById');
@@ -80,12 +87,14 @@ class ArticleController{
 
     public function previewArticle()
     {
+        $this->auth->requireRole('1');
         $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
         $this->view->render('back/previewArticle', 'front/layout', compact('article'));
     }
 
     public function chroniques():void//méthode pour afficher la page récapitulatrice de toutes les chroniques publiées
     {
+        $user = $this->auth->user();
         $totalChroniques = $this->articleManager->countPublishedChroniques();
         $nbByPage = 6;
         $totalpages = (int) ceil($totalChroniques[0]/$nbByPage);
@@ -102,11 +111,12 @@ class ArticleController{
         
         $articles = $this->articleManager->listAllPublishedChroniques((int) $offset, (int) $nbByPage);
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/chroniques', 'front/layout', compact('magazine', 'articles','totalChroniques', 'nbByPage','currentpage', 'offset', 'totalpages'));
+        $this->view->render('front/chroniques', 'front/layout', compact('user', 'magazine', 'articles','totalChroniques', 'nbByPage','currentpage', 'offset', 'totalpages'));
     }
 
     public function essais():void//méthode pour afficher la page récapitulatrice de toutes les essais publiés
     {
+        $user = $this->auth->user();
         $totalEssais = $this->articleManager->countPublishedEssais();
         $nbByPage = 6;
         $totalpages = (int) ceil($totalEssais[0]/$nbByPage);
@@ -123,11 +133,12 @@ class ArticleController{
         
         $articles = $this->articleManager->listAllPublishedEssais((int) $offset, (int) $nbByPage);
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/essais', 'front/layout', compact('magazine', 'articles','totalEssais', 'nbByPage','currentpage', 'offset', 'totalpages'));
+        $this->view->render('front/essais', 'front/layout', compact('user', 'magazine', 'articles','totalEssais', 'nbByPage','currentpage', 'offset', 'totalpages'));
     }
 
     public function fictions():void//méthode pour afficher la page récapitulatrice de toutes les fictions publiées
     {
+        $user = $this->auth->user();
         $totalFictions = $this->articleManager->countPublishedFictions();
         $nbByPage = 6;
         $totalpages = (int) ceil($totalFictions[0]/$nbByPage);
@@ -144,15 +155,16 @@ class ArticleController{
         
         $articles = $this->articleManager->listAllPublishedFictions((int) $offset, (int) $nbByPage);
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/fictions', 'front/layout', compact('magazine', 'articles','totalFictions', 'nbByPage','currentpage', 'offset', 'totalpages'));
+        $this->view->render('front/fictions', 'front/layout', compact('user', 'magazine', 'articles','totalFictions', 'nbByPage','currentpage', 'offset', 'totalpages'));
     }
 
     public function article():void//méthode pour afficher la page d'un article
     {
+        $user = $this->auth->user();
         $currentpage = 1;
         $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/article', 'front/layout', compact('magazine', 'article', 'currentpage'));
+        $this->view->render('front/article', 'front/layout', compact('magazine', 'article', 'currentpage', 'user'));
         
     }
 }

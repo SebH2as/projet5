@@ -29,7 +29,7 @@
                 </div>
                 <div id="blockLinks">
                     <a class="countLinks" href="index.php">Modifier mes informations personnelles</a>
-                    <a class="countLinks">Nous écrire un courrier</a>
+                    <a class="countLinks" href="index.php?action=nousEcrire&amp;idMag=<?= $magazine[0]->idMag ?>">Nous écrire un courrier</a>
                     <a class="countLinks">S'abonner à notre newsletter</a>
                     <a class="countLinks" href="index.php?action=userDeco">Se déconnecter de mon compte</a>
                 </div>
