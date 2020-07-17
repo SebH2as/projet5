@@ -15,21 +15,22 @@
             </div>
             <div id="infos">
                 <span>
-                   Vous pouvez nous écrire un courrier relatif à un magazine ou un article en particulier 
-                   pour être eventuellement publié dans la rubrique Courrier des lecteurs du numéro suivant.
-                   Nous vous répondrons à cette occasion.
+                   Vous pouvez nous écrire un courrier relatif à un magazine particulier à l'aide du champs ci-dessous.
+                   Vous serez eventuellement publié dans la rubrique Courrier des lecteurs du numéro suivant et
+                   nous vous répondrons à cette occasion.
                 </span>
             </div>
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
             <form id="formLetter" action="index.php?action=postLetter&amp;idMag=<?= $magazine[0]->idMag ?>" method="post">
             
                 <label for="courrier">Courrier:</label>
-                <input type="textarea" id="courrier" name="courrier" rows="15" cols="50"">  
+                <textarea id="courrier" name="courrier" rows="15" cols="50"></textarea>
+                
+                <label for="magazine">Choisissez un numéro de magazine auquel associer ce courrier:</label>
+                            <select list="mag" name="mag">
+                                <option value="magazine">Magazine numéro 1</option>
+                            </select> 
 
                 <input type="submit" id="saver" value="Poster votre courrier">
-            
-            
-            
-
-            
+            </form>
         </section>

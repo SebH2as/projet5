@@ -3,7 +3,7 @@ nav{
     @include flexCenter(column);
     position: fixed;
     top: -25px;
-    width: 60%;
+    width: 80%;
     height: 175px;
     transition: top 0.5s;
     z-index: 3;
@@ -42,12 +42,12 @@ nav{
             
         }
         #separator01{
-            width: 100%;
+            width: 75%;
             height: 0;
             border-top: 20px solid $secondaryBacgroundColorOrange;
             position: absolute;
             top: 55%;
-            
+            left: 12.5%;
             z-index: 0;
         }
         

@@ -70,9 +70,17 @@ class UsersManager
 
     public function emailUser($email)
     {
-        $req = $this->bdd->prepare('SELECT COUNT(pseudo) FROM users WHERE email = :newemail');
+        $req = $this->bdd->prepare('SELECT COUNT(email) FROM users WHERE email = :newemail');
         $req->execute([
             'newemail' => (string) $email]);
         return $req->fetch();
+    }
+
+    public function newsletter($idUser, $value)
+    {
+        $req = $this->bdd->prepare('UPDATE users SET newsletter = :newvalue WHERE id_user = :idUser ');
+        $req->execute([
+            'newvalue' => (int) $value,
+            'idUser' => (string) $idUser]);
     }
 }

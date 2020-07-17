@@ -51,7 +51,10 @@ $actionUser =
     'activation',
     'connection',
     'userDeco',
-    'nousEcrire'
+    'nousEcrire',
+    'modifInfosUser',
+    'modifInfos',
+    'newsLetterAbo'
 ];
 
 if (($request->get('action')) !== null){

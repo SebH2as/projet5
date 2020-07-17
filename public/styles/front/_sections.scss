@@ -1,6 +1,6 @@
 #editorial
 {
-    width:60%;
+    width:100%;
     height: 98vh;
     display: flex;
     justify-content: center;
@@ -89,7 +89,7 @@
 }
 
 #summary{
-    width:60%;
+    width:100%;
     min-height: 95vh;
     display: flex;
     flex-direction: column;
@@ -290,7 +290,7 @@
 }
 
 #listRubric{
-    width: 60%;
+    width:100%;
     min-height: 95vh;
     margin-bottom: 5vh;
     background-color: $primaryBackgroundColorLight;
@@ -448,7 +448,7 @@
 }
 
 #article{
-    width: 60%;
+    width:100%;
     min-height: 95vh;
     padding-top: 3vh;
     margin-bottom: 5vh;
@@ -526,6 +526,17 @@
         #error{
             color: $primaryBackgroundColorDark;
             background-color: rgb(238, 41, 41);
+            padding: 5px;
+            font-size: 24px;
+            border: 3px solid $primaryBackgroundColorDark;
+            margin-bottom: 2vh;
+            &.none{
+                display: none;
+            }
+        }
+        #message{
+            color: $primaryBackgroundColorDark;
+            background-color: greenyellow;
             padding: 5px;
             font-size: 24px;
             border: 3px solid $primaryBackgroundColorDark;
@@ -635,7 +646,7 @@
             border: 5px solid $secondaryBacgroundColorOrange;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             font-size: 24px;
             width: 80%;
@@ -644,6 +655,15 @@
             padding-bottom: 1vh;
             margin-bottom: 5vh;
             input{
+                width: 95%;
+                height: 500px;
+                font-size: 24px;
+                border: 2px solid $primaryBackgroundColorDark;
+                border-top: none;
+                padding: 2px;
+                margin-bottom: 2vh;
+            }
+            textarea{
                 width: 95%;
                 height: 100%;
                 font-size: 18px;
@@ -656,7 +676,7 @@
                 text-align: center;
                 position: relative;
                 width: 95%;
-                font-size: 18px;
+                font-size: 24px;
                 background-color: $secondaryBacgroundColorOrange;
                 border: 2px solid $primaryBackgroundColorDark;
                 .fa-info{
@@ -676,6 +696,12 @@
                     cursor: help;
                 }
                 
+                
+            }
+            select{
+                width: 30%;
+                margin: 1vh;
+                font-size: 24px;
             }
             .infoBox{
                 position: absolute;
@@ -717,6 +743,7 @@
                 }
             }
             #saver{
+                width: 50%;
                 background-color: $secondaryBacgroundColorOrange;
                 border: 2px solid $primaryBackgroundColorDark;
                 font-size: 24px;
@@ -787,17 +814,4 @@
             }
         }
        
-}
-
-#monCompte{
-    width: 60%;
-    min-height: 95vh;
-    padding-top: 3vh;
-    margin-bottom: 5vh;
-    background-color:  $secondaryBacgroundColorOrange;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: solid 20px $secondaryBacgroundColorOrange;
 }

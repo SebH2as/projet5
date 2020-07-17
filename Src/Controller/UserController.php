@@ -45,11 +45,23 @@ class UserController{
 
     public function monCompte():void//méthode pour afficher la page mon compte si l'utilisateur est connecté
     {
+        $message = null;
+        
+        $messageContent = ['Vos informations personnelles ont été modifiées',
+        'Votre courrier a été enregistré. Il est en attente de validation',
+        'Vous êtes maintenant abonné à notre newsletter',
+        'Votre abonnememt à notre newsletter à été annulé'];
+        
+        if($this->request->get('message') !== null)
+        {
+            $message = $messageContent[$this->request->get('message')];
+        }
+        
         $user = $this->auth->user();
         if($user)
         {
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-            $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user'));
+            $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user', 'message'));
             exit();
         }
         header('location: index.php');
@@ -203,6 +215,50 @@ class UserController{
             exit();
         }
         header('location: index.php');
+    }
+
+    public function modifInfosUser()
+    {
+        $user = $this->auth->user();
+        if($user)
+        {
+            $error = null;
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/modifInfosUser', 'front/layout', compact('magazine', 'user', 'error'));
+            exit();
+        }
+        header('location: index.php');
+    }
+
+    public function modifInfos()
+    {
+        $user = $this->auth->user();
+        if($user)
+        {
+            $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
+            if($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
+            && password_verify($this->request->post('passwordOld'), $user->p_w))
+            {
+                $error = 'youpi';
+            }
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/modifInfosUser', 'front/layout', compact('magazine', 'user', 'error'));
+            exit();
+        }
+        header('location: index.php');
+    }
+
+    public function newsLetterAbo()
+    {
+        $user = $this->auth->user();
+        if($user->newsletter === '0')
+        {
+            $this->usersManager->newsletter((string) $user->id_user, '1');
+            $this->monCompte();
+            exit();
+        }
+        $this->usersManager->newsletter((string) $user->id_user, '0');
+        $this->monCompte();
     }
 
 }
