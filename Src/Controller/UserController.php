@@ -47,10 +47,12 @@ class UserController{
     {
         $message = null;
         
-        $messageContent = ['Vos informations personnelles ont été modifiées',
+        $messageContent = ['Votre mot de passe a bien été modifié',
         'Votre courrier a été enregistré. Il est en attente de validation',
         'Vous êtes maintenant abonné à notre newsletter',
-        'Votre abonnememt à notre newsletter à été annulé'];
+        'Votre abonnememt à notre newsletter à été annulé',
+        'Votre pseudo a bien été modifié',
+        'votre Email a bien été modifié'];
         
         if($this->request->get('message') !== null)
         {
@@ -217,20 +219,46 @@ class UserController{
         header('location: index.php');
     }
 
-    public function modifInfosUser()
+    public function modifPseudoUser()
     {
         $user = $this->auth->user();
         if($user)
         {
             $error = null;
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-            $this->view->render('front/modifInfosUser', 'front/layout', compact('magazine', 'user', 'error'));
+            $this->view->render('front/modifPseudoUser', 'front/layout', compact('magazine', 'user', 'error'));
             exit();
         }
         header('location: index.php');
     }
 
-    public function modifInfos()
+    public function modifPassUser()
+    {
+        $user = $this->auth->user();
+        if($user)
+        {
+            $error = null;
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/modifPassUser', 'front/layout', compact('magazine', 'user', 'error'));
+            exit();
+        }
+        header('location: index.php');
+    }
+
+    public function modifEmailUser()
+    {
+        $user = $this->auth->user();
+        if($user)
+        {
+            $error = null;
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/modifEmailUser', 'front/layout', compact('magazine', 'user', 'error'));
+            exit();
+        }
+        header('location: index.php');
+    }
+
+    public function modifPass()
     {
         $user = $this->auth->user();
         if($user)
@@ -239,10 +267,87 @@ class UserController{
             if($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
             && password_verify($this->request->post('passwordOld'), $user->p_w))
             {
-                $error = 'youpi';
+                if($this->request->post('passwordNew') !== null && !empty($this->request->post('passwordNew')))
+                {
+                    $error = 'Le nouveau mot de passe choisi n\'est pas valide';
+                    if(preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('passwordNew')))
+                    {
+                        $error = 'Les deux mots de passe renseignés ne correspondent pas';
+                        if($this->request->post('passwordNew') === $this->request->post('passwordNew2'))
+                        {
+                            $this->usersManager->modifPass((string) $user->id_user, (string) password_hash($this->request->post('passwordNew'), PASSWORD_DEFAULT));
+                            $this->monCompte();
+                            exit();
+                        }
+                    }
+                }
             }
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-            $this->view->render('front/modifInfosUser', 'front/layout', compact('magazine', 'user', 'error'));
+            $this->view->render('front/modifPassUser', 'front/layout', compact('magazine', 'user', 'error'));
+            exit();
+        }
+        header('location: index.php');
+    }
+
+    public function modifPseudo()
+    {
+        $user = $this->auth->user();
+        if($user)
+        {
+            $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
+            if($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
+            && password_verify($this->request->post('passwordOld'), $user->p_w))
+            {
+                if($this->request->post('pseudoNew') !== null && !empty($this->request->post('pseudoNew')))
+                {
+                    $error = 'Le pseudo choisi n\'est pas valide';
+                    if(strlen($this->request->post('pseudoNew')) > 3 && strlen($this->request->post('pseudoNew')) < 15)
+                    {
+                        $error = 'Le pseudo choisi est déjà utilisé';
+                        $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudoNew'));
+                        if( ($pseudoThere[0]) < 1)
+                        {
+                            $this->usersManager->modifPseudo((string) $user->id_user, $this->request->post('pseudoNew'));
+                            $this->monCompte();
+                            exit();
+                        }
+                    }
+                }
+            }
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/modifPseudoUser', 'front/layout', compact('magazine', 'user', 'error'));
+            exit();
+        }
+        header('location: index.php');
+    }
+
+    public function modifEmail()
+    {
+        $user = $this->auth->user();
+        if($user)
+        {
+            $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
+            if($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
+            && password_verify($this->request->post('passwordOld'), $user->p_w))
+            {
+                if($this->request->post('mailNew') !== null && !empty($this->request->post('mailNew')))
+                {
+                    $error = 'Les emails renseignés ne correspondent pas';
+                    if(($this->request->post('mailNew')) === ($this->request->post('mailNew2')))
+                    {
+                        $error = 'L\' email choisi est déjà utilisé';
+                        $emailThere = $this->usersManager->emailUser( $this->request->post('mailNew'));
+                        if( ($emailThere[0]) < 1)
+                        {
+                            $this->usersManager->modifEmail((string) $user->id_user, $this->request->post('mailNew'));
+                            $this->monCompte();
+                            exit();
+                        }
+                    }
+                }
+            }
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/modifEmailUser', 'front/layout', compact('magazine', 'user', 'error'));
             exit();
         }
         header('location: index.php');

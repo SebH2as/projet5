@@ -10,7 +10,7 @@
         </div>
         <section id="article">
             <div id="titleArticle">
-                <h2>MODIFIER MES INFORMATIONS PERSONNELLES</h2>
+                <h2>MODIFIER MON MOT DE PASSE</h2>
                 <div id="separator02"></div>
             </div>
             <div id="infos">
@@ -21,7 +21,7 @@
                 </span>
             </div>
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
-            <form id="formSignIn" action="index.php?action=modifInfos&amp;idMag=<?= $magazine[0]->idMag ?>&amp;message=0" method="post">
+            <form id="formSignIn" action="index.php?action=modifPass&amp;idMag=<?= $magazine[0]->idMag ?>&amp;message=0" method="post">
             
                 <label for="passwordOld">Veuillez saisir votre Mdp actuel:</label>
                 <input type="passwordOld" id="passwordOld" name="passwordOld" maxlength="70" size="70">
@@ -31,15 +31,6 @@
 
                 <label for="passwordNew2">Veuillez confirmer votre nouveau Mdp :</label>
                 <input type="passwordNew2" id="passwordNew2" name="passwordNew2" maxlength="70" size="70">
-
-                <label for="pseudoNew">Veuillez entrer un nouveau Pseudo:</label>
-                <input type="text" id="pseudoNew" name="pseudoNew" maxlength="70" size="70">
-
-                <label for="mailNew">Veuillez entrer une nouvelle adresse mail:</label>
-                <input type="text" id="mailNew" name="mailNew" maxlength="50" size="50">
-
-                <label for="mailNew">Veuillez confirmer votre nouvelle adresse mail:</label>
-                <input type="text" id="mailNew" name="mailNew" maxlength="50" size="50">
 
                 <input type="submit" id="saver" value="Modifier">
             </form>

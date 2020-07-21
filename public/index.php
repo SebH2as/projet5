@@ -53,7 +53,12 @@ $actionUser =
     'userDeco',
     'nousEcrire',
     'modifInfosUser',
-    'modifInfos',
+    'modifPassUser',
+    'modifEmailUser',
+    'modifPseudoUser',
+    'modifPass',
+    'modifEmail',
+    'modifPseudo',
     'newsLetterAbo'
 ];
 

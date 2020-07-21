@@ -39,7 +39,9 @@
                     <p class="infos"><b>Courrier(s) publié(s):</b>  Aucun</p>
                 </div>
                 <div id="blockLinks">
-                    <a class="countLinks" href="index.php?action=modifInfosUser&amp;idMag=<?= $magazine[0]->idMag ?>">Modifier mes informations personnelles</a>
+                    <a class="countLinks" href="index.php?action=modifPseudoUser&amp;idMag=<?= $magazine[0]->idMag ?>">Modifier mon pseudo</a>
+                    <a class="countLinks" href="index.php?action=modifPassUser&amp;idMag=<?= $magazine[0]->idMag ?>">Modifier mon mot de passe</a>
+                    <a class="countLinks" href="index.php?action=modifEmailUser&amp;idMag=<?= $magazine[0]->idMag ?>">Modifier mon email</a>
                     <a class="countLinks" href="index.php?action=nousEcrire&amp;idMag=<?= $magazine[0]->idMag ?>">Nous écrire un courrier</a>
                     <?php if ( $user->newsletter === '0'): ?> 
                     <a class="countLinks" href="index.php?action=newsLetterAbo&amp;idMag=<?= $magazine[0]->idMag ?>&amp;message=2">S'abonner à notre newsletter</a>

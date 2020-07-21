@@ -83,4 +83,28 @@ class UsersManager
             'newvalue' => (int) $value,
             'idUser' => (string) $idUser]);
     }
+
+    public function modifPass($idUser, $passWordNew)
+    {
+        $req = $this->bdd->prepare('UPDATE users SET p_w = :newPass WHERE id_user = :idUser ');
+        $req->execute([
+            'newPass' => (string) $passWordNew,
+            'idUser' => (string) $idUser]);
+    }
+
+    public function modifPseudo($idUser, $pseudoNew)
+    {
+        $req = $this->bdd->prepare('UPDATE users SET pseudo = :newpseudo WHERE id_user = :idUser ');
+        $req->execute([
+            'newpseudo' => (string) $pseudoNew,
+            'idUser' => (string) $idUser]);
+    }
+
+    public function modifEmail($idUser, $emailNew)
+    {
+        $req = $this->bdd->prepare('UPDATE users SET email = :newemail WHERE id_user = :idUser ');
+        $req->execute([
+            'newemail' => (string) $emailNew,
+            'idUser' => (string) $idUser]);
+    }
 }
