@@ -21,14 +21,17 @@
                 </span>
             </div>
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
-            <form id="formLetter" action="index.php?action=postLetter&amp;idMag=<?= $magazine[0]->idMag ?>" method="post">
+            
+            <form id="formLetter" action="index.php?action=postLetter&amp;idMag=<?= $magazine[0]->idMag ?>&amp;message=1" method="post">
             
                 <label for="courrier">Courrier:</label>
                 <textarea id="courrier" name="courrier" rows="15" cols="50"></textarea>
                 
-                <label for="magazine">Choisissez un numéro de magazine auquel associer ce courrier:</label>
-                            <select list="mag" name="mag">
-                                <option value="magazine">Magazine numéro 1</option>
+                <label for="numberMag">Choisissez un numéro de magazine auquel associer ce courrier:</label>
+                            <select list="numberMag" name="numberMag">
+                                <?php foreach($numberMags as $number): ?>  
+                                <option value="<?= $number->numberMag ?>">Magazine numéro <?= $number->numberMag ?></option>
+                                <?php endforeach; ?>
                             </select> 
 
                 <input type="submit" id="saver" value="Poster votre courrier">

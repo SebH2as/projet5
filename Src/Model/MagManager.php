@@ -119,14 +119,14 @@ class MagManager
             'nwContent' => $content]);
     }*/
 
-    public function countMag():array // requete pour compter le nombre d'épisodes total
+    public function countMag():array // requete pour compter le nombre de magazines total
     {
         $req = $this->bdd->prepare('SELECT COUNT(*) FROM mag');
         $req->execute();
         return $req->fetch();
     }
 
-    public function countPublishedMag():array // requete pour compter le nombre d'épisodes total
+    public function countPublishedMag():array // requete pour compter le nombre de magazines publiés total
     {
         $req = $this->bdd->prepare('SELECT COUNT(*) FROM mag WHERE statusPub = 1');
         $req->execute();
@@ -158,6 +158,13 @@ class MagManager
         LIMIT :offset, :limitation ');
         $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
         $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
+    public function getAllNumberPubliMag()
+    {
+        $req= $req = $this->bdd->prepare('SELECT numberMag FROM mag WHERE statusPub = 1');
         $req->execute();
         return $req->fetchALL(PDO::FETCH_OBJ);
     }

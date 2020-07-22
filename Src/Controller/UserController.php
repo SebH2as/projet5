@@ -9,6 +9,7 @@ use Projet5\Controller\MagController;
 use Projet5\Model\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\Model\UsersManager;
+use Projet5\Model\LettersManager;
 use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
@@ -22,12 +23,14 @@ class UserController{
     private $magController;
     private $articleManager;
     private $usersManager;
+    private $lettersManager;
     private $view;
     private $request;
     private $dataLoader;
     private $files;
     private $session;
     private $auth;
+    
 
     public function __construct()
     {
@@ -36,6 +39,7 @@ class UserController{
         $this->magManager = new magManager();
         $this->articleManager = new articleManager();
         $this->usersManager = new usersManager();
+        $this->lettersManager = new lettersManager();
         $this->request = new request();
         $this->dataLoader = new dataLoader();
         $this->files = new files();
@@ -62,8 +66,10 @@ class UserController{
         $user = $this->auth->user();
         if($user)
         {
+            $nbUnpubletters = $this->lettersManager->countUnpubLetters($user->pseudo);
+            $nbPubletters = $this->lettersManager->countPubLetters($user->pseudo);
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-            $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user', 'message'));
+            $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user', 'message', 'nbUnpubletters', 'nbPubletters'));
             exit();
         }
         header('location: index.php');
@@ -212,11 +218,33 @@ class UserController{
         if($user)
         {
             $error = null;
+            $numberMags = $this->magManager->getAllNumberPubliMag();
+            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            $this->view->render('front/nousEcrire', 'front/layout', compact('magazine', 'user', 'error', 'numberMags'));
+            exit();
+        }
+        header('location: index.php');
+    }
+
+    public function postLetter()
+    {
+        $user = $this->auth->user();
+        if($user)
+        {
+            $error = 'Une erreur est survenue, veuillez soummettre votre courrier de nouveau';
+            if($this->request->post('courrier') !== null &&  !empty($this->request->post('courrier')))
+            {
+                var_dump($user->pseudo);
+                var_dump($this->request->post('courrier'));
+                var_dump($this->request->post('numberMag'));
+                $this->lettersManager->postLetter($user->pseudo, $this->request->post('courrier'), $this->request->post('numberMag'));
+                $this->monCompte();
+                exit();
+            }
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
             $this->view->render('front/nousEcrire', 'front/layout', compact('magazine', 'user', 'error'));
             exit();
         }
-        header('location: index.php');
     }
 
     public function modifPseudoUser()
@@ -364,6 +392,35 @@ class UserController{
         }
         $this->usersManager->newsletter((string) $user->id_user, '0');
         $this->monCompte();
+    }
+
+    public function courrier()
+    {
+        $this->auth->requireRole('1');
+        $totalLetters = $this->lettersManager->countletters();
+        $nbByPage = 5;
+        $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            } 
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+
+
+        $letters = $this->lettersManager->getAllLetters((int) $offset, (int) $nbByPage);
+        $this->view->render('back/courrier', 'back/layout', compact('totalLetters', 'nbByPage', 'offset', 'currentpage', 'totalpages', 'letters'));
+    }
+
+    public function userLetter()
+    {
+        $this->auth->requireRole('1');
+        $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
+        $this->view->render('back/userLetter', 'back/layout', compact('letter'));
     }
 
 }

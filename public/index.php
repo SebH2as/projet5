@@ -59,7 +59,10 @@ $actionUser =
     'modifPass',
     'modifEmail',
     'modifPseudo',
-    'newsLetterAbo'
+    'postLetter',
+    'newsLetterAbo',
+    'courrier',
+    'userLetter'
 ];
 
 if (($request->get('action')) !== null){

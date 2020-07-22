@@ -35,8 +35,13 @@
                     Abonné
                     <?php endif; ?>
                     </p>
-                    <p class="infos"><b>Courrier(s) en attente(s) de validation:</b>  Aucun</p>
-                    <p class="infos"><b>Courrier(s) publié(s):</b>  Aucun</p>
+                    <p class="infos"><b>Courrier(s) en attente(s) de validation:</b>
+                    <?= $nbUnpubletters[0] ?>
+                    </p>
+
+                    <p class="infos"><b>Courrier(s) publié(s):</b>
+                    <?= $nbPubletters[0] ?>
+                    </p>
                 </div>
                 <div id="blockLinks">
                     <a class="countLinks" href="index.php?action=modifPseudoUser&amp;idMag=<?= $magazine[0]->idMag ?>">Modifier mon pseudo</a>

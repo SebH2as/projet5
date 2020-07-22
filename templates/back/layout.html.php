@@ -23,7 +23,7 @@
                 <div class="dropDown">
                     <span href="">Courrier <i class="fa fa-caret-down"></i></span>
                     <div class="dropdown-content">
-                        <a href="#">Gestion du courrier</a>
+                        <a href="index.php?action=courrier">Gestion du courrier</a>
                         <a href="#">Gestion des newsletters</a>
                     </div>
                 </div>
