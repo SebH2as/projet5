@@ -218,9 +218,8 @@ class UserController{
         if($user)
         {
             $error = null;
-            $numberMags = $this->magManager->getAllNumberPubliMag();
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-            $this->view->render('front/nousEcrire', 'front/layout', compact('magazine', 'user', 'error', 'numberMags'));
+            $this->view->render('front/nousEcrire', 'front/layout', compact('magazine', 'user', 'error'));
             exit();
         }
         header('location: index.php');
@@ -234,10 +233,7 @@ class UserController{
             $error = 'Une erreur est survenue, veuillez soummettre votre courrier de nouveau';
             if($this->request->post('courrier') !== null &&  !empty($this->request->post('courrier')))
             {
-                var_dump($user->pseudo);
-                var_dump($this->request->post('courrier'));
-                var_dump($this->request->post('numberMag'));
-                $this->lettersManager->postLetter($user->pseudo, $this->request->post('courrier'), $this->request->post('numberMag'));
+                $this->lettersManager->postLetter($user->pseudo, $this->request->post('courrier'));
                 $this->monCompte();
                 exit();
             }
@@ -419,8 +415,9 @@ class UserController{
     public function userLetter()
     {
         $this->auth->requireRole('1');
+        $numberMags = $this->magManager->getAllNumberPubliMag();
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
-        $this->view->render('back/userLetter', 'back/layout', compact('letter'));
+        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags'));
     }
 
 }

@@ -9,6 +9,7 @@
                 <div id="tableTitles">
                     <span class="columnTitle">Membre</span>
                     <span class="columnTitle">Date de réception</span>
+                    <span class="columnTitle">Réponse</span>
                     <span class="columnTitle">Magazine associé</span>
                     <span class="columnTitle">Statut</span>
                 </div>
@@ -16,7 +17,10 @@
                 <a class="tableRows" href="index.php?action=userLetter&amp;idLetter=<?= $letter->id_letter ?>">
                     <span class="tableContent"><?= $letter->author ?></span>
                     <span class="tableContent"><?= $letter->post_date ?></span>
-                    <span class="tableContent"><?= $letter->magNumber ?></span>
+                    <span class="tableContent"><?php if ($letter->response === null): ?> aucune
+                                                <?php else: ?> oui<?php endif; ?></span>
+                    <span class="tableContent"><?php if ($letter->magRelated === null): ?> aucun
+                                                <?php else: ?> <?= $letter->magRelated ?><?php endif; ?></span>
                     <span class="tableContent"><?php if (($letter ->published) === '0') echo 'En attente de validation'?>
                                             <?php if (($letter ->published) === '1') echo 'Publié'?></span>
                 </a>

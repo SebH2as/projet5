@@ -17,13 +17,12 @@ class LettersManager
         $this->bdd = $this->dataBase->getConnection();
     }
 
-    public function postLetter($author, $content, $magNumber)
+    public function postLetter($author, $content)
     {
-        $req = $this->bdd->prepare('INSERT INTO letters SET author = :newauthor, content = :newcontent, magNumber = :newnumber, post_date = NOW(), published = 0');
+        $req = $this->bdd->prepare('INSERT INTO letters SET author = :newauthor, content = :newcontent, post_date = NOW(), published = 0');
         return $req->execute([
             'newauthor' => (string) $author,
-            'newcontent' => (string) $content,
-            'newnumber' => (string) $magNumber]);
+            'newcontent' => (string) $content]);
     }
 
     public function countUnpubLetters($author)

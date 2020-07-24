@@ -26,13 +26,6 @@
             
                 <label for="courrier">Courrier:</label>
                 <textarea id="courrier" name="courrier" rows="15" cols="50"></textarea>
-                
-                <label for="numberMag">Choisissez un numéro de magazine auquel associer ce courrier:</label>
-                            <select list="numberMag" name="numberMag">
-                                <?php foreach($numberMags as $number): ?>  
-                                <option value="<?= $number->numberMag ?>">Magazine numéro <?= $number->numberMag ?></option>
-                                <?php endforeach; ?>
-                            </select> 
 
                 <input type="submit" id="saver" value="Poster votre courrier">
             </form>
