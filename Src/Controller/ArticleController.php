@@ -36,7 +36,7 @@ class ArticleController{
     public function addContent()
     {
         $this->auth->requireRole('1');
-        $message = null;
+        $message = 'Le contenu de l\'article a été modifié';
         $this->articleManager->modifContent((int) $this->request->get('idText'), (string) $this->request->post('content'));
         $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
         $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));

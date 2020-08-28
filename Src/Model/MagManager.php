@@ -208,7 +208,7 @@ class MagManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function deleteMag(int $idMag):void//requête pour supprimer un épisode en fonction de son id
+    public function deleteMag(int $idMag):void//requête pour supprimer un magazine en fonction de son id
     {
         $req = $this->bdd->prepare('DELETE FROM mag WHERE id_mag = :idMag ');
         $req->execute(['idMag' => $idMag]);

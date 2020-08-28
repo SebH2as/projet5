@@ -62,7 +62,12 @@ $actionUser =
     'postLetter',
     'newsLetterAbo',
     'courrier',
-    'userLetter'
+    'userLetter',
+    'relatedMag',
+    'addResponse',
+    'validation',
+    'courrierDelete',
+    'invalidation'
 ];
 
 if (($request->get('action')) !== null){

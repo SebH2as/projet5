@@ -415,9 +415,45 @@ class UserController{
     public function userLetter()
     {
         $this->auth->requireRole('1');
+        $message = null;
         $numberMags = $this->magManager->getAllNumberPubliMag();
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
-        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags'));
+        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
+    }
+
+    public function relatedMag()
+    {
+        $this->auth->requireRole('1');
+        $this->lettersManager->addRelatedMag((int)$this->request->get('idLetter'), (int) $this->request->post('numberMag'));
+        $this->userLetter();
+    }
+
+    public function addResponse()
+    {
+        $this->auth->requireRole('1');
+        $this->lettersManager->response((int)$this->request->get('idLetter'), (string) $this->request->post('contentResponse'));
+        $this->userLetter();
+    }
+
+    public function validation()
+    {
+        $this->auth->requireRole('1');
+        $this->lettersManager->validatedCourrier((int)$this->request->get('idLetter'));
+        $this->userLetter();
+    }
+
+    public function invalidation()
+    {
+        $this->auth->requireRole('1');
+        $this->lettersManager->invalidatedCourrier((int)$this->request->get('idLetter'));
+        $this->userLetter();
+    }
+
+    public function courrierDelete()
+    {
+        $this->auth->requireRole('1');
+        $this->lettersManager->deleteCourrier((int)$this->request->get('idLetter'));
+        $this->courrier();
     }
 
 }

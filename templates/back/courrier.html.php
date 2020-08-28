@@ -22,7 +22,7 @@
                     <span class="tableContent"><?php if ($letter->magRelated === null): ?> aucun
                                                 <?php else: ?> <?= $letter->magRelated ?><?php endif; ?></span>
                     <span class="tableContent"><?php if (($letter ->published) === '0') echo 'En attente de validation'?>
-                                            <?php if (($letter ->published) === '1') echo 'Publié'?></span>
+                                            <?php if (($letter ->published) === '1') echo 'Validé'?></span>
                 </a>
                 <?php endforeach; ?>
             </div>

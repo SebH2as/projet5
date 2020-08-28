@@ -64,4 +64,41 @@ class LettersManager
             'idletter' => (string) $idLetter]);
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
+
+    public function addRelatedMag($idLetter, $relatedMag)
+    {
+        $req = $this->bdd->prepare('UPDATE letters SET magRelated = :related WHERE id_letter = :idletter');
+        $req->execute([
+            'idletter' => (int) $idLetter,
+            'related' => (int) $relatedMag]);
+    }
+
+    public function response($idLetter, $response)
+    {
+        $req = $this->bdd->prepare('UPDATE letters SET response = :resp WHERE id_letter = :idletter');
+        $req->execute([
+            'idletter' => (int) $idLetter,
+            'resp' => (string) $response]);
+    }
+
+    public function validatedCourrier($idLetter)
+    {
+        $req = $this->bdd->prepare('UPDATE letters SET published = 1 WHERE id_letter = :idletter');
+        $req->execute([
+            'idletter' => (int) $idLetter]);
+    }
+
+    public function invalidatedCourrier($idLetter)
+    {
+        $req = $this->bdd->prepare('UPDATE letters SET published = 0 WHERE id_letter = :idletter');
+        $req->execute([
+            'idletter' => (int) $idLetter]);
+    }
+
+    public function deleteCourrier($idLetter)
+    {
+        $req = $this->bdd->prepare('DELETE FROM letters WHERE id_letter = :idletter');
+        $req->execute([
+            'idletter' => (int) $idLetter]);
+    }
 }
