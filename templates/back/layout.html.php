@@ -30,7 +30,7 @@
                 <div class="dropDown">
                     <span href="">Utilisateurs <i class="fa fa-caret-down"></i></span>
                     <div class="dropdown-content">
-                        <a href="#">Administrateur</a>
+                        <a href="index.php?action=adminProfil">Administrateur</a>
                         <a href="#">Membres</a>
                     </div>
                 </div>

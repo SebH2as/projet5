@@ -477,4 +477,59 @@ class UserController{
         $this->courrier();
     }
 
+    public function adminProfil()
+    {
+        $this->auth->requireRole('1');
+        $this->view->render('back/admin', 'back/layout');
+    }
+
+    function reset():void //méthode pour réinitialiser les informations de l'administrateur
+    {
+
+        $message = null;
+        $isError = true;
+        
+        $this->auth->requireRole('1');
+        
+        
+
+        $error = 'Une erreure est survenue';
+        //if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
+        //{
+            $error = 'Au moins un des champs est vide';
+            if ((($this->request->post('pseudo')) !== null && !empty($this->request->post('pseudo'))) 
+            && (($this->request->post('email')) !== null && !empty($this->request->post('email'))) 
+            && (($this->request->post('passOld')) !== null && !empty($this->request->post('passOld'))) 
+            && (($this->request->post('pass')) !== null && !empty($this->request->post('pass'))) 
+            && (($this->request->post('pass2')) !== null && !empty($this->request->post('pass2')))) 
+            {
+                $user = $this->auth->user();
+                $error = 'Impossible de modifier les informations';
+                if ($user && password_verify($this->request->post('passOld'), $user->p_w))
+                {   
+                    $error = 'Le nouveau mot de passe choisi n\'est pas valide';
+                    if ($this->request->post('pass') !== $this->request->post('pass2')) {// on teste les deux mots de passe
+                        $error = 'Les 2 mots de passe sont différents';                       
+                    }
+                    elseif (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('pass')))
+                    {
+                        $this->usersManager->resetInfos($user->id_user, $this->request->post('pseudo'), $this->request->post('email'), password_hash($this->request->post('pass'), PASSWORD_DEFAULT));
+                        //session_destroy();
+                        //session_start();
+                        //$token = $this->noCsrf->createToken(); 
+                        //$request = $this->request;
+                        $error = 'Vos changements ont bien été pris en compte';
+                        $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
+                        $isError = false;  
+                    }                          
+                }              
+            }
+        //}
+        if($isError){
+            //$token = $this->noCsrf->createToken();
+            //$request = $this->request;
+            $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
+        }             
+    }
+
 }

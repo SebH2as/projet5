@@ -68,7 +68,9 @@ $actionUser =
     'addResponse',
     'validation',
     'courrierDelete',
-    'invalidation'
+    'invalidation',
+    'adminProfil',
+    'reset'
 ];
 
 if (($request->get('action')) !== null){

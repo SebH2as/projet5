@@ -107,4 +107,14 @@ class UsersManager
             'newemail' => (string) $emailNew,
             'idUser' => (string) $idUser]);
     }
+
+    public function resetInfos($idUser, $newPseudo, $newEmail, $newPass)
+    {
+        $req = $this->bdd->prepare('UPDATE users SET pseudo = :newpseudo, email = :newemail, p_w = :newpass WHERE id_user = :idUser ');
+        $req->execute([
+            'newpseudo' => (string) $newPseudo,
+            'newpass' => (string) $newPass,
+            'newemail' => (string) $newEmail,
+            'idUser' => (string) $idUser]);
+    }
 }
