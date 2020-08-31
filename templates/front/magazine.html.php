@@ -18,7 +18,7 @@
             <a id="anchorEd" href="#editorial">Edito</a>
             <h2 id="title01"><?= $magazine[0]->title01 ?></h2>
             <h2 id="title02"><?= $magazine[0]->title02 ?></h2>
-            <a id="arrowLeft" class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine précédent</span></div></a>
+            <a class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine précédent</span></div></a>
             <a class="fa fa-arrow-circle-right<?php if (empty($next)) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine suivant</span></div></a>
         </header>
         <section id="editorial">
@@ -34,7 +34,7 @@
             <div class="column">
                 <div class="square topers">
                     <h3>Courrier des lecteurs</h3>
-                    <a class="fa fa-envelope"></a>
+                    <a class="fa fa-envelope" href="index.php?action=readersLetters&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
                 </div>
                 <div class="square topers"></div>
                 <div class="square topers"></div>

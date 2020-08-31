@@ -29,6 +29,9 @@
                 font-size: 36px;
                 color: $primaryBackgroundColorDark;
             }
+            a{
+                color: $secondaryBacgroundColorOrange;
+            }
         }
     }
     
@@ -815,3 +818,99 @@
         }
        
 }
+
+#listLetters{
+    width:100%;
+    min-height: 95vh;
+    margin-bottom: 5vh;
+    background-color: $primaryBackgroundColorLight;
+    position: relative;
+    
+        #titleLetters{
+            position: relative;
+            text-align: center;
+            margin-bottom: 5vh;
+            h1{
+                position: relative;
+                font-size: 48px;
+                
+                z-index: 2;
+            }
+            a{
+                text-decoration: none;
+                position: relative;
+                color: $primaryBackgroundColorDark;
+            }
+            #separator02{
+                width: 100%;
+                height: 0;
+                border-top: 20px solid $secondaryBacgroundColorOrange;
+                position: absolute;
+                top: 40%;
+                z-index: 1;
+            }
+        }
+        .lettersAll{
+            margin: 5vh;
+            border: 5px solid $secondaryBacgroundColorOrange;
+        }
+        .readerLetter{
+            border: 2px solid $secondaryBacgroundColorOrange;
+            padding: 2vh;
+            margin: 2vh;
+            span{
+                font-size: 18px !important;
+                color: $primaryBackgroundColorDark !important;
+                background-color: $primaryBackgroundColorLight !important;
+            }
+        }
+        .responseLetter{
+            border: 2px solid $secondaryBacgroundColorOrange;
+            padding: 2vh;
+            margin: 2vh;
+            span{
+                font-size: 18px !important;
+                color: $primaryBackgroundColorDark !important;
+                background-color: $primaryBackgroundColorLight !important;
+            }
+            
+        }
+        #pageMovers{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5vh;;
+            align-self: center;
+                a{
+                    width: 30%;
+                    text-align: center;
+                    font-size: 54px;
+                    text-decoration: none;
+                    color: $primaryBackgroundColorDark;
+                    &:hover{
+                        color: $secondaryBacgroundColorOrange;
+                    }
+                }
+                span{
+                    background-color: $secondaryBacgroundColorOrange;
+                    border: solid 2px $primaryBackgroundColorDark;
+                    font-size: 24px;
+                    padding: 10px;;
+                }
+        }
+        #pageMoversHidden{
+            display: none;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+        .hidden{
+            cursor: not-allowed;
+            pointer-events: none;
+            color: #eceee3 !important;
+            
+            
+        }
+
+    }

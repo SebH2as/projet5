@@ -32,7 +32,10 @@
                 </div>
             </div>
             <div class="column">
-               <div class="square topers"></div>
+            <div class="square topers">
+                    <h3>Courrier des lecteurs</h3>
+                    <a class="fa fa-envelope" href="index.php?action=previewLetters&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
+                </div>
                <div class="square topers"></div>
                <div class="square topers"></div>
            </div>

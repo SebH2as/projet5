@@ -425,28 +425,49 @@ class UserController{
     {
         $this->auth->requireRole('1');
         $this->lettersManager->addRelatedMag((int)$this->request->get('idLetter'), (int) $this->request->post('numberMag'));
-        $this->userLetter();
+        $message = 'Le magazine associé a été modifié';
+        $numberMags = $this->magManager->getAllNumberPubliMag();
+        $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
+        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
     }
 
     public function addResponse()
     {
         $this->auth->requireRole('1');
         $this->lettersManager->response((int)$this->request->get('idLetter'), (string) $this->request->post('contentResponse'));
-        $this->userLetter();
+        $message = 'La réponse a été enregistrée';
+        $numberMags = $this->magManager->getAllNumberPubliMag();
+        $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
+        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
     }
 
     public function validation()
     {
         $this->auth->requireRole('1');
-        $this->lettersManager->validatedCourrier((int)$this->request->get('idLetter'));
-        $this->userLetter();
+        $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
+        if (($letter[0]->magRelated) !== null)
+        {
+            $this->lettersManager->validatedCourrier((int)$this->request->get('idLetter'));
+            $message = 'Le courrier est validé et intégré au magazine associé';
+            $numberMags = $this->magManager->getAllNumberPubliMag();
+            $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
+            $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
+        }
+        $message = 'Le courrier doit être associé à un magazine avant sa validation';
+        $numberMags = $this->magManager->getAllNumberPubliMag();
+        $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
+        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
+        
     }
 
     public function invalidation()
     {
         $this->auth->requireRole('1');
         $this->lettersManager->invalidatedCourrier((int)$this->request->get('idLetter'));
-        $this->userLetter();
+        $message = 'Le courrier est invalidé et retiré du magazine associé';
+        $numberMags = $this->magManager->getAllNumberPubliMag();
+        $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
+        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
     }
 
     public function courrierDelete()

@@ -57,6 +57,14 @@ class LettersManager
         return $req->fetch();
     }
 
+    public function countLettersByRelatedMag($numberMag):array // requete pour compter le nombre de lettres total
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(*) FROM letters WHERE magRelated = :numberMag AND published = 1');
+        $req->execute([
+            'numberMag' => (string) $numberMag]);
+        return $req->fetch();
+    }
+
     public function getLetterById($idLetter) // requete pour récupérer une lettre en fonction de son id
     {
         $req = $this->bdd->prepare('SELECT * FROM letters WHERE id_letter = :idletter');
@@ -100,5 +108,15 @@ class LettersManager
         $req = $this->bdd->prepare('DELETE FROM letters WHERE id_letter = :idletter');
         $req->execute([
             'idletter' => (int) $idLetter]);
+    }
+
+    public function getCourrierByRelatedMag($offset, $nbByPage, $numberMag)
+    {
+        $req = $this->bdd->prepare('SELECT * FROM letters WHERE magRelated = :numberMag AND published = 1 LIMIT :offset, :limitation ');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->bindValue(':numberMag', $numberMag);
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ);
     }
 }

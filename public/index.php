@@ -26,7 +26,8 @@ $actionMag =
     'previousMag',
     'nextMag',
     'magazine',
-    
+    'readersLetters',
+    'previewLetters'
 ];
 
 $actionArticle =

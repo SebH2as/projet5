@@ -8,6 +8,7 @@ use Projet5\View\View;
 use Projet5\Model\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\Model\UsersManager;
+use Projet5\Model\LettersManager;
 use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
@@ -20,6 +21,7 @@ class MagController{
     private $magManager;
     private $articleManager;
     private $usersManager;
+    private $lettersManager;
     private $view;
     private $request;
     private $dataLoader;
@@ -33,6 +35,7 @@ class MagController{
         $this->magManager = new magManager();
         $this->articleManager = new articleManager();
         $this->usersManager = new usersManager();
+        $this->lettersManager = new lettersManager();
         $this->request = new request();
         $this->dataLoader = new dataLoader();
         $this->files = new files();
@@ -233,5 +236,51 @@ class MagController{
         $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
     }
 
-    
+    public function readersLetters()
+    {
+        $user = $this->auth->user();
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        
+        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine[0]->numberMag);
+        $nbByPage = 2;
+        $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            } 
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+        
+        $letters = $this->lettersManager->getCourrierByRelatedMag($offset, $nbByPage, $magazine[0]->numberMag);
+        $this->view->render('front/readersLetters', 'front/layout', compact('magazine', 'letters', 'totalLetters', 'totalpages', 'currentpage'));
+
+    }
+
+    public function previewLetters()
+    {
+        $this->auth->requireRole('1');
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        
+        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine[0]->numberMag);
+        $nbByPage = 2;
+        $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            } 
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+        
+        $letters = $this->lettersManager->getCourrierByRelatedMag($offset, $nbByPage, $magazine[0]->numberMag);
+        $this->view->render('back/previewLetters', 'front/layout', compact('magazine', 'letters', 'totalLetters', 'totalpages', 'currentpage'));
+
+    }
 }
