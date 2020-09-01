@@ -480,56 +480,147 @@ class UserController{
     public function adminProfil()
     {
         $this->auth->requireRole('1');
-        $this->view->render('back/admin', 'back/layout');
+        $message = null;
+        $error = null;
+
+        $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
     }
 
     function reset():void //méthode pour réinitialiser les informations de l'administrateur
     {
 
         $message = null;
-        $isError = true;
+        $error = null;
         
         $this->auth->requireRole('1');
         
-        
-
-        $error = 'Une erreure est survenue';
-        //if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-        //{
-            $error = 'Au moins un des champs est vide';
-            if ((($this->request->post('pseudo')) !== null && !empty($this->request->post('pseudo'))) 
-            && (($this->request->post('email')) !== null && !empty($this->request->post('email'))) 
-            && (($this->request->post('passOld')) !== null && !empty($this->request->post('passOld'))) 
-            && (($this->request->post('pass')) !== null && !empty($this->request->post('pass'))) 
-            && (($this->request->post('pass2')) !== null && !empty($this->request->post('pass2')))) 
+        if($this->request->post('resetPseudo') !== null)
+        {
+            $user = $this->auth->user();
+            if($user)
             {
-                $user = $this->auth->user();
-                $error = 'Impossible de modifier les informations';
-                if ($user && password_verify($this->request->post('passOld'), $user->p_w))
-                {   
-                    $error = 'Le nouveau mot de passe choisi n\'est pas valide';
-                    if ($this->request->post('pass') !== $this->request->post('pass2')) {// on teste les deux mots de passe
-                        $error = 'Les 2 mots de passe sont différents';                       
-                    }
-                    elseif (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('pass')))
+                $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
+                if($this->request->post('pass01') !== null && !empty($this->request->post('pass01'))
+                && password_verify($this->request->post('pass01'), $user->p_w))
+                {
+                    if($this->request->post('pseudo') !== null && !empty($this->request->post('pseudo')))
                     {
-                        $this->usersManager->resetInfos($user->id_user, $this->request->post('pseudo'), $this->request->post('email'), password_hash($this->request->post('pass'), PASSWORD_DEFAULT));
-                        //session_destroy();
-                        //session_start();
-                        //$token = $this->noCsrf->createToken(); 
-                        //$request = $this->request;
-                        $error = 'Vos changements ont bien été pris en compte';
-                        $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
-                        $isError = false;  
-                    }                          
-                }              
+                        $error = 'Le pseudo choisi n\'est pas valide';
+                        if(strlen($this->request->post('pseudo')) > 3 && strlen($this->request->post('pseudo')) < 15)
+                        {
+                            $error = 'Le pseudo choisi est déjà utilisé';
+                            $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudo'));
+                            if( ($pseudoThere[0]) < 1)
+                            {
+                                $this->usersManager->modifPseudo((string) $user->id_user, $this->request->post('pseudo'));
+                                $message='Votre pseudo a été modifié';
+                                $error= null;
+                                $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
+                                exit();
+                            }
+                        }
+                    }
+                }
+                $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
+                exit();
             }
-        //}
-        if($isError){
-            //$token = $this->noCsrf->createToken();
-            //$request = $this->request;
-            $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
-        }             
+            header('location: index.php');
+        }
+
+        if($this->request->post('resetEmail') !== null)
+        {
+            $user = $this->auth->user();
+            if($user)
+            {
+                $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
+                if($this->request->post('pass02') !== null && !empty($this->request->post('pass02'))
+                && password_verify($this->request->post('pass02'), $user->p_w))
+                {
+                    if($this->request->post('email') !== null && !empty($this->request->post('email')))
+                    {
+                        $error = 'Les emails renseignés ne correspondent pas';
+                        if(($this->request->post('email')) === ($this->request->post('email02')))
+                        {
+                            $error = 'L\' email choisi est déjà utilisé';
+                            $emailThere = $this->usersManager->emailUser( $this->request->post('email'));
+                            if( ($emailThere[0]) < 1)
+                            {
+                                $this->usersManager->modifEmail((string) $user->id_user, $this->request->post('email'));
+                                $message='Votre email a été modifié';
+                                $error= null;
+                                $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
+                                exit();
+                            }
+                        }
+                    }
+                }
+                $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
+                exit();
+            }
+            header('location: index.php');
+        }
+        
+        if($this->request->post('resetPass') !== null)
+        {
+            $user = $this->auth->user();
+            if($user)
+            {
+                $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
+                if($this->request->post('pass03') !== null && !empty($this->request->post('pass03'))
+                && password_verify($this->request->post('pass03'), $user->p_w))
+                {
+                    if($this->request->post('passwordNew') !== null && !empty($this->request->post('passwordNew')))
+                    {
+                        $error = 'Le nouveau mot de passe choisi n\'est pas valide';
+                        if(preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('passwordNew')))
+                        {
+                            $error = 'Les deux mots de passe renseignés ne correspondent pas';
+                            if($this->request->post('passwordNew') === $this->request->post('passwordNew2'))
+                            {
+                                $this->usersManager->modifPass((string) $user->id_user, (string) password_hash($this->request->post('passwordNew'), PASSWORD_DEFAULT));
+                                $message='Votre mot de passe a été modifié';
+                                $error= null;
+                                $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
+                                exit();
+                            }
+                        }
+                    }
+                }
+                $this->view->render('back/admin', 'back/layout', compact('message', 'error'));
+                exit();
+            }
+            header('location: index.php');
+        }
+
+    }
+
+    public function usersAdmin()
+    {
+        $this->auth->requireRole('1');
+        $totalUsers = $this->usersManager->countUsers();
+        $nbByPage = 5;
+        $totalpages = (int) ceil($totalUsers[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            } 
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+
+
+        $users = $this->usersManager->getAllUsers((int) $offset, (int) $nbByPage);
+        $this->view->render('back/usersAdmin', 'back/layout', compact('totalUsers', 'nbByPage', 'offset', 'currentpage', 'totalpages', 'users'));
+    }
+
+    public function deleteUser()
+    {
+        $this->auth->requireRole('1');
+        $this->usersManager->deleteUserById((int) $this->request->get('iduser'));
+        $this->usersAdmin();
     }
 
 }

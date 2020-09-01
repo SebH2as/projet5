@@ -117,4 +117,29 @@ class UsersManager
             'newemail' => (string) $newEmail,
             'idUser' => (string) $idUser]);
     }
+
+    public function getAllUsers($offset, $nbByPage)
+    {
+        $req = $this->bdd->prepare('SELECT * 
+        FROM users 
+        LIMIT :offset, :limitation ');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
+    public function countUsers():array // requete pour compter le nombre de lettres total
+    {
+        $req = $this->bdd->prepare('SELECT COUNT(*) FROM users');
+        $req->execute();
+        return $req->fetch();
+    }
+
+    public function deleteUserById($idUser)
+    {
+        $req = $this->bdd->prepare('DELETE FROM users WHERE id_user = :userid');
+        $req->execute([
+            'userid' => (string) $idUser]);
+    }
 }

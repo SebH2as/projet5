@@ -1882,7 +1882,7 @@ body {
 #admin {
   position: relative;
   width: 60%;
-  height: 95vh;
+  height: 96vh;
   background-color: #DDC67B;
   z-index: 0;
   display: -webkit-box;
@@ -1914,9 +1914,53 @@ body {
   margin-bottom: 2vh;
 }
 
+#admin #message {
+  font-size: 24px;
+  margin-bottom: 2vh;
+  background-color: #FBF7B1;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+  border: solid 2px #F8F272;
+  padding: 15px;
+  border-radius: 12px;
+  font-style: italic;
+}
+
+#admin #error {
+  background-color: red;
+  text-align: center;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  font-size: 24px;
+  color: #fafafa;
+  padding: 15px;
+  border-radius: 12px;
+  font-style: italic;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+  margin-bottom: 2vh;
+}
+
+#admin .none {
+  display: none;
+}
+
 #admin #formProfil {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#admin #formProfil input {
+  margin-bottom: 2vh;
+}
+
+#admin #formProfil .formSeparator {
   background-color: #48A9A6;
-  margin: 5vh;
+  margin: 1vh;
   padding: 2vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1925,23 +1969,11 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-
-#admin #formProfil input {
-  margin-bottom: 2vh;
-}
-
-#admin #formProfil #labelPass2 {
-  background-color: red;
-  text-align: center;
-  padding-left: 1vh;
-  padding-right: 1vh;
-  font-size: 24px;
-  color: #fafafa;
+  width: 25%;
 }
 
 #admin #formProfil .buttonReset {
-  width: 30%;
+  width: 50%;
   padding: 15px;
   margin-top: 15px;
   border: solid 2px #F8F272;
@@ -1961,6 +1993,184 @@ body {
   background-color: #FBF7B1;
   -webkit-box-shadow: 0px 2px 10px #110B11;
           box-shadow: 0px 2px 10px #110B11;
+}
+
+#users {
+  position: relative;
+  width: 60%;
+  height: 95vh;
+  background-color: #DDC67B;
+  z-index: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#users h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+#users #tableContainer {
+  width: 98%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 5vh;
+}
+
+#users #tableContainer #tableTitles {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+
+#users #tableContainer #tableTitles .columnTitle {
+  width: 20%;
+  background-color: #48A9A6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 18px;
+  border-top: solid 2px #110B11;
+  border-left: solid 2px #110B11;
+}
+
+#users #tableContainer #tableTitles .columnTitle:nth-child(8) {
+  border-right: solid 2px #110B11;
+}
+
+#users #tableContainer .tableRows {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  text-decoration: none;
+  background-color: #F8F272;
+}
+
+#users #tableContainer .tableRows:nth-last-of-type(1) {
+  border-bottom: solid 2px #110B11;
+}
+
+#users #tableContainer .tableRows .tableContent {
+  width: 20%;
+  color: #110B11;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 16px;
+  border-top: solid 2px #110B11;
+  border-left: solid 2px #110B11;
+}
+
+#users #tableContainer .tableRows .tableContent:nth-child(8) {
+  border-right: solid 2px #110B11;
+}
+
+#users #tableContainer .tableRows .tableContent.delete {
+  background-color: red;
+}
+
+#users #tableContainer .tableRows .tableContent.delete:hover {
+  background-color: #FBF7B1;
+  cursor: pointer;
+}
+
+#users #tableContainer .tableRows .tableContent a {
+  text-decoration: none;
+  color: #110B11;
+}
+
+#users #pageMovers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50%;
+}
+
+#users #pageMovers a {
+  width: 30%;
+  text-align: center;
+  font-size: 54px;
+  text-decoration: none;
+  color: #110B11;
+}
+
+#users #pageMovers a:hover {
+  color: #48A9A6;
+}
+
+#users #pageMovers span {
+  background-color: #F8F272;
+  border: solid 2px #110B11;
+  font-size: 24px;
+  padding: 10px;
+}
+
+#users #pageMoversHidden {
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50%;
+}
+
+#users .hidden {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #beab6adf !important;
 }
 
 @font-face {

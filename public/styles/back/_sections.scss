@@ -1087,7 +1087,7 @@
 #admin{
     position: relative;
     width: 60%;
-    height: 95vh;
+    height: 96vh;
     background-color: $primaryBackgroundColorLight;
     z-index: 0;
     display: flex;
@@ -1106,25 +1106,49 @@
             margin-top: 2vh;
             margin-bottom: 2vh;
         }
+        #message{
+            font-size: 24px;
+            margin-bottom: 2vh;
+            background-color: $secondaryBacgroundColorYellowLight;
+            box-shadow: 0px 2px 10px $blackColor;
+            border: solid 2px $secondaryBacgroundColorYellow;
+            padding: 15px;
+            border-radius: 12px;
+            font-style: italic;
+        }
+        #error{
+            background-color: red;
+            text-align: center;
+            padding-left: 1vh;
+            padding-right: 1vh;
+            font-size: 24px;
+            color: rgb(250, 250, 250);
+            padding: 15px;
+            border-radius: 12px;
+            font-style: italic;
+            box-shadow: 0px 2px 10px $blackColor;
+            margin-bottom: 2vh;
+        }
+        .none{
+            display: none;
+        }
         #formProfil{
-            background-color: $secondaryBacgroundColor02;
-            margin: 5vh;
-            padding: 2vh;
+            
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             input{
                 margin-bottom: 2vh;
             }
-            #labelPass2{
-                background-color: red;
-                text-align: center;
-                padding-left: 1vh;
-                padding-right: 1vh;
-                font-size: 24px;
-                color: rgb(250, 250, 250);
+            .formSeparator{
+                background-color: $secondaryBacgroundColor02;
+                margin: 1vh;
+                padding: 2vh;
+                display: flex;
+                flex-direction: column;
+                width: 25%;
             }
             .buttonReset {
-                width: 30%;
+                width: 50%;
                 padding: 15px;
                 margin-top: 15px;
                 border: solid 2px $secondaryBacgroundColorYellow;
@@ -1141,4 +1165,121 @@
                 }
             }
         }
+    }
+
+    #users{
+        position: relative;
+        width: 60%;
+        height: 95vh;
+        background-color: $primaryBackgroundColorLight;
+        z-index: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+            h2{
+                text-align: center;
+                font-size: 36px;
+                margin-top: 2vh;
+                margin-bottom: 2vh;
+            }
+            
+            #tableContainer{
+                width: 98%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 5vh;
+                    #tableTitles{
+                        display: flex;
+                        justify-content: center;
+                        width: 100%;
+                        .columnTitle{
+                            width: 20%;
+                            background-color: $secondaryBacgroundColor02;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 18px;
+                            border-top: solid 2px $blackColor;
+                            border-left: solid 2px $blackColor;
+                            &:nth-child(8){
+                                border-right: solid 2px $blackColor;
+                            }
+                        }
+                    }
+                    .tableRows{
+                        display: flex;
+                        justify-content: center;
+                        width: 100%;
+                        text-decoration: none;
+                        background-color: $secondaryBacgroundColorYellow;
+                       
+                        &:nth-last-of-type(1){
+                            border-bottom: solid 2px $blackColor;
+                        }
+                        .tableContent{
+                            width: 20%;
+                            color: $blackColor;
+                            display: flex;
+                            text-align: center;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 16px;
+                            border-top: solid 2px $blackColor;
+                            border-left: solid 2px $blackColor;
+                            &:nth-child(8){
+                                border-right: solid 2px $blackColor;
+                            }
+                            &.delete{
+                                background-color: red;
+                                &:hover{
+                                    background-color: $secondaryBacgroundColorYellowLight;
+                                    cursor: pointer;
+                                }
+                            }
+                            a{
+                                text-decoration: none;
+                                color: $blackColor;
+                            }
+                        }
+                        
+                    }
+            }
+            #pageMovers{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50%;
+                    a{
+                        width: 30%;
+                        text-align: center;
+                        font-size: 54px;
+                        text-decoration: none;
+                        color: $blackColor;
+                        &:hover{
+                            color: $secondaryBacgroundColor02;
+                        }
+                    }
+                    span{
+                        background-color: $secondaryBacgroundColorYellow;
+                        border: solid 2px $blackColor;
+                        font-size: 24px;
+                        padding: 10px;;
+                    }
+            }
+            #pageMoversHidden{
+                display: none;
+                justify-content: center;
+                align-items: center;
+                width: 50%;
+            }
+            .hidden{
+                cursor: not-allowed;
+                pointer-events: none;
+                color: #beab6adf !important;
+                
+                
+            }
     }

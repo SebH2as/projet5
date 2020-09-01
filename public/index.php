@@ -70,7 +70,9 @@ $actionUser =
     'courrierDelete',
     'invalidation',
     'adminProfil',
-    'reset'
+    'reset',
+    'usersAdmin',
+    'deleteUser'
 ];
 
 if (($request->get('action')) !== null){

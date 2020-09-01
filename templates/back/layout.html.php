@@ -31,7 +31,7 @@
                     <span href="">Utilisateurs <i class="fa fa-caret-down"></i></span>
                     <div class="dropdown-content">
                         <a href="index.php?action=adminProfil">Administrateur</a>
-                        <a href="#">Membres</a>
+                        <a href="index.php?action=usersAdmin">Membres</a>
                     </div>
                 </div>
                 <div class="dropDown">
