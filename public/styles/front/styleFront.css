@@ -14,10 +14,11 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 100%;
 }
 
 body {
-  width: 60%;
+  width: 100%;
   height: auto;
   margin: 0 0 8vh;
   background-color: #030B12;
@@ -58,7 +59,7 @@ nav {
   height: 175px;
   -webkit-transition: top 0.5s;
   transition: top 0.5s;
-  z-index: 3;
+  z-index: 6;
 }
 
 nav a {
@@ -157,8 +158,8 @@ nav #popupInfos {
 }
 
 header {
-  width: 165%;
-  height: 98vh;
+  width: 100%;
+  height: 70vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -173,7 +174,7 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 1vh;
+  margin-top: 16vh;
   margin-bottom: 1vh;
   position: relative;
 }
@@ -214,60 +215,54 @@ header #borderRight {
 }
 
 header #headerImg {
-  width: 60%;
+  width: 80%;
   -o-object-fit: cover;
      object-fit: cover;
-  height: 0%;
+  height: 80%;
   z-index: 0;
   position: fixed;
-  -webkit-transition: height 5s, opacity 3s;
-  transition: height 5s, opacity 3s;
-  opacity: 0;
+  border: 5px solid #F9FBF2;
+  /*transition: height 5s, opacity 3s;
+        opacity: 0;*/
 }
 
-header #title01 {
+header #title {
   position: absolute;
-  top: 65%;
-  left: 15%;
-  max-width: 50%;
-  color: #F9FBF2;
-  background-color: #030B12;
-  padding: 5px;
+  top: 75%;
+  left: 21.5%;
+  font-size: 24px;
+  color: #030B12;
+  background-color: #F9FBF2;
+  padding: 0.5em 0.2em 0.8em 0.5em;
   display: inline-block;
-  font-size: 40px;
-  font-family: News Cycle;
   z-index: 1;
-  opacity: 0;
-  -webkit-transition: opacity 1s 3s;
-  transition: opacity 1s 3s;
+  border: 5px solid #030B12;
 }
 
 header #title02 {
   position: absolute;
-  top: 80%;
-  left: 15%;
-  max-width: 50%;
-  color: #F9FBF2;
-  background-color: #030B12;
-  padding: 5px;
-  display: inline-block;
-  font-size: 40px;
-  font-family: News Cycle;
-  z-index: 1;
-  opacity: 0;
-  -webkit-transition: opacity 1s 4s;
-  transition: opacity 1s 4s;
-}
-
-header #numberDate {
-  position: absolute;
-  top: 1%;
-  left: 22%;
-  font-size: 18px;
-  color: #F9FBF2;
+  top: 89%;
+  left: 35%;
+  font-size: 24px;
+  color: #030B12;
+  background-color: #F9FBF2;
   padding: 0.5em 0.2em 0.8em 0.5em;
   display: inline-block;
   z-index: 1;
+  border: 5px solid #030B12;
+}
+
+header #number {
+  position: absolute;
+  top: 89%;
+  left: 21.5%;
+  font-size: 24px;
+  color: #F9FBF2;
+  background-color: #030B12;
+  padding: 0.5em 0.2em 0.8em 0.5em;
+  display: inline-block;
+  z-index: 1;
+  border: 5px solid #030B12;
 }
 
 header #sentence {
@@ -327,10 +322,10 @@ header #anchorSum:hover {
 header .fa-arrow-circle-left {
   position: absolute;
   text-decoration: none;
-  top: 45%;
-  left: 18%;
+  top: 50%;
+  left: 12%;
   font-size: 72px;
-  z-index: 2;
+  z-index: 4;
   color: #F9FBF2;
   -webkit-transition: color .5s, -webkit-transform .5s;
   transition: color .5s, -webkit-transform .5s;
@@ -345,10 +340,10 @@ header .fa-arrow-circle-left:hover {
 header .fa-arrow-circle-right {
   position: absolute;
   text-decoration: none;
-  top: 45%;
-  right: 18%;
+  top: 50%;
+  right: 12%;
   font-size: 72px;
-  z-index: 2;
+  z-index: 4;
   color: #F9FBF2;
   -webkit-transition: color .5s, -webkit-transform .5s;
   transition: color .5s, -webkit-transform .5s;
@@ -413,6 +408,182 @@ header .hidden span {
   padding: 1vh;
   color: #030B12;
   display: none;
+}
+
+#coverPart01 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 60%;
+  height: auto;
+  z-index: 4;
+}
+
+#coverPart01 a {
+  background-color: #F9FBF2;
+  width: 30%;
+  padding: 1vh;
+  height: 50vh;
+  margin-left: 2.5%;
+  margin-bottom: 4vh;
+  border: 5px solid #030B12;
+  text-decoration: none;
+  color: #030B12;
+}
+
+#coverPart01 a:hover {
+  background-color: #030B12;
+  color: #F9FBF2;
+  cursor: pointer;
+}
+
+#coverPart01 a .imgContainer {
+  width: 100%;
+  height: 70%;
+  background-color: red;
+}
+
+#coverPart01 #mainArticle {
+  width: 62.5%;
+  position: relative;
+  height: 50vh;
+  margin-left: 2.5%;
+  margin-bottom: 4vh;
+  border: 5px solid black;
+}
+
+#coverPart01 #mainArticle #mainImg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#coverPart01 #mainArticle #mainImg:hover {
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+}
+
+#coverPart01 #mainArticle h3 {
+  position: absolute;
+  margin: 2vh;
+  padding: 5px;
+  font-size: 24px;
+  left: 0%;
+  top: 0%;
+  background-color: #030B12;
+  color: #F9FBF2;
+}
+
+#coverPart01 #mainArticle h2 {
+  font-size: 48px;
+  padding: 2vh;
+  text-align: center;
+  line-height: 75%;
+}
+
+#coverPart01 #edito {
+  width: 30%;
+  padding: 1vh;
+  height: 50vh;
+  margin-left: 2.5%;
+  margin-bottom: 4vh;
+  border: 5px solid #030B12;
+}
+
+#coverPart02 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 60%;
+  height: auto;
+  z-index: 4;
+}
+
+#coverPart02 a {
+  background-color: #F9FBF2;
+  width: 30%;
+  padding: 1vh;
+  height: 50vh;
+  margin-left: 2.5%;
+  margin-bottom: 4vh;
+  border: 5px solid #030B12;
+  text-decoration: none;
+  color: #030B12;
+}
+
+#coverPart02 a:hover {
+  background-color: #030B12;
+  color: #F9FBF2;
+  cursor: pointer;
+}
+
+#coverPart02 a .imgContainer {
+  width: 100%;
+  height: 75%;
+  background-color: red;
+}
+
+#coverPart02 .articleCover {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 30%;
+  padding: 1vh;
+  height: 50vh;
+  margin-left: 2.5%;
+  margin-bottom: 4vh;
+  border: 5px solid #030B12;
+}
+
+#coverPart02 .articleCover .articleImg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#coverPart02 .articleCover .articleImg:hover {
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+}
+
+#coverPart02 .articleCover h3 {
+  position: absolute;
+  margin: 2vh;
+  padding: 5px;
+  font-size: 24px;
+  z-index: 4;
+  top: 0%;
+  left: 0%;
+  background-color: #030B12;
+  color: #F9FBF2;
+}
+
+#coverPart02 .articleCover h2 {
+  font-size: 36px;
+  padding: 2vh;
+  text-align: center;
+  line-height: 75%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#coverPart02 #readersLetters {
+  width: 30%;
+  padding: 1vh;
+  height: 50vh;
+  margin-left: 2.5%;
+  margin-bottom: 4vh;
+  border: 5px solid #030B12;
 }
 
 #editorial {

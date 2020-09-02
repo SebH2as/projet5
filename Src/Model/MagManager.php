@@ -181,7 +181,7 @@ class MagManager
 
     public function findMagByIdWithArticles(int $idMag):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
     {
-        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS dateMag, topics, cover, title01, title02, editorial, statusPub,id_text, textType, content, title, author, articleCover, DATE_FORMAT(date_creation, \'Le %d/%m/%Y\') AS dateArticle,
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS dateMag, topics, cover, title01, title02, editorial, statusPub,id_text, textType, content, title, author, articleCover, DATE_FORMAT(date_creation, \'Le %d/%m/%Y\') AS dateArticle, main,
         COUNT(articles.id_text) AS articlesNb
         FROM mag 
         LEFT JOIN articles ON mag.id_mag = articles.id_mag
@@ -196,7 +196,7 @@ class MagManager
 
     public function findOnlineMagWithArticles(int $idMag):array//requête pour récupérer un numéro de magazine en fonction de son id avec ses articles associés
     {
-        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS dateMag, topics, cover, title01, title02, editorial, statusPub,articles.id_mag AS articleIdMag, id_text, textType, content, title, author, articleCover, DATE_FORMAT(date_creation, \'Le %d/%m/%Y\') AS dateArticle
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, publication, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS dateMag, topics, cover, title01, title02, editorial, statusPub,articles.id_mag AS articleIdMag, id_text, textType, content, title, author, articleCover, DATE_FORMAT(date_creation, \'Le %d/%m/%Y\') AS dateArticle, main
         
         FROM mag
         LEFT JOIN articles ON mag.id_mag = articles.id_mag 
@@ -227,4 +227,5 @@ class MagManager
         return $req->execute([
             'sameid' => $idMag]);
     }
+    
 }

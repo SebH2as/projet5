@@ -158,7 +158,7 @@ class UserController{
                 $this->usersManager->activeCount($this->request->post('pseudo'));
                 $this->session->setSessionData('userConnected', '1');
                 $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-                $this->view->render('front/monCompte', 'front/layout', compact('magazine'));
+                $this->connectionPage();
                 exit();
             }
         }

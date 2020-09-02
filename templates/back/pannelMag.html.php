@@ -24,7 +24,7 @@
                             <input type="number" id="number" name="number" min="1" max="50">    
                         </div>
                         <input type="submit" name="modifNumber" value="Modifier">
-                    </div>-->
+                    </div>
                     
                     <h3>Date de parution: <i><?php if(($data[0]->publication) === null) echo 'à définir'?>
                                         <?php if(($data[0]->publication) !== null) echo $data[0]->publication ?></i></h3>
@@ -44,7 +44,7 @@
                             <input type="text" id="topics" name="topics" maxlength="30" size="30">    
                         </div>
                         <input type="submit" class="button01" name="modifTopics" value="Modifier">
-                    </div>
+                    </div>-->
                     
                     <h3>Image de couverture: <i><?= $data[0]->cover ?></i></h3>
                     <div class="formRow">
@@ -55,7 +55,7 @@
                         <input type="submit" class="button01" name="modifCover" value="Changer">
                     </div>
                     
-                    <h3>Titre 1: <i><?php if(($data[0]->title01) === null) echo 'à définir'?>
+                    <h3>Titre: <i><?php if(($data[0]->title01) === null) echo 'à définir'?>
                                         <?php if(($data[0]->title01) !== null) echo $data[0]->title01 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -66,7 +66,7 @@
                         <input type="submit" class="deleteTitle" name="deleteTitle01" value="Supprimmer">
                     </div>
                     
-                    <h3>Titre 2: <i><?php if(($data[0]->title02) === null) echo 'à définir'?>
+                     <!--<h3>Titre 2: <i><?php if(($data[0]->title02) === null) echo 'à définir'?>
                                         <?php if(($data[0]->title02) !== null) echo $data[0]->title02 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -75,7 +75,7 @@
                         </div>
                         <input type="submit" class="modifTitle" name="modifTitle02" value="Modifier">
                         <input type="submit" class="deleteTitle" name="deleteTitle02" value="Supprimmer">
-                    </div>
+                    </div>-->
                     
                     <h3>Editorial: <i><?php if(($data[0]->editorial) === null || strlen($data[0]->editorial) === 0 ) echo 'non rédigé'?>
                                     <?php if(strlen($data[0]->editorial) > 0) echo 'rédigé'?></i></h3>
@@ -107,14 +107,18 @@
                     <span class="columnTitle">Auteur</span>
                     <span class="columnTitle">Image associée</span>
                     <span class="columnTitle">Date de création</span>
+                    <span class="columnTitle">Article à la une</span>
                 </div>
                 <?php foreach($data as $article): ?>
                 <a class="tableRows" href="index.php?action=modifyArticle&amp;idMag=<?= $data[0]->idMag ?>&amp;idText=<?= $article->id_text ?>">
                     <span class="tableContent"><?= $article->textType ?></span>
                     <span class="tableContent"><?= $article->title ?></span>
                     <span class="tableContent"><?= $article->author ?></span>
-                    <span class="tableContent"><?= $article->articleCover ?></span>
+                    <span class="tableContent"><?php if($article->articleCover === null) echo 'aucune' ?>
+                                            <?php if($article->articleCover !== null) echo 'oui' ?></span>
                     <span class="tableContent"><?= $article->dateArticle ?></span>
+                    <span class="tableContent"><?php if($article->main === '0') echo 'non'  ?>
+                                            <?php if($article->main === '1') echo 'oui'  ?></span>
                 </a>
                 <?php endforeach; ?>
             </div>

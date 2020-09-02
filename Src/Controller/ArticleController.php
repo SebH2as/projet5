@@ -167,4 +167,23 @@ class ArticleController{
         $this->view->render('front/article', 'front/layout', compact('magazine', 'article', 'currentpage', 'user'));
         
     }
+
+    public function setMain()
+    {
+        $this->auth->requireRole('1');
+        $message = 'L\'article a été passé à la une';
+        $this->articleManager->unsetMain((int) $this->request->get('idMag'));
+        $this->articleManager->setMain((int) $this->request->get('idText'));
+        $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
+    }
+
+    public function unsetMain()
+    {
+        $this->auth->requireRole('1');
+        $message = 'L\'article a été retiré de la une';
+        $this->articleManager->unsetMain((int) $this->request->get('idMag'));
+        $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
+    }
 }

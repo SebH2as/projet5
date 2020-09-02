@@ -41,6 +41,8 @@ $actionArticle =
     'essais',
     'fictions',
     'article',
+    'unsetMain',
+    'setMain'
 ];
 
 $actionUser =

@@ -7,6 +7,11 @@
             <div class="buttonsPannel"> 
                 <a class="buttonPannel" id="backLink" href="index.php?action=modifyMag&amp;idMag=<?= $data[0]->ArtIdMag ?>">Retour au magazine</a>
                 <a class="buttonPannel" id="preview" href="index.php?action=previewArticle&amp;idText=<?= $data[0]->id_text ?>" target="_blank">Aperçu</a>
+                <?php if (($data[0]->main) === '0'): ?>
+                <a class="buttonPannel" id="preview" href="index.php?action=setMain&amp;idText=<?= $data[0]->id_text ?>&amp;idMag=<?= $data[0]->ArtIdMag ?>">Mettre en une</a>
+                <?php else: ?>
+                <a class="buttonPannel" id="preview" href="index.php?action=unsetMain&amp;idText=<?= $data[0]->id_text ?>&amp;idMag=<?= $data[0]->ArtIdMag ?>">Retirer de la une</a>
+                <?php endif; ?>
                 <a class="buttonPannel" id="delete" href="index.php?action=deleteArticle&amp;idText=<?= $data[0]->id_text ?>&amp;idMag=<?= $data[0]->ArtIdMag ?>">Supprimer</a>
             </div>
             

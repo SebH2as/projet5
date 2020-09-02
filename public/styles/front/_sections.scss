@@ -1,3 +1,174 @@
+
+
+#coverPart01
+{
+    display: flex;
+
+    width:60%;
+    height: auto;
+    
+    z-index: 4;
+    a{
+        background-color: $primaryBackgroundColorLight;
+        width: 30%;
+        padding: 1vh;
+        height: 50vh;
+        margin-left: 2.5%;
+        margin-bottom: 4vh;
+        border: 5px solid $primaryBackgroundColorDark;
+        text-decoration: none;
+        color: $primaryBackgroundColorDark;
+        &:hover
+        {
+            background-color: $primaryBackgroundColorDark;
+            color: $primaryBackgroundColorLight;
+            cursor: pointer;
+        }
+        .imgContainer
+        {
+            width: 100%;
+            height: 70%;
+            background-color: red;
+        }
+        
+    }
+    #mainArticle
+    {
+        width: 62.5%;
+        position: relative;
+        height: 50vh;
+        margin-left: 2.5%;
+        margin-bottom: 4vh;
+        border: 5px solid black;
+        #mainImg
+        {
+            width: 100%;
+            height:100%;
+            object-fit: cover;
+            &:hover
+            {
+                filter: grayscale(100%);
+            }
+        }
+        h3
+        {
+            position: absolute;
+            margin: 2vh;
+            padding: 5px;
+            font-size: 24px;
+            left: 0%;
+            top: 0%;
+            background-color:  $primaryBackgroundColorDark;
+            color: $primaryBackgroundColorLight;
+        }
+        h2
+        {
+            font-size: 48px;
+            padding: 2vh;
+            text-align: center;
+            line-height: 75%;
+        }
+        
+    }
+    #edito
+    {
+        width: 30%;
+        padding: 1vh;
+        height: 50vh;
+        margin-left: 2.5%;
+        margin-bottom: 4vh;
+        border: 5px solid $primaryBackgroundColorDark;
+    }
+}
+
+#coverPart02
+{
+    display: flex;
+    flex-wrap: wrap;
+    width:60%;
+    height: auto;
+    
+    z-index: 4;
+    a{
+        background-color: $primaryBackgroundColorLight;
+        width: 30%;
+        padding: 1vh;
+        height: 50vh;
+        margin-left: 2.5%;
+        margin-bottom: 4vh;
+        border: 5px solid $primaryBackgroundColorDark;
+        text-decoration: none;
+        color: $primaryBackgroundColorDark;
+        &:hover
+        {
+            background-color: $primaryBackgroundColorDark;
+            color: $primaryBackgroundColorLight;
+            cursor: pointer;
+        }
+        .imgContainer
+        {
+            width: 100%;
+            height: 75%;
+            background-color: red;
+        }
+        
+    }
+    .articleCover
+    {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        padding: 1vh;
+        height: 50vh;
+        margin-left: 2.5%;
+        margin-bottom: 4vh;
+        border: 5px solid $primaryBackgroundColorDark;
+        .articleImg
+        {
+            width: 100%;
+            height:100%;
+            object-fit: cover;
+            &:hover
+            {
+                filter: grayscale(100%);
+            }
+        }
+        h3
+        {
+            position: absolute;
+            margin: 2vh;
+            padding: 5px;
+            font-size: 24px;
+            z-index: 4;
+            top: 0%;
+            left: 0%;
+            background-color:  $primaryBackgroundColorDark;
+            color: $primaryBackgroundColorLight;
+        }
+        h2
+        {
+            font-size: 36px;
+            padding: 2vh;
+            text-align: center;
+            line-height: 75%;
+            align-self: center;
+        }
+    }
+    #readersLetters
+    {
+        width: 30%;
+        padding: 1vh;
+        height: 50vh;
+        margin-left: 2.5%;
+        margin-bottom: 4vh;
+        border: 5px solid $primaryBackgroundColorDark;
+    }
+}
+
+
+
+
 #editorial
 {
     width:100%;

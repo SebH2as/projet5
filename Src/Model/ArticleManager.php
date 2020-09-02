@@ -33,7 +33,7 @@ class ArticleManager
 
     public function findArticleById(int $idtext):array//requête pour récupérer un article en fonction de son id avec le numéro de magazine auquel il est associé
     {
-        $req = $this->bdd->prepare('SELECT numberMag, id_text, articles.id_mag AS ArtIdMag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date 
+        $req = $this->bdd->prepare('SELECT numberMag, id_text, articles.id_mag AS ArtIdMag, textType, title, author, content, main, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date 
         FROM articles 
         LEFT JOIN mag ON mag.id_mag = articles.id_mag
         WHERE id_text = :idText ');
@@ -158,5 +158,19 @@ class ArticleManager
         WHERE textType = "Essai" AND statusPub = 1');
         $req->execute();
         return $req->fetch();
+    }
+
+    public function unsetMain($idMag)
+    {
+        $req = $this->bdd->prepare('UPDATE articles SET main = 0 WHERE id_mag = :idmag ');
+        return $req->execute([
+            'idmag' => $idMag]);
+    }
+
+    public function setMain($idText)
+    {
+        $req = $this->bdd->prepare('UPDATE articles SET main = 1 WHERE id_text = :idtext ');
+        return $req->execute([
+            'idtext' => $idText]);
     }
 }
