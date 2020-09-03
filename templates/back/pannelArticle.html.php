@@ -18,7 +18,7 @@
             <div id="contentContainer">
                 <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=modifyArticle&amp;idText=<?= $data[0]->id_text ?>&amp;idMag=<?= $data[0]->ArtIdMag ?>">
                     
-                <h3>Rubrique de l'article: <i><?php if(($data[0]->textType) === null) echo 'à définir'?>
+                <h3><i class="fa fa-arrow-right"></i> Rubrique de l'article: <i><?php if(($data[0]->textType) === null) echo 'à définir'?>
                                         <?php if(($data[0]->textType) !== null) echo $data[0]->textType ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -32,7 +32,7 @@
                         <input type="submit" name="modifRubric" value="Modifier">
                     </div>
                     
-                    <h3>Titre de l'article: <i><?php if(($data[0]->title) === null) echo 'à définir'?>
+                    <h3><i class="fa fa-arrow-right"></i> Titre de l'article: <i><?php if(($data[0]->title) === null) echo 'à définir'?>
                                         <?php if(($data[0]->title) !== null) echo $data[0]->title ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -42,7 +42,7 @@
                         <input type="submit" name="modifTitle" value="Modifier">
                     </div>
                     
-                    <h3>Auteur: <i><?php if(($data[0]->author) === null) echo 'à définir'?>
+                    <h3><i class="fa fa-arrow-right"></i> Auteur: <i><?php if(($data[0]->author) === null) echo 'à définir'?>
                                         <?php if(($data[0]->author) !== null) echo $data[0]->author ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -52,7 +52,7 @@
                         <input type="submit" name="modifAuthor" value="Modifier">
                     </div>
                     
-                    <h3>Image associée à l'article: <i><?php if(($data[0]->articleCover) === null) echo 'à définir'?>
+                    <h3><i class="fa fa-arrow-right"></i> Image associée à l'article: <i><?php if(($data[0]->articleCover) === null) echo 'à définir'?>
                                         <?php if(($data[0]->articleCover) !== null) echo $data[0]->articleCover ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">

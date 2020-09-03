@@ -169,6 +169,13 @@ class MagManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
+    public function getAllNumberMag()
+    {
+        $req= $req = $this->bdd->prepare('SELECT numberMag FROM mag');
+        $req->execute();
+        return $req->fetchALL(PDO::FETCH_OBJ);
+    }
+
     public function getLastPublishedMag()
     {
         $req = $this->bdd->prepare('SELECT id_mag

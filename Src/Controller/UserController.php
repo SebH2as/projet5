@@ -63,7 +63,9 @@ class UserController{
             $message = $messageContent[$this->request->get('message')];
         }
         
+    
         $user = $this->auth->user();
+        $this->auth->requireRole('0');
         if($user)
         {
             $nbUnpubletters = $this->lettersManager->countUnpubLetters($user->pseudo);
@@ -233,7 +235,7 @@ class UserController{
             $error = 'Une erreur est survenue, veuillez soummettre votre courrier de nouveau';
             if($this->request->post('courrier') !== null &&  !empty($this->request->post('courrier')))
             {
-                $this->lettersManager->postLetter($user->pseudo, $this->request->post('courrier'));
+                $this->lettersManager->postLetter($user->id_user, $user->pseudo, $this->request->post('courrier'));
                 $this->monCompte();
                 exit();
             }
@@ -416,7 +418,7 @@ class UserController{
     {
         $this->auth->requireRole('1');
         $message = null;
-        $numberMags = $this->magManager->getAllNumberPubliMag();
+        $numberMags = $this->magManager->getAllNumberMag();
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
         $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
     }
@@ -426,7 +428,7 @@ class UserController{
         $this->auth->requireRole('1');
         $this->lettersManager->addRelatedMag((int)$this->request->get('idLetter'), (int) $this->request->post('numberMag'));
         $message = 'Le magazine associé a été modifié';
-        $numberMags = $this->magManager->getAllNumberPubliMag();
+        $numberMags = $this->magManager->getAllNumberMag();
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
         $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
     }

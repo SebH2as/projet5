@@ -219,7 +219,7 @@ header #headerImg {
   -o-object-fit: cover;
      object-fit: cover;
   height: 80%;
-  z-index: 0;
+  z-index: -999;
   position: fixed;
   border: 5px solid #F9FBF2;
   /*transition: height 5s, opacity 3s;
@@ -256,6 +256,19 @@ header #number {
   position: absolute;
   top: 89%;
   left: 21.5%;
+  font-size: 24px;
+  color: #F9FBF2;
+  background-color: #030B12;
+  padding: 0.5em 0.2em 0.8em 0.5em;
+  display: inline-block;
+  z-index: 1;
+  border: 5px solid #030B12;
+}
+
+header #publication {
+  position: absolute;
+  top: 89%;
+  right: 21.5%;
   font-size: 24px;
   color: #F9FBF2;
   background-color: #030B12;
@@ -435,6 +448,8 @@ header .hidden span {
   background-color: #030B12;
   color: #F9FBF2;
   cursor: pointer;
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
 }
 
 #coverPart01 a .imgContainer {
@@ -518,6 +533,8 @@ header .hidden span {
   background-color: #030B12;
   color: #F9FBF2;
   cursor: pointer;
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
 }
 
 #coverPart02 a .imgContainer {
@@ -577,13 +594,78 @@ header .hidden span {
       align-self: center;
 }
 
-#coverPart02 #readersLetters {
+#coverPart02 #readersLettersAndSocial {
   width: 30%;
-  padding: 1vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   height: 50vh;
   margin-left: 2.5%;
   margin-bottom: 4vh;
+  text-decoration: none;
+  color: #030B12;
+}
+
+#coverPart02 #readersLettersAndSocial #readersLetters {
+  background-color: #F9FBF2;
+  width: 100%;
+  height: 20vh;
+  margin: 0vh;
   border: 5px solid #030B12;
+}
+
+#coverPart02 #readersLettersAndSocial #readersLetters:hover {
+  background-color: #030B12;
+  color: #F9FBF2;
+  cursor: pointer;
+}
+
+#coverPart02 #readersLettersAndSocial #readersLetters h2 {
+  font-size: 30px;
+  text-align: center;
+}
+
+#coverPart02 #readersLettersAndSocial #socialMedia {
+  background-color: #F9FBF2;
+  width: 100%;
+  height: 20vh;
+  margin: 0vh;
+  border: 5px solid #030B12;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#coverPart02 #readersLettersAndSocial #socialMedia a {
+  background-color: #F9FBF2;
+  width: 30%;
+  padding: 1vh;
+  height: 5vh;
+  text-decoration: none;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 54px;
+  color: #030B12;
+  border: 0px solid #030B12;
+}
+
+#coverPart02 #readersLettersAndSocial #socialMedia a:hover {
+  color: #E8871E;
+  border: 0px solid #030B12;
 }
 
 #editorial {
@@ -966,7 +1048,7 @@ header .hidden span {
 }
 
 #listRubric {
-  width: 100%;
+  width: 60%;
   min-height: 95vh;
   margin-bottom: 5vh;
   background-color: #F9FBF2;
@@ -1011,6 +1093,13 @@ header .hidden span {
   text-decoration: none;
 }
 
+#listRubric .containerRubric:hover {
+  color: #F9FBF2;
+  background-color: #030B12;
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+}
+
 #listRubric .containImg {
   width: 32%;
   height: 96%;
@@ -1029,7 +1118,6 @@ header .hidden span {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 1vh;
 }
 
 #listRubric .containText {
@@ -1046,8 +1134,13 @@ header .hidden span {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 1vh;
   color: #030B12;
+  z-index: 1;
+}
+
+#listRubric .containText:hover {
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
 }
 
 #listRubric .containText .textInfo {
@@ -1067,13 +1160,8 @@ header .hidden span {
 }
 
 #listRubric .containText .textInfo .number {
-  position: absolute;
-  top: -3%;
-  left: 80%;
   font-size: 24px;
   padding: 5px;
-  background-color: #F9FBF2;
-  z-index: 1;
 }
 
 #listRubric .containText .textInfo .title {
@@ -1095,16 +1183,13 @@ header .hidden span {
   margin: 1px;
   -o-object-fit: cover;
      object-fit: cover;
-  -webkit-transition: opacity 1s;
-  transition: opacity 1s;
 }
 
 #listRubric .thumbImg:hover {
-  opacity: .5;
-  z-index: 2;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  color: #F9FBF2;
+  background-color: #030B12;
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
 }
 
 #listRubric #pageMovers {
@@ -1160,7 +1245,7 @@ header .hidden span {
 }
 
 #article {
-  width: 100%;
+  width: 60%;
   min-height: 95vh;
   padding-top: 3vh;
   margin-bottom: 5vh;
@@ -1194,7 +1279,6 @@ header .hidden span {
 
 #article #titleArticle a {
   text-decoration: none;
-  color: #030B12;
 }
 
 #article #titleArticle h1 {
@@ -1217,13 +1301,16 @@ header .hidden span {
   position: relative;
   font-size: 36px;
   z-index: 2;
-  color: #030B12;
+  color: #F9FBF2;
+  background-color: #030B12;
+  border: 3px solid #030B12;
   padding-left: 1vh;
   padding-right: 1vh;
 }
 
 #article #titleArticle h3:hover {
-  color: #F9FBF2;
+  color: #030B12;
+  background-color: #F9FBF2;
 }
 
 #article #titleArticle #separator02 {
@@ -1633,11 +1720,16 @@ header .hidden span {
 }
 
 #listLetters {
-  width: 100%;
+  width: 60%;
   min-height: 95vh;
   margin-bottom: 5vh;
   background-color: #F9FBF2;
   position: relative;
+}
+
+#listLetters #noLetters {
+  text-align: center;
+  font-size: 48px;
 }
 
 #listLetters #titleLetters {

@@ -283,4 +283,12 @@ class MagController{
         $this->view->render('back/previewLetters', 'front/layout', compact('magazine', 'letters', 'totalLetters', 'totalpages', 'currentpage'));
 
     }
+
+    public function editorial():void//méthode pour afficher la page de l'éditorial
+    {
+        $user = $this->auth->user();
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/editorial', 'front/layout', compact('magazine','user'));
+        
+    }
 }

@@ -12,6 +12,7 @@
                 <a class="buttonPannel" id="online" href="index.php?action=setSavedMag&amp;idMag=<?= $data[0]->idMag ?>">Sauvegarder</a>
                 <?php endif; ?>
                 <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag=<?= $data[0]->idMag ?>" target="_blank">Aperçu</a>
+                <a class="buttonPannel" id="preview" href="#articlesMag">Articles associés</a>
                 <a class="buttonPannel" id="delete" href="index.php?action=deleteMag&amp;idMag=<?= $data[0]->idMag ?>">Supprimer</a>
             </div>
             
@@ -24,9 +25,9 @@
                             <input type="number" id="number" name="number" min="1" max="50">    
                         </div>
                         <input type="submit" name="modifNumber" value="Modifier">
-                    </div>
+                    </div>-->
                     
-                    <h3>Date de parution: <i><?php if(($data[0]->publication) === null) echo 'à définir'?>
+                    <h3><i class="fa fa-arrow-right"></i> Date de parution: <i><?php if(($data[0]->publication) === null) echo 'à définir'?>
                                         <?php if(($data[0]->publication) !== null) echo $data[0]->publication ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -36,7 +37,7 @@
                         <input type="submit" class="button01" name="modifPubli" value="Modifier">
                     </div>
                     
-                    <h3>Thématique(s): <i><?php if(($data[0]->topics) === null) echo 'à définir'?>
+                    <!--<h3>Thématique(s): <i><?php if(($data[0]->topics) === null) echo 'à définir'?>
                                         <?php if(($data[0]->topics) !== null) echo $data[0]->topics ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -46,7 +47,7 @@
                         <input type="submit" class="button01" name="modifTopics" value="Modifier">
                     </div>-->
                     
-                    <h3>Image de couverture: <i><?= $data[0]->cover ?></i></h3>
+                    <h3><i class="fa fa-arrow-right"></i> Image de couverture: <i><?= $data[0]->cover ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
                             <label for="cover">Changer la couverture:</label>
@@ -55,7 +56,7 @@
                         <input type="submit" class="button01" name="modifCover" value="Changer">
                     </div>
                     
-                    <h3>Titre: <i><?php if(($data[0]->title01) === null) echo 'à définir'?>
+                    <h3><i class="fa fa-arrow-right"></i> Titre 1: <i><?php if(($data[0]->title01) === null) echo 'à définir'?>
                                         <?php if(($data[0]->title01) !== null) echo $data[0]->title01 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -66,7 +67,7 @@
                         <input type="submit" class="deleteTitle" name="deleteTitle01" value="Supprimmer">
                     </div>
                     
-                     <!--<h3>Titre 2: <i><?php if(($data[0]->title02) === null) echo 'à définir'?>
+                     <h3><i class="fa fa-arrow-right"></i> Titre 2: <i><?php if(($data[0]->title02) === null) echo 'à définir'?>
                                         <?php if(($data[0]->title02) !== null) echo $data[0]->title02 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
@@ -75,9 +76,9 @@
                         </div>
                         <input type="submit" class="modifTitle" name="modifTitle02" value="Modifier">
                         <input type="submit" class="deleteTitle" name="deleteTitle02" value="Supprimmer">
-                    </div>-->
+                    </div>
                     
-                    <h3>Editorial: <i><?php if(($data[0]->editorial) === null || strlen($data[0]->editorial) === 0 ) echo 'non rédigé'?>
+                    <h3><i class="fa fa-arrow-right"></i> Editorial: <i><?php if(($data[0]->editorial) === null || strlen($data[0]->editorial) === 0 ) echo 'non rédigé'?>
                                     <?php if(strlen($data[0]->editorial) > 0) echo 'rédigé'?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">

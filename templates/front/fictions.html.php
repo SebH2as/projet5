@@ -23,7 +23,7 @@
                 </div>
                 <div id="rubricText" class="containText righters">
                     <div class="textInfo">
-                        <h3 class="theme">Fictions</h3><h3 class="number">Revue N°<?=$article->numberMag ?></h3>
+                        <h3 class="number">Revue N°<?=$article->numberMag ?></h3>
                         <h3 class="title"><?=$article->title ?></h3>
                         <p class="extract">
                         <?php 

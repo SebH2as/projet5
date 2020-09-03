@@ -27,7 +27,8 @@ $actionMag =
     'nextMag',
     'magazine',
     'readersLetters',
-    'previewLetters'
+    'previewLetters',
+    'editorial'
 ];
 
 $actionArticle =

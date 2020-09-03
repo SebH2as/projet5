@@ -7,8 +7,9 @@
 
         <header>
             <span id="number">Magazine numéro <?= $magazine[0]->numberMag ?></span>
-            <span id="title"><?= $magazine[0]->title01 ?></span>
-            <span id="title02"><?= $magazine[0]->title02 ?></span>
+            <?php if($magazine[0]->publication !== null): ?>
+            <span id="publication"><?= $magazine[0]->publication ?></span>
+            <?php endif; ?>
             <img id="headerImg" src="images/<?= $magazine[0]->cover ?>" alt="<?= $magazine[0]->cover ?>">
             <a class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine précédent</span></div></a>
             <a class="fa fa-arrow-circle-right<?php if (empty($next)) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine suivant</span></div></a>
@@ -17,7 +18,7 @@
         <section id="coverPart01">
             <?php foreach($magazine as $article): ?>
             <?php if($article->main === '1'): ?>
-                <a id="mainArticle">
+                <a id="mainArticle" href="index.php?action=article&amp;idText=<?= $article->id_text ?>&amp;idMag=<?= $article->idMag ?>">
                     <div class="imgContainer">
                         <img id="mainImg" src="images/<?= $article->articleCover ?>" >
                     </div>
@@ -28,9 +29,11 @@
                 </a>
             <?php endif; ?>
             <?php endforeach; ?>
-            <a id="edito" href="#">
+
+            <?php if($magazine[0]->editorial !== null): ?>
+            <a id="edito" href="index.php?action=editorial&amp;idMag=<?= $magazine[0]->idMag ?>">
                 
-                <h2>Editorial</h2>
+                <h2><i class="fa fa-bullhorn"></i> Editorial</h2>
                 <hr>
                 <?php 
                     if (strlen($magazine[0]->editorial) > 1000)
@@ -42,7 +45,8 @@
                 ?>  
                 
                 
-                </a>
+            </a>
+            <?php endif; ?>
         </section>
 
         <section id="coverPart02">
@@ -57,7 +61,17 @@
                 </a>
             <?php endif; ?>
             <?php endforeach; ?>
-            <a id="readersLetters" href="index.php?action=readersLetters&amp;idMag=<?= $magazine[0]->idMag ?>">
 
-            </a>
+            <div id="readersLettersAndSocial" href="index.php?action=readersLetters&amp;idMag=<?= $magazine[0]->idMag ?>">
+                <a id="readersLetters" href="index.php?action=readersLetters&amp;idMag=<?= $magazine[0]->idMag ?>">
+                    <h2><i class="fa fa-envelope"></i> Courrier des lecteurs</h2>
+                    <hr>
+                    <span>Vous nous écrivez, nous vous répondons. N'hésitez pas à nous rejoindre en créant un compte sur le site. Vous pourrez alors entamer le dialogue!</span>
+                </a>
+                <div id="socialMedia">
+                    <a class="fa fa-facebook-square" href=""></a>
+                    <a class="fa fa-twitter-square" href=""></a>
+                    <a class="fa fa-youtube-square" href=""></a>
+                </div>
+            </div>
         </section>

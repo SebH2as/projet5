@@ -23,6 +23,7 @@
             background-color: $primaryBackgroundColorDark;
             color: $primaryBackgroundColorLight;
             cursor: pointer;
+            filter: grayscale(100%);
         }
         .imgContainer
         {
@@ -104,6 +105,7 @@
             background-color: $primaryBackgroundColorDark;
             color: $primaryBackgroundColorLight;
             cursor: pointer;
+            filter: grayscale(100%);
         }
         .imgContainer
         {
@@ -155,14 +157,71 @@
             align-self: center;
         }
     }
-    #readersLetters
+    #readersLettersAndSocial
     {
+        
         width: 30%;
-        padding: 1vh;
+        display: flex;
+        flex-direction: column ;
+        justify-content: space-around;
         height: 50vh;
         margin-left: 2.5%;
         margin-bottom: 4vh;
-        border: 5px solid $primaryBackgroundColorDark;
+        
+        text-decoration: none;
+        color: $primaryBackgroundColorDark;
+        #readersLetters
+        {
+            background-color: $primaryBackgroundColorLight;
+            width: 100%;
+            height: 20vh;
+            margin: 0vh;
+            border: 5px solid $primaryBackgroundColorDark;
+            &:hover
+            {
+                background-color: $primaryBackgroundColorDark;
+                color: $primaryBackgroundColorLight;
+                cursor: pointer;
+            }
+            h2
+            {
+                font-size: 30px;
+                text-align: center;
+            }
+        }
+        #socialMedia
+        {
+            background-color: $primaryBackgroundColorLight;
+            width: 100%;
+            height: 20vh;
+            margin: 0vh;
+            border: 5px solid $primaryBackgroundColorDark;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a{
+                background-color: $primaryBackgroundColorLight;
+                width: 30%;
+                padding: 1vh;
+                height: 5vh;
+                text-decoration: none;
+                text-align: center;
+                align-items: center;
+                font-size: 54px;
+                color: $primaryBackgroundColorDark;
+                border: 0px solid $primaryBackgroundColorDark;
+                
+                &:hover
+                {
+                    
+                    color: $secondaryBacgroundColorOrange;
+                    border: 0px solid $primaryBackgroundColorDark;
+                }
+            }
+           
+        }
+        
+        
     }
 }
 
@@ -464,7 +523,7 @@
 }
 
 #listRubric{
-    width:100%;
+    width:60%;
     min-height: 95vh;
     margin-bottom: 5vh;
     background-color: $primaryBackgroundColorLight;
@@ -500,6 +559,12 @@
             flex-wrap: wrap;
             align-items: center;
             text-decoration: none;
+            &:hover
+            {
+                color: $primaryBackgroundColorLight;
+                background-color: $primaryBackgroundColorDark;
+                filter: grayscale(100%);
+            }
         }
 
         .containImg
@@ -512,7 +577,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-bottom: 1vh;
+            
         }
 
         .containText
@@ -524,8 +589,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 1vh;
+            
             color: $primaryBackgroundColorDark;
+            
+            z-index: 1;
+            &:hover
+            {
+                
+                filter: grayscale(100%);
+            }
             
                 .textInfo{
                     
@@ -544,13 +616,10 @@
                             z-index: 1;
                         }
                         .number{
-                            position: absolute;
-                            top: -3%;
-                            left: 80%;
+                            
                             font-size: 24px;
                             padding:5px;
-                            background-color: $primaryBackgroundColorLight;
-                            z-index: 1;
+                            
                         }
                         .title{
                             text-align: center;
@@ -573,13 +642,13 @@
             height: 100%;
             margin:1px;
             object-fit: cover;
-            transition: opacity 1s;
-            &:hover{
-                opacity: .5;
-                z-index: 2;
-                align-self: center;
-                
+            &:hover
+            {
+                color: $primaryBackgroundColorLight;
+                background-color: $primaryBackgroundColorDark;
+                filter: grayscale(100%);
             }
+            
             
         }
         #pageMovers{
@@ -622,7 +691,7 @@
 }
 
 #article{
-    width:100%;
+    width:60%;
     min-height: 95vh;
     padding-top: 3vh;
     margin-bottom: 5vh;
@@ -642,7 +711,7 @@
             
             a{
                 text-decoration: none;
-                color: $primaryBackgroundColorDark;
+               
             }
             h1{
                 position: relative;
@@ -663,11 +732,14 @@
                 position: relative;
                 font-size: 36px;
                 z-index: 2;
-                color: $primaryBackgroundColorDark;
+                color: $primaryBackgroundColorLight;
+                background-color: $primaryBackgroundColorDark;
+                border: 3px solid $primaryBackgroundColorDark;
                 padding-left: 1vh;
                 padding-right: 1vh;
                 &:hover{
-                    color: $primaryBackgroundColorLight;
+                    color: $primaryBackgroundColorDark;
+                    background-color: $primaryBackgroundColorLight;
                 }
             }
             #separator02{
@@ -991,12 +1063,16 @@
 }
 
 #listLetters{
-    width:100%;
+    width:60%;
     min-height: 95vh;
     margin-bottom: 5vh;
     background-color: $primaryBackgroundColorLight;
     position: relative;
-    
+        #noLetters
+        {
+            text-align: center;
+            font-size: 48px;
+        }
         #titleLetters{
             position: relative;
             text-align: center;

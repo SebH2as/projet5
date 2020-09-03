@@ -5,14 +5,18 @@
 <?php $active = 0 ; ?>
 
 <div id="sectionImg">
-            <img class="rubricImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">
-         </div>
-         <section id="listLetters">
-             
+        <img class="rubricImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">
+</div>
+        <section id="listLetters">
+
                 <div id="titleLetters">
                     <h1>COURRIERS DES LECTEURS DU <a href="index.php?action=magazine&amp;idMag=<?= $magazine[0]->idMag?>">MAGAZINE N°<?= $magazine[0]->numberMag ?></a></h1>
                     <div id="separator02"></div>
                 </div>
+
+            <?php if (empty($letters[0])): ?>
+                <h2 id="noLetters">Aucun courrier reçu pour ce numéro</h2>
+            <?php else: ?>
 
                 <div id="pageMovers<?php if($totalpages < 2) echo 'Hidden'?>">
                     <a class="fa fa-arrow-circle-o-left <?php if($currentpage === 1) echo 'hidden'?>" href="index.php?action=readersLetters&amp;currentpage=<?= $currentpage - 1?>&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
@@ -38,5 +42,5 @@
                     <span><?='Page ' . $currentpage . '/' . $totalpages?></span> 
                     <a class="fa fa-arrow-circle-o-right <?php if($currentpage === (int) $totalpages ) echo 'hidden' ?>" href="index.php?action=readersLetters&amp;currentpage=<?= $currentpage + 1?>&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
             </div> 
-            
-         </section>
+            <?php endif; ?>
+        </section>
