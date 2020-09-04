@@ -7,6 +7,7 @@ use Projet5\Model\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\View\View;
 use Projet5\Tools\Request;
+use Projet5\Tools\NoCsrf;
 
 class DataLoader{
         
@@ -14,6 +15,7 @@ class DataLoader{
     private $articleManager;
     private $view;
     private $request;
+    private $noCsrf;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class DataLoader{
         $this->magManager = new magManager();
         $this->articleManager = new articleManager();
         $this->request = new request();
+        $this->noCsrf = new noCsrf();
     }
 
     public function addData( $manager,  $id,  $method,  $column, $text = null, $template, $method2  )
@@ -31,7 +34,8 @@ class DataLoader{
             $this->$manager->$method( (int) $this->request->get($id), (string) $this->request->post($column));
             $message = $text;
             $data = $this->$manager->$method2((int) $this->request->get($id));
-            $this->view->render('back/' . $template  , 'back/layout', compact('data', 'message'));
+            $token = $this->noCsrf->createToken();
+            $this->view->render('back/' . $template  , 'back/layout', compact('data', 'message', 'token'));
             exit();
         }
     }

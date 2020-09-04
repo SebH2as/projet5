@@ -506,6 +506,14 @@ header .hidden span {
   border: 5px solid #030B12;
 }
 
+#coverPart01 #edito h2 {
+  font-size: 2vw;
+}
+
+#coverPart01 #edito span {
+  font-size: .85vw;
+}
+
 #coverPart02 {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -576,7 +584,7 @@ header .hidden span {
   position: absolute;
   margin: 2vh;
   padding: 5px;
-  font-size: 24px;
+  font-size: 1.2vw;
   z-index: 4;
   top: 0%;
   left: 0%;
@@ -585,7 +593,7 @@ header .hidden span {
 }
 
 #coverPart02 .articleCover h2 {
-  font-size: 36px;
+  font-size: 2vw;
   padding: 2vh;
   text-align: center;
   line-height: 75%;
@@ -627,8 +635,12 @@ header .hidden span {
 }
 
 #coverPart02 #readersLettersAndSocial #readersLetters h2 {
-  font-size: 30px;
+  font-size: 1.5vw;
   text-align: center;
+}
+
+#coverPart02 #readersLettersAndSocial #readersLetters span {
+  font-size: .85vw;
 }
 
 #coverPart02 #readersLettersAndSocial #socialMedia {
@@ -658,7 +670,7 @@ header .hidden span {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 54px;
+  font-size: 4vw;
   color: #030B12;
   border: 0px solid #030B12;
 }

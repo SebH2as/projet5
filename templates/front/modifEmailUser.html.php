@@ -22,7 +22,8 @@
             </div>
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
             <form id="formSignIn" action="index.php?action=modifEmail&amp;idMag=<?= $magazine[0]->idMag ?>&amp;message=5" method="post">
-            
+                <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                
                 <label for="passwordOld">Veuillez saisir votre Mdp actuel:</label>
                 <input type="passwordOld" id="passwordOld" name="passwordOld" maxlength="70" size="70">
 

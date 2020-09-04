@@ -26,7 +26,8 @@
                         </div>
                         <input type="submit" name="modifNumber" value="Modifier">
                     </div>-->
-                    
+                    <input type="hidden" name="csrf" value="<?php echo $token ?>">
+
                     <h3><i class="fa fa-arrow-right"></i> Date de parution: <i><?php if(($data[0]->publication) === null) echo 'à définir'?>
                                         <?php if(($data[0]->publication) !== null) echo $data[0]->publication ?></i></h3>
                     <div class="formRow">

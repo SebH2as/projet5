@@ -11,8 +11,10 @@
             <span id="publication"><?= $magazine[0]->publication ?></span>
             <?php endif; ?>
             <img id="headerImg" src="images/<?= $magazine[0]->cover ?>" alt="<?= $magazine[0]->cover ?>">
-            <a class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine précédent</span></div></a>
-            <a class="fa fa-arrow-circle-right<?php if (empty($next)) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine[0]->idMag ?>"><div class="infoBox hidden"><span>Magazine suivant</span></div></a>
+            <a class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>">
+            <div class="infoBox hidden"><span>Magazine précédent</span></div></a>
+            <a class="fa fa-arrow-circle-right<?php if (empty($next)) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine[0]->idMag ?>">
+            <div class="infoBox hidden"><span>Magazine suivant</span></div></a>
         </header>
 
         <section id="coverPart01">
@@ -35,6 +37,7 @@
                 
                 <h2><i class="fa fa-bullhorn"></i> Editorial</h2>
                 <hr>
+                <span>
                 <?php 
                     if (strlen($magazine[0]->editorial) > 1000)
                     {
@@ -42,7 +45,9 @@
                         $extr = substr($magazine[0]->editorial,0,$espace);
                         echo strip_tags(htmlspecialchars_decode($extr)).' (Lire la suite)';
                     }else{echo strip_tags(htmlspecialchars_decode($magazine[0]->editorial));}
-                ?>  
+                ?> 
+                </span>
+                 
                 
                 
             </a>

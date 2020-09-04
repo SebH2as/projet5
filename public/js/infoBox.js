@@ -9,8 +9,7 @@ class InfoBox{
 
     infoBoxReveal()
     {
-        console.log(this.infoBoxes);
-        console.log(this.nbInfos);
+        
 
         for (let i = 0; i < this.nbInfos; i++) 
         {

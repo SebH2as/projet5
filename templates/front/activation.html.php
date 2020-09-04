@@ -21,11 +21,14 @@
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
             <h2>confirmation</h2>
             <form id="formSignIn" action="index.php?action=activation&amp;idMag=<?= $magazine[0]->idMag?> " method="post">
-            <label for="pseudo">Entrez votre pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Entrez le pseudo que vous avez choisi précédemment.</span></div></i></label>
+                <input type="hidden" name="csrf" value="<?php echo $token ?>">
+
+                <label for="pseudo">Entrez votre pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Entrez le pseudo que vous avez choisi précédemment.</span></div></i></label>
                 <input type="text" id="pseudo" name="pseudo" maxlength="15" size="15">
                 
                 <label for="pseudo">Entrez le code de confirmation <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Entrez le code de confirmation que vous avez reçu par email.</span></div></i></label>
                 <input type="text" id="code" name="code" maxlength="15" size="15">
                 
                 <input type="submit" id="saver" name="saver" value="Activation">
+            </form>
         </section>

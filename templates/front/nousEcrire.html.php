@@ -23,7 +23,8 @@
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
             
             <form id="formLetter" action="index.php?action=postLetter&amp;idMag=<?= $magazine[0]->idMag ?>&amp;message=1" method="post">
-            
+                <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                
                 <label for="courrier">Courrier:</label>
                 <textarea id="courrier" name="courrier" rows="15" cols="50"></textarea>
 

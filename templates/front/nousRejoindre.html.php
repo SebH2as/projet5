@@ -23,6 +23,8 @@
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
             <h2>Formulaire d'inscription</h2>
             <form id="formSignIn" action="index.php?action=addUser&amp;idMag=<?= $magazine[0]->idMag?> " method="post">
+                <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                
                 <label for="pseudo">Choisissez un pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Votre pseudo doit avoir au moins 3 caractères et pas plus de 15. Pas de caractère spéciaux.</span></div></i></label>
                 <input type="text" id="pseudo" name="pseudo" maxlength="15" size="15">
                 

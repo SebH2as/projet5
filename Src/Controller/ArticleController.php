@@ -11,6 +11,7 @@ use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
 use Projet5\Tools\Auth;
+use Projet5\Tools\NoCsrf;
 
 class ArticleController{
         
@@ -21,6 +22,7 @@ class ArticleController{
     private $dataLoader;
     private $files;
     private $auth;
+    private $noCsrf;
 
     public function __construct()
     {
@@ -31,6 +33,7 @@ class ArticleController{
         $this->dataLoader = new dataLoader();
         $this->files = new files();
         $this->auth = new auth();
+        $this->noCsrf = new noCsrf();
     }
 
     public function addContent()

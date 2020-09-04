@@ -21,6 +21,8 @@
 
             <div id="contentContainer">
                 <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=relatedMag&amp;idLetter=<?= $letter[0]->id_letter ?>">
+                    <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                    
                     <h3>Magazine associé: <i><?php if ($letter[0]->magRelated === null): ?> aucun
                                             <?php else: ?> <?= $letter[0]->magRelated ?><?php endif; ?></i></h3>
                         <div class="formRow">
@@ -45,6 +47,8 @@
             <div id="response">
                 <h3>Répondre</h3>
                 <form id="formEditArticle" action="index.php?action=addResponse&amp;idLetter=<?= $letter[0]->id_letter ?>" method="POST">
+                    <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                    
                     <input type="submit" name="saveEdito" value="Enregistrer la réponse"> 
                     
                     <textarea id="writtingSpace" name="contentResponse">

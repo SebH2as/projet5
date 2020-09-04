@@ -79,6 +79,12 @@
         margin-left: 2.5%;
         margin-bottom: 4vh;
         border: 5px solid $primaryBackgroundColorDark;
+        h2{
+            font-size: 2vw;
+        }
+        span{
+            font-size: .85vw;
+        }
     }
 }
 
@@ -141,7 +147,7 @@
             position: absolute;
             margin: 2vh;
             padding: 5px;
-            font-size: 24px;
+            font-size: 1.2vw;
             z-index: 4;
             top: 0%;
             left: 0%;
@@ -150,7 +156,7 @@
         }
         h2
         {
-            font-size: 36px;
+            font-size: 2vw;
             padding: 2vh;
             text-align: center;
             line-height: 75%;
@@ -185,8 +191,12 @@
             }
             h2
             {
-                font-size: 30px;
+                font-size: 1.5vw;
                 text-align: center;
+            }
+            span
+            {
+                font-size: .85vw;
             }
         }
         #socialMedia
@@ -207,7 +217,7 @@
                 text-decoration: none;
                 text-align: center;
                 align-items: center;
-                font-size: 54px;
+                font-size: 4vw;
                 color: $primaryBackgroundColorDark;
                 border: 0px solid $primaryBackgroundColorDark;
                 

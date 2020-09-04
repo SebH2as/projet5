@@ -7,6 +7,8 @@
             <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
             
             <form id="formProfil" action="index.php?action=reset" method="post">
+                <input type="hidden" name="csrf" value="<?php echo $token ?>">
+
                 <div class="formSeparator">
                     <h3>Nouveau pseudo</h3>
                     <input title="pseudo" class="champ" type="text" name="pseudo" id="pseudo" placeholder="" size="25"/>

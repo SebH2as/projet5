@@ -69,6 +69,8 @@
             <div id="contentContainer02">
                 <h3>Contenu de l'article</h3>
                 <form id="formEditArticle" action="index.php?action=addContent&amp;idMag=<?= $data[0]->ArtIdMag ?>&amp;idText=<?= $data[0]->id_text ?>" method="POST">
+                    <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                    
                     <input type="submit" name="saveContent" value="Enregistrer"> 
 
                     <textarea id="writtingSpace" name="content">

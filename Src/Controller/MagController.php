@@ -14,6 +14,7 @@ use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
 use Projet5\Tools\Session;
 use Projet5\Tools\Auth;
+use Projet5\Tools\NoCsrf;
 
 
 class MagController{
@@ -28,6 +29,7 @@ class MagController{
     private $files;
     private $session;
     private $auth;
+    private $noCsrf;
 
     public function __construct()
     {
@@ -41,6 +43,7 @@ class MagController{
         $this->files = new files();
         $this->session = new session();
         $this->auth = new auth();
+        $this->noCsrf = new noCsrf();
     }
 
     public function magazine():void//méthode pour afficher la page d'accueil et le magazine demandé
@@ -131,30 +134,36 @@ class MagController{
     {
         $this->auth->requireRole('1');
         $totalMag = $this->magManager->countMag();
-        $this->view->render('back/newMag', 'back/layout', compact('totalMag'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/newMag', 'back/layout', compact('totalMag', 'token'));
         
     }
 
     public function createNewMag():void//méthode pour créer un nouveau numéro de magazine
     {
         $this->auth->requireRole('1');
-        if(!empty($this->request->post('number')))
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
         {
-            $message = null;
-            $this->magManager->createMag((int) $this->request->post('number'));
-            $magazineByNumber = $this->magManager->findMagByNumber((int) $this->request->post('number'));
-            $data = $this->magManager->findMagByIdWithArticles((int) $magazineByNumber[0] -> id_mag);
-            $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
+            if(!empty($this->request->post('number')))
+            {
+                $message = null;
+                $this->magManager->createMag((int) $this->request->post('number'));
+                $magazineByNumber = $this->magManager->findMagByNumber((int) $this->request->post('number'));
+                $data = $this->magManager->findMagByIdWithArticles((int) $magazineByNumber[0] -> id_mag);
+                $token = $this->noCsrf->createToken();
+                $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
+            }
         }
+        
     }
 
     public function modifyMag()
     {
         $this->auth->requireRole('1');
         $message = null;
-
-        /*$this->dataLoader->addData('magManager', 'idMag', 'modifNumber', 'number', 'Le numéro du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');*/
-
+        $token = $this->noCsrf->createToken();
+       
+       
         $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
         $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics', 'Le thème du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
@@ -170,25 +179,38 @@ class MagController{
         {
             $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
             $message = null;
-            $this->view->render('back/editorial', 'back/layout', compact('data', 'message'));
+            $token = $this->noCsrf->createToken();
+            $this->view->render('back/editorial', 'back/layout', compact('data', 'message', 'token'));
             exit();
         }
         
         $this->files->addFiles('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag', 'findMagByIdWithArticles');
 
+        
 
+        
+        
         $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
         
     }
 
     public function addEdito()
     {
         $this->auth->requireRole('1');
-        $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
+        {
+            $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
+            $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
+            $message = "L'éditorial a été modifié";
+            $token = $this->noCsrf->createToken();
+            $this->view->render('back/editorial', 'back/layout', compact('data', 'message', 'token'));
+        }
         $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
-        $message = "L'éditorial a été modifié";
-        $this->view->render('back/editorial', 'back/layout', compact('data', 'message'));
+        $message = "Une erreur est survenue, veuillez recommencer";
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/editorial', 'back/layout', compact('data', 'message', 'token'));
+        
     }
 
     public function previewMag()

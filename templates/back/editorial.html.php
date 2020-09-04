@@ -10,6 +10,8 @@
             <div id="contentContainer02">
                 <h3>Contenu de l'éditorial</h3>
                 <form id="formEditArticle" action="index.php?action=addEdito&amp;idMag=<?= $data[0]->id_mag ?>" method="POST">
+                    <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                    
                     <input type="submit" name="saveEdito" value="Enregistrer"> 
                     <h3><?= strlen($data[0]->editorial)?>/5400 </h3>
                     <textarea id="writtingSpace" name="contentEdito">
