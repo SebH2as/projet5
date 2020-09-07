@@ -27,13 +27,13 @@
                         <h3 class="title"><?=$article->title ?></h3>
                         <p class="extract">
                         <?php 
-                        if (strlen($article->content) > 800)
+                        if (strlen($article->content) > 400)
                         {
-                            $espace = strpos($article->content,' ', 800); 
+                            $espace = strpos($article->content,' ', 400); 
                             $extr = substr($article->content,0,$espace);
                             echo strip_tags(htmlspecialchars_decode($extr)).'...(lire la suite)';
                         }else{echo strip_tags(htmlspecialchars_decode($article->content));}
-                        ?>  
+                        ?> 
                         </p>
                     </div>
                 </div>

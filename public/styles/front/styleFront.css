@@ -1107,7 +1107,6 @@ header .hidden span {
 
 #listRubric .containerRubric:hover {
   color: #F9FBF2;
-  background-color: #030B12;
   -webkit-filter: grayscale(100%);
           filter: grayscale(100%);
 }
@@ -1168,12 +1167,13 @@ header .hidden span {
 
 #listRubric .containText .textInfo .title {
   text-align: center;
-  font-size: 1.5vw;
+  font-size: 1.75vw;
 }
 
 #listRubric .containText .textInfo .extract {
-  padding: 2vh;
-  font-size: 1vw;
+  padding: 1vh;
+  padding-top: 0px;
+  font-size: 1.5vw;
 }
 
 #listRubric .containText .textInfo a {
@@ -1286,14 +1286,14 @@ header .hidden span {
 
 #article #titleArticle h1 {
   position: relative;
-  font-size: 36px;
+  font-size: 24px;
   z-index: 2;
   color: #030B12;
 }
 
 #article #titleArticle h2 {
   position: relative;
-  font-size: 36px;
+  font-size: 24px;
   z-index: 2;
   color: #030B12;
   padding-left: 1vh;
@@ -1302,7 +1302,7 @@ header .hidden span {
 
 #article #titleArticle h3 {
   position: relative;
-  font-size: 36px;
+  font-size: 24px;
   z-index: 2;
   color: #F9FBF2;
   background-color: #030B12;
@@ -1321,7 +1321,7 @@ header .hidden span {
   height: 0;
   border-top: 36px solid #E8871E;
   position: absolute;
-  top: 24%;
+  top: 10%;
   z-index: 1;
 }
 
@@ -1437,9 +1437,9 @@ header .hidden span {
 #article #formSignIn .infoBox {
   position: absolute;
   z-index: 2;
-  top: -5vh;
+  top: -25px;
   width: 300px;
-  left: 1vh;
+  left: -200px;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -1467,7 +1467,7 @@ header .hidden span {
   position: absolute;
   z-index: -2;
   bottom: -5vh;
-  left: -.75vh;
+  left: -200px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -1882,6 +1882,376 @@ footer #media .fa {
 
 /* desktop */
 @media screen and (max-width: 1366px) {
+  #article {
+    width: 80%;
+    min-height: 95vh;
+    padding-top: 3vh;
+    margin-bottom: 5vh;
+    background-color: #F9FBF2;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #article #titleArticle {
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-bottom: 5vh;
+  }
+  #article #titleArticle a {
+    text-decoration: none;
+  }
+  #article #titleArticle h1 {
+    position: relative;
+    font-size: 24px;
+    z-index: 2;
+    color: #030B12;
+  }
+  #article #titleArticle h2 {
+    position: relative;
+    font-size: 24px;
+    z-index: 2;
+    color: #030B12;
+    padding-left: 1vh;
+    padding-right: 1vh;
+  }
+  #article #titleArticle h3 {
+    position: relative;
+    font-size: 24px;
+    z-index: 2;
+    color: #F9FBF2;
+    background-color: #030B12;
+    border: 3px solid #030B12;
+    padding-left: 1vh;
+    padding-right: 1vh;
+  }
+  #article #titleArticle h3:hover {
+    color: #030B12;
+    background-color: #F9FBF2;
+  }
+  #article #titleArticle #separator02 {
+    width: 100%;
+    height: 0;
+    border-top: 36px solid #E8871E;
+    position: absolute;
+    top: 10%;
+    z-index: 1;
+  }
+  nav {
+    color: #F9FBF2;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: fixed;
+    top: -35px;
+    width: 80%;
+    height: 175px;
+    -webkit-transition: top 0.5s;
+    transition: top 0.5s;
+    z-index: 6;
+  }
+  nav a {
+    text-decoration: none;
+    color: #F9FBF2;
+  }
+  nav #navTop {
+    margin-top: 5px;
+    margin-right: 15px;
+    font-size: 14px;
+    z-index: 3;
+  }
+  nav .navTopLink {
+    margin-left: 18px;
+    text-decoration: none;
+    color: #F9FBF2;
+  }
+  nav #logo {
+    width: 100%;
+    margin-top: -50px;
+    padding-top: 10px;
+    margin-bottom: -20px;
+    text-decoration: none;
+    color: #F9FBF2;
+    font-size: 25px;
+    z-index: 2;
+    position: relative;
+    text-align: center;
+  }
+  nav #logo span {
+    position: relative;
+    z-index: 1;
+    font-size: 75px;
+  }
+  nav #logo #separator01 {
+    width: 100%;
+    height: 0;
+    border-top: 20px solid #E8871E;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    z-index: 0;
+  }
+  nav #navLinks {
+    background-color: #030B12;
+    width: 80%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    z-index: 3;
+    border: solid 2px #E8871E;
+    padding-left: 15px;
+  }
+  nav .navBottomLink {
+    padding-right: 15px;
+    text-decoration: none;
+    color: #F9FBF2;
+    font-size: 20px;
+    -webkit-transition: color .5s;
+    transition: color .5s;
+  }
+  nav .navBottomLink:hover {
+    color: #E8871E;
+    text-decoration: underline;
+  }
+  nav .navBottomLink.active {
+    color: #E8871E;
+    text-decoration: underline;
+  }
+  nav #popupInfos {
+    position: absolute;
+    width: 60%;
+    min-height: 100px;
+    background-color: #F9FBF2;
+    top: -500px;
+  }
+  #navBar.sticky {
+    top: -115px;
+  }
+  #sectionImg {
+    width: 80%;
+    height: 30vh;
+    position: relative;
+    top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  #sectionImg .rubricImg {
+    width: 80%;
+    height: 30%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    position: fixed;
+  }
+  #listRubric {
+    width: 80%;
+    min-height: 95vh;
+    margin-bottom: 5vh;
+    background-color: #F9FBF2;
+    position: relative;
+  }
+  #listRubric #titleRubric {
+    position: relative;
+    text-align: center;
+    margin-bottom: 5vh;
+  }
+  #listRubric #titleRubric h1 {
+    position: relative;
+    font-size: 48px;
+    z-index: 2;
+  }
+  #listRubric #titleRubric #separator02 {
+    width: 100%;
+    height: 0;
+    border-top: 18px solid #E8871E;
+    position: absolute;
+    top: 42%;
+    z-index: 1;
+  }
+  #listRubric .containerRubric {
+    width: 99%;
+    height: 30vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-decoration: none;
+  }
+  #listRubric .containerRubric:hover {
+    color: #F9FBF2;
+    background-color: #030B12;
+    -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+  }
+  #listRubric .containImg {
+    width: 32%;
+    height: 96%;
+    background-color: #E8871E;
+    border: 3px solid #E8871E;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #listRubric .containText {
+    width: 66%;
+    height: 96%;
+    background-color: #F9FBF2;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: #030B12;
+    z-index: 1;
+  }
+  #listRubric .containText:hover {
+    -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+  }
+  #listRubric .containText .textInfo {
+    width: 95%;
+    height: 100%;
+    border: 2px solid #E8871E;
+  }
+  #listRubric .containText .textInfo .theme {
+    position: absolute;
+    top: -3%;
+    left: 1%;
+    font-size: 8vw;
+    padding: 5px;
+    background-color: #F9FBF2;
+    z-index: 1;
+  }
+  #listRubric .containText .textInfo .number {
+    font-size: 2.5vw;
+    padding: 5px;
+  }
+  #listRubric .containText .textInfo .title {
+    text-align: center;
+    font-size: 2.5vw;
+  }
+  #listRubric .containText .textInfo .extract {
+    padding: 2vh;
+    font-size: 2vw;
+  }
+  #listRubric .containText .textInfo a {
+    text-align: center;
+  }
+  #listRubric .thumbImg {
+    width: 100%;
+    height: 100%;
+    margin: 1px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  #listRubric .thumbImg:hover {
+    color: #F9FBF2;
+    background-color: #030B12;
+    -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+  }
+  #listRubric #pageMovers {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+    margin-bottom: 5vh;
+    -ms-flex-item-align: center;
+        align-self: center;
+  }
+  #listRubric #pageMovers a {
+    width: 30%;
+    text-align: center;
+    font-size: 54px;
+    text-decoration: none;
+    color: #030B12;
+  }
+  #listRubric #pageMovers a:hover {
+    color: #E8871E;
+  }
+  #listRubric #pageMovers span {
+    background-color: #E8871E;
+    border: solid 2px #030B12;
+    font-size: 24px;
+    padding: 10px;
+  }
+  #listRubric #pageMoversHidden {
+    display: none;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 50%;
+  }
+  #listRubric .hidden {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #eceee3 !important;
+  }
   header {
     width: 100%;
     height: 70vh;
@@ -2283,6 +2653,76 @@ footer #media .fa {
 
 /* tablet and mobile*/
 @media screen and (max-width: 768px) {
+  #article {
+    width: 100%;
+    min-height: 95vh;
+    padding-top: 3vh;
+    margin-bottom: 5vh;
+    background-color: #F9FBF2;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #article #titleArticle {
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-bottom: 5vh;
+  }
+  #article #titleArticle a {
+    text-decoration: none;
+  }
+  #article #titleArticle h1 {
+    position: relative;
+    font-size: 24px;
+    z-index: 2;
+    color: #030B12;
+  }
+  #article #titleArticle h2 {
+    position: relative;
+    font-size: 24px;
+    z-index: 2;
+    color: #030B12;
+    padding-left: 1vh;
+    padding-right: 1vh;
+  }
+  #article #titleArticle h3 {
+    position: relative;
+    font-size: 24px;
+    z-index: 2;
+    color: #F9FBF2;
+    background-color: #030B12;
+    border: 3px solid #030B12;
+    padding-left: 1vh;
+    padding-right: 1vh;
+  }
+  #article #titleArticle h3:hover {
+    color: #030B12;
+    background-color: #F9FBF2;
+  }
+  #article #titleArticle #separator02 {
+    width: 100%;
+    height: 0;
+    border-top: 36px solid #E8871E;
+    position: absolute;
+    top: 10%;
+    z-index: 1;
+  }
   #sectionImg {
     width: 100%;
     height: 30vh;
@@ -2312,24 +2752,24 @@ footer #media .fa {
   #listRubric #titleRubric {
     position: relative;
     text-align: center;
-    margin-bottom: 5vh;
+    margin-bottom: 3vh;
   }
   #listRubric #titleRubric h1 {
     position: relative;
-    font-size: 8vw;
+    font-size: 30px;
     z-index: 2;
   }
   #listRubric #titleRubric #separator02 {
-    width: 0%;
+    width: 100%;
     height: 0;
-    border-top: 0px solid #E8871E;
+    border-top: 12px solid #E8871E;
     position: absolute;
-    top: 33%;
+    top: 40%;
     z-index: 1;
   }
   #listRubric .containerRubric {
     width: 99%;
-    height: 30vh;
+    height: 17vh;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2413,6 +2853,7 @@ footer #media .fa {
   }
   #listRubric .containText .textInfo .extract {
     padding: 2vh;
+    padding-top: 0px;
     font-size: 2vw;
   }
   #listRubric .containText .textInfo a {

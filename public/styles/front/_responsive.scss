@@ -3,8 +3,350 @@
 /* desktop */
 @media screen and (max-width: 1366px) 
 {	
-
+    #article{
+        width:80%;
+        min-height: 95vh;
+        padding-top: 3vh;
+        margin-bottom: 5vh;
+        background-color: $primaryBackgroundColorLight;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+            #titleArticle{
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                margin-bottom: 5vh;
+                
+                
+                a{
+                    text-decoration: none;
+                   
+                }
+                h1{
+                    position: relative;
+                    font-size: 24px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorDark;
+                    
+                }
+                h2{
+                    position: relative;
+                    font-size: 24px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorDark;
+                    padding-left: 1vh;
+                    padding-right: 1vh;
+                }
+                h3{
+                    position: relative;
+                    font-size: 24px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorLight;
+                    background-color: $primaryBackgroundColorDark;
+                    border: 3px solid $primaryBackgroundColorDark;
+                    padding-left: 1vh;
+                    padding-right: 1vh;
+                    &:hover{
+                        color: $primaryBackgroundColorDark;
+                        background-color: $primaryBackgroundColorLight;
+                    }
+                }
+                #separator02{
+                    width: 100%;
+                    height: 0;
+                    border-top: 36px solid $secondaryBacgroundColorOrange;
+                    position: absolute;
+                    top: 10%;
+                    z-index: 1;
+                }
+                
+            }
+    }
     
+    nav{
+        color: $primaryBackgroundColorLight;
+        @include flexCenter(column);
+        position: fixed;
+        top: -35px;
+        width: 80%;
+        height: 175px;
+        transition: top 0.5s;
+        z-index: 6;
+        a{
+            text-decoration: none;
+            color: $primaryBackgroundColorLight;
+        }
+        #navTop{
+            margin-top: 5px;
+            margin-right: 15px;
+            font-size: 14px;
+            z-index: 3;
+        }
+    
+        .navTopLink{
+            margin-left: 18px;
+            text-decoration: none;
+            color: $primaryBackgroundColorLight;
+        }
+    
+        #logo{
+            width: 100%;
+            margin-top: -50px;
+            padding-top: 10px;
+            margin-bottom: -20px;
+            text-decoration: none;
+            color: $primaryBackgroundColorLight;
+            font-size: 25px;
+            z-index: 2;
+            position: relative;
+            text-align: center;
+            span{
+                position: relative;
+                z-index: 1;
+                font-size: 75px;
+                
+            }
+            #separator01{
+                width: 100%;
+                height: 0;
+                border-top: 20px solid $secondaryBacgroundColorOrange;
+                position: absolute;
+                top: 50%;
+                left: 0%;
+                z-index: 0;
+            }
+            
+        }
+    
+        #navLinks{
+            background-color: $primaryBackgroundColorDark;
+            width: 80%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            z-index: 3;
+            border: solid 2px $secondaryBacgroundColorOrange;
+            padding-left: 15px;
+        }
+    
+        .navBottomLink{
+            padding-right: 15px;
+            text-decoration: none;
+            color: $primaryBackgroundColorLight;
+            font-size: 20px;
+            transition: color .5s;
+            &:hover{
+                color: $secondaryBacgroundColorOrange;
+                text-decoration: underline;
+            }
+            &.active{
+                color: $secondaryBacgroundColorOrange;
+                text-decoration: underline;
+            }
+            
+        }
+    
+        #popupInfos{
+            position: absolute;
+            width: 60%;
+            min-height: 100px;
+            background-color: $primaryBackgroundColorLight;
+            top: -500px;
+        }
+        
+    }
+    #navBar.sticky{
+        top: -115px;
+    }
+
+
+    #sectionImg{
+        width: 80%;
+        height: 30vh;
+        position: relative;
+        top:0;
+        display: flex;
+        justify-content: center;
+            .rubricImg{
+                width: 80%;
+                height: 30%;
+                object-fit: cover;
+                position: fixed;
+            }
+    }
+
+    #listRubric{
+        width:80%;
+        min-height: 95vh;
+        margin-bottom: 5vh;
+        background-color: $primaryBackgroundColorLight;
+        position: relative;
+        
+            #titleRubric{
+                position: relative;
+                text-align: center;
+                margin-bottom: 5vh;
+                h1{
+                    position: relative;
+                    font-size: 48px;
+                    
+                    z-index: 2;
+                }
+                #separator02{
+                    width: 100%;
+                    height: 0;
+                    border-top: 18px solid $secondaryBacgroundColorOrange;
+                    position: absolute;
+                    top: 42%;
+                    z-index: 1;
+                }
+            }
+           
+            
+            .containerRubric
+            {
+                width: 99%;
+                height: 30vh;
+                display: flex;
+                justify-content: space-evenly;
+                flex-wrap: wrap;
+                align-items: center;
+                text-decoration: none;
+                &:hover
+                {
+                    color: $primaryBackgroundColorLight;
+                    background-color: $primaryBackgroundColorDark;
+                    filter: grayscale(100%);
+                }
+            }
+    
+            .containImg
+            {
+                width: 32%;
+                height: 96%;
+                background-color: $secondaryBacgroundColorOrange;
+                border: 3px solid $secondaryBacgroundColorOrange;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                
+            }
+    
+            .containText
+            {
+                width: 66%;
+                height: 96%;
+                background-color: #F9FBF2;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                color: $primaryBackgroundColorDark;
+                
+                z-index: 1;
+                &:hover
+                {
+                    
+                    filter: grayscale(100%);
+                }
+                
+                    .textInfo{
+                        
+                        width: 95%;
+                        height: 100%;
+                        
+                        border: 2px solid $secondaryBacgroundColorOrange;
+                        
+                            .theme{
+                                position: absolute;
+                                top: -3%;
+                                left: 1%;
+                                font-size: 8vw;
+                                padding:5px;
+                                background-color: $primaryBackgroundColorLight;
+                                z-index: 1;
+                            }
+                            .number{
+                                
+                                font-size: 2.5vw;
+                                padding:5px;
+                                
+                            }
+                            .title{
+                                text-align: center;
+                                font-size: 2.5vw;
+                            }
+                            .extract{
+                                padding: 2vh;
+                                font-size: 2vw;
+                                
+                            }
+                            a{
+                                text-align: center;
+                                
+                            }
+                    }
+            }
+    
+            .thumbImg
+            {
+                width:100%;
+                height: 100%;
+                margin:1px;
+                object-fit: cover;
+                &:hover
+                {
+                    color: $primaryBackgroundColorLight;
+                    background-color: $primaryBackgroundColorDark;
+                    filter: grayscale(100%);
+                }
+                
+                
+            }
+            #pageMovers{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 5vh;;
+                align-self: center;
+                    a{
+                        width: 30%;
+                        text-align: center;
+                        font-size: 54px;
+                        text-decoration: none;
+                        color: $primaryBackgroundColorDark;
+                        &:hover{
+                            color: $secondaryBacgroundColorOrange;
+                        }
+                    }
+                    span{
+                        background-color: $secondaryBacgroundColorOrange;
+                        border: solid 2px $primaryBackgroundColorDark;
+                        font-size: 24px;
+                        padding: 10px;;
+                    }
+            }
+            #pageMoversHidden{
+                display: none;
+                justify-content: center;
+                align-items: center;
+                width: 50%;
+            }
+            .hidden{
+                cursor: not-allowed;
+                pointer-events: none;
+                color: #eceee3 !important;
+                
+                
+            }
+    }
 
 
         header
@@ -399,6 +741,72 @@
 /* tablet and mobile*/
 @media screen and (max-width: 768px) 
 {	
+    #article{
+        width:100%;
+        min-height: 95vh;
+        padding-top: 3vh;
+        margin-bottom: 5vh;
+        background-color: $primaryBackgroundColorLight;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+            #titleArticle{
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                margin-bottom: 5vh;
+                
+                
+                a{
+                    text-decoration: none;
+                   
+                }
+                h1{
+                    position: relative;
+                    font-size: 24px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorDark;
+                    
+                }
+                h2{
+                    position: relative;
+                    font-size: 24px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorDark;
+                    padding-left: 1vh;
+                    padding-right: 1vh;
+                }
+                h3{
+                    position: relative;
+                    font-size: 24px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorLight;
+                    background-color: $primaryBackgroundColorDark;
+                    border: 3px solid $primaryBackgroundColorDark;
+                    padding-left: 1vh;
+                    padding-right: 1vh;
+                    &:hover{
+                        color: $primaryBackgroundColorDark;
+                        background-color: $primaryBackgroundColorLight;
+                    }
+                }
+                #separator02{
+                    width: 100%;
+                    height: 0;
+                    border-top: 36px solid $secondaryBacgroundColorOrange;
+                    position: absolute;
+                    top: 10%;
+                    z-index: 1;
+                }
+                
+            }
+            
+    }
+    
+    
     #sectionImg{
         width: 100%;
         height: 30vh;
@@ -424,19 +832,19 @@
             #titleRubric{
                 position: relative;
                 text-align: center;
-                margin-bottom: 5vh;
+                margin-bottom: 3vh;
                 h1{
                     position: relative;
-                    font-size: 8vw;
+                    font-size: 30px;
                     
                     z-index: 2;
                 }
                 #separator02{
-                    width: 0%;
+                    width: 100%;
                     height: 0;
-                    border-top: 0px solid $secondaryBacgroundColorOrange;
+                    border-top: 12px solid $secondaryBacgroundColorOrange;
                     position: absolute;
-                    top: 33%;
+                    top: 40%;
                     z-index: 1;
                 }
             }
@@ -445,7 +853,7 @@
             .containerRubric
             {
                 width: 99%;
-                height: 30vh;
+                height: 17vh;
                 display: flex;
                 justify-content: space-evenly;
                 flex-wrap: wrap;
@@ -519,6 +927,7 @@
                             }
                             .extract{
                                 padding: 2vh;
+                                padding-top: 0px;
                                 font-size: 2vw;
                                 
                             }

@@ -572,7 +572,6 @@
             &:hover
             {
                 color: $primaryBackgroundColorLight;
-                background-color: $primaryBackgroundColorDark;
                 filter: grayscale(100%);
             }
         }
@@ -623,12 +622,13 @@
                         }
                         .title{
                             text-align: center;
-                            font-size: 1.5vw;
+                            font-size: 1.75vw;
                             
                         }
                         .extract{
-                            padding: 2vh;
-                            font-size: 1vw;
+                            padding: 1vh;
+                            padding-top: 0px;
+                            font-size: 1.5vw;
                             
                         }
                         a{
@@ -717,14 +717,14 @@
             }
             h1{
                 position: relative;
-                font-size: 36px;
+                font-size: 24px;
                 z-index: 2;
                 color: $primaryBackgroundColorDark;
                 
             }
             h2{
                 position: relative;
-                font-size: 36px;
+                font-size: 24px;
                 z-index: 2;
                 color: $primaryBackgroundColorDark;
                 padding-left: 1vh;
@@ -732,7 +732,7 @@
             }
             h3{
                 position: relative;
-                font-size: 36px;
+                font-size: 24px;
                 z-index: 2;
                 color: $primaryBackgroundColorLight;
                 background-color: $primaryBackgroundColorDark;
@@ -749,7 +749,7 @@
                 height: 0;
                 border-top: 36px solid $secondaryBacgroundColorOrange;
                 position: absolute;
-                top: 24%;
+                top: 10%;
                 z-index: 1;
             }
             
@@ -842,9 +842,9 @@
             .infoBox{
                 position: absolute;
                 z-index: 2;
-                top: -5vh;
+                top: -25px;
                 width: 300px;
-                left: 1vh;
+                left: -200px;
                 justify-content: flex-start;
                 align-items: center;
                 display: flex;
@@ -865,7 +865,7 @@
                 position: absolute;
                 z-index: -2;
                 bottom: -5vh;
-                left: -.75vh;
+                left: -200px;
                 justify-content: center;
                 align-items: center;
                 display: flex;
