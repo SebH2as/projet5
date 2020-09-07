@@ -22,7 +22,7 @@
                 <a class="navBottomLink" >CHRONIQUES</a>
                 <a class="navBottomLink" >ESSAIS</a>
                 <a class="navBottomLink" >FICTIONS</a>
-                <a class="navBottomLink fa fa-search"></a>
+                <!--<a class="navBottomLink fa fa-search"></a>-->
             </div>           
             <div id="popupInfos">
                 <p>infos</p>
@@ -43,7 +43,7 @@
                 <a class="navBottomLink<?php if ($active === 2) echo ' active' ?>" href="index.php?action=chroniques&amp;idMag=<?= $magazine[0]->idMag ?>">CHRONIQUES</a>
                 <a class="navBottomLink<?php if ($active === 3) echo ' active' ?>" href="index.php?action=essais&amp;idMag=<?= $magazine[0]->idMag ?>">ESSAIS</a>
                 <a class="navBottomLink<?php if ($active === 4) echo ' active' ?>" href="index.php?action=fictions&amp;idMag=<?= $magazine[0]->idMag ?>">FICTIONS</a>
-                <a class="navBottomLink fa fa-search" href=""></a>
+                <!--<a class="navBottomLink fa fa-search"></a>-->
             </div>           
             <?php endif; ?>
         </nav>

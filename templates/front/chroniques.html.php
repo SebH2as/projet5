@@ -5,8 +5,8 @@
 <?php $active = 2 ; ?>
 
 <div id="sectionImg">
-            <img class="rubricImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">
-         </div>
+    <img class="rubricImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">
+</div>
          <section id="listRubric">
              
              <div id="titleRubric"><h1>TOUTES LES CHRONIQUES</h1><div id="separator02"></div></div>
