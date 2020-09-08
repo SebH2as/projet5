@@ -535,7 +535,7 @@
 #listRubric{
     width:60%;
     min-height: 95vh;
-    margin-bottom: 5vh;
+    
     background-color: $primaryBackgroundColorLight;
     position: relative;
     
@@ -696,7 +696,6 @@
     width:60%;
     min-height: 95vh;
     padding-top: 3vh;
-    margin-bottom: 5vh;
     background-color: $primaryBackgroundColorLight;
     position: relative;
     display: flex;
@@ -706,7 +705,7 @@
             position: relative;
             width: 100%;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 5vh;
             
@@ -721,6 +720,7 @@
                 z-index: 2;
                 color: $primaryBackgroundColorDark;
                 
+                
             }
             h2{
                 position: relative;
@@ -732,6 +732,7 @@
             }
             h3{
                 position: relative;
+                text-decoration: none;
                 font-size: 24px;
                 z-index: 2;
                 color: $primaryBackgroundColorLight;
@@ -843,7 +844,7 @@
                 position: absolute;
                 z-index: 2;
                 top: -25px;
-                width: 300px;
+                width: 200px;
                 left: -200px;
                 justify-content: flex-start;
                 align-items: center;
@@ -1016,10 +1017,16 @@
             h3{
                 text-decoration: underline;
             }
+            h2{
+                text-align: center;
+                margin-bottom: 2vh;
+                font-size: 36px;
+            }
         }
         #infosCount
         {
             display: flex;
+            margin-bottom: 3vh;
             justify-content: space-evenly;
             width: 96%;
             #infosPerso{
@@ -1061,46 +1068,9 @@
                 }
             }
         }
-       
-}
-
-#listLetters{
-    width:60%;
-    min-height: 95vh;
-    margin-bottom: 5vh;
-    background-color: $primaryBackgroundColorLight;
-    position: relative;
-        #noLetters
-        {
-            text-align: center;
-            font-size: 48px;
-        }
-        #titleLetters{
-            position: relative;
-            text-align: center;
-            margin-bottom: 5vh;
-            h1{
-                position: relative;
-                font-size: 48px;
-                
-                z-index: 2;
-            }
-            a{
-                text-decoration: none;
-                position: relative;
-                color: $primaryBackgroundColorDark;
-            }
-            #separator02{
-                width: 100%;
-                height: 0;
-                border-top: 20px solid $secondaryBacgroundColorOrange;
-                position: absolute;
-                top: 40%;
-                z-index: 1;
-            }
-        }
         .lettersAll{
-            margin: 5vh;
+            margin: 1vh;
+            width: 96%;
             border: 5px solid $secondaryBacgroundColorOrange;
         }
         .readerLetter{
@@ -1161,5 +1131,6 @@
             
             
         }
+       
+}
 
-    }

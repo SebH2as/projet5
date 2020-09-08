@@ -1,0 +1,172 @@
+/* desktop */
+@media screen and (max-width: 1366px) 
+{
+    #navBack{
+        position: relative;
+        background-color: $secondaryBacgroundColorYellow;
+        border-bottom: solid 2px $blackColor;
+        width: 80%;
+        height: 5vh;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        z-index: 1;
+        h2{
+            font-size: 2vw;
+        }
+        #backLinks{
+            height: 100%;
+            width: 50%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            cursor:pointer;
+            
+            .dropDown{
+                font-size: 1.75vw;
+                background-color: $secondaryBacgroundColor02;
+                border-left: solid 2px $blackColor;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                &:nth-last-of-type(1){
+                    border-right: solid 2px $blackColor;
+                }
+                &:hover .dropdown-content {display: block;}
+                &:hover {background-color: $secondaryBacgroundColorYellowLight;}
+                .dropdown-content {
+                    display: none;
+                    position: absolute;
+                    top: 5vh;
+                    background-color: #f1f1f1;
+                    min-width: 200%;
+                    z-index: 1;
+                    a {
+                        color: black;
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                        font-size: 1.5vw;
+                        background-color: $secondaryBacgroundColorYellow;
+                        border-bottom: solid 2px $blackColor;
+                        border-left: solid 2px $blackColor;
+                        border-right: solid 2px $blackColor;
+                        &:hover{background-color: $secondaryBacgroundColorYellowLight;}
+                      }
+                    
+                  }
+                a{
+                    text-decoration: none;
+                    color: black
+                }
+            }
+        }
+        
+    }
+    section
+    {
+        width: 80% !important;
+        .columnTitle{
+            font-size: 14px !important;
+        }
+        .tableContent{
+            font-size: 14px !important;
+        }
+        .buttonPannel{
+            font-size: 14px !important;
+        }
+    }
+    
+    
+}
+/* tablet */
+@media screen and (max-width: 768px) 
+{
+    #navBack{
+        position: relative;
+        background-color: $secondaryBacgroundColorYellow;
+        border-bottom: solid 2px $blackColor;
+        width: 100%;
+        height: 5vh;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        z-index: 1;
+        h2{
+            font-size: 2vw;
+        }
+        #backLinks{
+            height: 100%;
+            width: 50%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            cursor:pointer;
+            
+            .dropDown{
+                font-size: 1.75vw;
+                background-color: $secondaryBacgroundColor02;
+                border-left: solid 2px $blackColor;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                &:nth-last-of-type(1){
+                    border-right: solid 2px $blackColor;
+                }
+                &:hover .dropdown-content {display: block;}
+                &:hover {background-color: $secondaryBacgroundColorYellowLight;}
+                .dropdown-content {
+                    display: none;
+                    position: absolute;
+                    top: 5vh;
+                    background-color: #f1f1f1;
+                    min-width: 200%;
+                    z-index: 1;
+                    a {
+                        color: black;
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                        font-size: 1.25vw;
+                        background-color: $secondaryBacgroundColorYellow;
+                        border-bottom: solid 2px $blackColor;
+                        border-left: solid 2px $blackColor;
+                        border-right: solid 2px $blackColor;
+                        &:hover{background-color: $secondaryBacgroundColorYellowLight;}
+                      }
+                    
+                  }
+                a{
+                    text-decoration: none;
+                    color: black
+                }
+            }
+        }
+        
+    }
+    section
+    {
+        width: 100% !important;
+        .columnTitle{
+            font-size: 12px !important;
+        }
+        .tableContent{
+            font-size: 12px !important;
+        }
+        .buttonPannel{
+            font-size: 12px !important;
+        }
+    }
+    
+    
+}

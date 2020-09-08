@@ -9,7 +9,9 @@
         </div>
         <section id="article">
             <div id="titleArticle">
-                <h2>SE CONNECTER</h2>
+                <h2></h2>
+                <h1>SE CONNECTER</h1>
+                <h2></h2>
                 <div id="separator02"></div>
             </div>
             <div id="infos">

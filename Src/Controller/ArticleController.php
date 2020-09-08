@@ -40,9 +40,10 @@ class ArticleController{
     {
         $this->auth->requireRole('1');
         $message = 'Le contenu de l\'article a été modifié';
+        $token = $this->noCsrf->createToken();
         $this->articleManager->modifContent((int) $this->request->get('idText'), (string) $this->request->post('content'));
         $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
     }
 
 
@@ -64,15 +65,17 @@ class ArticleController{
     {
         $this->auth->requireRole('1');
         $message = null;
+        $token = $this->noCsrf->createToken();
         $this->articleManager->createArticle((int) $this->request->get('idMag'));
         $articleMostRecent = $this->articleManager->findMostRecentArticle((int) $this->request->post('number'));
         $data = $this->articleManager->findArticleById((int) $articleMostRecent[0] -> id_text);
-        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
     }
     
     public function modifyArticle()
     {
         $this->auth->requireRole('1');
+        $token = $this->noCsrf->createToken();
         $message = null;
 
         $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric', 'La rubrique a été modifiée', 'pannelarticle', 'findArticleById');
@@ -84,7 +87,7 @@ class ArticleController{
         $this->files->addFiles('articleManager', 'modifCover', 'articleCover', 'idText', "L'image a été modifiée", 'pannelarticle', 'findArticleById');
 
         $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
         
     }
 

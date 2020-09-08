@@ -10,8 +10,10 @@
         </div>
         <section id="article">
             <div id="titleArticle">
-                <h2>MON COMPTE</h2>
+                <h2></h2>
+                <h1>MON COMPTE</h1>
                 <div id="separator02"></div>
+                <h2></h2>
             </div>
             <div id="infos">
                 <span>

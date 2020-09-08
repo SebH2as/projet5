@@ -10,7 +10,9 @@
         </div>
         <section id="article">
             <div id="titleArticle">
-                <h2>NOUS ECRIRE</h2>
+                <h2></h2>
+                <h1>NOUS ECRIRE</h1>
+                <h2></h2>
                 <div id="separator02"></div>
             </div>
             <div id="infos">
@@ -28,6 +30,6 @@
                 <label for="courrier">Courrier:</label>
                 <textarea id="courrier" name="courrier" rows="15" cols="50"></textarea>
 
-                <input type="submit" id="saver" value="Poster votre courrier">
+                <input type="submit" id="saver" value="Poster">
             </form>
         </section>

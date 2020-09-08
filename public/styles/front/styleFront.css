@@ -1062,7 +1062,6 @@ header .hidden span {
 #listRubric {
   width: 60%;
   min-height: 95vh;
-  margin-bottom: 5vh;
   background-color: #F9FBF2;
   position: relative;
 }
@@ -1251,7 +1250,6 @@ header .hidden span {
   width: 60%;
   min-height: 95vh;
   padding-top: 3vh;
-  margin-bottom: 5vh;
   background-color: #F9FBF2;
   position: relative;
   display: -webkit-box;
@@ -1272,8 +1270,9 @@ header .hidden span {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1302,6 +1301,7 @@ header .hidden span {
 
 #article #titleArticle h3 {
   position: relative;
+  text-decoration: none;
   font-size: 24px;
   z-index: 2;
   color: #F9FBF2;
@@ -1438,7 +1438,7 @@ header .hidden span {
   position: absolute;
   z-index: 2;
   top: -25px;
-  width: 300px;
+  width: 200px;
   left: -200px;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
@@ -1659,10 +1659,17 @@ header .hidden span {
   text-decoration: underline;
 }
 
+#article #articleContent h2 {
+  text-align: center;
+  margin-bottom: 2vh;
+  font-size: 36px;
+}
+
 #article #infosCount {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-bottom: 3vh;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
@@ -1722,76 +1729,37 @@ header .hidden span {
   color: #F9FBF2;
 }
 
-#listLetters {
-  width: 60%;
-  min-height: 95vh;
-  margin-bottom: 5vh;
-  background-color: #F9FBF2;
-  position: relative;
-}
-
-#listLetters #noLetters {
-  text-align: center;
-  font-size: 48px;
-}
-
-#listLetters #titleLetters {
-  position: relative;
-  text-align: center;
-  margin-bottom: 5vh;
-}
-
-#listLetters #titleLetters h1 {
-  position: relative;
-  font-size: 48px;
-  z-index: 2;
-}
-
-#listLetters #titleLetters a {
-  text-decoration: none;
-  position: relative;
-  color: #030B12;
-}
-
-#listLetters #titleLetters #separator02 {
-  width: 100%;
-  height: 0;
-  border-top: 20px solid #E8871E;
-  position: absolute;
-  top: 40%;
-  z-index: 1;
-}
-
-#listLetters .lettersAll {
-  margin: 5vh;
+#article .lettersAll {
+  margin: 1vh;
+  width: 96%;
   border: 5px solid #E8871E;
 }
 
-#listLetters .readerLetter {
+#article .readerLetter {
   border: 2px solid #E8871E;
   padding: 2vh;
   margin: 2vh;
 }
 
-#listLetters .readerLetter span {
+#article .readerLetter span {
   font-size: 18px !important;
   color: #030B12 !important;
   background-color: #F9FBF2 !important;
 }
 
-#listLetters .responseLetter {
+#article .responseLetter {
   border: 2px solid #E8871E;
   padding: 2vh;
   margin: 2vh;
 }
 
-#listLetters .responseLetter span {
+#article .responseLetter span {
   font-size: 18px !important;
   color: #030B12 !important;
   background-color: #F9FBF2 !important;
 }
 
-#listLetters #pageMovers {
+#article #pageMovers {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1807,7 +1775,7 @@ header .hidden span {
       align-self: center;
 }
 
-#listLetters #pageMovers a {
+#article #pageMovers a {
   width: 30%;
   text-align: center;
   font-size: 54px;
@@ -1815,18 +1783,18 @@ header .hidden span {
   color: #030B12;
 }
 
-#listLetters #pageMovers a:hover {
+#article #pageMovers a:hover {
   color: #E8871E;
 }
 
-#listLetters #pageMovers span {
+#article #pageMovers span {
   background-color: #E8871E;
   border: solid 2px #030B12;
   font-size: 24px;
   padding: 10px;
 }
 
-#listLetters #pageMoversHidden {
+#article #pageMoversHidden {
   display: none;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -1837,7 +1805,7 @@ header .hidden span {
   width: 50%;
 }
 
-#listLetters .hidden {
+#article .hidden {
   cursor: not-allowed;
   pointer-events: none;
   color: #eceee3 !important;
@@ -1886,7 +1854,6 @@ footer #media .fa {
     width: 80%;
     min-height: 95vh;
     padding-top: 3vh;
-    margin-bottom: 5vh;
     background-color: #F9FBF2;
     position: relative;
     display: -webkit-box;
@@ -1906,8 +1873,9 @@ footer #media .fa {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
@@ -2080,7 +2048,6 @@ footer #media .fa {
   #listRubric {
     width: 80%;
     min-height: 95vh;
-    margin-bottom: 5vh;
     background-color: #F9FBF2;
     position: relative;
   }
@@ -2651,13 +2618,12 @@ footer #media .fa {
   }
 }
 
-/* tablet and mobile*/
+/* tablet */
 @media screen and (max-width: 768px) {
   #article {
     width: 100%;
     min-height: 95vh;
     padding-top: 3vh;
-    margin-bottom: 5vh;
     background-color: #F9FBF2;
     position: relative;
     display: -webkit-box;
@@ -2677,8 +2643,9 @@ footer #media .fa {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
@@ -2723,6 +2690,108 @@ footer #media .fa {
     top: 10%;
     z-index: 1;
   }
+  #article #formSignIn {
+    background-color: #F9FBF2;
+    border: 5px solid #E8871E;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 24px;
+    width: 80%;
+    padding-top: 2vh;
+    padding-bottom: 1vh;
+    margin-bottom: 5vh;
+  }
+  #article #formLetter {
+    background-color: #F9FBF2;
+    border: 5px solid #E8871E;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 24px;
+    width: 96%;
+    height: 95vh;
+    padding-top: 2vh;
+    padding-bottom: 1vh;
+    margin-bottom: 5vh;
+  }
+  #article #infosCount {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    width: 96%;
+    margin-bottom: 3vh;
+  }
+  #article #infosCount #infosPerso {
+    width: 45%;
+    padding: 1vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    border: 5px solid #030B12;
+  }
+  #article #infosCount #infosPerso h2 {
+    text-align: center;
+    margin-bottom: 3vh;
+    text-decoration: underline;
+  }
+  #article #infosCount #infosPerso .infos {
+    margin-bottom: 2vh;
+    font-size: 14px;
+  }
+  #article #infosCount #blockLinks {
+    width: 45%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #article #infosCount #blockLinks .countLinks {
+    background-color: #E8871E;
+    border: 2px solid #030B12;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    color: #030B12;
+    font-weight: 900;
+    margin: 2vh;
+    padding: 1vh;
+  }
+  #article #infosCount #blockLinks .countLinks:hover {
+    background-color: #030B12;
+    color: #F9FBF2;
+  }
   #sectionImg {
     width: 100%;
     height: 30vh;
@@ -2745,7 +2814,6 @@ footer #media .fa {
   #listRubric {
     width: 100%;
     min-height: 95vh;
-    margin-bottom: 5vh;
     background-color: #F9FBF2;
     position: relative;
   }
@@ -3421,6 +3489,80 @@ footer #media .fa {
   #coverPart02 #readersLettersAndSocial #socialMedia a:hover {
     color: #E8871E;
     border: 0px solid #030B12;
+  }
+}
+
+/* mobile */
+@media screen and (max-width: 430px) {
+  #article {
+    width: 100%;
+    min-height: 95vh;
+    padding-top: 3vh;
+    background-color: #F9FBF2;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #article #titleArticle {
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-bottom: 5vh;
+  }
+  #article #titleArticle a {
+    text-decoration: none;
+  }
+  #article #titleArticle h1 {
+    position: relative;
+    font-size: 18px;
+    z-index: 2;
+    color: #030B12;
+  }
+  #article #titleArticle h2 {
+    position: relative;
+    font-size: 18px;
+    z-index: 2;
+    color: #030B12;
+    padding-left: 1vh;
+    padding-right: 1vh;
+  }
+  #article #titleArticle h3 {
+    position: relative;
+    font-size: 18px;
+    z-index: 2;
+    color: #F9FBF2;
+    background-color: #030B12;
+    border: 3px solid #030B12;
+    padding-left: 1vh;
+    padding-right: 1vh;
+  }
+  #article #titleArticle h3:hover {
+    color: #030B12;
+    background-color: #F9FBF2;
+  }
+  #article #titleArticle #separator02 {
+    width: 100%;
+    height: 0;
+    border-top: 30px solid #E8871E;
+    position: absolute;
+    top: 10%;
+    z-index: 1;
   }
 }
 

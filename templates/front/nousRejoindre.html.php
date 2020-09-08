@@ -10,7 +10,9 @@
         </div>
         <section id="article">
             <div id="titleArticle">
-                <h2>NOUS REJOINDRE</h2>
+                <h2></h2>
+                <h1>NOUS REJOINDRE</h1>
+                <h2></h2>
                 <div id="separator02"></div>
             </div>
             <div id="infos">

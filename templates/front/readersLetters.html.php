@@ -7,10 +7,12 @@
 <div id="sectionImg">
         <img class="rubricImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">
 </div>
-        <section id="listLetters">
+        <section id="article">
 
-                <div id="titleLetters">
-                    <h1>COURRIERS DES LECTEURS DU <a href="index.php?action=magazine&amp;idMag=<?= $magazine[0]->idMag?>">MAGAZINE N°<?= $magazine[0]->numberMag ?></a></h1>
+                <div id="titleArticle">
+                    <a href="index.php?action=magazine&amp;idMag=<?= $magazine[0]->idMag?>"><h3>MAGAZINE N°<?= $magazine[0]->numberMag ?></h3></a>
+                    <h1>COURRIER</h1>
+                    <a href="index.php?action=magazine&amp;idMag=<?= $magazine[0]->idMag?>"><h3>MAGAZINE N°<?= $magazine[0]->numberMag ?></h3></a>
                     <div id="separator02"></div>
                 </div>
 

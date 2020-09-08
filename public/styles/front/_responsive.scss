@@ -7,7 +7,7 @@
         width:80%;
         min-height: 95vh;
         padding-top: 3vh;
-        margin-bottom: 5vh;
+        
         background-color: $primaryBackgroundColorLight;
         position: relative;
         display: flex;
@@ -17,7 +17,7 @@
                 position: relative;
                 width: 100%;
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
                 align-items: center;
                 margin-bottom: 5vh;
                 
@@ -182,7 +182,7 @@
     #listRubric{
         width:80%;
         min-height: 95vh;
-        margin-bottom: 5vh;
+        
         background-color: $primaryBackgroundColorLight;
         position: relative;
         
@@ -738,14 +738,14 @@
 
 }
 
-/* tablet and mobile*/
+/* tablet */
 @media screen and (max-width: 768px) 
 {	
     #article{
         width:100%;
         min-height: 95vh;
         padding-top: 3vh;
-        margin-bottom: 5vh;
+        
         background-color: $primaryBackgroundColorLight;
         position: relative;
         display: flex;
@@ -755,7 +755,7 @@
                 position: relative;
                 width: 100%;
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
                 align-items: center;
                 margin-bottom: 5vh;
                 
@@ -803,7 +803,80 @@
                 }
                 
             }
-            
+            #formSignIn{
+                background-color: $primaryBackgroundColorLight;
+                border: 5px solid $secondaryBacgroundColorOrange;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 24px;
+                width: 80%;
+                padding-top: 2vh;
+                padding-bottom: 1vh;
+                margin-bottom: 5vh;
+            }
+
+            #formLetter{
+                background-color: $primaryBackgroundColorLight;
+                border: 5px solid $secondaryBacgroundColorOrange;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                font-size: 24px;
+                width: 96%;
+                height: 95vh;
+                padding-top: 2vh;
+                padding-bottom: 1vh;
+                margin-bottom: 5vh;
+            }
+
+            #infosCount
+            {
+                display: flex;
+                justify-content: space-evenly;
+                width: 96%;
+                margin-bottom: 3vh;
+                #infosPerso{
+                    width: 45%;
+                    padding: 1vh;
+                    display: flex;
+                    flex-direction: column;
+                    border: 5px solid $primaryBackgroundColorDark;
+                    h2{
+                        text-align: center;
+                        margin-bottom: 3vh;
+                        text-decoration: underline;
+                    }
+                    .infos{
+                        margin-bottom: 2vh;
+                        font-size: 14px;
+                    }
+    
+                }
+                #blockLinks{
+                    width: 45%;
+                    display: flex;
+                    flex-direction: column;
+                    .countLinks{
+                        background-color: $secondaryBacgroundColorOrange;
+                        border: 2px solid $primaryBackgroundColorDark;
+                        font-size: 18px;
+                        cursor: pointer;
+                        text-decoration: none;
+                        text-align: center;
+                        color: $primaryBackgroundColorDark;
+                        font-weight: 900;
+                        margin: 2vh;
+                        padding: 1vh;
+                        &:hover{
+                            background-color: $primaryBackgroundColorDark;
+                            color: $primaryBackgroundColorLight;
+                        }
+                    }
+                }
+            }
     }
     
     
@@ -825,7 +898,7 @@
     #listRubric{
         width:100%;
         min-height: 95vh;
-        margin-bottom: 5vh;
+        
         background-color: $primaryBackgroundColorLight;
         position: relative;
         
@@ -990,6 +1063,8 @@
                 
                 
             }
+
+        
     }
     
     nav{
@@ -1478,4 +1553,72 @@
         }
     }
 
+}
+
+/* mobile */
+@media screen and (max-width: 430px) 
+{	
+    #article{
+        width:100%;
+        min-height: 95vh;
+        padding-top: 3vh;
+        
+        background-color: $primaryBackgroundColorLight;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+            #titleArticle{
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 5vh;
+                
+                
+                a{
+                    text-decoration: none;
+                   
+                }
+                h1{
+                    position: relative;
+                    font-size: 18px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorDark;
+                    
+                }
+                h2{
+                    position: relative;
+                    font-size: 18px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorDark;
+                    padding-left: 1vh;
+                    padding-right: 1vh;
+                }
+                h3{
+                    position: relative;
+                    font-size: 18px;
+                    z-index: 2;
+                    color: $primaryBackgroundColorLight;
+                    background-color: $primaryBackgroundColorDark;
+                    border: 3px solid $primaryBackgroundColorDark;
+                    padding-left: 1vh;
+                    padding-right: 1vh;
+                    &:hover{
+                        color: $primaryBackgroundColorDark;
+                        background-color: $primaryBackgroundColorLight;
+                    }
+                }
+                #separator02{
+                    width: 100%;
+                    height: 0;
+                    border-top: 30px solid $secondaryBacgroundColorOrange;
+                    position: absolute;
+                    top: 10%;
+                    z-index: 1;
+                }
+                
+            }
+    }
 }

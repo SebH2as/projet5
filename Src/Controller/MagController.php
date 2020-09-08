@@ -205,6 +205,7 @@ class MagController{
             $message = "L'éditorial a été modifié";
             $token = $this->noCsrf->createToken();
             $this->view->render('back/editorial', 'back/layout', compact('data', 'message', 'token'));
+            exit();
         }
         $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
         $message = "Une erreur est survenue, veuillez recommencer";

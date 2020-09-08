@@ -10,7 +10,9 @@
         </div>
         <section id="article">
             <div id="titleArticle">
-                <h2>MODIFIER MON MOT DE PASSE</h2>
+                <h2></h2>
+                <h1>MODIFIER MON MOT DE PASSE</h1>
+                <h2></h2>
                 <div id="separator02"></div>
             </div>
             <div id="infos">
