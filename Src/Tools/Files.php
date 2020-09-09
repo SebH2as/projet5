@@ -14,6 +14,7 @@ class Files{
     private $articleManager;
     private $view;
     private $request;
+    private $noCsrf;
 
     public function __construct()
     {
@@ -21,6 +22,7 @@ class Files{
         $this->magManager = new magManager();
         $this->articleManager = new articleManager();
         $this->request = new request();
+        $this->noCsrf = new noCsrf();
     }
 
     public function addFiles($manager, $post, $content, $id, $text = null, $template, $method)
@@ -41,9 +43,9 @@ class Files{
                 $this->$manager->modifCover( (int) $this->request->get($id), (string) $cover['name']);
                 
                 $message = $text;
+                $token = $this->noCsrf->createToken();
                 $data = $this->$manager->$method((int) $this->request->get($id));
-                $this->view->render('back/' . $template  , 'back/layout', compact('data', 'message'));
-                var_dump($message);
+                $this->view->render('back/' . $template  , 'back/layout', compact('data', 'message', 'token'));
                 exit();
             }       
         }

@@ -71,22 +71,34 @@ class ArticleController{
         $data = $this->articleManager->findArticleById((int) $articleMostRecent[0] -> id_text);
         $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
     }
+
+    public function pannelArticle()
+    {
+        $message = null;
+        $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
+    }
     
     public function modifyArticle()
     {
         $this->auth->requireRole('1');
-        $token = $this->noCsrf->createToken();
         $message = null;
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric', 'La rubrique a été modifiée', 'pannelarticle', 'findArticleById');
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
+        {
+            $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric', 'La rubrique a été modifiée', 'pannelarticle', 'findArticleById');
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title', 'Le titre a été modifiée', 'pannelarticle', 'findArticleById');
+            $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title', 'Le titre a été modifiée', 'pannelarticle', 'findArticleById');
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author', "L'auteur a été modifiée", 'pannelarticle', 'findArticleById');
+            $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author', "L'auteur a été modifiée", 'pannelarticle', 'findArticleById');
 
-        $this->files->addFiles('articleManager', 'modifCover', 'articleCover', 'idText', "L'image a été modifiée", 'pannelarticle', 'findArticleById');
+            $this->files->addFiles('articleManager', 'modifCover', 'articleCover', 'idText', "L'image a été modifiée", 'pannelarticle', 'findArticleById');
 
+        }
+        
         $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
+        $token = $this->noCsrf->createToken();
         $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
         
     }

@@ -36,6 +36,7 @@ $actionArticle =
     'addContent',
     'deleteArticle',
     'createNewArticle',
+    'pannelArticle',
     'modifyArticle',
     'previewArticle',
     'chroniques',

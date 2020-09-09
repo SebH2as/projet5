@@ -18,6 +18,7 @@
             <div id="contentContainer">
                 <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=modifyArticle&amp;idText=<?= $data[0]->id_text ?>&amp;idMag=<?= $data[0]->ArtIdMag ?>">
                     
+                <input type="hidden" name="csrf" value="<?php echo $token ?>">
                 <h3><i class="fa fa-arrow-right"></i> Rubrique de l'article: <i><?php if(($data[0]->textType) === null) echo 'à définir'?>
                                         <?php if(($data[0]->textType) !== null) echo $data[0]->textType ?></i></h3>
                     <div class="formRow">

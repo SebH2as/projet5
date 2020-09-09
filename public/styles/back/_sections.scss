@@ -1,5 +1,15 @@
 @import"./mixin";
 
+section{
+    .columnTitle{
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        
+    }
+}
+
 #oldNumbers{
     position: relative;
     width: 60%;
@@ -356,6 +366,11 @@
                                     font-size: 18px;
                                     border: solid 2px $blackColor;
                                     margin-left: 15px;
+                                }
+                                input{
+                                    
+                                    margin-bottom: 10px !important;
+                                    margin-top: 10px !important;
                                 }
                             
                         }
@@ -1088,7 +1103,8 @@
 #admin{
     position: relative;
     width: 60%;
-    height: 96vh;
+    height: auto;
+    min-height: 96vh !important;
     background-color: $primaryBackgroundColorLight;
     z-index: 0;
     display: flex;
@@ -1098,6 +1114,8 @@
         h1{
             margin-top: 2vh;
             margin-bottom: 2vh;
+            margin-left: 1vh;
+            margin-right: 1vh;
             font-size: 36px;
             text-align: center;
         }
@@ -1137,6 +1155,7 @@
             
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             input{
                 margin-bottom: 2vh;
             }
@@ -1156,7 +1175,7 @@
                 background-color: rgb(0, 192, 0);
                 border-radius: 12px;
                 font-size: 18px;
-                text-align: center;
+                text-align: center !important;
                 box-shadow: 0px 5px 10px $blackColor;
                 cursor:pointer;
                 align-self: center;
@@ -1200,6 +1219,7 @@
                             width: 20%;
                             background-color: $secondaryBacgroundColor02;
                             display: flex;
+                            text-align: center;
                             justify-content: center;
                             align-items: center;
                             font-size: 18px;

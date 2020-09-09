@@ -118,6 +118,19 @@ body {
   color: black;
 }
 
+section .columnTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 #oldNumbers {
   position: relative;
   width: 60%;
@@ -666,6 +679,11 @@ body {
   font-size: 18px;
   border: solid 2px #110B11;
   margin-left: 15px;
+}
+
+#mag #contentContainer #formMag .formRow .labelInput input {
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
 }
 
 #mag #contentContainer #formMag .formRow .button01 {
@@ -1889,7 +1907,8 @@ body {
 #admin {
   position: relative;
   width: 60%;
-  height: 96vh;
+  height: auto;
+  min-height: 96vh !important;
   background-color: #DDC67B;
   z-index: 0;
   display: -webkit-box;
@@ -1910,6 +1929,8 @@ body {
 #admin h1 {
   margin-top: 2vh;
   margin-bottom: 2vh;
+  margin-left: 1vh;
+  margin-right: 1vh;
   font-size: 36px;
   text-align: center;
 }
@@ -1959,6 +1980,8 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 #admin #formProfil input {
@@ -1987,7 +2010,7 @@ body {
   background-color: #00c000;
   border-radius: 12px;
   font-size: 18px;
-  text-align: center;
+  text-align: center !important;
   -webkit-box-shadow: 0px 5px 10px #110B11;
           box-shadow: 0px 5px 10px #110B11;
   cursor: pointer;
@@ -2064,6 +2087,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  text-align: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -2275,6 +2299,10 @@ body {
   }
   section {
     width: 80% !important;
+    min-height: 96vh !important;
+  }
+  section h1 {
+    font-size: 28px !important;
   }
   section .columnTitle {
     font-size: 14px !important;
@@ -2284,6 +2312,28 @@ body {
   }
   section .buttonPannel {
     font-size: 14px !important;
+  }
+  section input {
+    font-size: 12px !important;
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+    text-align: center !important;
+  }
+  section select {
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+  }
+  section #formNewMag {
+    width: 80% !important;
+  }
+  section .formSeparator {
+    width: 75% !important;
+    -webkit-box-align: center !important;
+        -ms-flex-align: center !important;
+            align-items: center !important;
+  }
+  section .formSeparator input {
+    width: 40% !important;
   }
 }
 
@@ -2391,6 +2441,13 @@ body {
   }
   section .buttonPannel {
     font-size: 12px !important;
+  }
+  section #pageMovers span {
+    text-align: center;
+  }
+  section input {
+    font-size: 12px !important;
+    text-align: center !important;
   }
 }
 

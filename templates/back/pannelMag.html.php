@@ -1,7 +1,7 @@
 <?php $title = 'Gestion magazine'; ?>
 
 <section id="mag">
-            <h2>magazine numéro <?= $data[0]->numberMag ?> créée le <?= $data[0]->dateMag ?></h2>
+            <h2>magazine numéro <?= $data[0]->numberMag ?> créé le <?= $data[0]->dateMag ?></h2>
             <span id="message" class="<?php if ($message === null) echo 'none' ?>"><?= $message ?></span>
 
             <div class="buttonsPannel"> 
@@ -112,7 +112,7 @@
                     <span class="columnTitle">Article à la une</span>
                 </div>
                 <?php foreach($data as $article): ?>
-                <a class="tableRows" href="index.php?action=modifyArticle&amp;idMag=<?= $data[0]->idMag ?>&amp;idText=<?= $article->id_text ?>">
+                <a class="tableRows" href="index.php?action=pannelArticle&amp;idMag=<?= $data[0]->idMag ?>&amp;idText=<?= $article->id_text ?>">
                     <span class="tableContent"><?= $article->textType ?></span>
                     <span class="tableContent"><?= $article->title ?></span>
                     <span class="tableContent"><?= $article->author ?></span>

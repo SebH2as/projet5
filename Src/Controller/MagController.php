@@ -69,7 +69,7 @@ class MagController{
         
     }
 
-    public function previousMag()
+    public function previousMag():void//méthode pour naviguer vers les numéros précédents
     {
         $previousMag = $this->magManager->previousMag((int) $this->request->get('idMag'));
         if(!empty($previousMag))
@@ -88,7 +88,7 @@ class MagController{
         $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
     }
 
-    public function nextMag()
+    public function nextMag():void//méthode pour naviguer vers les numéros suivants
     {
         $nextMag = $this->magManager->nextMag((int) $this->request->get('idMag'));
         if(!empty($nextMag))
@@ -157,24 +157,37 @@ class MagController{
         
     }
 
-    public function modifyMag()
+    public function pannelMag():void//méthode pour afficher la page de gestion d'un magazine
+    {
+        $token = $this->noCsrf->createToken();
+        $message = null;
+        $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
+    }
+
+
+    public function modifyMag():void//méthode pour modifier un numéro de magazine
     {
         $this->auth->requireRole('1');
         $message = null;
-        $token = $this->noCsrf->createToken();
+        
        
-       
-        $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
+        {
+            $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics', 'Le thème du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
+            $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics', 'Le thème du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle01', 'title01', 'Le titre 1 du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
-        $this->dataLoader->deleteData('magManager', 'idMag', 'deleteTitle01', 'title01', 'Le titre 1 du magazine a été supprimmé', 'pannelmag', 'findMagByIdWithArticles');
+            $this->dataLoader->addData('magManager', 'idMag', 'modifTitle01', 'title01', 'Le titre 1 du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
+            $this->dataLoader->deleteData('magManager', 'idMag', 'deleteTitle01', 'title01', 'Le titre 1 du magazine a été supprimmé', 'pannelmag', 'findMagByIdWithArticles');
 
-        $this->dataLoader->addData('magManager', 'idMag', 'modifTitle02', 'title02', 'Le titre 2 du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
-        $this->dataLoader->deleteData('magManager', 'idMag', 'deleteTitle02', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelmag', 'findMagByIdWithArticles');
+            $this->dataLoader->addData('magManager', 'idMag', 'modifTitle02', 'title02', 'Le titre 2 du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
+            $this->dataLoader->deleteData('magManager', 'idMag', 'deleteTitle02', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelmag', 'findMagByIdWithArticles');
 
+            $this->files->addFiles('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag', 'findMagByIdWithArticles');
 
+        }
+        
         if($this->request->post('modifEdito') !== null)
         {
             $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
@@ -184,18 +197,14 @@ class MagController{
             exit();
         }
         
-        $this->files->addFiles('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag', 'findMagByIdWithArticles');
-
         
-
-        
-        
+        $token = $this->noCsrf->createToken();
         $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
         
     }
 
-    public function addEdito()
+    public function addEdito():void//méthode pour modifier ou écrire un édito de magazine
     {
         $this->auth->requireRole('1');
         if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
@@ -214,14 +223,14 @@ class MagController{
         
     }
 
-    public function previewMag()
+    public function previewMag():void//méthode pour prévisualiser la page d'accueil d'un magazine
     {
         $this->auth->requireRole('1');
         $magazine = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/previewMag', 'front/layout', compact('magazine'));
     }
 
-    public function deleteMag()
+    public function deleteMag():void//méthode pour supprimmer un magazine avec ses articles et images associés
     {
         $this->auth->requireRole('1');
         $dataToErase = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
@@ -239,7 +248,7 @@ class MagController{
         $this->ListMag();
     }
 
-    public function setOnlineMag()
+    public function setOnlineMag():void//méthode pour mettre en ligne un numéro de magazine
     {
         $this->auth->requireRole('1');
         $message = 'le magazine a été mis en ligne';
@@ -249,7 +258,7 @@ class MagController{
         $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
     }
 
-    public function setSavedMag()
+    public function setSavedMag():void//méthode pour sauvegarder un numéro de magazine et le retirer des magazines en ligne
     {
         $this->auth->requireRole('1');
         $message = 'le magazine a été sauvegardé';
@@ -259,7 +268,7 @@ class MagController{
         $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
     }
 
-    public function readersLetters()
+    public function readersLetters():void//méthode pour afficher la page courrier d'un magazine
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
@@ -279,7 +288,7 @@ class MagController{
         $offset = ($currentpage - 1) * $nbByPage;
         
         $letters = $this->lettersManager->getCourrierByRelatedMag($offset, $nbByPage, $magazine[0]->numberMag);
-        $this->view->render('front/readersLetters', 'front/layout', compact('magazine', 'letters', 'totalLetters', 'totalpages', 'currentpage'));
+        $this->view->render('front/readersLetters', 'front/layout', compact('magazine', 'letters', 'totalLetters', 'totalpages', 'currentpage', 'user'));
 
     }
 

@@ -71,6 +71,11 @@
     section
     {
         width: 80% !important;
+        min-height: 96vh !important;
+        h1{
+            font-size: 28px !important;
+           
+        }
         .columnTitle{
             font-size: 14px !important;
         }
@@ -79,6 +84,26 @@
         }
         .buttonPannel{
             font-size: 14px !important;
+        }
+        input{
+            font-size: 12px !important;
+            margin-bottom: 10px !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+        select{
+            margin-bottom: 10px !important;
+            margin-top: 10px !important;
+        }
+        #formNewMag{
+            width: 80% !important;
+        }
+        .formSeparator{
+            width: 75% !important;
+            align-items: center !important;
+            input{
+                width: 40% !important;
+            }
         }
     }
     
@@ -165,6 +190,15 @@
         }
         .buttonPannel{
             font-size: 12px !important;
+        }
+        #pageMovers{
+            span{
+                text-align: center;
+            }
+        }
+        input{
+            font-size: 12px !important;
+            text-align: center !important;
         }
     }
     

@@ -149,7 +149,7 @@ class MagManager
 
     public function listAllMag($offset, $nbByPage)
     {
-        $req = $this->bdd->prepare('SELECT mag.id_mag,id_text, numberMag, publication, editorial, topics, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
+        $req = $this->bdd->prepare('SELECT mag.id_mag,id_text, main, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
         COUNT(articles.id_text) AS articlesNb
         FROM mag 
         LEFT JOIN articles ON mag.id_mag = articles.id_mag

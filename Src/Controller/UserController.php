@@ -68,14 +68,23 @@ class UserController{
         
     
         $user = $this->auth->user();
-        $this->auth->requireRole('0');
+        //$this->auth->requireRole('0');//
         if($user)
         {
-            $nbUnpubletters = $this->lettersManager->countUnpubLetters($user->pseudo);
-            $nbPubletters = $this->lettersManager->countPubLetters($user->pseudo);
-            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-            $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user', 'message', 'nbUnpubletters', 'nbPubletters'));
-            exit();
+            if($user->role === '0')
+            {
+                $nbUnpubletters = $this->lettersManager->countUnpubLetters($user->pseudo);
+                $nbPubletters = $this->lettersManager->countPubLetters($user->pseudo);
+                $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+                $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user', 'message', 'nbUnpubletters', 'nbPubletters'));
+                exit();
+            }
+            if($user->role === '1')
+            {
+                $this->adminProfil();
+                exit();
+            }
+            
         }
         header('location: index.php');
         
