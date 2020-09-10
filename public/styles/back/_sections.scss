@@ -459,7 +459,7 @@ section{
                         font-size: 18px;
                         border-top: solid 2px $blackColor;
                         border-left: solid 2px $blackColor;
-                        &:nth-child(6){
+                        &:nth-child(7){
                             border-right: solid 2px $blackColor;
                         }
                     }
@@ -486,7 +486,7 @@ section{
                         text-align: center;
                         border-top: solid 2px $blackColor;
                         border-left: solid 2px $blackColor;
-                        &:nth-child(6){
+                        &:nth-child(7){
                             border-right: solid 2px $blackColor;
                         }
                     }
@@ -638,6 +638,14 @@ section{
                                     font-size: 18px;
                                     border: solid 2px $blackColor;
                                     margin-left: 15px;
+                                }
+                                #teaser{
+                                    width: 98%;
+                                    padding: 15px;
+                                    font-size: 18px;
+                                    border: solid 2px $blackColor;
+                                    margin-left: 15px;
+                                    margin-bottom: 10px;
                                 }
                                 #articleCover{
                                     width: 45%;

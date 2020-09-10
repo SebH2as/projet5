@@ -10,6 +10,12 @@
             <?php if($magazine[0]->publication !== null): ?>
             <span id="publication"><?= $magazine[0]->publication ?></span>
             <?php endif; ?>
+            <?php if($magazine[0]->title01 !== null): ?>
+            <span id="title01"><?= $magazine[0]->title01 ?></span>
+            <?php endif; ?>
+            <?php if($magazine[0]->title02 !== null): ?>
+            <span id="title02"><?= $magazine[0]->title02 ?></span>
+            <?php endif; ?>
             <img id="headerImg" src="images/<?= $magazine[0]->cover ?>" alt="<?= $magazine[0]->cover ?>">
             <a class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine[0]->idMag ?>">
             <div class="infoBox hidden"><span>Magazine précédent</span></div></a>
@@ -26,6 +32,9 @@
                     </div>
                     <h3><?= $article->textType ?></h3>
                     <h2><?= $article->title ?></h2>
+                    <div class="teaser">
+                        <span><?= $article->teaser ?></span>
+                    </div>
                     
                 
                 </a>
@@ -63,6 +72,9 @@
                     </div>
                     <h3><?= $article->textType ?></h3>
                     <h2><?= $article->title ?></h2>
+                    <div class="teaser">
+                        <span><?= $article->teaser ?></span>
+                    </div>
                 </a>
             <?php endif; ?>
             <?php endforeach; ?>

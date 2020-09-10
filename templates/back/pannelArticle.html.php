@@ -52,6 +52,17 @@
                         </div>
                         <input type="submit" name="modifAuthor" value="Modifier">
                     </div>
+
+                    <h3><i class="fa fa-arrow-right"></i> Teaser: <i><?php if(($data[0]->teaser) === null) echo 'non rédigé'?>
+                                        <?php if(($data[0]->teaser) !== null) echo 'rédigé' ?></i></h3>
+                    <div class="formRow">
+                        <div class="labelInput">
+                            <label for="teaser">Rédiger le teaser:</label>
+                            <input type="text" id="teaser" name="teaser" maxlength="95" size="95" 
+                            placeholder="<?php if(($data[0]->teaser) !== null) echo $data[0]->teaser ?>">    
+                        </div>
+                        <input type="submit" name="modifTeaser" value="Modifier">
+                    </div>
                     
                     <h3><i class="fa fa-arrow-right"></i> Image associée à l'article: <i><?php if(($data[0]->articleCover) === null) echo 'à définir'?>
                                         <?php if(($data[0]->articleCover) !== null) echo $data[0]->articleCover ?></i></h3>

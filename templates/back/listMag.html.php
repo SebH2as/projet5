@@ -27,8 +27,8 @@
                     <span class="tableContent"><?php if(($mag->editorial) === null || strlen($mag->editorial) === 0 ) echo 'non rédigé'?>
                                                 <?php if(strlen($mag->editorial) > 0) echo 'rédigé'?></span>
                     <span class="tableContent"><?= $mag->articlesNb ?></span>
-                    <span class="tableContent"><?php if (($mag ->main) === '0') echo 'non'?>
-                                            <?php if (($mag ->main) === '1') echo 'oui'?></span>
+                    <span class="tableContent"><?php if (($mag ->articleMain) === '0' || ($mag ->articleMain) === null) echo 'non'?>
+                                            <?php if (($mag ->articleMain) === '1') echo 'oui'?></span>
                     <span class="tableContent"><?php if (($mag ->statusPub) === '0') echo 'Sauvegardé'?>
                                             <?php if (($mag ->statusPub) === '1') echo 'En ligne'?></span>
                 </a>

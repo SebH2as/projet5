@@ -255,7 +255,8 @@ class MagController{
         $this->magManager->setOnlineMag((int) $this->request->get('idMag'));
 
         $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
     }
 
     public function setSavedMag():void//méthode pour sauvegarder un numéro de magazine et le retirer des magazines en ligne
@@ -265,7 +266,8 @@ class MagController{
         $this->magManager->setSavedMag((int) $this->request->get('idMag'));
 
         $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
     }
 
     public function readersLetters():void//méthode pour afficher la page courrier d'un magazine

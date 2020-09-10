@@ -33,7 +33,7 @@ class ArticleManager
 
     public function findArticleById(int $idtext):array//requête pour récupérer un article en fonction de son id avec le numéro de magazine auquel il est associé
     {
-        $req = $this->bdd->prepare('SELECT numberMag, id_text, articles.id_mag AS ArtIdMag, textType, title, author, content, main, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date 
+        $req = $this->bdd->prepare('SELECT numberMag, id_text, articles.id_mag AS ArtIdMag, textType, title, author, content, teaser, main, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date 
         FROM articles 
         LEFT JOIN mag ON mag.id_mag = articles.id_mag
         WHERE id_text = :idText ');
@@ -86,6 +86,14 @@ class ArticleManager
         return $req->execute([
             'sameid' => $idtext,
             'nwContent' => $content]);
+    }
+
+    public function modifTeaser(int $idtext, string $teaser):bool//requête pour modifier les thématiques d'un magazine
+    {
+        $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, teaser = :nwTeaser WHERE id_text = :sameid ');
+        return $req->execute([
+            'sameid' => $idtext,
+            'nwTeaser' => $teaser]);
     }
 
     public function ListAllPublishedFictions($offset, $nbByPage)

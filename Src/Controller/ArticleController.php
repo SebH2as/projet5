@@ -58,7 +58,8 @@ class ArticleController{
                     }
         $this->articleManager->deleteArticle((int) $this->request->get('idText'));
         $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
     }
 
     public function createNewArticle()
@@ -74,6 +75,7 @@ class ArticleController{
 
     public function pannelArticle()
     {
+        $this->auth->requireRole('1');
         $message = null;
         $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
         $token = $this->noCsrf->createToken();
@@ -91,7 +93,7 @@ class ArticleController{
 
             $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title', 'Le titre a été modifiée', 'pannelarticle', 'findArticleById');
 
-            $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author', "L'auteur a été modifiée", 'pannelarticle', 'findArticleById');
+            $this->dataLoader->addData('articleManager', 'idText', 'modifTeaser', 'teaser', "Le teaser a été modifiée", 'pannelarticle', 'findArticleById');
 
             $this->files->addFiles('articleManager', 'modifCover', 'articleCover', 'idText', "L'image a été modifiée", 'pannelarticle', 'findArticleById');
 
@@ -193,7 +195,8 @@ class ArticleController{
         $this->articleManager->unsetMain((int) $this->request->get('idMag'));
         $this->articleManager->setMain((int) $this->request->get('idText'));
         $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
     }
 
     public function unsetMain()
@@ -202,6 +205,7 @@ class ArticleController{
         $message = 'L\'article a été retiré de la une';
         $this->articleManager->unsetMain((int) $this->request->get('idMag'));
         $data = $this->articleManager->findArticleById((int) $this->request->get('idText'));
-        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
     }
 }

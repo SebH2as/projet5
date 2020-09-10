@@ -118,37 +118,43 @@ class UserController{
                     $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudo'));
                     if( ($pseudoThere[0]) < 1)
                     {
-                        $error = 'Les emails renseignés ne correspondent pas';
-                        if(($this->request->post('mail')) === ($this->request->post('mail2')))
+                        $error = 'L\'email choisi n\'est pas valide';
+                        if (filter_var($this->request->post('mail'), FILTER_VALIDATE_EMAIL)) 
                         {
-                            $error = 'L\' email choisi est déjà utilisé';
-                            $emailThere = $this->usersManager->emailUser( $this->request->post('mail'));
-                            if( ($emailThere[0]) < 1)
+                            $error = 'Les emails renseignés ne correspondent pas';
+                            if(($this->request->post('mail')) === ($this->request->post('mail2')))
                             {
-                                $error = 'Les mots de passe renseignés ne correspondent pas'; 
-                                if(($this->request->post('password')) === ($this->request->post('password2')))
+                                $error = 'L\' email choisi est déjà utilisé';
+                                $emailThere = $this->usersManager->emailUser( $this->request->post('mail'));
+                                if( ($emailThere[0]) < 1)
                                 {
-                                    $error = 'Le mot de passe choisi n\'est pas valide';
-                                    if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')))
+                                    $error = 'Les mots de passe renseignés ne correspondent pas'; 
+                                    if(($this->request->post('password')) === ($this->request->post('password2')))
                                     {
-                                        $error =null;
-                                        $key = '';
-                                        for($i = 1; $i<6 ; $i++)
+                                        $error = 'Le mot de passe choisi n\'est pas valide';
+                                        if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')))
                                         {
-                                            $key .= mt_rand(0,9);
-                                        }
+                                            $error =null;
+                                            $key = '';
+                                            for($i = 1; $i<6 ; $i++)
+                                            {
+                                                $key .= mt_rand(0,9);
+                                            }
 
-                                        $this->usersManager->addUser((string) $this->request->post('pseudo'),(string) $this->request->post('mail'),(string) password_hash($this->request->post('password'), PASSWORD_DEFAULT),(int) $key);
-                                        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-                                        $token = $this->noCsrf->createToken();
-                                        $this->view->render('front/activation', 'front/layout', compact('magazine', 'error', 'token'));
-                                        exit();
+                                            $this->usersManager->addUser((string) $this->request->post('pseudo'),(string) $this->request->post('mail'),(string) password_hash($this->request->post('password'), PASSWORD_DEFAULT),(int) $key);
+                                            $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+                                            $token = $this->noCsrf->createToken();
+                                            $this->view->render('front/activation', 'front/layout', compact('magazine', 'error', 'token'));
+                                            exit();
+                                        }
+                                        
                                     }
-                                    
                                 }
-                            }
-                            
+                                
                         }
+                        }
+                        
+                        
                     }
                 }  
             }
@@ -408,18 +414,22 @@ class UserController{
                 {
                     if($this->request->post('mailNew') !== null && !empty($this->request->post('mailNew')))
                     {
-                        $error = 'Les emails renseignés ne correspondent pas';
-                        if(($this->request->post('mailNew')) === ($this->request->post('mailNew2')))
+                        $error = 'L\'email choisi n\'est pas valide';
+                        if (filter_var($this->request->post('mailNew'), FILTER_VALIDATE_EMAIL))
                         {
-                            $error = 'L\' email choisi est déjà utilisé';
-                            $emailThere = $this->usersManager->emailUser( $this->request->post('mailNew'));
-                            if( ($emailThere[0]) < 1)
+                            $error = 'Les emails renseignés ne correspondent pas';
+                            if(($this->request->post('mailNew')) === ($this->request->post('mailNew2')))
                             {
-                                $this->usersManager->modifEmail((string) $user->id_user, $this->request->post('mailNew'));
-                                $this->monCompte();
-                                exit();
+                                $error = 'L\' email choisi est déjà utilisé';
+                                $emailThere = $this->usersManager->emailUser( $this->request->post('mailNew'));
+                                if( ($emailThere[0]) < 1)
+                                {
+                                    $this->usersManager->modifEmail((string) $user->id_user, $this->request->post('mailNew'));
+                                    $this->monCompte();
+                                    exit();
+                                }
                             }
-                        }
+                        }    
                     }
                 }
             }
@@ -600,19 +610,23 @@ class UserController{
                     {
                         if($this->request->post('email') !== null && !empty($this->request->post('email')))
                         {
-                            $error = 'Les emails renseignés ne correspondent pas';
-                            if(($this->request->post('email')) === ($this->request->post('email02')))
+                            $error = 'L\'email choisi n\'est pas valide';
+                            if (filter_var($this->request->post('mailNew'), FILTER_VALIDATE_EMAIL))
                             {
-                                $error = 'L\' email choisi est déjà utilisé';
-                                $emailThere = $this->usersManager->emailUser( $this->request->post('email'));
-                                if( ($emailThere[0]) < 1)
+                                $error = 'Les emails renseignés ne correspondent pas';
+                                if(($this->request->post('email')) === ($this->request->post('email02')))
                                 {
-                                    $this->usersManager->modifEmail((string) $user->id_user, $this->request->post('email'));
-                                    $message='Votre email a été modifié';
-                                    $error= null;
-                                    $token = $this->noCsrf->createToken();
-                                    $this->view->render('back/admin', 'back/layout', compact('message', 'error', 'token'));
-                                    exit();
+                                    $error = 'L\' email choisi est déjà utilisé';
+                                    $emailThere = $this->usersManager->emailUser( $this->request->post('email'));
+                                    if( ($emailThere[0]) < 1)
+                                    {
+                                        $this->usersManager->modifEmail((string) $user->id_user, $this->request->post('email'));
+                                        $message='Votre email a été modifié';
+                                        $error= null;
+                                        $token = $this->noCsrf->createToken();
+                                        $this->view->render('back/admin', 'back/layout', compact('message', 'error', 'token'));
+                                        exit();
+                                    }
                                 }
                             }
                         }

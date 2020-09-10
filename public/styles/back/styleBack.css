@@ -858,7 +858,7 @@ section .columnTitle {
   border-left: solid 2px #110B11;
 }
 
-#articlesMag #tableContainer #tableTitles .columnTitle:nth-child(6) {
+#articlesMag #tableContainer #tableTitles .columnTitle:nth-child(7) {
   border-right: solid 2px #110B11;
 }
 
@@ -900,7 +900,7 @@ section .columnTitle {
   border-left: solid 2px #110B11;
 }
 
-#articlesMag #tableContainer .tableRows .tableContent:nth-child(6) {
+#articlesMag #tableContainer .tableRows .tableContent:nth-child(7) {
   border-right: solid 2px #110B11;
 }
 
@@ -1146,6 +1146,15 @@ section .columnTitle {
   font-size: 18px;
   border: solid 2px #110B11;
   margin-left: 15px;
+}
+
+#articleInfos #contentContainer #formMag .formRow .labelInput #teaser {
+  width: 98%;
+  padding: 15px;
+  font-size: 18px;
+  border: solid 2px #110B11;
+  margin-left: 15px;
+  margin-bottom: 10px;
 }
 
 #articleInfos #contentContainer #formMag .formRow .labelInput #articleCover {

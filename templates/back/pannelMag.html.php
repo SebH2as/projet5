@@ -104,23 +104,26 @@
             </div>
             <div id="tableContainer">
                 <div id="tableTitles">
+                    <span class="columnTitle">Date de création</span>
                     <span class="columnTitle">Rubrique</span>
                     <span class="columnTitle">Titre</span>
                     <span class="columnTitle">Auteur</span>
                     <span class="columnTitle">Image associée</span>
-                    <span class="columnTitle">Date de création</span>
                     <span class="columnTitle">Article à la une</span>
+                    <span class="columnTitle">Teaser</span>
                 </div>
                 <?php foreach($data as $article): ?>
                 <a class="tableRows" href="index.php?action=pannelArticle&amp;idMag=<?= $data[0]->idMag ?>&amp;idText=<?= $article->id_text ?>">
+                    <span class="tableContent"><?= $article->dateArticle ?></span>
                     <span class="tableContent"><?= $article->textType ?></span>
                     <span class="tableContent"><?= $article->title ?></span>
                     <span class="tableContent"><?= $article->author ?></span>
                     <span class="tableContent"><?php if($article->articleCover === null) echo 'aucune' ?>
                                             <?php if($article->articleCover !== null) echo 'oui' ?></span>
-                    <span class="tableContent"><?= $article->dateArticle ?></span>
                     <span class="tableContent"><?php if($article->main === '0') echo 'non'  ?>
                                             <?php if($article->main === '1') echo 'oui'  ?></span>
+                    <span class="tableContent"><?php if($article->teaser === null) echo 'non rédigé'  ?>
+                                            <?php if($article->teaser !== null) echo 'rédigé'  ?></span>
                 </a>
                 <?php endforeach; ?>
             </div>

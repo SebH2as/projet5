@@ -69,6 +69,17 @@
             text-align: center;
             line-height: 75%;
         }
+        .teaser
+        {
+            font-size: 36px;
+            background-color:  $primaryBackgroundColorDark;
+            padding: 0.5em 0.5em 0.8em 0.5em;
+            position: absolute;
+            left: 13%;
+            top: 16%;
+            width: 75%;
+            text-align: center;
+        }
         
     }
     #edito
@@ -161,6 +172,17 @@
             text-align: center;
             line-height: 75%;
             align-self: center;
+        }
+        .teaser
+        {
+            font-size: 1.25vw;
+            background-color:  $primaryBackgroundColorDark;
+            padding: 0.5em 0.5em 0.8em 0.5em;
+            position: absolute;
+            left: 13%;
+            top: 16%;
+            width: 75%;
+            text-align: center;
         }
     }
     #readersLettersAndSocial
