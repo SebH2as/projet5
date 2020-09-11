@@ -18,6 +18,7 @@
         border: 5px solid $primaryBackgroundColorDark;
         text-decoration: none;
         color: $primaryBackgroundColorDark;
+        
         &:hover
         {
             background-color: $primaryBackgroundColorDark;
@@ -41,6 +42,10 @@
         margin-left: 2.5%;
         margin-bottom: 4vh;
         border: 5px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
         #mainImg
         {
             width: 100%;
@@ -62,23 +67,29 @@
             background-color:  $primaryBackgroundColorDark;
             color: $primaryBackgroundColorLight;
         }
-        h2
-        {
-            font-size: 48px;
-            padding: 2vh;
-            text-align: center;
-            line-height: 75%;
-        }
+        
         .teaser
         {
-            font-size: 36px;
-            background-color:  $primaryBackgroundColorDark;
+            font-size: 1.5vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 28%;
             padding: 0.5em 0.5em 0.8em 0.5em;
-            position: absolute;
-            left: 13%;
-            top: 16%;
-            width: 75%;
+            padding-top: 0px;
+            width: 95%;
             text-align: center;
+            line-height: 85%;
+            h2
+            {
+                font-size: 2vw;
+                padding: 2vh;
+                padding-top: 5px;
+                text-align: center;
+                line-height: 75%;
+               
+            }
         }
         
     }
@@ -117,6 +128,7 @@
         border: 5px solid $primaryBackgroundColorDark;
         text-decoration: none;
         color: $primaryBackgroundColorDark;
+        
         &:hover
         {
             background-color: $primaryBackgroundColorDark;
@@ -137,6 +149,8 @@
         position: relative;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
         width: 30%;
         padding: 1vh;
         height: 50vh;
@@ -165,24 +179,24 @@
             background-color:  $primaryBackgroundColorDark;
             color: $primaryBackgroundColorLight;
         }
-        h2
-        {
-            font-size: 2vw;
-            padding: 2vh;
-            text-align: center;
-            line-height: 75%;
-            align-self: center;
-        }
         .teaser
         {
             font-size: 1.25vw;
-            background-color:  $primaryBackgroundColorDark;
+            
             padding: 0.5em 0.5em 0.8em 0.5em;
-            position: absolute;
-            left: 13%;
-            top: 16%;
-            width: 75%;
+            padding-top: 0px;
+            width: 95%;
             text-align: center;
+            line-height: 85%;
+            h2
+            {
+                font-size: 1.75vw;
+                padding: 2vh;
+                padding-top: 5px;
+                text-align: center;
+                line-height: 75%;
+               
+            }
         }
     }
     #readersLettersAndSocial
@@ -651,7 +665,7 @@
                             padding: 1vh;
                             padding-top: 0px;
                             font-size: 1.5vw;
-                            
+                            text-align: center;
                         }
                         a{
                             text-align: center;
@@ -716,7 +730,7 @@
 
 #article{
     width:60%;
-    min-height: 95vh;
+    min-height: 62vh;
     padding-top: 3vh;
     background-color: $primaryBackgroundColorLight;
     position: relative;

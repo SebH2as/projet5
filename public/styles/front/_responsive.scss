@@ -563,12 +563,24 @@
                 background-color:  $primaryBackgroundColorDark;
                 color: $primaryBackgroundColorLight;
             }
-            h2
+            .teaser
             {
-                font-size: 4.5vw;
-                padding: 2vh;
+                font-size: 2.5vw;
+                
+                padding: 0.5em 0.5em 0.8em 0.5em;
+                padding-top: 0px;
+                width: 95%;
                 text-align: center;
-                line-height: 75%;
+                line-height: 85%;
+                h2
+                {
+                    font-size: 3.5vw;
+                    padding: 2vh;
+                    padding-top: 5px;
+                    text-align: center;
+                    line-height: 75%;
+                
+                }
             }
             
         }
@@ -656,13 +668,24 @@
                 background-color:  $primaryBackgroundColorDark;
                 color: $primaryBackgroundColorLight;
             }
-            h2
+            .teaser
             {
-                font-size: 3vw;
-                padding: 2vh;
+                font-size: 1.75vw;
+                
+                padding: 0.5em 0.5em 0.8em 0.5em;
+                padding-top: 0px;
+                width: 95%;
                 text-align: center;
-                line-height: 75%;
-                align-self: center;
+                line-height: 85%;
+                h2
+                {
+                    font-size: 3vw;
+                    padding: 2vh;
+                    padding-top: 5px;
+                    text-align: center;
+                    line-height: 75%;
+                
+                }
             }
         }
         #readersLettersAndSocial
@@ -1381,12 +1404,24 @@
                 background-color:  $primaryBackgroundColorDark;
                 color: $primaryBackgroundColorLight;
             }
-            h2
+            .teaser
             {
-                font-size: 10vw;
-                padding: 2vh;
+                font-size: 4vw;
+                
+                padding: 0.5em 0.5em 0.8em 0.5em;
+                padding-top: 0px;
+                width: 95%;
                 text-align: center;
-                line-height: 75%;
+                line-height: 85%;
+                h2
+                {
+                    font-size: 8vw;
+                    padding: 2vh;
+                    padding-top: 5px;
+                    text-align: center;
+                    line-height: 75%;
+                
+                }
             }
             
         }
@@ -1474,13 +1509,24 @@
                 background-color:  $primaryBackgroundColorDark;
                 color: $primaryBackgroundColorLight;
             }
-            h2
+            .teaser
             {
-                font-size: 8vw;
-                padding: 2vh;
+                font-size: 4vw;
+                
+                padding: 0.5em 0.5em 0.8em 0.5em;
+                padding-top: 0px;
+                width: 95%;
                 text-align: center;
-                line-height: 75%;
-                align-self: center;
+                line-height: 85%;
+                h2
+                {
+                    font-size: 8vw;
+                    padding: 2vh;
+                    padding-top: 5px;
+                    text-align: center;
+                    line-height: 75%;
+                
+                }
             }
         }
         #readersLettersAndSocial

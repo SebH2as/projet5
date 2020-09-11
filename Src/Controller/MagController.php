@@ -325,4 +325,11 @@ class MagController{
         $this->view->render('front/editorial', 'front/layout', compact('magazine','user'));
         
     }
+
+    public function previewEdito()
+    {
+        $this->auth->requireRole('1');
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('back/previewEdito', 'front/layout', compact('magazine'));
+    }
 }

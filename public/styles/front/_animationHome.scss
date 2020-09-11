@@ -1,0 +1,51 @@
+.topers
+{
+    opacity: 0;
+    transform: translateY(50%);
+    transition: opacity 1s ease-in, transform 1s ease-out;
+}
+
+.topers.appear
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.downers
+{
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity 1s ease-in, transform 1s ease-out;
+}
+
+.downers.appear
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.lefters
+{
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 1s ease-in, transform 1s ease-out;
+}
+
+.lefters.appear
+{
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.righters
+{
+    opacity: 0;
+    transform: translateX(50%);
+    transition: opacity 1s ease-in, transform 1s ease-out;
+}
+
+.righters.appear
+{
+    opacity: 1;
+    transform: translateX(0);
+}

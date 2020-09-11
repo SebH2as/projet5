@@ -5,8 +5,8 @@ const downers = document.querySelectorAll(".downers");
 
 const options = {
     root: null,
-    threshold: 0.1,
-    rootMargin: "0px 0px 0px 0px"
+    threshold: 0,
+    rootMargin: "250px"
 };
 
 const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {

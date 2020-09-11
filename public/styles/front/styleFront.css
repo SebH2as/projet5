@@ -465,6 +465,19 @@ header .hidden span {
   margin-left: 2.5%;
   margin-bottom: 4vh;
   border: 5px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 #coverPart01 #mainArticle #mainImg {
@@ -490,22 +503,35 @@ header .hidden span {
   color: #F9FBF2;
 }
 
-#coverPart01 #mainArticle h2 {
-  font-size: 48px;
-  padding: 2vh;
+#coverPart01 #mainArticle .teaser {
+  font-size: 1.5vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 28%;
+  padding: 0.5em 0.5em 0.8em 0.5em;
+  padding-top: 0px;
+  width: 95%;
   text-align: center;
-  line-height: 75%;
+  line-height: 85%;
 }
 
-#coverPart01 #mainArticle .teaser {
-  font-size: 36px;
-  background-color: #030B12;
-  padding: 0.5em 0.5em 0.8em 0.5em;
-  position: absolute;
-  left: 13%;
-  top: 16%;
-  width: 75%;
+#coverPart01 #mainArticle .teaser h2 {
+  font-size: 2vw;
+  padding: 2vh;
+  padding-top: 5px;
   text-align: center;
+  line-height: 75%;
 }
 
 #coverPart01 #edito {
@@ -571,6 +597,12 @@ header .hidden span {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   width: 30%;
   padding: 1vh;
   height: 50vh;
@@ -603,25 +635,21 @@ header .hidden span {
   color: #F9FBF2;
 }
 
-#coverPart02 .articleCover h2 {
-  font-size: 2vw;
-  padding: 2vh;
-  text-align: center;
-  line-height: 75%;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-}
-
 #coverPart02 .articleCover .teaser {
   font-size: 1.25vw;
-  background-color: #030B12;
   padding: 0.5em 0.5em 0.8em 0.5em;
-  position: absolute;
-  left: 13%;
-  top: 16%;
-  width: 75%;
+  padding-top: 0px;
+  width: 95%;
   text-align: center;
+  line-height: 85%;
+}
+
+#coverPart02 .articleCover .teaser h2 {
+  font-size: 1.75vw;
+  padding: 2vh;
+  padding-top: 5px;
+  text-align: center;
+  line-height: 75%;
 }
 
 #coverPart02 #readersLettersAndSocial {
@@ -1195,6 +1223,7 @@ header .hidden span {
   padding: 1vh;
   padding-top: 0px;
   font-size: 1.5vw;
+  text-align: center;
 }
 
 #listRubric .containText .textInfo a {
@@ -1270,7 +1299,7 @@ header .hidden span {
 
 #article {
   width: 60%;
-  min-height: 95vh;
+  min-height: 62vh;
   padding-top: 3vh;
   background-color: #F9FBF2;
   position: relative;
@@ -2467,9 +2496,18 @@ footer #media .fa {
     background-color: #030B12;
     color: #F9FBF2;
   }
-  #coverPart01 #mainArticle h2 {
-    font-size: 4.5vw;
+  #coverPart01 #mainArticle .teaser {
+    font-size: 2.5vw;
+    padding: 0.5em 0.5em 0.8em 0.5em;
+    padding-top: 0px;
+    width: 95%;
+    text-align: center;
+    line-height: 85%;
+  }
+  #coverPart01 #mainArticle .teaser h2 {
+    font-size: 3.5vw;
     padding: 2vh;
+    padding-top: 5px;
     text-align: center;
     line-height: 75%;
   }
@@ -2559,14 +2597,20 @@ footer #media .fa {
     background-color: #030B12;
     color: #F9FBF2;
   }
-  #coverPart02 .articleCover h2 {
+  #coverPart02 .articleCover .teaser {
+    font-size: 1.75vw;
+    padding: 0.5em 0.5em 0.8em 0.5em;
+    padding-top: 0px;
+    width: 95%;
+    text-align: center;
+    line-height: 85%;
+  }
+  #coverPart02 .articleCover .teaser h2 {
     font-size: 3vw;
     padding: 2vh;
+    padding-top: 5px;
     text-align: center;
     line-height: 75%;
-    -ms-flex-item-align: center;
-        -ms-grid-row-align: center;
-        align-self: center;
   }
   #coverPart02 #readersLettersAndSocial {
     width: 96%;
@@ -3340,9 +3384,18 @@ footer #media .fa {
     background-color: #030B12;
     color: #F9FBF2;
   }
-  #coverPart01 #mainArticle h2 {
-    font-size: 10vw;
+  #coverPart01 #mainArticle .teaser {
+    font-size: 4vw;
+    padding: 0.5em 0.5em 0.8em 0.5em;
+    padding-top: 0px;
+    width: 95%;
+    text-align: center;
+    line-height: 85%;
+  }
+  #coverPart01 #mainArticle .teaser h2 {
+    font-size: 8vw;
     padding: 2vh;
+    padding-top: 5px;
     text-align: center;
     line-height: 75%;
   }
@@ -3432,14 +3485,20 @@ footer #media .fa {
     background-color: #030B12;
     color: #F9FBF2;
   }
-  #coverPart02 .articleCover h2 {
+  #coverPart02 .articleCover .teaser {
+    font-size: 4vw;
+    padding: 0.5em 0.5em 0.8em 0.5em;
+    padding-top: 0px;
+    width: 95%;
+    text-align: center;
+    line-height: 85%;
+  }
+  #coverPart02 .articleCover .teaser h2 {
     font-size: 8vw;
     padding: 2vh;
+    padding-top: 5px;
     text-align: center;
     line-height: 75%;
-    -ms-flex-item-align: center;
-        -ms-grid-row-align: center;
-        align-self: center;
   }
   #coverPart02 #readersLettersAndSocial {
     width: 96%;
@@ -3586,6 +3645,70 @@ footer #media .fa {
     top: 10%;
     z-index: 1;
   }
+}
+
+.topers {
+  opacity: 0;
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
+  -webkit-transition: opacity 1s ease-in, -webkit-transform 1s ease-out;
+  transition: opacity 1s ease-in, -webkit-transform 1s ease-out;
+  transition: opacity 1s ease-in, transform 1s ease-out;
+  transition: opacity 1s ease-in, transform 1s ease-out, -webkit-transform 1s ease-out;
+}
+
+.topers.appear {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.downers {
+  opacity: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: opacity 1s ease-in, -webkit-transform 1s ease-out;
+  transition: opacity 1s ease-in, -webkit-transform 1s ease-out;
+  transition: opacity 1s ease-in, transform 1s ease-out;
+  transition: opacity 1s ease-in, transform 1s ease-out, -webkit-transform 1s ease-out;
+}
+
+.downers.appear {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.lefters {
+  opacity: 0;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: opacity 1s ease-in, -webkit-transform 1s ease-out;
+  transition: opacity 1s ease-in, -webkit-transform 1s ease-out;
+  transition: opacity 1s ease-in, transform 1s ease-out;
+  transition: opacity 1s ease-in, transform 1s ease-out, -webkit-transform 1s ease-out;
+}
+
+.lefters.appear {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+
+.righters {
+  opacity: 0;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+  -webkit-transition: opacity 1s ease-in, -webkit-transform 1s ease-out;
+  transition: opacity 1s ease-in, -webkit-transform 1s ease-out;
+  transition: opacity 1s ease-in, transform 1s ease-out;
+  transition: opacity 1s ease-in, transform 1s ease-out, -webkit-transform 1s ease-out;
+}
+
+.righters.appear {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
 }
 
 @font-face {

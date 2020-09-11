@@ -98,7 +98,7 @@ class ArticleManager
 
     public function ListAllPublishedFictions($offset, $nbByPage)
     {
-        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, teaser, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
         FROM articles 
         LEFT JOIN mag ON mag.id_mag = articles.id_mag
         WHERE textType = "Fiction" AND statusPub = 1
@@ -122,7 +122,7 @@ class ArticleManager
 
     public function ListAllPublishedChroniques($offset, $nbByPage)
     {
-        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, teaser, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
         FROM articles 
         LEFT JOIN mag ON mag.id_mag = articles.id_mag
         WHERE textType = "Chronique" AND statusPub = 1
@@ -146,7 +146,7 @@ class ArticleManager
 
     public function ListAllPublishedEssais($offset, $nbByPage)
     {
-        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
+        $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, teaser, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
         FROM articles 
         LEFT JOIN mag ON mag.id_mag = articles.id_mag
         WHERE textType = "Essai" AND statusPub = 1
