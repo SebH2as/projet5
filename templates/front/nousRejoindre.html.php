@@ -1,7 +1,9 @@
 <?php $title = 'Nous rejoindre'; ?>
 <?php $separator = '<div id="separator01"></div>'; ?>
 <?php $script = '<script src="js/navbar.js"></script>
-                <script src="js/infoBox.js"></script>'; ?>
+                <script src="js/infoBox.js"></script>
+                <script src="js/formSave.js"></script>
+                <script src="js/mainJoin.js"></script>'; ?>
 <?php $preview = 0 ; ?>
 <?php $active = 0 ; ?>
 

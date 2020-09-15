@@ -1,4 +1,5 @@
 <?php $title = 'Liste Magazines'; ?>
+<?php $script = null; ?>
 
 <section id="oldNumbers">
             <?php if (empty($allMag[0])): ?>

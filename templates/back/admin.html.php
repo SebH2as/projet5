@@ -1,5 +1,5 @@
 <?php $title = 'admin Modif'; ?>
-
+<?php $script = null; ?>
 
     <section id="admin">
             <h1>Vous pouvez changer ici votre pseudo, votre mail et votre mot de passe d'administrateur</h1>

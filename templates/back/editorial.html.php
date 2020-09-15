@@ -1,4 +1,5 @@
 <?php $title = 'Gestion éditorial'; ?>
+<?php $script = null; ?>
         
         
         <section id="editorialSection">

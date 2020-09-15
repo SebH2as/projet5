@@ -519,12 +519,15 @@ class UserController{
             $message = 'Le courrier est validé et intégré au magazine associé';
             $numberMags = $this->magManager->getAllNumberPubliMag();
             $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
-            $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
+            $token = $this->noCsrf->createToken();
+            $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message', 'token'));
+            exit();
         }
         $message = 'Le courrier doit être associé à un magazine avant sa validation';
         $numberMags = $this->magManager->getAllNumberPubliMag();
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
-        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message', 'token'));
         
     }
 
@@ -535,7 +538,8 @@ class UserController{
         $message = 'Le courrier est invalidé et retiré du magazine associé';
         $numberMags = $this->magManager->getAllNumberPubliMag();
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
-        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message'));
+        $token = $this->noCsrf->createToken();
+        $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message', 'token'));
     }
 
     public function courrierDelete()

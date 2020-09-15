@@ -50,5 +50,6 @@
               toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | backcolor | save'
             });
           </script>
+          <?= $script ?>
     </body>
 </html>

@@ -1,4 +1,5 @@
 <?php $title = 'Courrier'; ?>
+<?php $script = null; ?>
 
         <section id="courrier">
             <?php if (empty($letter[0])): ?>

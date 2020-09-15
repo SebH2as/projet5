@@ -1,4 +1,5 @@
 <?php $title = 'gestion utilisateurs'; ?>
+<?php $script = null; ?>
 
 <section id="users">
 <?php if (empty($users[0])): ?>

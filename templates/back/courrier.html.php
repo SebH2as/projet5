@@ -1,4 +1,5 @@
 <?php $title = 'Liste courrier'; ?>
+<?php $script = null; ?>
 
 <section id="courrier">
             <?php if (empty($letters[0])): ?>

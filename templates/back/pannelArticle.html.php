@@ -1,4 +1,6 @@
 <?php $title = 'Gestion article'; ?>
+<?php $script = '<script src="js/formSave.js"></script>
+<script src="js/mainPannelArticle.js"></script>'; ?>
 
         <section id="articleInfos">
             <h2>Article du magazine numéro <?= $data[0]->numberMag ?></h2>

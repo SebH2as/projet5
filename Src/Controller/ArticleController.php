@@ -93,6 +93,8 @@ class ArticleController{
 
             $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title', 'Le titre a été modifiée', 'pannelarticle', 'findArticleById');
 
+            $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author', "L'auteur a été modifiée", 'pannelarticle', 'findArticleById');
+
             $this->dataLoader->addData('articleManager', 'idText', 'modifTeaser', 'teaser', "Le teaser a été modifiée", 'pannelarticle', 'findArticleById');
 
             $this->files->addFiles('articleManager', 'modifCover', 'articleCover', 'idText', "L'image a été modifiée", 'pannelarticle', 'findArticleById');

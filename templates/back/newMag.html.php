@@ -1,4 +1,5 @@
 <?php $title = 'Création nouveau magazine'; ?>
+<?php $script = null; ?>
 
 <section id="newMag">
             <h2>Créer un nouveau numéro du magazine</h2>

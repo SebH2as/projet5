@@ -1,4 +1,6 @@
 <?php $title = 'Gestion magazine'; ?>
+<?php $script = '<script src="js/formSave.js"></script>
+                <script src="js/mainPannelMag.js"></script>'; ?>
 
 <section id="mag">
             <h2>magazine numéro <?= $data[0]->numberMag ?> créé le <?= $data[0]->dateMag ?></h2>
@@ -35,7 +37,7 @@
                             <label for="parution">Modifier la date de parution:</label>
                             <input type="text" id="parution" name="parution" maxlength="30" size="30">    
                         </div>
-                        <input type="submit" class="button01" name="modifPubli" value="Modifier">
+                        <input type="submit" class="button01" name="modifPubli" value="Modifier" >
                     </div>
                     
                     <!--<h3>Thématique(s): <i><?php if(($data[0]->topics) === null) echo 'à définir'?>

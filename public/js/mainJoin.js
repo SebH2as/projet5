@@ -1,0 +1,1 @@
+formPannelJoin = new formSave("formSignIn", pseudo, mail, mail2, password, password2);
