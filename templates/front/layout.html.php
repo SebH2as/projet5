@@ -29,7 +29,7 @@
             </div>
             <?php else: ?>
                 <div id="navTop">
-                <a class="navTopLink" href="">Qui sommes nous?</a>
+                <a class="navTopLink" href="index.php?action=whoWeAre&amp;idMag=<?= $magazine[0]->idMag ?>">Qui sommes nous?</a>
                 
                 <?php if (isset($user)): ?>
                 <a class="navTopLink" href="index.php?action=monCompte&amp;idMag=<?= $magazine[0]->idMag ?>">Mon compte ( <?=$user->pseudo?> )</a>

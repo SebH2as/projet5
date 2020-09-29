@@ -29,7 +29,8 @@ $actionMag =
     'readersLetters',
     'previewLetters',
     'previewEdito',
-    'editorial'
+    'editorial',
+    'whoWeAre'
 ];
 
 $actionArticle =

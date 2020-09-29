@@ -332,4 +332,10 @@ class MagController{
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/previewEdito', 'front/layout', compact('magazine'));
     }
+
+    public function whoWeAre():void//méthode pour afficher la page qui sommes nous
+    {
+        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('front/whoWeAre', 'front/layout', compact('magazine'));
+    }
 }
