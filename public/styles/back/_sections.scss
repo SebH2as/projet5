@@ -320,10 +320,71 @@ section{
                     align-items: center;
                     margin-bottom: 15px;
                     background-color: $secondaryBacgroundColor02;
+                   
                         .labelInput{
                             width: 80%;
+                            
                                 label{
                                     margin-left: 15px;
+                                    
+                                    
+                                    .fa-info{
+                                        position: absolute;
+                                        right: 35%;
+                                        top: 20%;
+                                        font-size: 18px;
+                                        cursor: help;
+                                        color: black;
+                                    }
+                                    .fa-circle{
+                                        position: relative;
+                                        margin-left: 10px;
+                                        
+                                        font-size: 24px;
+                                        
+                                        color: white;
+                                        cursor: help;
+                                    }
+                                }
+                                .infoBox{
+                                    position: absolute;
+                                    z-index: 2;
+                                    top: -25px;
+                                    width: 150px;
+                                    left: 10px;
+                                    justify-content: flex-start;
+                                    align-items: center;
+                                    display: flex;
+                                    text-align: center;
+                                    
+                                    opacity: 0 ;
+                                    transition: opacity .5s;
+                                    span{
+                                        font-size: 14px;
+                                        text-align: left;
+                                        background-color: white;
+                                        
+                                        padding: 1vh;
+                                        color: black;
+                                    }
+                                    
+                                }
+                                .hidden{
+                                    position: absolute;
+                                    z-index: -2;
+                                    bottom: -5vh;
+                                    left: -200px;
+                                    justify-content: center;
+                                    align-items: center;
+                                    display: flex;
+                                    span{
+                                        font-size: 14px;
+                                        background-color: $primaryBackgroundColorLight;
+                                        text-align: center;
+                                        padding: 1vh;
+                                        color: $primaryBackgroundColorDark;
+                                        display: none;
+                                    }
                                 }
                                 #number{
                                     width: 10%;
@@ -371,6 +432,7 @@ section{
                                     
                                     margin-bottom: 10px !important;
                                     margin-top: 10px !important;
+                                    
                                 }
                             
                         }
@@ -615,9 +677,68 @@ section{
                     background-color: $secondaryBacgroundColor02;
                         .labelInput{
                             width: 80%;
-                                label{
-                                    margin-left: 15px;
+                            label{
+                                margin-left: 15px;
+                                
+                                
+                                .fa-info{
+                                    position: absolute;
+                                    right: 35%;
+                                    top: 20%;
+                                    font-size: 18px;
+                                    cursor: help;
+                                    color: black;
                                 }
+                                .fa-circle{
+                                    position: relative;
+                                    margin-left: 10px;
+                                    
+                                    font-size: 24px;
+                                    
+                                    color: white;
+                                    cursor: help;
+                                }
+                            }
+                            .infoBox{
+                                position: absolute;
+                                z-index: 2;
+                                top: -25px;
+                                width: 150px;
+                                left: 10px;
+                                justify-content: flex-start;
+                                align-items: center;
+                                display: flex;
+                                text-align: center;
+                                
+                                opacity: 0 ;
+                                transition: opacity .5s;
+                                span{
+                                    font-size: 14px;
+                                    text-align: left;
+                                    background-color: white;
+                                    
+                                    padding: 1vh;
+                                    color: black;
+                                }
+                                
+                            }
+                            .hidden{
+                                position: absolute;
+                                z-index: -2;
+                                bottom: -5vh;
+                                left: -200px;
+                                justify-content: center;
+                                align-items: center;
+                                display: flex;
+                                span{
+                                    font-size: 14px;
+                                    background-color: $primaryBackgroundColorLight;
+                                    text-align: center;
+                                    padding: 1vh;
+                                    color: $primaryBackgroundColorDark;
+                                    display: none;
+                                }
+                            }
                                 #author{
                                     width: 45%;
                                     padding: 15px;

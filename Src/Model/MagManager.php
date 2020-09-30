@@ -133,21 +133,21 @@ class MagManager
         return $req->fetch();
     }
 
-    public function previousMag(int $idMag)
+    public function previousMag(int $idMag):array // requete pour recuperer le mag précédent
     {
         $req = $this->bdd->prepare('SELECT id_mag FROM mag WHERE id_mag < :idMag AND statusPub = 1 ORDER BY creation_date DESC LIMIT 1');
         $req->execute(['idMag' => (int) $idMag]);
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function nextMag(int $idMag)
+    public function nextMag(int $idMag):array // requete pour recuperer le mag suivant
     {
         $req = $this->bdd->prepare('SELECT id_mag FROM mag WHERE id_mag > :idMag AND statusPub = 1 ORDER BY creation_date LIMIT 1');
         $req->execute(['idMag' => (int) $idMag]);
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function listAllMag($offset, $nbByPage)
+    public function listAllMag(int $offset, int $nbByPage):array // requete pour recuperer tous les magazines
     {
         $req = $this->bdd->prepare('SELECT mag.id_mag,id_text, main, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
         COUNT(articles.id_text) AS articlesNb,
@@ -163,21 +163,21 @@ class MagManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function getAllNumberPubliMag()
+    public function getAllNumberPubliMag():array // requete pour recuperer les numéros de tous les magazines publiés
     {
         $req= $req = $this->bdd->prepare('SELECT numberMag FROM mag WHERE statusPub = 1');
         $req->execute();
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function getAllNumberMag()
+    public function getAllNumberMag():array // requete pour recuperer les numéros de tous les magazines 
     {
         $req= $req = $this->bdd->prepare('SELECT numberMag FROM mag');
         $req->execute();
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function getLastPublishedMag()
+    public function getLastPublishedMag():array // requete pour recuperer le dernier mag publié 
     {
         $req = $this->bdd->prepare('SELECT id_mag
         FROM mag
@@ -222,14 +222,14 @@ class MagManager
         $req->execute(['idMag' => $idMag]);
     }
 
-    public function setOnlineMag(int $idMag)
+    public function setOnlineMag(int $idMag):bool//requête pour modifier le status d'un magazine en publié
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, statusPub = 1 WHERE id_mag = :sameid ');
         return $req->execute([
             'sameid' => $idMag]);
     }
 
-    public function setSavedMag(int $idMag)
+    public function setSavedMag(int $idMag):bool//requête pour modifier le status d'un magazine en sauvegardé
     {
         $req = $this->bdd->prepare('UPDATE mag SET id_mag = :sameid, statusPub = 0 WHERE id_mag = :sameid ');
         return $req->execute([

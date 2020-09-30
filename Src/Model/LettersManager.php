@@ -17,11 +17,11 @@ class LettersManager
         $this->bdd = $this->dataBase->getConnection();
     }
 
-    public function postLetter($idUser, $author, $content)
+    public function postLetter(int $idUser, string $author, string $content)
     {
         $req = $this->bdd->prepare('INSERT INTO letters SET id_user = :iduser, author = :newauthor, content = :newcontent, post_date = NOW(), published = 0');
         return $req->execute([
-            'iduser' => (string) $idUser,
+            'iduser' => (int) $idUser,
             'newauthor' => (string) $author,
             'newcontent' => (string) $content]);
     }

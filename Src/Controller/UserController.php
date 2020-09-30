@@ -57,24 +57,24 @@ class UserController{
         $messageContent = ['Votre mot de passe a bien été modifié',
         'Votre courrier a été enregistré. Il est en attente de validation',
         'Vous êtes maintenant abonné à notre newsletter',
-        'Votre abonnememt à notre newsletter à été annulé',
+        'Votre abonnememt à notre newsletter a été annulé',
         'Votre pseudo a bien été modifié',
         'votre Email a bien été modifié'];
         
         if($this->request->get('message') !== null)
         {
-            $message = $messageContent[$this->request->get('message')];
+            $message = $messageContent[(int) $this->request->get('message')];
         }
         
     
         $user = $this->auth->user();
-        //$this->auth->requireRole('0');//
+        
         if($user)
         {
             if($user->role === '0')
             {
-                $nbUnpubletters = $this->lettersManager->countUnpubLetters($user->pseudo);
-                $nbPubletters = $this->lettersManager->countPubLetters($user->pseudo);
+                $nbUnpubletters = $this->lettersManager->countUnpubLetters((string) $user->pseudo);
+                $nbPubletters = $this->lettersManager->countPubLetters((string) $user->pseudo);
                 $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
                 $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user', 'message', 'nbUnpubletters', 'nbPubletters'));
                 exit();
@@ -169,7 +169,7 @@ class UserController{
         
     }
 
-    public function activation()
+    public function activation():void
     {
         $isError = true;
         
@@ -241,7 +241,7 @@ class UserController{
         $this->view->render('front/connectionPage', 'front/layout', compact('magazine', 'error', 'token'));
     }
 
-    public function userDeco()
+    public function userDeco():void
     {
         session_unset();
         session_destroy();
@@ -249,7 +249,7 @@ class UserController{
         header('location: index.php');
     }
 
-    public function nousEcrire()
+    public function nousEcrire():void
     {
         $user = $this->auth->user();
         if($user)
@@ -263,7 +263,7 @@ class UserController{
         header('location: index.php');
     }
 
-    public function postLetter()
+    public function postLetter():void
     {
         $user = $this->auth->user();
         if($user)
@@ -273,7 +273,7 @@ class UserController{
             {
                 if($this->request->post('courrier') !== null &&  !empty($this->request->post('courrier')))
                 {
-                    $this->lettersManager->postLetter($user->id_user, $user->pseudo, $this->request->post('courrier'));
+                    $this->lettersManager->postLetter((int) $user->id_user, (string) $user->pseudo,(string) $this->request->post('courrier'));
                     $this->monCompte();
                     exit();
                 }
@@ -286,7 +286,7 @@ class UserController{
         }
     }
 
-    public function modifPseudoUser()
+    public function modifPseudoUser():void
     {
         $user = $this->auth->user();
         if($user)
@@ -300,7 +300,7 @@ class UserController{
         header('location: index.php');
     }
 
-    public function modifPassUser()
+    public function modifPassUser():void
     {
         $user = $this->auth->user();
         if($user)
@@ -314,7 +314,7 @@ class UserController{
         header('location: index.php');
     }
 
-    public function modifEmailUser()
+    public function modifEmailUser():void
     {
         $user = $this->auth->user();
         if($user)
@@ -328,7 +328,7 @@ class UserController{
         header('location: index.php');
     }
 
-    public function modifPass()
+    public function modifPass():void
     {
         $user = $this->auth->user();
         if($user)
@@ -364,7 +364,7 @@ class UserController{
         header('location: index.php');
     }
 
-    public function modifPseudo()
+    public function modifPseudo():void
     {
         $user = $this->auth->user();
         if($user)
@@ -401,7 +401,7 @@ class UserController{
         header('location: index.php');
     }
 
-    public function modifEmail()
+    public function modifEmail():void
     {
         $user = $this->auth->user();
         if($user)
@@ -442,7 +442,7 @@ class UserController{
         header('location: index.php');
     }
 
-    public function newsLetterAbo()
+    public function newsLetterAbo():void
     {
         $user = $this->auth->user();
         if($user->newsletter === '0')
@@ -455,7 +455,7 @@ class UserController{
         $this->monCompte();
     }
 
-    public function courrier()
+    public function courrier():void
     {
         $this->auth->requireRole('1');
         $totalLetters = $this->lettersManager->countletters();
@@ -477,7 +477,7 @@ class UserController{
         $this->view->render('back/courrier', 'back/layout', compact('totalLetters', 'nbByPage', 'offset', 'currentpage', 'totalpages', 'letters'));
     }
 
-    public function userLetter()
+    public function userLetter():void
     {
         $this->auth->requireRole('1');
         $token = $this->noCsrf->createToken();
@@ -487,7 +487,7 @@ class UserController{
         $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message', 'token'));
     }
 
-    public function relatedMag()
+    public function relatedMag():void
     {
         $this->auth->requireRole('1');
         $this->lettersManager->addRelatedMag((int)$this->request->get('idLetter'), (int) $this->request->post('numberMag'));
@@ -498,7 +498,7 @@ class UserController{
         $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message', 'token'));
     }
 
-    public function addResponse()
+    public function addResponse():void
     {
         $this->auth->requireRole('1');
         $this->lettersManager->response((int)$this->request->get('idLetter'), (string) $this->request->post('contentResponse'));
@@ -509,7 +509,7 @@ class UserController{
         $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message', 'token'));
     }
 
-    public function validation()
+    public function validation():void
     {
         $this->auth->requireRole('1');
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
@@ -531,7 +531,7 @@ class UserController{
         
     }
 
-    public function invalidation()
+    public function invalidation():void
     {
         $this->auth->requireRole('1');
         $this->lettersManager->invalidatedCourrier((int)$this->request->get('idLetter'));
@@ -542,14 +542,14 @@ class UserController{
         $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message', 'token'));
     }
 
-    public function courrierDelete()
+    public function courrierDelete():void
     {
         $this->auth->requireRole('1');
         $this->lettersManager->deleteCourrier((int)$this->request->get('idLetter'));
         $this->courrier();
     }
 
-    public function adminProfil()
+    public function adminProfil():void
     {
         $this->auth->requireRole('1');
         $message = null;
@@ -676,7 +676,7 @@ class UserController{
         }
     }
 
-    public function usersAdmin()
+    public function usersAdmin():void
     {
         $this->auth->requireRole('1');
         $totalUsers = $this->usersManager->countUsers();
@@ -698,7 +698,7 @@ class UserController{
         $this->view->render('back/usersAdmin', 'back/layout', compact('totalUsers', 'nbByPage', 'offset', 'currentpage', 'totalpages', 'users'));
     }
 
-    public function deleteUser()
+    public function deleteUser():void
     {
         $this->auth->requireRole('1');
         $this->usersManager->deleteUserById((int) $this->request->get('iduser'));

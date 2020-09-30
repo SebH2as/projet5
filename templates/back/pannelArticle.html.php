@@ -1,6 +1,7 @@
 <?php $title = 'Gestion article'; ?>
 <?php $script = '<script src="js/formSave.js"></script>
-<script src="js/mainPannelArticle.js"></script>'; ?>
+                <script src="js/infoBox.js"></script>
+                <script src="js/mainPannelArticle.js"></script>'; ?>
 
         <section id="articleInfos">
             <h2>Article du magazine numéro <?= $data[0]->numberMag ?></h2>
@@ -39,7 +40,7 @@
                                         <?php if(($data[0]->title) !== null) echo $data[0]->title ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="title">Modifier le titre de l'article:</label>
+                            <label for="title">Modifier le titre de l'article:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>70 signes maximum</span></div></i></label>
                             <input type="text" id="title" name="title" maxlength="70" size="70">    
                         </div>
                         <input type="submit" name="modifTitle" value="Modifier">
@@ -49,7 +50,7 @@
                                         <?php if(($data[0]->author) !== null) echo $data[0]->author ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="author">Modifier le nom de l'auteur:</label>
+                            <label for="author">Modifier le nom de l'auteur:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
                             <input type="text" id="author" name="author" maxlength="30" size="30">    
                         </div>
                         <input type="submit" name="modifAuthor" value="Modifier">
@@ -59,7 +60,7 @@
                                         <?php if(($data[0]->teaser) !== null) echo 'rédigé' ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="teaser">Rédiger le teaser:</label>
+                            <label for="teaser">Rédiger le teaser:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>95 signes maximum</span></div></i></label>
                             <input type="text" id="teaser" name="teaser" maxlength="95" size="95" 
                             placeholder="<?php if(($data[0]->teaser) !== null) echo $data[0]->teaser ?>">    
                         </div>
@@ -70,7 +71,7 @@
                                         <?php if(($data[0]->articleCover) !== null) echo $data[0]->articleCover ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="articleCover">Changer l'image:</label>
+                            <label for="articleCover">Changer l'image:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Uniquement .png ou .jpg</span></div></i></label>
                             <input type="file" id="articleCover" name="articleCover">    
                         </div>
                         <input type="submit" name="modifCover" value="Changer">

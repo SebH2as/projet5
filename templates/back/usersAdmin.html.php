@@ -40,9 +40,9 @@
                 <?php endforeach; ?>
             </div>
             <div id="pageMovers<?php if($totalpages < 2) echo 'Hidden'?>">
-                <a class="fa fa-arrow-circle-o-left <?php if($currentpage === 1) echo 'hidden'?>" href="index.php?action=listMag&amp;currentpage=<?= $currentpage - 1?>"></a>
+                <a class="fa fa-arrow-circle-o-left <?php if($currentpage === 1) echo 'hidden'?>" href="index.php?action=usersAdmin&amp;currentpage=<?= $currentpage - 1?>"></a>
                 <span><?='Page ' . $currentpage . '/' . $totalpages?></span> 
-                <a class="fa fa-arrow-circle-o-right <?php if($currentpage === (int) $totalpages ) echo 'hidden' ?>" href="index.php?action=listMag&amp;currentpage=<?= $currentpage + 1?>"></a>
+                <a class="fa fa-arrow-circle-o-right <?php if($currentpage === (int) $totalpages ) echo 'hidden' ?>" href="index.php?action=usersAdmin&amp;currentpage=<?= $currentpage + 1?>"></a>
             </div>
            
             <?php endif; ?>

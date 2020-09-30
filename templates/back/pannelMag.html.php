@@ -1,5 +1,6 @@
 <?php $title = 'Gestion magazine'; ?>
 <?php $script = '<script src="js/formSave.js"></script>
+                <script src="js/infoBox.js"></script>
                 <script src="js/mainPannelMag.js"></script>'; ?>
 
 <section id="mag">
@@ -34,7 +35,7 @@
                                         <?php if(($data[0]->publication) !== null) echo $data[0]->publication ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="parution">Modifier la date de parution:</label>
+                            <label for="parution">Modifier la date de parution:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
                             <input type="text" id="parution" name="parution" maxlength="30" size="30">    
                         </div>
                         <input type="submit" class="button01" name="modifPubli" value="Modifier" >
@@ -53,7 +54,7 @@
                     <h3><i class="fa fa-arrow-right"></i> Image de couverture: <i><?= $data[0]->cover ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="cover">Changer la couverture:</label>
+                            <label for="cover">Changer la couverture:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Uniquement .png ou .jpg</span></div></i></label>
                             <input type="file" id="cover" name="cover">    
                         </div>
                         <input type="submit" class="button01" name="modifCover" value="Changer">
@@ -63,7 +64,7 @@
                                         <?php if(($data[0]->title01) !== null) echo $data[0]->title01 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="title01">Modifier le titre 1:</label>
+                            <label for="title01">Modifier le titre 1:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>70 signes maximum</span></div></i></label>
                             <input type="text" id="title01" name="title01" maxlength="70" size="70">    
                         </div>
                         <input type="submit" class="modifTitle" name="modifTitle01" value="Modifier">
@@ -74,7 +75,7 @@
                                         <?php if(($data[0]->title02) !== null) echo $data[0]->title02 ?></i></h3>
                     <div class="formRow">
                         <div class="labelInput">
-                            <label for="title02">Modifier le titre 2:</label>
+                            <label for="title02">Modifier le titre 2:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>70 signes maximum</span></div></i></label>
                             <input type="text" id="title02" name="title02" maxlength="70" size="70">    
                         </div>
                         <input type="submit" class="modifTitle" name="modifTitle02" value="Modifier">

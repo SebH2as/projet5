@@ -13,7 +13,6 @@ class formSave {
     {   
         this.form.addEventListener('submit', ()=>{
             this.input.forEach(element => {
-                console.log(element);
                 sessionStorage.setItem(element.id,  document.getElementById(element.id).value);
             });
 

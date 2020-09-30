@@ -136,7 +136,6 @@ class MagController{
         $totalMag = $this->magManager->countMag();
         $token = $this->noCsrf->createToken();
         $this->view->render('back/newMag', 'back/layout', compact('totalMag', 'token'));
-        
     }
 
     public function createNewMag():void//méthode pour créer un nouveau numéro de magazine
@@ -294,7 +293,7 @@ class MagController{
 
     }
 
-    public function previewLetters()
+    public function previewLetters():void //méthode pour afficher une page preview du courrier depuis le back
     {
         $this->auth->requireRole('1');
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
@@ -326,16 +325,17 @@ class MagController{
         
     }
 
-    public function previewEdito()
+    public function previewEdito():void //méthode pour afficher une page preview de l'éditorial depuis le back
     {
         $this->auth->requireRole('1');
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/previewEdito', 'front/layout', compact('magazine'));
     }
 
-    public function whoWeAre():void//méthode pour afficher la page qui sommes nous
+    public function whoWeAre():void//méthode pour afficher la page Qui sommes nous?
     {
+        $user = $this->auth->user();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/whoWeAre', 'front/layout', compact('magazine'));
+        $this->view->render('front/whoWeAre', 'front/layout', compact('magazine', 'user'));
     }
 }

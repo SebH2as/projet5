@@ -24,7 +24,7 @@ class ArticleManager
             'newIdMAg' => (int) $idMag]);
     }
 
-    public function findMostRecentArticle()
+    public function findMostRecentArticle():array//requête pour récupérer l'article le plus recemment créé
     {
         $req = $this->bdd->prepare('SELECT id_text FROM articles ORDER BY date_creation DESC ');
         $req->execute();
@@ -42,7 +42,7 @@ class ArticleManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function modifRubric(int $idText, string $newType)
+    public function modifRubric(int $idText, string $newType):bool
     {
         $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, textType = :nwType WHERE id_text = :sameid ');
         return $req->execute([
@@ -50,7 +50,7 @@ class ArticleManager
             'nwType' => $newType]);
     }
 
-    public function modifTitle(int $idText, string $newTitle)
+    public function modifTitle(int $idText, string $newTitle):bool
     {
         $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, title = :nwTitle WHERE id_text = :sameid ');
         return $req->execute([
@@ -58,7 +58,7 @@ class ArticleManager
             'nwTitle' => $newTitle]);
     }
 
-    public function modifAuthor(int $idText, string $newAuthor)
+    public function modifAuthor(int $idText, string $newAuthor):bool
     {
         $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, author = :nwAuthor WHERE id_text = :sameid ');
         return $req->execute([
@@ -66,7 +66,7 @@ class ArticleManager
             'nwAuthor' => $newAuthor]);
     }
 
-    public function modifCover(int $idText, string $coverArticle):bool//requête pour modifier les thématiques d'un magazine
+    public function modifCover(int $idText, string $coverArticle):bool
     {
         $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, articleCover = :nwCover WHERE id_text = :sameid ');
         return $req->execute([
@@ -80,7 +80,7 @@ class ArticleManager
         $req->execute(['idText' => $idText]);
     }
 
-    public function modifContent(int $idtext, string $content):bool//requête pour modifier les thématiques d'un magazine
+    public function modifContent(int $idtext, string $content):bool
     {
         $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, content = :nwContent WHERE id_text = :sameid ');
         return $req->execute([
@@ -88,7 +88,7 @@ class ArticleManager
             'nwContent' => $content]);
     }
 
-    public function modifTeaser(int $idtext, string $teaser):bool//requête pour modifier les thématiques d'un magazine
+    public function modifTeaser(int $idtext, string $teaser):bool
     {
         $req = $this->bdd->prepare('UPDATE articles SET id_text = :sameid, teaser = :nwTeaser WHERE id_text = :sameid ');
         return $req->execute([
@@ -96,7 +96,7 @@ class ArticleManager
             'nwTeaser' => $teaser]);
     }
 
-    public function ListAllPublishedFictions($offset, $nbByPage)
+    public function ListAllPublishedFictions(int $offset, int $nbByPage):array
     {
         $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, teaser, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
         FROM articles 
@@ -110,7 +110,7 @@ class ArticleManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function countPublishedFictions():array // requete pour compter le nombre d'épisodes total
+    public function countPublishedFictions():array 
     {
         $req = $this->bdd->prepare('SELECT COUNT(*) 
         FROM articles 
@@ -120,7 +120,7 @@ class ArticleManager
         return $req->fetch();
     }
 
-    public function ListAllPublishedChroniques($offset, $nbByPage)
+    public function ListAllPublishedChroniques(int $offset, int $nbByPage):array
     {
         $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, teaser, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
         FROM articles 
@@ -134,7 +134,7 @@ class ArticleManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function countPublishedChroniques():array // requete pour compter le nombre d'épisodes total
+    public function countPublishedChroniques():array 
     {
         $req = $this->bdd->prepare('SELECT COUNT(*) 
         FROM articles 
@@ -144,7 +144,7 @@ class ArticleManager
         return $req->fetch();
     }
 
-    public function ListAllPublishedEssais($offset, $nbByPage)
+    public function ListAllPublishedEssais(int $offset, int  $nbByPage):array
     {
         $req = $this->bdd->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, teaser, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
         FROM articles 
@@ -158,7 +158,7 @@ class ArticleManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function countPublishedEssais():array // requete pour compter le nombre d'épisodes total
+    public function countPublishedEssais():array 
     {
         $req = $this->bdd->prepare('SELECT COUNT(*) 
         FROM articles 
@@ -168,14 +168,14 @@ class ArticleManager
         return $req->fetch();
     }
 
-    public function unsetMain($idMag)
+    public function unsetMain(int $idMag):bool
     {
         $req = $this->bdd->prepare('UPDATE articles SET main = 0 WHERE id_mag = :idmag ');
         return $req->execute([
             'idmag' => $idMag]);
     }
 
-    public function setMain($idText)
+    public function setMain(int $idText):bool
     {
         $req = $this->bdd->prepare('UPDATE articles SET main = 1 WHERE id_text = :idtext ');
         return $req->execute([

@@ -30,7 +30,7 @@
                 <div class="lettersAll">
                     <div class="readerLetter">
                         <h2>Courrier du <?=$letter->post_date ?> par <?=$letter->author ?> :</h2>
-                        <span><?=$letter->content ?></span>
+                        <span><?=htmlspecialchars($letter->content) ?></span>
                     </div>
                     <div class="responseLetter">
                         <h2>Notre réponse :</h2>

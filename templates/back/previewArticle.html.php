@@ -1,4 +1,4 @@
-<?php $title = 'Article'; ?>
+<?php $title = 'aperçu article'; ?>
 <?php $separator = '<div id="separator01"></div>'; ?>
 <?php $script = '<script src="js/navbar.js"></script>'; ?>
 <?php $preview = 1 ; ?>

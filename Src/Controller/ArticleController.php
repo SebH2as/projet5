@@ -36,7 +36,7 @@ class ArticleController{
         $this->noCsrf = new noCsrf();
     }
 
-    public function addContent()
+    public function addContent():void
     {
         $this->auth->requireRole('1');
         $message = 'Le contenu de l\'article a été modifié';
@@ -47,7 +47,7 @@ class ArticleController{
     }
 
 
-    public function deleteArticle()
+    public function deleteArticle():void
     {
         $this->auth->requireRole('1');
         $message = null;
@@ -62,7 +62,7 @@ class ArticleController{
         $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
     }
 
-    public function createNewArticle()
+    public function createNewArticle():void
     {
         $this->auth->requireRole('1');
         $message = null;
@@ -73,7 +73,7 @@ class ArticleController{
         $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
     }
 
-    public function pannelArticle()
+    public function pannelArticle():void
     {
         $this->auth->requireRole('1');
         $message = null;
@@ -82,7 +82,7 @@ class ArticleController{
         $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
     }
     
-    public function modifyArticle()
+    public function modifyArticle():void
     {
         $this->auth->requireRole('1');
         $message = null;
@@ -107,7 +107,7 @@ class ArticleController{
         
     }
 
-    public function previewArticle()
+    public function previewArticle():void
     {
         $this->auth->requireRole('1');
         $article = $this->articleManager->findArticleById((int) $this->request->get('idText'));
@@ -190,7 +190,7 @@ class ArticleController{
         
     }
 
-    public function setMain()
+    public function setMain():void
     {
         $this->auth->requireRole('1');
         $message = 'L\'article a été passé à la une';
@@ -201,7 +201,7 @@ class ArticleController{
         $this->view->render('back/pannelArticle', 'back/layout', compact('data', 'message', 'token'));
     }
 
-    public function unsetMain()
+    public function unsetMain():void
     {
         $this->auth->requireRole('1');
         $message = 'L\'article a été retiré de la une';
