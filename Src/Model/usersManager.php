@@ -18,7 +18,7 @@ class UsersManager
         $this->bdd = $this->dataBase->getConnection();
     }
 
-    public function addUser($pseudo, $email, $password, $key)
+    public function addUser(string $pseudo, string $email, string $password, int $key):bool
     {
         $req = $this->bdd->prepare('INSERT INTO users SET pseudo = :newpseudo, email = :newemail, p_w = :newpassword, inscription_date = NOW(), confirmkey = :newkey, actived = 0');
         return $req->execute([
@@ -28,7 +28,7 @@ class UsersManager
             'newpassword' => (string) $password]);
     }
 
-    public function getUserByPseudo($pseudo)
+    public function getUserByPseudo(string $pseudo):object
     {
         $req = $this->bdd->prepare('SELECT * , DATE_FORMAT(inscription_date, \'%d/%m/%Y\') AS dateUser FROM users WHERE pseudo = :newpseudo AND actived = 1');
         $req->execute([
@@ -36,15 +36,15 @@ class UsersManager
         return $req->fetchObject(User::class);
     }
 
-    public function getUserById($id)
+    public function getUserById(int $id):object
     {
         $req = $this->bdd->prepare('SELECT * , DATE_FORMAT(inscription_date, \'%d/%m/%Y\') AS dateUser FROM users WHERE id_user = :id AND actived = 1');
         $req->execute([
-            'id' => (string) $id]);
+            'id' => (int) $id]);
         return $req->fetchObject(User::class);
     }
 
-    public function getKeyByPseudo($pseudo)
+    public function getKeyByPseudo(string $pseudo):array
     {
         $req = $this->bdd->prepare('SELECT confirmkey FROM users WHERE pseudo = :newpseudo');
         $req->execute([
@@ -52,7 +52,7 @@ class UsersManager
         return $req->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function activeCount($pseudo)
+    public function activeCount(string $pseudo):void
     {
         $req = $this->bdd->prepare('UPDATE users SET actived = 1 WHERE pseudo = :newpseudo ');
         $req->execute([
@@ -60,7 +60,7 @@ class UsersManager
     }
     
 
-    public function pseudoUser($pseudo)
+    public function pseudoUser(string $pseudo):array
     {
         $req = $this->bdd->prepare('SELECT COUNT(pseudo) FROM users WHERE pseudo = :newpseudo');
         $req->execute([
@@ -68,7 +68,7 @@ class UsersManager
         return $req->fetch();
     }
 
-    public function emailUser($email)
+    public function emailUser(string $email):array
     {
         $req = $this->bdd->prepare('SELECT COUNT(email) FROM users WHERE email = :newemail');
         $req->execute([
@@ -76,51 +76,51 @@ class UsersManager
         return $req->fetch();
     }
 
-    public function newsletter($idUser, $value)
+    public function newsletter(int $idUser,int $value):void
     {
         $req = $this->bdd->prepare('UPDATE users SET newsletter = :newvalue WHERE id_user = :idUser ');
         $req->execute([
             'newvalue' => (int) $value,
-            'idUser' => (string) $idUser]);
+            'idUser' => (int) $idUser]);
     }
 
-    public function modifPass($idUser, $passWordNew)
+    public function modifPass(int $idUser,string $passWordNew):void
     {
         $req = $this->bdd->prepare('UPDATE users SET p_w = :newPass WHERE id_user = :idUser ');
         $req->execute([
             'newPass' => (string) $passWordNew,
-            'idUser' => (string) $idUser]);
+            'idUser' => (int) $idUser]);
     }
 
-    public function modifPseudo($idUser, $pseudoNew)
+    public function modifPseudo(int $idUser,string $pseudoNew):void
     {
         $req = $this->bdd->prepare('UPDATE users SET pseudo = :newpseudo WHERE id_user = :idUser ');
         $req->execute([
             'newpseudo' => (string) $pseudoNew,
-            'idUser' => (string) $idUser]);
+            'idUser' => (int) $idUser]);
     }
 
-    public function modifEmail($idUser, $emailNew)
+    public function modifEmail(int $idUser,string $emailNew):void
     {
         $req = $this->bdd->prepare('UPDATE users SET email = :newemail WHERE id_user = :idUser ');
         $req->execute([
             'newemail' => (string) $emailNew,
-            'idUser' => (string) $idUser]);
+            'idUser' => (int) $idUser]);
     }
 
-    public function resetInfos($idUser, $newPseudo, $newEmail, $newPass)
+    /*public function resetInfos(int $idUser,string $newPseudo,string $newEmail,string $newPass):void
     {
         $req = $this->bdd->prepare('UPDATE users SET pseudo = :newpseudo, email = :newemail, p_w = :newpass WHERE id_user = :idUser ');
         $req->execute([
             'newpseudo' => (string) $newPseudo,
             'newpass' => (string) $newPass,
             'newemail' => (string) $newEmail,
-            'idUser' => (string) $idUser]);
-    }
+            'idUser' => (int) $idUser]);
+    }*/
 
-    public function getAllUsers($offset, $nbByPage)
+    public function getAllUsers(int $offset,int $nbByPage):array
     {
-        $req = $this->bdd->prepare('SELECT * 
+        $req = $this->bdd->prepare('SELECT id_user, pseudo, email, role, newsletter, confirmkey, actived, DATE_FORMAT(inscription_date, \'%d/%m/%Y\') AS date 
         FROM users 
         LIMIT :offset, :limitation ');
         $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
@@ -136,7 +136,7 @@ class UsersManager
         return $req->fetch();
     }
 
-    public function deleteUserById($idUser)
+    public function deleteUserById(int $idUser):void
     {
         $req = $this->bdd->prepare('DELETE FROM users WHERE id_user = :userid');
         $req->execute([

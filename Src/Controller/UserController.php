@@ -105,11 +105,11 @@ class UserController{
         $error = 'Au moins un des champs est vide';
         if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
         {
-            if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
-            && $this->request->post('mail') !== null &&  !empty($this->request->post('mail'))
-            && $this->request->post('mail2') !== null &&  !empty($this->request->post('mail2'))
-            && $this->request->post('password') !== null &&  !empty($this->request->post('password'))
-            && $this->request->post('password2') !== null &&  !empty($this->request->post('password2')))
+            if((string) $this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
+            && (string) $this->request->post('mail') !== null &&  !empty($this->request->post('mail'))
+            && (string) $this->request->post('mail2') !== null &&  !empty($this->request->post('mail2'))
+            && (string) $this->request->post('password') !== null &&  !empty($this->request->post('password'))
+            && (string) $this->request->post('password2') !== null &&  !empty($this->request->post('password2')))
             {
                 $error = 'Le pseudo choisi n\'est pas valide';
                 if(strlen($this->request->post('pseudo')) > 3 && strlen($this->request->post('pseudo')) < 15)
@@ -347,7 +347,7 @@ class UserController{
                             $error = 'Les deux mots de passe renseignés ne correspondent pas';
                             if($this->request->post('passwordNew') === $this->request->post('passwordNew2'))
                             {
-                                $this->usersManager->modifPass((string) $user->id_user, (string) password_hash($this->request->post('passwordNew'), PASSWORD_DEFAULT));
+                                $this->usersManager->modifPass((int) $user->id_user, (string) password_hash($this->request->post('passwordNew'), PASSWORD_DEFAULT));
                                 $this->monCompte();
                                 exit();
                             }
@@ -384,7 +384,7 @@ class UserController{
                             $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudoNew'));
                             if( ($pseudoThere[0]) < 1)
                             {
-                                $this->usersManager->modifPseudo((string) $user->id_user, $this->request->post('pseudoNew'));
+                                $this->usersManager->modifPseudo((int) $user->id_user,(string) $this->request->post('pseudoNew'));
                                 $this->monCompte();
                                 exit();
                             }
@@ -424,7 +424,7 @@ class UserController{
                                 $emailThere = $this->usersManager->emailUser( $this->request->post('mailNew'));
                                 if( ($emailThere[0]) < 1)
                                 {
-                                    $this->usersManager->modifEmail((string) $user->id_user, $this->request->post('mailNew'));
+                                    $this->usersManager->modifEmail((int) $user->id_user,(string) $this->request->post('mailNew'));
                                     $this->monCompte();
                                     exit();
                                 }
@@ -447,11 +447,11 @@ class UserController{
         $user = $this->auth->user();
         if($user->newsletter === '0')
         {
-            $this->usersManager->newsletter((string) $user->id_user, '1');
+            $this->usersManager->newsletter((int) $user->id_user, 1);
             $this->monCompte();
             exit();
         }
-        $this->usersManager->newsletter((string) $user->id_user, '0');
+        $this->usersManager->newsletter((int) $user->id_user, 0);
         $this->monCompte();
     }
 
@@ -587,7 +587,7 @@ class UserController{
                                 $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudo'));
                                 if( ($pseudoThere[0]) < 1)
                                 {
-                                    $this->usersManager->modifPseudo((string) $user->id_user, $this->request->post('pseudo'));
+                                    $this->usersManager->modifPseudo((int) $user->id_user, $this->request->post('pseudo'));
                                     $message='Votre pseudo a été modifié';
                                     $error= null;
                                     $token = $this->noCsrf->createToken();
@@ -624,7 +624,7 @@ class UserController{
                                     $emailThere = $this->usersManager->emailUser( $this->request->post('email'));
                                     if( ($emailThere[0]) < 1)
                                     {
-                                        $this->usersManager->modifEmail((string) $user->id_user, $this->request->post('email'));
+                                        $this->usersManager->modifEmail((int) $user->id_user, $this->request->post('email'));
                                         $message='Votre email a été modifié';
                                         $error= null;
                                         $token = $this->noCsrf->createToken();
@@ -658,7 +658,7 @@ class UserController{
                                 $error = 'Les deux mots de passe renseignés ne correspondent pas';
                                 if($this->request->post('passwordNew') === $this->request->post('passwordNew2'))
                                 {
-                                    $this->usersManager->modifPass((string) $user->id_user, (string) password_hash($this->request->post('passwordNew'), PASSWORD_DEFAULT));
+                                    $this->usersManager->modifPass((int) $user->id_user, (string) password_hash($this->request->post('passwordNew'), PASSWORD_DEFAULT));
                                     $message='Votre mot de passe a été modifié';
                                     $error= null;
                                     $token = $this->noCsrf->createToken();

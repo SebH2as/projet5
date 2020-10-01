@@ -42,7 +42,7 @@ class Auth{
         {
             return null;
         }
-        $user = $this->usersManager->getUserById($userId);
+        $user = $this->usersManager->getUserById((int) $userId);
         return $user ?: null;
     }
     

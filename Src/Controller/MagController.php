@@ -288,7 +288,7 @@ class MagController{
 
         $offset = ($currentpage - 1) * $nbByPage;
         
-        $letters = $this->lettersManager->getCourrierByRelatedMag($offset, $nbByPage, $magazine[0]->numberMag);
+        $letters = $this->lettersManager->getCourrierByRelatedMag((int) $offset,(int) $nbByPage,(int) $magazine[0]->numberMag);
         $this->view->render('front/readersLetters', 'front/layout', compact('magazine', 'letters', 'totalLetters', 'totalpages', 'currentpage', 'user'));
 
     }

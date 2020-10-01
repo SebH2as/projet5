@@ -14,7 +14,7 @@
                     <input type="hidden" name="csrf" value="<?php echo $token ?>">
                     
                     <input type="submit" name="saveEdito" value="Enregistrer"> 
-                    <h3><?= strlen($data[0]->editorial)?>/5400 </h3>
+                    
                     <textarea id="writtingSpace" name="contentEdito">
                         <?= $data[0]->editorial ?>
                     </textarea>

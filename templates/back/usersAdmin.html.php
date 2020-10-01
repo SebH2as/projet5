@@ -23,7 +23,7 @@
                 <?php foreach($users as $user): ?>
                 <div class="tableRows">
                     <span class="tableContent"><?= $user->pseudo ?></span>
-                    <span class="tableContent"><?= $user->inscription_date ?></span>
+                    <span class="tableContent"><?= $user->date ?></span>
                     <span class="tableContent"><?= $user->email ?></span>
                     <span class="tableContent"><?php if ($user->actived === '0') echo 'Non activé' ?> 
                                                 <?php if ($user->actived === '1') echo 'Activé' ?></span>
