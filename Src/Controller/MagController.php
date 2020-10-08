@@ -5,7 +5,7 @@ namespace Projet5\Controller;
 
 
 use Projet5\View\View;
-use Projet5\Model\MagManager;
+use Projet5\Model\Manager\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\Model\UsersManager;
 use Projet5\Model\LettersManager;
@@ -81,11 +81,7 @@ class MagController{
             $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
             exit();
         }
-        $user = $this->auth->user();
-        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
-        $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
-        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
+        $this->lastMagazine();
     }
 
     public function nextMag():void//méthode pour naviguer vers les numéros suivants

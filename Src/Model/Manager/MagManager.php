@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Projet5\Model;
+namespace Projet5\Model\Manager;
 
 use \PDO ;
 use Projet5\Tools\Database;

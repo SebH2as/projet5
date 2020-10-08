@@ -2,6 +2,7 @@
 
 namespace Projet5\Tools;
 
+use Projet5\Model\Manager\MagManager;
 use Projet5\Controller\MagController;
 use Projet5\Controller\ArticleController;
 use Projet5\Controller\UserController;

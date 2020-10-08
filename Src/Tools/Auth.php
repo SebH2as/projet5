@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Projet5\Tools;
 
 use Projet5\View\View;
-use Projet5\Model\MagManager;
+use Projet5\Model\Manager\MagManager;
 use Projet5\Model\ArticleManager;
 use Projet5\Model\UsersManager;
 use Projet5\Tools\Request;
