@@ -1,10 +1,13 @@
 {
-    "name": "sebh2as/revue",
-    "description": "revue philolitique",
+    "name": "progbot/projet5",
     "autoload": {
         "psr-4": {
             "Projet5\\": "Src/"
         }
     },
-    "require": {}
+    "require": {
+        "twig/twig": "^3.0",
+        "filp/whoops": "^2.7",
+        "friendsofphp/php-cs-fixer": "^2.16"
+    }
 }
