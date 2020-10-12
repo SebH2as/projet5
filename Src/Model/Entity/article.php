@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Projet5\Model\Entity;
 
-final class Mag
+final class Article
 {
+    public int $id_text;
     public int $id_mag;
-    public int $numberMag;
-    public string $publication;
-    public string $creation_date;
-    public string $topics;
-    public string $cover;
-    public string $title01;
-    public string $title02;
-    public string $editorial;
-    public int $statusPub;
+    public ?string $textType;
+    public ?string $title;
+    public ?string $author;
+    public ?string $content;
+    public ?string $teaser;
+    public ?string $articleCover;
+    public string $date_creation;
+    public int $main;
 
     public function getId(): int
     {

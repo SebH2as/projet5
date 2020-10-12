@@ -3,6 +3,9 @@
 namespace Projet5\Tools;
 
 use Projet5\Model\Manager\MagManager;
+use Projet5\Model\Manager\ArticleManager;
+use Projet5\Model\Repository\MagRepository;
+use Projet5\Model\Repository\ArticleRepository;
 use Projet5\Controller\MagController;
 use Projet5\Controller\ArticleController;
 use Projet5\Controller\UserController;
@@ -98,6 +101,8 @@ final class Router
             $key = array_search($this->request->get('action'), $this->actionMag);
             $methode = $this->actionMag[$key]; 
             if ($methode === $this->request->get('action')){
+                $magRepo = new MagRepository($this->database);
+                $magManager = new MagManager($magRepo);
                 $controller = new magController();
                 $controller->$methode();
                 exit();
@@ -117,8 +122,17 @@ final class Router
                 exit();
             }
         }
-        $controller = new magController();
+        $magRepo = new MagRepository($this->database);
+        $magManager = new MagManager($magRepo);
+
+        $articleRepo = new ArticleRepository($this->database);
+        $articleManager = new ArticleManager($articleRepo);
+
+        $controller = new magController($magManager, $articleManager);
+
         $controller->lastMagazine();
+
+
     }
 
 }

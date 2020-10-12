@@ -18,27 +18,29 @@ final class MagRepository
 
     public function findById(int $id): ?Post
     {
-        $data = $this->database->executeSqlDB(['id'=>$id]);
-        // réfléchir à l'hydratation des entités;
+        $req = $this->database->getConnection()->prepare('SELECT * FROM post WHERE id = :idpost');
+            $req->execute([
+                'idpost' => (int) $id]);
+            $req->setFetchMode(\PDO::FETCH_CLASS, Post::class);
+            return $data = $req->fetch();
+
         return $data === null ? $data : new Post($data['id'], $data['title'], $data['text']);
     }
 
     public function findByAll(): ?array
     {
-        // SB ici faire l'hydratation des objets
-        $data =  $this->database->executeSqlDB(null);
-        
-        if ($data === null) {
-            return null;
-        }
-        
-        // réfléchir à l'hydratation des entités;
-        $posts = [];
-        foreach ($data as $post) {
-            $posts[] = new Post((int)$post['id'], $post['title'], $post['text']);
-        }
+        $req = $this->database->getConnection()->query('SELECT * FROM post');
+        return $req->fetchALL(\PDO::FETCH_CLASS, Post::class);
+    }
 
-        return $posts;
+    public function findByLastAndPub(): ?Mag
+    {
+        $req = $this->database->getConnection()->prepare('SELECT * FROM mag WHERE statusPub = 1 ORDER BY creation_date DESC LIMIT 1; ');
+            $req->execute();
+            $req->setFetchMode(\PDO::FETCH_CLASS, Mag::class);
+            return $data = $req->fetch();
+
+        return $data === null ? $data : new Mag($data['id_mag'], $data['numberMag'], $data['publication'], $data['creation_date'], $data['topics'], $data['cover'], $data['title01'], $data['title02'], $data['editorial'], $data['statusPub']);
     }
 
     public function create(Post $post) : bool
