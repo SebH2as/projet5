@@ -16,19 +16,23 @@ final class MagManager
         $this->magRepo = $magRepository;
     }
 
-    public function showAll(): ?array
-    {
-        // renvoie tous les posts
-        return $this->postRepo->findByAll();
-    }
-
-    public function showOne(int $id): ?Post
-    {
-        return $this->postRepo->findById($id);
-    }
-
     public function showLastAndPub(): ?Mag
     {
         return $this->magRepo->findByLastAndPub();
+    }
+
+    public function showPreviousMag(int $idMag): ?Mag
+    {
+        return $this->magRepo->findPreviousMag($idMag);
+    }
+
+    public function showNextMag(int $idMag): ?Mag
+    {
+        return $this->magRepo->findNextMag($idMag);
+    }
+
+    public function showByIdAndPub(int $idMag): ?Mag
+    {
+        return $this->magRepo->findByIdAndPub($idMag);
     }
 }

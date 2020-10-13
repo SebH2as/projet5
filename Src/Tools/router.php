@@ -100,11 +100,16 @@ final class Router
         if (($this->request->get('action')) !== null){
             $key = array_search($this->request->get('action'), $this->actionMag);
             $methode = $this->actionMag[$key]; 
-            if ($methode === $this->request->get('action')){
+            if ($methode === $this->request->get('action'))
+            {
                 $magRepo = new MagRepository($this->database);
                 $magManager = new MagManager($magRepo);
-                $controller = new magController();
-                $controller->$methode();
+
+                $articleRepo = new ArticleRepository($this->database);
+                $articleManager = new ArticleManager($articleRepo);
+
+                $controller = new magController($magManager, $articleManager);
+                $controller->$methode((int)$this->request->get('idMag'));
                 exit();
             }
             $key = array_search($this->request->get('action'), $this->actionArticle);

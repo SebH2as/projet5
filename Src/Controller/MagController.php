@@ -20,12 +20,41 @@ final class MagController
         $this->articleManager = $articleManager;
     }
 
-    public function lastMagazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
+    public function lastMagazine(): void//méthode pour afficher la page d'accueil et récupérer le dernier magasine publié avec ses articles
     {
         $magazine = $this->magManager->showLastAndPub();
         $articles = $this->articleManager->showByIdmag($magazine->id_mag);
+        $previous = $this->magManager->showPreviousMag($magazine->id_mag);
+        $next = null;
 
-        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'articles'));
-        
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'articles', 'previous', 'next'));
+    }
+
+    public function previousMag(int $idMag): void
+    {
+        $magazine = $this->magManager->showPreviousMag($idMag);
+        if($magazine !== null)
+        {
+            $articles = $this->articleManager->showByIdmag($magazine->id_mag);
+            $next = $this->magManager->showNextMag($magazine->id_mag);
+            $previous = $this->magManager->showPreviousMag($magazine->id_mag);
+            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'previous','next', 'articles'));
+            exit();
+        }
+        $this->lastMagazine();
+    }
+
+    public function NextMag(int $idMag): void
+    {
+        $magazine = $this->magManager->showNextMag($idMag);
+        if($magazine !== null)
+        {
+            $articles = $this->articleManager->showByIdmag($magazine->id_mag);
+            $next = $this->magManager->showNextMag($magazine->id_mag);
+            $previous = $this->magManager->showPreviousMag($magazine->id_mag);
+            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'previous','next', 'articles'));
+            exit();
+        }
+        $this->lastMagazine();
     }
 }

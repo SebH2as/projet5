@@ -18,9 +18,9 @@
             <span id="title02" class="lefters"><?= $magazine->title02 ?></span>
             <?php endif; ?>
             <img id="headerImg" class="downers" src="images/<?= $magazine->cover ?>" alt="<?= $magazine->cover ?>">
-            <a class="fa fa-arrow-circle-left<?php if (empty($previous)) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine->id_mag ?>">
+            <a class="fa fa-arrow-circle-left<?php if ($previous === null) echo 'hidden' ?>" href="index.php?action=previousMag&amp;idMag=<?= $magazine->id_mag ?>">
             <div class="infoBox hidden"><span>Magazine précédent</span></div></a>
-            <a class="fa fa-arrow-circle-right<?php if (empty($next)) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine->id_mag ?>">
+            <a class="fa fa-arrow-circle-right<?php if ($next === null) echo 'hidden' ?>" href="index.php?action=nextMag&amp;idMag=<?= $magazine->id_mag ?>">
             <div class="infoBox hidden"><span>Magazine suivant</span></div></a>
         </header>
 
