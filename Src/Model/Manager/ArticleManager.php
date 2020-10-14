@@ -20,4 +20,9 @@ final class ArticleManager
     {
         return $this->articleRepo->findByIdmag($idMag);
     }
+
+    public function showById($idText): ?Article
+    {
+        return $this->articleRepo->findById($idText);
+    }
 }

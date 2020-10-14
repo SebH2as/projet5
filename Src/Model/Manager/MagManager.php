@@ -21,18 +21,14 @@ final class MagManager
         return $this->magRepo->findByLastAndPub();
     }
 
-    public function showPreviousMag(int $idMag): ?Mag
-    {
-        return $this->magRepo->findPreviousMag($idMag);
-    }
-
-    public function showNextMag(int $idMag): ?Mag
-    {
-        return $this->magRepo->findNextMag($idMag);
-    }
-
-    public function showByIdAndPub(int $idMag): ?Mag
+    public function showByIdAndPub(int $idMag)
     {
         return $this->magRepo->findByIdAndPub($idMag);
     }
+
+    public function showByNumber(int $numberMag)
+    {
+        return $this->magRepo->findByNumber($numberMag);
+    }
+
 }

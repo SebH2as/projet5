@@ -25,7 +25,6 @@
         </header>
 
         <section id="coverPart01" class="topers">
-
             <?php foreach($articles as $article): ?>
             <?php if($article->main === '1'): ?>
                 <a id="mainArticle" href="index.php?action=article&amp;idText=<?= $article->id_text ?>&amp;idMag=<?= $article->id_mag ?>">

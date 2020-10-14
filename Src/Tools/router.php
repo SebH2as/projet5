@@ -30,8 +30,7 @@ final class Router
         'deleteMag',
         'setOnlineMag',
         'setSavedMag',
-        'previousMag',
-        'nextMag',
+        'magByNumber',
         'magazine',
         'readersLetters',
         'previewLetters',
@@ -108,15 +107,21 @@ final class Router
                 $articleRepo = new ArticleRepository($this->database);
                 $articleManager = new ArticleManager($articleRepo);
 
-                $controller = new magController($magManager, $articleManager);
-                $controller->$methode((int)$this->request->get('idMag'));
+                $controller = new magController($magManager, $articleManager, $this->view);
+                $controller->$methode((int)$this->request->get('value'));
                 exit();
             }
             $key = array_search($this->request->get('action'), $this->actionArticle);
             $methode = $this->actionArticle[$key]; 
             if ($methode === $this->request->get('action')){
-                $controller = new articleController();
-                $controller->$methode();
+                $magRepo = new MagRepository($this->database);
+                $magManager = new MagManager($magRepo);
+
+                $articleRepo = new ArticleRepository($this->database);
+                $articleManager = new ArticleManager($articleRepo);
+
+                $controller = new articleController($magManager, $articleManager, $this->view);
+                $controller->$methode((int)$this->request->get('value'));
                 exit();
             }
             $key = array_search($this->request->get('action'), $this->actionUser);
@@ -133,7 +138,7 @@ final class Router
         $articleRepo = new ArticleRepository($this->database);
         $articleManager = new ArticleManager($articleRepo);
 
-        $controller = new magController($magManager, $articleManager);
+        $controller = new magController($magManager, $articleManager, $this->view);
 
         $controller->lastMagazine();
 

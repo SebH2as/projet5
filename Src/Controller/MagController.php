@@ -13,10 +13,10 @@ final class MagController
     private View $view;
     private ArticleManager $articleManager;
 
-    public function __construct(MagManager $magManager, ArticleManager $articleManager)
+    public function __construct(MagManager $magManager, ArticleManager $articleManager, View $view)
     {
         $this->magManager = $magManager;
-        $this->view = new View();
+        $this->view = $view;
         $this->articleManager = $articleManager;
     }
 
@@ -24,35 +24,47 @@ final class MagController
     {
         $magazine = $this->magManager->showLastAndPub();
         $articles = $this->articleManager->showByIdmag($magazine->id_mag);
-        $previous = $this->magManager->showPreviousMag($magazine->id_mag);
-        $next = null;
 
-        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'articles', 'previous', 'next'));
+        $previous = $this->magManager->showByNumber($magazine->numberMag - 1);
+        $next = $this->magManager->showByNumber($magazine->numberMag + 1);
+
+        $this->view->render(
+            [
+            'template' => 'front/magazine',
+            'data' => [
+                'magazine' => $magazine,
+                'articles' => $articles,
+                'preview' => 0,
+                'active' => 0,
+                'previous' => $previous,
+                'next' => $next,
+                ],
+            ],
+        );
     }
 
-    public function previousMag(int $idMag): void
+    public function magByNumber(int $numberMag): void
     {
-        $magazine = $this->magManager->showPreviousMag($idMag);
-        if($magazine !== null)
+        $magazine = $this->magManager->showByNumber($numberMag);
+        if($magazine)
         {
             $articles = $this->articleManager->showByIdmag($magazine->id_mag);
-            $next = $this->magManager->showNextMag($magazine->id_mag);
-            $previous = $this->magManager->showPreviousMag($magazine->id_mag);
-            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'previous','next', 'articles'));
-            exit();
-        }
-        $this->lastMagazine();
-    }
-
-    public function NextMag(int $idMag): void
-    {
-        $magazine = $this->magManager->showNextMag($idMag);
-        if($magazine !== null)
-        {
-            $articles = $this->articleManager->showByIdmag($magazine->id_mag);
-            $next = $this->magManager->showNextMag($magazine->id_mag);
-            $previous = $this->magManager->showPreviousMag($magazine->id_mag);
-            $this->view->render('front/magazine', 'front/layout', compact('magazine', 'previous','next', 'articles'));
+            
+            $next = $this->magManager->showByNumber($magazine->numberMag + 1);
+            $previous = $this->magManager->showByNumber($magazine->numberMag - 1);
+            $this->view->render(
+                [
+                'template' => 'front/magazine',
+                'data' => [
+                    'magazine' => $magazine,
+                    'articles' => $articles,
+                    'preview' => 0,
+                    'active' => 0,
+                    'previous' => $previous,
+                    'next' => $next,
+                    ],
+                ],
+            );
             exit();
         }
         $this->lastMagazine();
