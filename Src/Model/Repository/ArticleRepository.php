@@ -35,7 +35,7 @@ final class ArticleRepository
         return $data === null ? $data : new Article($data['id_text'], $data['id_mag'], $data['textType'], $data['title'], $data['author'], $data['content'], $data['teaser'], $data['articleCover'], $data['date_creation'], $data['main']);
     }
 
-    public function findNumberPubByType($textType): ?array
+    public function findNumberPubByType(string $textType): ?array
     {
         $req = $this->database->getConnection()->prepare('SELECT COUNT(*) 
         FROM articles 
@@ -46,7 +46,7 @@ final class ArticleRepository
         return $req->fetch();
     }
 
-    public function findAllPublishedByType(string $textType, int $offset, int $nbByPage):array
+    public function findAllPublishedByType(string $textType, int $offset, int $nbByPage): ?array
     {
         $req = $this->database->getConnection()->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, teaser, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
         FROM articles 

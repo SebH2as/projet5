@@ -31,7 +31,7 @@ final class ArticleManager
         return $this->articleRepo->findNumberPubByType($textType);
     }
 
-    public function showAllPublishedByType(string $textType, int $offset, int $nbByPage)
+    public function showAllPublishedByType(string $textType, int $offset, int $nbByPage): ?array
     {
         return $this->articleRepo->findAllPublishedByType($textType, $offset, $nbByPage);
     }

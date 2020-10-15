@@ -1,7 +1,7 @@
 {% extends "/front/layout.html.twig" %}
 
 {% block title %}
-    Articles
+    Les {{textType}}s
 {% endblock %}
 
 {% block separator %}
@@ -18,24 +18,24 @@
     </div>
         <section id="listRubric">
              
-            <div id="titleRubric"><h1>TOUTES LES {{textType |upper }}S</h1><div id="separator02"></div></div>
+            <div id="titleRubric"><h1>LES {{textType |upper }}S</h1><div id="separator02"></div></div>
 
-            <div id="pageMovers<?php if($totalpages < 2) echo 'Hidden'?>">
-                <a class="fa fa-arrow-circle-o-left <?php if($currentpage === 1) echo 'hidden'?>" href="index.php?action=chroniques&amp;currentpage=<?= $currentpage - 1?>&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
-                <span><?='Page ' . $currentpage . '/' . $totalpages?></span> 
-                <a class="fa fa-arrow-circle-o-right <?php if($currentpage === (int) $totalpages ) echo 'hidden' ?>" href="index.php?action=chroniques&amp;currentpage=<?= $currentpage + 1?>&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
+            <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage - 1}}"></a>
+                <span>Page {{currentpage}}/{{totalpages}}</span> 
+                <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage + 1}}"></a>
             </div>
 
             {% for article in articles %}
             
-                <a class="containerRubric" href="index.php?action=article&amp;idText=<?= $article->id_text ?>&amp;idMag=<?= $article->idMag ?>">
+                <a class="containerRubric" href="index.php?action=article&amp;value={{article.id_text}}&amp;value2={{article.numberMag}}">
                     <div id="chronicImgs" class="containImg">
                         <img class="thumbImg" src="images/{{article.articleCover}}" alt="{{article.articleCover}}">
                     </div>
                     <div id="rubricText" class="containText">
                         <div class="textInfo">
-                            <h3 class="number">Revue N°{{magazine.numberMag}}</h3>
-                            <h3 class="title"><{{article.title}}</h3>
+                            <h3 class="number">Magazine N°{{article.numberMag}}</h3>
+                            <h3 class="title">{{article.title}}</h3>
                             <p class="extract">
                                 {{article.teaser}}
                             </p>
@@ -45,10 +45,10 @@
            
             {% endfor %}
 
-            <div id="pageMovers<?php if($totalpages < 2) echo 'Hidden'?>">
-                <a class="fa fa-arrow-circle-o-left <?php if($currentpage === 1) echo 'hidden'?>" href="index.php?action=chroniques&amp;currentpage=<?= $currentpage - 1?>&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
-                <span><?='Page ' . $currentpage . '/' . $totalpages?></span> 
-                <a class="fa fa-arrow-circle-o-right <?php if($currentpage === (int) $totalpages ) echo 'hidden' ?>" href="index.php?action=chroniques&amp;currentpage=<?= $currentpage + 1?>&amp;idMag=<?= $magazine[0]->idMag ?>"></a>
+            <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage - 1}}"></a>
+                <span>Page {{currentpage}}/{{totalpages}}</span> 
+                <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage + 1}}"></a>
             </div>
 
         </section>

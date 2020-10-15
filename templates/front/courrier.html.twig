@@ -1,0 +1,62 @@
+{% extends "/front/layout.html.twig" %}
+
+{% block title %}
+    Article {{article.title}}
+{% endblock %}
+
+{% block separator %}
+    <div id="separator01"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/navbar.js"></script>
+{% endblock %}
+
+{% block content %}
+
+        <div id="sectionImg">
+            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+        </div>  
+
+        <section id="article">
+
+                <div id="titleArticle">
+                    <a href="index.php?action=magByNumber&amp;value={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
+                    <h1>COURRIER</h1>
+                    <a href="index.php?action=magByNumber&amp;value={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
+                    <div id="separator02"></div>
+                </div>
+
+            {% if not letters %}
+                <h2 id="noLetters">Aucun courrier reçu pour ce numéro</h2>
+            {% else %}
+
+                <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage - 1}}"></a>
+                    <span>Page {{currentpage}}/{{totalpages}}</span> 
+                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage + 1}}"></a>
+                </div>
+             
+            {% for letter in letters %}
+                <div class="lettersAll">
+                    <div class="readerLetter">
+                        <h2>Courrier du {{letter.post_date}} par {{letter.author}} :</h2>
+                        <span>{{letter.content}}</span>
+                    </div>
+                    <div class="responseLetter">
+                        <h2>Notre réponse :</h2>
+                        <span>{{letter.response}}</span>
+                    </div> 
+                </div>
+            {% endfor %}
+
+                <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage - 1}}"></a>
+                    <span>Page {{currentpage}}/{{totalpages}}</span> 
+                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage + 1}}"></a>
+                </div>
+
+            {% endif %}
+        </section>
+
+{% endblock %}

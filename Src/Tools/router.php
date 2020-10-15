@@ -7,8 +7,10 @@ use Projet5\Controller\ArticleController;
 use Projet5\Controller\MagController;
 use Projet5\Controller\UserController;
 use Projet5\Model\Manager\ArticleManager;
+use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
 use Projet5\Model\Repository\ArticleRepository;
+use Projet5\Model\Repository\LettersRepository;
 use Projet5\Model\Repository\MagRepository;
 use Projet5\Tools\Request;
 use Projet5\View\View;
@@ -33,11 +35,11 @@ final class Router
         'setSavedMag',
         'magByNumber',
         'magazine',
-        'readersLetters',
+        'courrier',
         'previewLetters',
         'previewEdito',
         'editorial',
-        'whoWeAre'
+        'quiSommesNous'
     ];
 
     private $actionArticle =
@@ -108,7 +110,10 @@ final class Router
                 $articleRepo = new ArticleRepository($this->database);
                 $articleManager = new ArticleManager($articleRepo);
 
-                $controller = new magController($magManager, $articleManager, $this->view);
+                $lettersRepo = new LettersRepository($this->database);
+                $lettersManager = new LettersManager($lettersRepo);
+
+                $controller = new magController($magManager, $articleManager, $lettersManager, $this->view);
                 $controller->$methode((int) $this->request->get('value'));
                 exit();
             }
@@ -121,7 +126,7 @@ final class Router
                 $articleRepo = new ArticleRepository($this->database);
                 $articleManager = new ArticleManager($articleRepo);
 
-                $controller = new articleController($magManager, $articleManager, $this->view);
+                $controller = new ArticleController($magManager, $articleManager, $this->view);
                 $controller->$methode((int) $this->request->get('value'), (int) $this->request->get('value2'));
                 exit();
             }
@@ -140,7 +145,10 @@ final class Router
         $articleRepo = new ArticleRepository($this->database);
         $articleManager = new ArticleManager($articleRepo);
 
-        $controller = new magController($magManager, $articleManager, $this->view);
+        $lettersRepo = new LettersRepository($this->database);
+        $lettersManager = new LettersManager($lettersRepo);
+
+        $controller = new magController($magManager, $articleManager, $lettersManager, $this->view);
         $controller->lastMagazine();
     }
 }

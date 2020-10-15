@@ -47,8 +47,8 @@ final class ArticleController
         $type = ['',
                 '',
                 'Chronique',
-                'Fiction',
-                'Essai'];
+                'Essai',
+                'Fiction'];
         
         $totalArticles = $this->articleManager->countPublishedByType($type[$textType]);
         $nbByPage = 6;
@@ -60,12 +60,12 @@ final class ArticleController
             if ($currentpage > $totalpages) {
                 $currentpage = $totalpages;
             }
-        }
-
+        };
         $offset = ($currentpage - 1) * $nbByPage;
         
         $articles = $this->articleManager->showAllPublishedByType((string) $type[$textType], (int) $offset, (int) $nbByPage);
         $magazine = $this->magManager->showByIdAndPub($idMag);
+
         $this->view->render(
             [
             'template' => 'front/articles',
@@ -75,6 +75,7 @@ final class ArticleController
                 'preview' => 0,
                 'active' => $textType,
                 'currentpage' => $currentpage,
+                'totalpages' => $totalpages,
                 'textType' => $type[$textType],
                 ],
             ],

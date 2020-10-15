@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>{% block title %}{% endblock %}</title>
+        <script defer src="https://friconix.com/cdn/friconix.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./styles/front/styleFront.css">
@@ -29,7 +30,8 @@
             </div>
         {% else %}
                 <div id="navTop">
-                <a class="navTopLink" href="index.php?action=whoWeAre&amp;id_mag=<?= $magazine->id_mag ?>">Qui sommes nous?</a>
+
+                <a class="navTopLink" href="index.php?action=quiSommesNous&amp;value={{magazine.id_mag}}">Qui sommes nous?</a>
                 
                 {% if user %}
                     <a class="navTopLink" href="index.php?action=monCompte&amp;id_mag=<?= $magazine->id_mag ?>">Mon compte ( <?=$user->pseudo?> )</a>
@@ -37,13 +39,14 @@
                     <a class="navTopLink" href="index.php?action=nousRejoindre&amp;id_mag=<?= $magazine->id_mag ?>">Nous rejoindre</a>
                     <a class="navTopLink" href="index.php?action=connectionPage&amp;id_mag=<?= $magazine->id_mag ?>">Se connecter</a>
                  {% endif %}
+
             </div>
             <div id="logo">{% block separator %}{% endblock %}<span>KILOMETRAGE</span></div>
             <div id="navLinks">
                 <a class="navBottomLink{% if active == 1 %} active {% endif %}" href="index.php">MAGAZINES</a>
                 <a class="navBottomLink{% if active == 2 %} active {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2">CHRONIQUES</a>
-                <a class="navBottomLink{% if active == 3 %} active {% endif %}" href="index.php?action=essais&amp;id_mag=<?= $magazine->id_mag ?>">ESSAIS</a>
-                <a class="navBottomLink{% if active == 4 %} active {% endif %}" href="index.php?action=fictions&amp;id_mag=<?= $magazine->id_mag ?>">FICTIONS</a>
+                <a class="navBottomLink{% if active == 3 %} active {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=3">ESSAIS</a>
+                <a class="navBottomLink{% if active == 4 %} active {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=4">FICTIONS</a>
                 <!--<a class="navBottomLink fa fa-search"></a>-->
             </div>           
         {% endif %}
