@@ -3,22 +3,20 @@ declare(strict_types=1);
 
 namespace Projet5\Controller;
 
-
-use Projet5\View\View;
-use Projet5\Model\Manager\MagManager;
 use Projet5\Model\ArticleManager;
-use Projet5\Model\UsersManager;
 use Projet5\Model\LettersManager;
-use Projet5\Tools\Request;
+use Projet5\Model\Manager\MagManager;
+use Projet5\Model\UsersManager;
+use Projet5\Tools\Auth;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
-use Projet5\Tools\Session;
-use Projet5\Tools\Auth;
 use Projet5\Tools\NoCsrf;
+use Projet5\Tools\Request;
+use Projet5\Tools\Session;
+use Projet5\View\View;
 
-
-class MagController{
-        
+class MagController
+{
     private $magManager;
     private $articleManager;
     private $usersManager;
@@ -53,8 +51,7 @@ class MagController{
         $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
         $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
 
-        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous','user'));
-        
+        $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
     }
 
     public function lastMagazine():void//méthode pour afficher la page d'accueil et récupérer le dernier épisode posté
@@ -66,14 +63,12 @@ class MagController{
         $previous = $this->magManager->previousMag((int) $magazine[0]->idMag);
 
         $this->view->render('front/magazine', 'front/layout', compact('magazine', 'next', 'previous', 'user'));
-        
     }
 
     public function previousMag():void//méthode pour naviguer vers les numéros précédents
     {
         $previousMag = $this->magManager->previousMag((int) $this->request->get('idMag'));
-        if(!empty($previousMag))
-        {
+        if (!empty($previousMag)) {
             $user = $this->auth->user();
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $previousMag[0]->id_mag);
             $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
@@ -87,8 +82,7 @@ class MagController{
     public function nextMag():void//méthode pour naviguer vers les numéros suivants
     {
         $nextMag = $this->magManager->nextMag((int) $this->request->get('idMag'));
-        if(!empty($nextMag))
-        {
+        if (!empty($nextMag)) {
             $user = $this->auth->user();
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $nextMag[0]->id_mag);
             $next = $this->magManager->nextMag((int) $magazine[0]->idMag);
@@ -116,14 +110,13 @@ class MagController{
             $currentpage = (int) $this->request->get('currentpage');
             if ($currentpage > $totalpages) {
                 $currentpage = $totalpages;
-            } 
+            }
         }
 
         $offset = ($currentpage - 1) * $nbByPage;
         
         $allMag = $this->magManager->listAllMag((int) $offset, (int) $nbByPage);
-        $this->view->render('back/listMag', 'back/layout', compact('totalMag', 'allMag','nbByPage', 'offset', 'currentpage', 'totalpages'));
-        
+        $this->view->render('back/listMag', 'back/layout', compact('totalMag', 'allMag', 'nbByPage', 'offset', 'currentpage', 'totalpages'));
     }
 
     public function newMag():void//méthode pour afficher la page de création d'un nouveau magazine
@@ -137,10 +130,8 @@ class MagController{
     public function createNewMag():void//méthode pour créer un nouveau numéro de magazine
     {
         $this->auth->requireRole('1');
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-        {
-            if(!empty($this->request->post('number')))
-            {
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+            if (!empty($this->request->post('number'))) {
                 $message = null;
                 $this->magManager->createMag((int) $this->request->post('number'));
                 $magazineByNumber = $this->magManager->findMagByNumber((int) $this->request->post('number'));
@@ -149,7 +140,6 @@ class MagController{
                 $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
             }
         }
-        
     }
 
     public function pannelMag():void//méthode pour afficher la page de gestion d'un magazine
@@ -167,8 +157,7 @@ class MagController{
         $message = null;
         
        
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-        {
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
             $this->dataLoader->addData('magManager', 'idMag', 'modifPubli', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
 
             $this->dataLoader->addData('magManager', 'idMag', 'modifTopics', 'topics', 'Le thème du magazine a été modifié', 'pannelmag', 'findMagByIdWithArticles');
@@ -180,11 +169,9 @@ class MagController{
             $this->dataLoader->deleteData('magManager', 'idMag', 'deleteTitle02', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelmag', 'findMagByIdWithArticles');
 
             $this->files->addFiles('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag', 'findMagByIdWithArticles');
-
         }
         
-        if($this->request->post('modifEdito') !== null)
-        {
+        if ($this->request->post('modifEdito') !== null) {
             $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
             $message = null;
             $token = $this->noCsrf->createToken();
@@ -196,14 +183,12 @@ class MagController{
         $token = $this->noCsrf->createToken();
         $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
         $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));
-        
     }
 
     public function addEdito():void//méthode pour modifier ou écrire un édito de magazine
     {
         $this->auth->requireRole('1');
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-        {
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
             $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
             $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
             $message = "L'éditorial a été modifié";
@@ -215,7 +200,6 @@ class MagController{
         $message = "Une erreur est survenue, veuillez recommencer";
         $token = $this->noCsrf->createToken();
         $this->view->render('back/editorial', 'back/layout', compact('data', 'message', 'token'));
-        
     }
 
     public function previewMag():void//méthode pour prévisualiser la page d'accueil d'un magazine
@@ -229,13 +213,11 @@ class MagController{
     {
         $this->auth->requireRole('1');
         $dataToErase = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        if(($dataToErase[0]->cover) !== null)
-            {
-                unlink("../public/images/".$dataToErase[0]->cover);
-            }
+        if (($dataToErase[0]->cover) !== null) {
+            unlink("../public/images/".$dataToErase[0]->cover);
+        }
         foreach ($dataToErase as $articleImgToErase) {
-            if(($articleImgToErase->articleCover) !== null)
-            {
+            if (($articleImgToErase->articleCover) !== null) {
                 unlink("../public/images/".$articleImgToErase->articleCover);
             }
         }
@@ -279,14 +261,13 @@ class MagController{
             $currentpage = (int) $this->request->get('currentpage');
             if ($currentpage > $totalpages) {
                 $currentpage = $totalpages;
-            } 
+            }
         }
 
         $offset = ($currentpage - 1) * $nbByPage;
         
-        $letters = $this->lettersManager->getCourrierByRelatedMag((int) $offset,(int) $nbByPage,(int) $magazine[0]->numberMag);
+        $letters = $this->lettersManager->getCourrierByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine[0]->numberMag);
         $this->view->render('front/readersLetters', 'front/layout', compact('magazine', 'letters', 'totalLetters', 'totalpages', 'currentpage', 'user'));
-
     }
 
     public function previewLetters():void //méthode pour afficher une page preview du courrier depuis le back
@@ -303,22 +284,20 @@ class MagController{
             $currentpage = (int) $this->request->get('currentpage');
             if ($currentpage > $totalpages) {
                 $currentpage = $totalpages;
-            } 
+            }
         }
 
         $offset = ($currentpage - 1) * $nbByPage;
         
         $letters = $this->lettersManager->getCourrierByRelatedMag($offset, $nbByPage, $magazine[0]->numberMag);
         $this->view->render('back/previewLetters', 'front/layout', compact('magazine', 'letters', 'totalLetters', 'totalpages', 'currentpage'));
-
     }
 
     public function editorial():void//méthode pour afficher la page de l'éditorial
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('front/editorial', 'front/layout', compact('magazine','user'));
-        
+        $this->view->render('front/editorial', 'front/layout', compact('magazine', 'user'));
     }
 
     public function previewEdito():void //méthode pour afficher une page preview de l'éditorial depuis le back

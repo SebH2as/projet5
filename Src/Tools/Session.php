@@ -9,31 +9,30 @@ class Session
    
 
     public function adminControl():void
-    {                   
-        if (empty($_SESSION['admConnected'])){
+    {
+        if (empty($_SESSION['admConnected'])) {
             header('Location: index.php');
             exit();
         }
     }
 
     public function userControl():void
-    {                   
-        if (empty($_SESSION['userConnected'])){
+    {
+        if (empty($_SESSION['userConnected'])) {
             header('Location: index.php');
             exit();
         }
     }
 
-    public function setSessionData(string $session_name ,  ?string $data ):void
+    public function setSessionData(string $session_name, ?string $data):void
     {
         $_SESSION[$session_name] = $data;
     }
     
-    public function getSessionData(string $session_name ): ?string
+    public function getSessionData(string $session_name): ?string
     {
-        if (isset($_SESSION[$session_name])) 
-        {
-        return $_SESSION[$session_name];
+        if (isset($_SESSION[$session_name])) {
+            return $_SESSION[$session_name];
         }
         unset($_SESSION[$session_name]);
         return null;

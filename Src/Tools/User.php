@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Projet5\Tools;
 
-class User{
-
+class User
+{
     public $id_user;
     public $pseudo;
     public $email;

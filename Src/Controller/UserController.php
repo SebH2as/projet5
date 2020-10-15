@@ -3,22 +3,20 @@ declare(strict_types=1);
 
 namespace Projet5\Controller;
 
-
-use Projet5\View\View;
-use Projet5\Model\Manager\MagManager;
 use Projet5\Model\ArticleManager;
-use Projet5\Model\UsersManager;
 use Projet5\Model\LettersManager;
-use Projet5\Tools\Request;
+use Projet5\Model\Manager\MagManager;
+use Projet5\Model\UsersManager;
+use Projet5\Tools\Auth;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
-use Projet5\Tools\Session;
-use Projet5\Tools\Auth;
 use Projet5\Tools\NoCsrf;
+use Projet5\Tools\Request;
+use Projet5\Tools\Session;
+use Projet5\View\View;
 
-
-class UserController{
-        
+class UserController
+{
     private $magManager;
     private $magController;
     private $articleManager;
@@ -60,33 +58,28 @@ class UserController{
         'Votre pseudo a bien été modifié',
         'votre Email a bien été modifié'];
         
-        if($this->request->get('message') !== null)
-        {
+        if ($this->request->get('message') !== null) {
             $message = $messageContent[(int) $this->request->get('message')];
         }
         
     
         $user = $this->auth->user();
         
-        if($user)
-        {
-            if($user->role === '0')
-            {
+        if ($user) {
+            if ($user->role === '0') {
                 $nbUnpubletters = $this->lettersManager->countUnpubLetters((string) $user->pseudo);
                 $nbPubletters = $this->lettersManager->countPubLetters((string) $user->pseudo);
                 $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
                 $this->view->render('front/monCompte', 'front/layout', compact('magazine', 'user', 'message', 'nbUnpubletters', 'nbPubletters'));
                 exit();
             }
-            if($user->role === '1')
-            {
+            if ($user->role === '1') {
                 $this->adminProfil();
                 exit();
             }
-            
         }
         header('location: index.php');
-        
+        exit();
     }
 
     public function nousRejoindre():void//méthode pour afficher la page nous rejoindre
@@ -102,70 +95,54 @@ class UserController{
         $isError = true;
         
         $error = 'Au moins un des champs est vide';
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-        {
-            if((string) $this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+            if ((string) $this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
             && (string) $this->request->post('mail') !== null &&  !empty($this->request->post('mail'))
             && (string) $this->request->post('mail2') !== null &&  !empty($this->request->post('mail2'))
             && (string) $this->request->post('password') !== null &&  !empty($this->request->post('password'))
-            && (string) $this->request->post('password2') !== null &&  !empty($this->request->post('password2')))
-            {
+            && (string) $this->request->post('password2') !== null &&  !empty($this->request->post('password2'))) {
                 $error = 'Le pseudo choisi n\'est pas valide';
-                if(strlen($this->request->post('pseudo')) > 3 && strlen($this->request->post('pseudo')) < 15)
-                {
+                if (mb_strlen($this->request->post('pseudo')) > 3 && mb_strlen($this->request->post('pseudo')) < 15) {
                     $error = 'Le pseudo choisi est déjà utilisé';
-                    $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudo'));
-                    if( ($pseudoThere[0]) < 1)
-                    {
+                    $pseudoThere = $this->usersManager->pseudoUser($this->request->post('pseudo'));
+                    if (($pseudoThere[0]) < 1) {
                         $error = 'L\'email choisi n\'est pas valide';
-                        if (filter_var($this->request->post('mail'), FILTER_VALIDATE_EMAIL)) 
-                        {
+                        if (filter_var($this->request->post('mail'), FILTER_VALIDATE_EMAIL)) {
                             $error = 'Les emails renseignés ne correspondent pas';
-                            if(($this->request->post('mail')) === ($this->request->post('mail2')))
-                            {
+                            if (($this->request->post('mail')) === ($this->request->post('mail2'))) {
                                 $error = 'L\' email choisi est déjà utilisé';
-                                $emailThere = $this->usersManager->emailUser( $this->request->post('mail'));
-                                if( ($emailThere[0]) < 1)
-                                {
-                                    $error = 'Les mots de passe renseignés ne correspondent pas'; 
-                                    if(($this->request->post('password')) === ($this->request->post('password2')))
-                                    {
+                                $emailThere = $this->usersManager->emailUser($this->request->post('mail'));
+                                if (($emailThere[0]) < 1) {
+                                    $error = 'Les mots de passe renseignés ne correspondent pas';
+                                    if (($this->request->post('password')) === ($this->request->post('password2'))) {
                                         $error = 'Le mot de passe choisi n\'est pas valide';
-                                        if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')))
-                                        {
+                                        if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password'))) {
                                             $error =null;
                                             $key = '';
-                                            for($i = 1; $i<6 ; $i++)
-                                            {
-                                                $key .= mt_rand(0,9);
+                                            for ($i = 1; $i<6 ; $i++) {
+                                                $key .= random_int(0, 9);
                                             }
 
-                                            $this->usersManager->addUser((string) $this->request->post('pseudo'),(string) $this->request->post('mail'),(string) password_hash($this->request->post('password'), PASSWORD_DEFAULT),(int) $key);
+                                            $this->usersManager->addUser((string) $this->request->post('pseudo'), (string) $this->request->post('mail'), (string) password_hash($this->request->post('password'), PASSWORD_DEFAULT), (int) $key);
                                             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
                                             $token = $this->noCsrf->createToken();
                                             $this->view->render('front/activation', 'front/layout', compact('magazine', 'error', 'token'));
                                             exit();
                                         }
-                                        
                                     }
                                 }
-                                
+                            }
                         }
-                        }
-                        
-                        
                     }
-                }  
+                }
             }
         }
         
-        if($isError)
-        {
+        if ($isError) {
             $token = $this->noCsrf->createToken();
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
             $this->view->render('front/nousRejoindre', 'front/layout', compact('magazine', 'error', 'token'));
         }
-        
     }
 
     public function activation():void
@@ -173,15 +150,12 @@ class UserController{
         $isError = true;
         
         $error = 'Veuillez renseigner tous les champs';
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-        {
-            if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
-            && $this->request->post('code') !== null &&  !empty($this->request->post('code')))
-            {
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+            if ($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
+            && $this->request->post('code') !== null &&  !empty($this->request->post('code'))) {
                 $error = 'Le code renseigné n\'est pas valide';
                 $userKey = $this->usersManager->getKeyByPseudo($this->request->post('pseudo'));
-                if(($this->request->post('code')) === $userKey[0]->confirmkey)
-                {
+                if (($this->request->post('code')) === $userKey[0]->confirmkey) {
                     $this->usersManager->activeCount($this->request->post('pseudo'));
                     $this->session->setSessionData('userConnected', '1');
                     $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
@@ -192,8 +166,7 @@ class UserController{
         }
         
 
-        if($isError)
-        {
+        if ($isError) {
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
             $token = $this->noCsrf->createToken();
             $this->view->render('front/activation', 'front/layout', compact('magazine', 'error', 'token'));
@@ -206,31 +179,24 @@ class UserController{
         $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
         $token = $this->noCsrf->createToken();
         $this->view->render('front/connectionPage', 'front/layout', compact('magazine', 'error', 'token'));
-        
     }
 
     public function connection():void //méthode pour se connecter au compte utilisateur ou au backoffice
     {
         $error = 'Pseudo ou mot de passe incorrect';
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-        {
-            if($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
-            && $this->request->post('password') !== null &&  !empty($this->request->post('password')))
-            {
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+            if ($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
+            && $this->request->post('password') !== null &&  !empty($this->request->post('password'))) {
                 $user = $this->auth->login($this->request->post('pseudo'), $this->request->post('password'));
-                if($user)
-                {
-                    if($user->role === '0')
-                    {
+                if ($user) {
+                    if ($user->role === '0') {
                         $this->monCompte();
                         exit();
                     }
-                    if($user->role === '1')
-                    {
+                    if ($user->role === '1') {
                         $this->magController->listMag();
                         exit();
                     }
-                
                 }
             }
         }
@@ -251,8 +217,7 @@ class UserController{
     public function nousEcrire():void
     {
         $user = $this->auth->user();
-        if($user)
-        {
+        if ($user) {
             $error = null;
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
             $token = $this->noCsrf->createToken();
@@ -265,14 +230,11 @@ class UserController{
     public function postLetter():void
     {
         $user = $this->auth->user();
-        if($user)
-        {
+        if ($user) {
             $error = 'Une erreur est survenue, veuillez soummettre votre courrier de nouveau';
-            if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-            {
-                if($this->request->post('courrier') !== null &&  !empty($this->request->post('courrier')))
-                {
-                    $this->lettersManager->postLetter((int) $user->id_user, (string) $user->pseudo,(string) $this->request->post('courrier'));
+            if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+                if ($this->request->post('courrier') !== null &&  !empty($this->request->post('courrier'))) {
+                    $this->lettersManager->postLetter((int) $user->id_user, (string) $user->pseudo, (string) $this->request->post('courrier'));
                     $this->monCompte();
                     exit();
                 }
@@ -288,8 +250,7 @@ class UserController{
     public function modifPseudoUser():void
     {
         $user = $this->auth->user();
-        if($user)
-        {
+        if ($user) {
             $error = null;
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
             $token = $this->noCsrf->createToken();
@@ -302,8 +263,7 @@ class UserController{
     public function modifPassUser():void
     {
         $user = $this->auth->user();
-        if($user)
-        {
+        if ($user) {
             $error = null;
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
             $token = $this->noCsrf->createToken();
@@ -316,8 +276,7 @@ class UserController{
     public function modifEmailUser():void
     {
         $user = $this->auth->user();
-        if($user)
-        {
+        if ($user) {
             $error = null;
             $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
             $token = $this->noCsrf->createToken();
@@ -330,22 +289,16 @@ class UserController{
     public function modifPass():void
     {
         $user = $this->auth->user();
-        if($user)
-        {
+        if ($user) {
             $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
-            if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-            {
-                if($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
-                && password_verify($this->request->post('passwordOld'), $user->p_w))
-                {
-                    if($this->request->post('passwordNew') !== null && !empty($this->request->post('passwordNew')))
-                    {
+            if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+                if ($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
+                && password_verify($this->request->post('passwordOld'), $user->p_w)) {
+                    if ($this->request->post('passwordNew') !== null && !empty($this->request->post('passwordNew'))) {
                         $error = 'Le nouveau mot de passe choisi n\'est pas valide';
-                        if(preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('passwordNew')))
-                        {
+                        if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('passwordNew'))) {
                             $error = 'Les deux mots de passe renseignés ne correspondent pas';
-                            if($this->request->post('passwordNew') === $this->request->post('passwordNew2'))
-                            {
+                            if ($this->request->post('passwordNew') === $this->request->post('passwordNew2')) {
                                 $this->usersManager->modifPass((int) $user->id_user, (string) password_hash($this->request->post('passwordNew'), PASSWORD_DEFAULT));
                                 $this->monCompte();
                                 exit();
@@ -366,24 +319,18 @@ class UserController{
     public function modifPseudo():void
     {
         $user = $this->auth->user();
-        if($user)
-        {
+        if ($user) {
             $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
-            if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-            {
-                if($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
-                && password_verify($this->request->post('passwordOld'), $user->p_w))
-                {
-                    if($this->request->post('pseudoNew') !== null && !empty($this->request->post('pseudoNew')))
-                    {
+            if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+                if ($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
+                && password_verify($this->request->post('passwordOld'), $user->p_w)) {
+                    if ($this->request->post('pseudoNew') !== null && !empty($this->request->post('pseudoNew'))) {
                         $error = 'Le pseudo choisi n\'est pas valide';
-                        if(strlen($this->request->post('pseudoNew')) > 3 && strlen($this->request->post('pseudoNew')) < 15)
-                        {
+                        if (mb_strlen($this->request->post('pseudoNew')) > 3 && mb_strlen($this->request->post('pseudoNew')) < 15) {
                             $error = 'Le pseudo choisi est déjà utilisé';
-                            $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudoNew'));
-                            if( ($pseudoThere[0]) < 1)
-                            {
-                                $this->usersManager->modifPseudo((int) $user->id_user,(string) $this->request->post('pseudoNew'));
+                            $pseudoThere = $this->usersManager->pseudoUser($this->request->post('pseudoNew'));
+                            if (($pseudoThere[0]) < 1) {
+                                $this->usersManager->modifPseudo((int) $user->id_user, (string) $this->request->post('pseudoNew'));
                                 $this->monCompte();
                                 exit();
                             }
@@ -403,32 +350,25 @@ class UserController{
     public function modifEmail():void
     {
         $user = $this->auth->user();
-        if($user)
-        {
+        if ($user) {
             $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
-            if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-            {
-                if($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
-                && password_verify($this->request->post('passwordOld'), $user->p_w))
-                {
-                    if($this->request->post('mailNew') !== null && !empty($this->request->post('mailNew')))
-                    {
+            if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+                if ($this->request->post('passwordOld') !== null && !empty($this->request->post('passwordOld'))
+                && password_verify($this->request->post('passwordOld'), $user->p_w)) {
+                    if ($this->request->post('mailNew') !== null && !empty($this->request->post('mailNew'))) {
                         $error = 'L\'email choisi n\'est pas valide';
-                        if (filter_var($this->request->post('mailNew'), FILTER_VALIDATE_EMAIL))
-                        {
+                        if (filter_var($this->request->post('mailNew'), FILTER_VALIDATE_EMAIL)) {
                             $error = 'Les emails renseignés ne correspondent pas';
-                            if(($this->request->post('mailNew')) === ($this->request->post('mailNew2')))
-                            {
+                            if (($this->request->post('mailNew')) === ($this->request->post('mailNew2'))) {
                                 $error = 'L\' email choisi est déjà utilisé';
-                                $emailThere = $this->usersManager->emailUser( $this->request->post('mailNew'));
-                                if( ($emailThere[0]) < 1)
-                                {
-                                    $this->usersManager->modifEmail((int) $user->id_user,(string) $this->request->post('mailNew'));
+                                $emailThere = $this->usersManager->emailUser($this->request->post('mailNew'));
+                                if (($emailThere[0]) < 1) {
+                                    $this->usersManager->modifEmail((int) $user->id_user, (string) $this->request->post('mailNew'));
                                     $this->monCompte();
                                     exit();
                                 }
                             }
-                        }    
+                        }
                     }
                 }
             }
@@ -444,8 +384,7 @@ class UserController{
     public function newsLetterAbo():void
     {
         $user = $this->auth->user();
-        if($user->newsletter === '0')
-        {
+        if ($user->newsletter === '0') {
             $this->usersManager->newsletter((int) $user->id_user, 1);
             $this->monCompte();
             exit();
@@ -466,7 +405,7 @@ class UserController{
             $currentpage = (int) $this->request->get('currentpage');
             if ($currentpage > $totalpages) {
                 $currentpage = $totalpages;
-            } 
+            }
         }
 
         $offset = ($currentpage - 1) * $nbByPage;
@@ -512,8 +451,7 @@ class UserController{
     {
         $this->auth->requireRole('1');
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
-        if (($letter[0]->magRelated) !== null)
-        {
+        if (($letter[0]->magRelated) !== null) {
             $this->lettersManager->validatedCourrier((int)$this->request->get('idLetter'));
             $message = 'Le courrier est validé et intégré au magazine associé';
             $numberMags = $this->magManager->getAllNumberPubliMag();
@@ -527,7 +465,6 @@ class UserController{
         $letter = $this->lettersManager->getLetterById((int)$this->request->get('idLetter'));
         $token = $this->noCsrf->createToken();
         $this->view->render('back/userLetter', 'back/layout', compact('letter', 'numberMags', 'message', 'token'));
-        
     }
 
     public function invalidation():void
@@ -558,34 +495,26 @@ class UserController{
         $this->view->render('back/admin', 'back/layout', compact('message', 'error', 'token'));
     }
 
-    function reset():void //méthode pour réinitialiser les informations de l'administrateur
+    public function reset():void //méthode pour réinitialiser les informations de l'administrateur
     {
-
         $message = null;
         $error = null;
         
         $this->auth->requireRole('1');
 
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf')))
-        {
-            if($this->request->post('resetPseudo') !== null)
-            {
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+            if ($this->request->post('resetPseudo') !== null) {
                 $user = $this->auth->user();
-                if($user)
-                {
+                if ($user) {
                     $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
-                    if($this->request->post('pass01') !== null && !empty($this->request->post('pass01'))
-                    && password_verify($this->request->post('pass01'), $user->p_w))
-                    {
-                        if($this->request->post('pseudo') !== null && !empty($this->request->post('pseudo')))
-                        {
+                    if ($this->request->post('pass01') !== null && !empty($this->request->post('pass01'))
+                    && password_verify($this->request->post('pass01'), $user->p_w)) {
+                        if ($this->request->post('pseudo') !== null && !empty($this->request->post('pseudo'))) {
                             $error = 'Le pseudo choisi n\'est pas valide';
-                            if(strlen($this->request->post('pseudo')) > 3 && strlen($this->request->post('pseudo')) < 15)
-                            {
+                            if (mb_strlen($this->request->post('pseudo')) > 3 && mb_strlen($this->request->post('pseudo')) < 15) {
                                 $error = 'Le pseudo choisi est déjà utilisé';
-                                $pseudoThere = $this->usersManager->pseudoUser( $this->request->post('pseudo'));
-                                if( ($pseudoThere[0]) < 1)
-                                {
+                                $pseudoThere = $this->usersManager->pseudoUser($this->request->post('pseudo'));
+                                if (($pseudoThere[0]) < 1) {
                                     $this->usersManager->modifPseudo((int) $user->id_user, $this->request->post('pseudo'));
                                     $message='Votre pseudo a été modifié';
                                     $error= null;
@@ -602,27 +531,20 @@ class UserController{
                 header('location: index.php');
             }
 
-            if($this->request->post('resetEmail') !== null)
-            {
+            if ($this->request->post('resetEmail') !== null) {
                 $user = $this->auth->user();
-                if($user)
-                {
+                if ($user) {
                     $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
-                    if($this->request->post('pass02') !== null && !empty($this->request->post('pass02'))
-                    && password_verify($this->request->post('pass02'), $user->p_w))
-                    {
-                        if($this->request->post('email') !== null && !empty($this->request->post('email')))
-                        {
+                    if ($this->request->post('pass02') !== null && !empty($this->request->post('pass02'))
+                    && password_verify($this->request->post('pass02'), $user->p_w)) {
+                        if ($this->request->post('email') !== null && !empty($this->request->post('email'))) {
                             $error = 'L\'email choisi n\'est pas valide';
-                            if (filter_var($this->request->post('mailNew'), FILTER_VALIDATE_EMAIL))
-                            {
+                            if (filter_var($this->request->post('mailNew'), FILTER_VALIDATE_EMAIL)) {
                                 $error = 'Les emails renseignés ne correspondent pas';
-                                if(($this->request->post('email')) === ($this->request->post('email02')))
-                                {
+                                if (($this->request->post('email')) === ($this->request->post('email02'))) {
                                     $error = 'L\' email choisi est déjà utilisé';
-                                    $emailThere = $this->usersManager->emailUser( $this->request->post('email'));
-                                    if( ($emailThere[0]) < 1)
-                                    {
+                                    $emailThere = $this->usersManager->emailUser($this->request->post('email'));
+                                    if (($emailThere[0]) < 1) {
                                         $this->usersManager->modifEmail((int) $user->id_user, $this->request->post('email'));
                                         $message='Votre email a été modifié';
                                         $error= null;
@@ -640,23 +562,17 @@ class UserController{
                 header('location: index.php');
             }
             
-            if($this->request->post('resetPass') !== null)
-            {
+            if ($this->request->post('resetPass') !== null) {
                 $user = $this->auth->user();
-                if($user)
-                {
+                if ($user) {
                     $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
-                    if($this->request->post('pass03') !== null && !empty($this->request->post('pass03'))
-                    && password_verify($this->request->post('pass03'), $user->p_w))
-                    {
-                        if($this->request->post('passwordNew') !== null && !empty($this->request->post('passwordNew')))
-                        {
+                    if ($this->request->post('pass03') !== null && !empty($this->request->post('pass03'))
+                    && password_verify($this->request->post('pass03'), $user->p_w)) {
+                        if ($this->request->post('passwordNew') !== null && !empty($this->request->post('passwordNew'))) {
                             $error = 'Le nouveau mot de passe choisi n\'est pas valide';
-                            if(preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('passwordNew')))
-                            {
+                            if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('passwordNew'))) {
                                 $error = 'Les deux mots de passe renseignés ne correspondent pas';
-                                if($this->request->post('passwordNew') === $this->request->post('passwordNew2'))
-                                {
+                                if ($this->request->post('passwordNew') === $this->request->post('passwordNew2')) {
                                     $this->usersManager->modifPass((int) $user->id_user, (string) password_hash($this->request->post('passwordNew'), PASSWORD_DEFAULT));
                                     $message='Votre mot de passe a été modifié';
                                     $error= null;
@@ -687,7 +603,7 @@ class UserController{
             $currentpage = (int) $this->request->get('currentpage');
             if ($currentpage > $totalpages) {
                 $currentpage = $totalpages;
-            } 
+            }
         }
 
         $offset = ($currentpage - 1) * $nbByPage;
@@ -703,5 +619,4 @@ class UserController{
         $this->usersManager->deleteUserById((int) $this->request->get('iduser'));
         $this->usersAdmin();
     }
-
 }

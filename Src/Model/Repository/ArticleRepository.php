@@ -19,9 +19,9 @@ final class ArticleRepository
     public function findByIdMag(int $id): ?array
     {
         $req = $this->database->getConnection()->prepare('SELECT * FROM articles WHERE id_mag = :idmag');
-            $req->execute([
+        $req->execute([
                 'idmag' => (int) $id]);
-            return $req->fetchALL(\PDO::FETCH_OBJ);
+        return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 
     public function findById(int $idText): ?Article
@@ -33,5 +33,31 @@ final class ArticleRepository
         return $data = $req->fetch();
 
         return $data === null ? $data : new Article($data['id_text'], $data['id_mag'], $data['textType'], $data['title'], $data['author'], $data['content'], $data['teaser'], $data['articleCover'], $data['date_creation'], $data['main']);
+    }
+
+    public function findNumberPubByType($textType): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT COUNT(*) 
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE textType = :textType AND statusPub = 1');
+        $req->execute([
+            'textType' => (string) $textType]);
+        return $req->fetch();
+    }
+
+    public function findAllPublishedByType(string $textType, int $offset, int $nbByPage):array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT mag.id_mag AS idMag, numberMag, statusPub, id_text, articles.id_mag AS artIdMag, textType, title, author, teaser, content, articleCover, DATE_FORMAT(date_creation, \'%d/%m/%Y\') AS date  
+        FROM articles 
+        LEFT JOIN mag ON mag.id_mag = articles.id_mag
+        WHERE textType = :textType AND statusPub = 1
+        ORDER BY numberMag DESC
+        LIMIT :offset, :limitation');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->bindValue(':textType', $textType);
+        $req->execute();
+        return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 }

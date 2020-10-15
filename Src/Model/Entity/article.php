@@ -14,33 +14,6 @@ final class Article
     public ?string $content;
     public ?string $teaser;
     public ?string $articleCover;
-    public string $date_creation;
-    public int $main;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function getText(): string
-    {
-        return $this->text;
-    }
-
-    public function setText(string $text): self
-    {
-        $this->text = $text;
-        return $this;
-    }
+    public ?string $date_creation;
+    public ?int $main;
 }

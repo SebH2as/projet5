@@ -1,0 +1,30 @@
+{% extends "/front/layout.html.twig" %}
+
+{% block title %}
+    Editorial
+{% endblock %}
+
+{% block separator %}
+    <div id="separator01"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/navbar.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="sectionImg">
+        <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+    </div>
+    <section id="article">
+        <div id="titleArticle">
+            <a href="index.php?action=magByNumber&amp;value={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
+            <h1>Editorial</h1>
+            <a href="index.php?action=magByNumber&amp;value={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
+            <div id="separator02"></div>
+        </div>
+        <div id="articleContent">
+            <span>{{magazine.editorial}}</span>
+        </div>
+    </section>
+{% endblock %}

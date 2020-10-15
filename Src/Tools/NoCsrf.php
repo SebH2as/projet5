@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Projet5\Tools;
 
-use Projet5\Tools\Session;
 use Projet5\Tools\Request;
+use Projet5\Tools\Session;
 
-class NoCsrf 
+class NoCsrf
 {
     private $session;
     private $request;

@@ -1,0 +1,34 @@
+{% extends "/front/layout.html.twig" %}
+
+{% block title %}
+    Article {{article.title}}
+{% endblock %}
+
+{% block separator %}
+    <div id="separator01"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/navbar.js"></script>
+{% endblock %}
+
+{% block content %}
+
+        <div id="sectionImg">
+            <img class="rubricImg" src="images/{{article.articleCover}}" alt="{{article.articleCover}}">
+        </div>
+        <section id="article">
+            <div id="titleArticle">
+                <a href="index.php?action=<?= strtolower($article[0]->textType) ?>s&amp;idMag=<?= $magazine[0]->idMag ?>"><h3>{{article.textType}}</h3></a>
+                <h1>ARTICLE</h1>
+                <a href="index.php?action=magByNumber&amp;value={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
+                <div id="separator02"></div>
+            </div>
+            <div id="articleContent">
+                <span>Le {{article.date_creation}}</span><h3>Par {{article.author}}</h3>
+                <h2>{{article.title}}</h2>
+                <span>{{article.content}} </span>
+            </div>
+        </section>
+
+{% endblock %}

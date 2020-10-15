@@ -8,6 +8,7 @@
     "require": {
         "twig/twig": "^3.0",
         "filp/whoops": "^2.7",
-        "friendsofphp/php-cs-fixer": "^2.16"
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "twig/intl-extra": "^3.0"
     }
 }

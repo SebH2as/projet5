@@ -42,7 +42,7 @@ class LettersManager
         return $req->fetch();
     }
 
-    public function getAllLetters(int $offset,int $nbByPage):array
+    public function getAllLetters(int $offset, int $nbByPage):array
     {
         $req = $this->bdd->prepare('SELECT * FROM letters LIMIT :offset, :limitation ');
         $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
@@ -111,7 +111,7 @@ class LettersManager
             'idletter' => (int) $idLetter]);
     }
 
-    public function getCourrierByRelatedMag(int $offset,int $nbByPage,int $numberMag):array
+    public function getCourrierByRelatedMag(int $offset, int $nbByPage, int $numberMag):array
     {
         $req = $this->bdd->prepare('SELECT * FROM letters WHERE magRelated = :numberMag AND published = 1 LIMIT :offset, :limitation ');
         $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);

@@ -110,7 +110,7 @@ class ArticleManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function countPublishedFictions():array 
+    public function countPublishedFictions():array
     {
         $req = $this->bdd->prepare('SELECT COUNT(*) 
         FROM articles 
@@ -134,7 +134,7 @@ class ArticleManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function countPublishedChroniques():array 
+    public function countPublishedChroniques():array
     {
         $req = $this->bdd->prepare('SELECT COUNT(*) 
         FROM articles 
@@ -158,7 +158,7 @@ class ArticleManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function countPublishedEssais():array 
+    public function countPublishedEssais():array
     {
         $req = $this->bdd->prepare('SELECT COUNT(*) 
         FROM articles 

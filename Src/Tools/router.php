@@ -1,14 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace Projet5\Tools;
 
-use Projet5\Model\Manager\MagManager;
-use Projet5\Model\Manager\ArticleManager;
-use Projet5\Model\Repository\MagRepository;
-use Projet5\Model\Repository\ArticleRepository;
-use Projet5\Controller\MagController;
 use Projet5\Controller\ArticleController;
+use Projet5\Controller\MagController;
 use Projet5\Controller\UserController;
+use Projet5\Model\Manager\ArticleManager;
+use Projet5\Model\Manager\MagManager;
+use Projet5\Model\Repository\ArticleRepository;
+use Projet5\Model\Repository\MagRepository;
 use Projet5\Tools\Request;
 use Projet5\View\View;
 
@@ -18,7 +19,7 @@ final class Router
     private View $view;
     private Request $request;
 
-    private $actionMag = 
+    private $actionMag =
     [
         'newMag',
         'createNewMag',
@@ -51,6 +52,7 @@ final class Router
         'essais',
         'fictions',
         'article',
+        'articles',
         'unsetMain',
         'setMain'
     ];
@@ -96,11 +98,10 @@ final class Router
 
     public function run(): void
     {
-        if (($this->request->get('action')) !== null){
-            $key = array_search($this->request->get('action'), $this->actionMag);
-            $methode = $this->actionMag[$key]; 
-            if ($methode === $this->request->get('action'))
-            {
+        if (($this->request->get('action')) !== null) {
+            $key = array_search($this->request->get('action'), $this->actionMag, true);
+            $methode = $this->actionMag[$key];
+            if ($methode === $this->request->get('action')) {
                 $magRepo = new MagRepository($this->database);
                 $magManager = new MagManager($magRepo);
 
@@ -108,12 +109,12 @@ final class Router
                 $articleManager = new ArticleManager($articleRepo);
 
                 $controller = new magController($magManager, $articleManager, $this->view);
-                $controller->$methode((int)$this->request->get('value'));
+                $controller->$methode((int) $this->request->get('value'));
                 exit();
             }
-            $key = array_search($this->request->get('action'), $this->actionArticle);
-            $methode = $this->actionArticle[$key]; 
-            if ($methode === $this->request->get('action')){
+            $key = array_search($this->request->get('action'), $this->actionArticle, true);
+            $methode = $this->actionArticle[$key];
+            if ($methode === $this->request->get('action')) {
                 $magRepo = new MagRepository($this->database);
                 $magManager = new MagManager($magRepo);
 
@@ -121,17 +122,18 @@ final class Router
                 $articleManager = new ArticleManager($articleRepo);
 
                 $controller = new articleController($magManager, $articleManager, $this->view);
-                $controller->$methode((int)$this->request->get('value'));
+                $controller->$methode((int) $this->request->get('value'), (int) $this->request->get('value2'));
                 exit();
             }
-            $key = array_search($this->request->get('action'), $this->actionUser);
-            $methode = $this->actionUser[$key]; 
-            if ($methode === $this->request->get('action')){
+            $key = array_search($this->request->get('action'), $this->actionUser, true);
+            $methode = $this->actionUser[$key];
+            if ($methode === $this->request->get('action')) {
                 $controller = new userController();
                 $controller->$methode();
                 exit();
             }
         }
+
         $magRepo = new MagRepository($this->database);
         $magManager = new MagManager($magRepo);
 
@@ -139,18 +141,6 @@ final class Router
         $articleManager = new ArticleManager($articleRepo);
 
         $controller = new magController($magManager, $articleManager, $this->view);
-
         $controller->lastMagazine();
-
-
     }
-
 }
-
-
-
-
-
-
-
-    

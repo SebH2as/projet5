@@ -16,7 +16,7 @@ final class ArticleManager
         $this->articleRepo = $articleRepository;
     }
 
-    public function showByIdmag($idMag): ?Array
+    public function showByIdmag($idMag): ?array
     {
         return $this->articleRepo->findByIdmag($idMag);
     }
@@ -24,5 +24,15 @@ final class ArticleManager
     public function showById($idText): ?Article
     {
         return $this->articleRepo->findById($idText);
+    }
+
+    public function countPublishedByType(string $textType): ?array
+    {
+        return $this->articleRepo->findNumberPubByType($textType);
+    }
+
+    public function showAllPublishedByType(string $textType, int $offset, int $nbByPage)
+    {
+        return $this->articleRepo->findAllPublishedByType($textType, $offset, $nbByPage);
     }
 }

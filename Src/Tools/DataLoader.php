@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Projet5\Tools;
 
-use Projet5\Model\Manager\MagManager;
 use Projet5\Model\ArticleManager;
-use Projet5\View\View;
-use Projet5\Tools\Request;
+use Projet5\Model\Manager\MagManager;
 use Projet5\Tools\NoCsrf;
+use Projet5\Tools\Request;
+use Projet5\View\View;
 
-class DataLoader{
-        
+class DataLoader
+{
     private $magManager;
     private $articleManager;
     private $view;
@@ -26,33 +26,30 @@ class DataLoader{
         $this->noCsrf = new noCsrf();
     }
 
-    public function addData( $manager,  $id,  $method,  $column, $text = null, $template, $method2  )
+    public function addData($manager, $id, $method, $column, $text, $template, $method2): void
     {
         $message = null;
         
-        if($this->request->post($method) !== null &&  !empty($this->request->post($column)))
-        {
-            $this->$manager->$method( (int) $this->request->get($id), (string) $this->request->post($column));
+        if ($this->request->post($method) !== null &&  !empty($this->request->post($column))) {
+            $this->$manager->$method((int) $this->request->get($id), (string) $this->request->post($column));
             $message = $text;
             $data = $this->$manager->$method2((int) $this->request->get($id));
             $token = $this->noCsrf->createToken();
-            $this->view->render('back/' . $template  , 'back/layout', compact('data', 'message', 'token'));
+            $this->view->render('back/' . $template, 'back/layout', compact('data', 'message', 'token'));
             exit();
         }
     }
 
-    public function deleteData( $manager,  $id,  $method,  $column, $text = null, $template, $method2  )
+    public function deleteData($manager, $id, $method, $column, $text, $template, $method2): void
     {
         $message = null;
-        if($this->request->post($method) !== null &&  empty($this->request->post($column)))
-        {
-            $this->$manager->$method( (int) $this->request->get($id));
+        if ($this->request->post($method) !== null &&  empty($this->request->post($column))) {
+            $this->$manager->$method((int) $this->request->get($id));
             $message = $text;
             $data = $this->$manager->$method2((int) $this->request->get($id));
             $token = $this->noCsrf->createToken();
-            $this->view->render('back/' . $template  , 'back/layout', compact('data', 'message', 'token'));
+            $this->view->render('back/' . $template, 'back/layout', compact('data', 'message', 'token'));
             exit();
         }
     }
-
 }

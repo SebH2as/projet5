@@ -35,7 +35,7 @@ final class MagController
                 'magazine' => $magazine,
                 'articles' => $articles,
                 'preview' => 0,
-                'active' => 0,
+                'active' => 1,
                 'previous' => $previous,
                 'next' => $next,
                 ],
@@ -46,8 +46,7 @@ final class MagController
     public function magByNumber(int $numberMag): void
     {
         $magazine = $this->magManager->showByNumber($numberMag);
-        if($magazine)
-        {
+        if ($magazine) {
             $articles = $this->articleManager->showByIdmag($magazine->id_mag);
             
             $next = $this->magManager->showByNumber($magazine->numberMag + 1);
@@ -59,7 +58,7 @@ final class MagController
                     'magazine' => $magazine,
                     'articles' => $articles,
                     'preview' => 0,
-                    'active' => 0,
+                    'active' => 1,
                     'previous' => $previous,
                     'next' => $next,
                     ],
@@ -68,5 +67,21 @@ final class MagController
             exit();
         }
         $this->lastMagazine();
+    }
+
+    public function editorial(int $idMag):void//méthode pour afficher la page de l'éditorial d'un magazine
+    {
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+        
+        $this->view->render(
+            [
+            'template' => 'front/editorial',
+            'data' => [
+                'magazine' => $magazine,
+                'preview' => 0,
+                'active' => 0,
+                ],
+            ],
+        );
     }
 }

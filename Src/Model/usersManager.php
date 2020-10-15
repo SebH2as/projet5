@@ -76,7 +76,7 @@ class UsersManager
         return $req->fetch();
     }
 
-    public function newsletter(int $idUser,int $value):void
+    public function newsletter(int $idUser, int $value):void
     {
         $req = $this->bdd->prepare('UPDATE users SET newsletter = :newvalue WHERE id_user = :idUser ');
         $req->execute([
@@ -84,7 +84,7 @@ class UsersManager
             'idUser' => (int) $idUser]);
     }
 
-    public function modifPass(int $idUser,string $passWordNew):void
+    public function modifPass(int $idUser, string $passWordNew):void
     {
         $req = $this->bdd->prepare('UPDATE users SET p_w = :newPass WHERE id_user = :idUser ');
         $req->execute([
@@ -92,7 +92,7 @@ class UsersManager
             'idUser' => (int) $idUser]);
     }
 
-    public function modifPseudo(int $idUser,string $pseudoNew):void
+    public function modifPseudo(int $idUser, string $pseudoNew):void
     {
         $req = $this->bdd->prepare('UPDATE users SET pseudo = :newpseudo WHERE id_user = :idUser ');
         $req->execute([
@@ -100,7 +100,7 @@ class UsersManager
             'idUser' => (int) $idUser]);
     }
 
-    public function modifEmail(int $idUser,string $emailNew):void
+    public function modifEmail(int $idUser, string $emailNew):void
     {
         $req = $this->bdd->prepare('UPDATE users SET email = :newemail WHERE id_user = :idUser ');
         $req->execute([
@@ -118,7 +118,7 @@ class UsersManager
             'idUser' => (int) $idUser]);
     }*/
 
-    public function getAllUsers(int $offset,int $nbByPage):array
+    public function getAllUsers(int $offset, int $nbByPage):array
     {
         $req = $this->bdd->prepare('SELECT id_user, pseudo, email, role, newsletter, confirmkey, actived, DATE_FORMAT(inscription_date, \'%d/%m/%Y\') AS date 
         FROM users 

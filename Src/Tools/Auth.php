@@ -3,17 +3,17 @@ declare(strict_types=1);
 
 namespace Projet5\Tools;
 
-use Projet5\View\View;
-use Projet5\Model\Manager\MagManager;
 use Projet5\Model\ArticleManager;
+use Projet5\Model\Manager\MagManager;
 use Projet5\Model\UsersManager;
-use Projet5\Tools\Request;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\Files;
+use Projet5\Tools\Request;
 use Projet5\Tools\Session;
+use Projet5\View\View;
 
-class Auth{
-
+class Auth
+{
     private $magManager;
     private $articleManager;
     private $usersManager;
@@ -38,8 +38,7 @@ class Auth{
     public function user(): ?user
     {
         $userId = $this->session->getSessionData('userId') ?? null;
-        if ($userId === null)
-        {
+        if ($userId === null) {
             return null;
         }
         $user = $this->usersManager->getUserById((int) $userId);
@@ -49,12 +48,10 @@ class Auth{
     public function login(string $pseudo, string $password): ?user
     {
         $user = $this->usersManager->getUserByPseudo($pseudo);
-        if ($user === false)
-        {
+        if ($user === false) {
             return null;
         }
-        if(password_verify($password, $user->p_w))
-        {
+        if (password_verify($password, $user->p_w)) {
             $this->session->setSessionData('userId', $user->id_user);
             return $user;
         }
@@ -64,8 +61,7 @@ class Auth{
     public function requireRole(string $role): void
     {
         $user = $this->user();
-        if($user === null || $user->role !== $role)
-        {
+        if ($user === null || $user->role !== $role) {
             header('location: index.php');
             exit();
         }

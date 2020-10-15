@@ -18,7 +18,7 @@
             </div>
             <div id="logo" ><?= $separator ?><span>KILOMETRAGE</span></div>
             <div id="navLinks">
-                <a class="navBottomLink fa fa-home" ></a>
+                <a class="navBottomLink" >MAGAZINE</a>
                 <a class="navBottomLink" >CHRONIQUES</a>
                 <a class="navBottomLink" >ESSAIS</a>
                 <a class="navBottomLink" >FICTIONS</a>
@@ -40,10 +40,10 @@
             </div>
             <div id="logo">{% block separator %}{% endblock %}<span>KILOMETRAGE</span></div>
             <div id="navLinks">
-                <a class="navBottomLink fa fa-home<?php if ($active === 1) echo ' active' ?>" href="index.php"></a>
-                <a class="navBottomLink<?php if ($active === 2) echo ' active' ?>" href="index.php?action=chroniques&amp;id_mag=<?= $magazine->id_mag ?>">CHRONIQUES</a>
-                <a class="navBottomLink<?php if ($active === 3) echo ' active' ?>" href="index.php?action=essais&amp;id_mag=<?= $magazine->id_mag ?>">ESSAIS</a>
-                <a class="navBottomLink<?php if ($active === 4) echo ' active' ?>" href="index.php?action=fictions&amp;id_mag=<?= $magazine->id_mag ?>">FICTIONS</a>
+                <a class="navBottomLink{% if active == 1 %} active {% endif %}" href="index.php">MAGAZINES</a>
+                <a class="navBottomLink{% if active == 2 %} active {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2">CHRONIQUES</a>
+                <a class="navBottomLink{% if active == 3 %} active {% endif %}" href="index.php?action=essais&amp;id_mag=<?= $magazine->id_mag ?>">ESSAIS</a>
+                <a class="navBottomLink{% if active == 4 %} active {% endif %}" href="index.php?action=fictions&amp;id_mag=<?= $magazine->id_mag ?>">FICTIONS</a>
                 <!--<a class="navBottomLink fa fa-search"></a>-->
             </div>           
         {% endif %}

@@ -18,15 +18,19 @@
         
         <header>
             <span id="number" class="lefters">Magazine numéro {{magazine.numberMag}}</span>
+
             {% if magazine.publication %}
             <span id="publication" class="righters">{{magazine.publication}}</span>
             {% endif %}
+
             {% if magazine.title01 %}
             <span id="title01" class="lefters">{{magazine.title01}}</span>
             {% endif %}
+
             {% if magazine.title02 %}
             <span id="title02" class="lefters">{{magazine.title02}}</span>
             {% endif %}
+
             <img id="headerImg" class="downers" src="images/{{magazine.cover}}" alt="<{{magazine.cover}}">
             
             <a class="fa fa-arrow-circle-left
@@ -44,10 +48,13 @@
         <section id="coverPart01" class="topers">
             {% for article in articles %}
                 {% if article.main == 1 %}
-                    <a id="mainArticle" href="index.php?action=article&amp;value={{article.id_text}}">
+                   
+                    <a id="mainArticle" href="index.php?action=article&amp;value={{article.id_text}}&amp;value2={{magazine.numberMag}}">
+                        
                         <div class="imgContainer">
                             <img id="mainImg" src="images/{{article.articleCover}}" >
                         </div>
+
                         <h3>{{article.textType}}</h3>
                         
                         <div class="teaser">
@@ -55,48 +62,61 @@
                             <span>{{article.teaser}}</span>
                         </div>
                     </a>
+
                 {% endif %}
             {% endfor %}
 
             {% if magazine.editorial %}
-                <a id="edito" href="index.php?action=editorial&amp;idMag=<?= $magazine->id_mag ?>">
-                    
+                
+                <a id="edito" href="index.php?action=editorial&amp;value={{magazine.id_mag}}">
                     <h2><i class="fa fa-bullhorn"></i> Editorial</h2>
                     <hr>
                     <span>
                     {{ extr(magazine.editorial ) }}
                     </span>
                 </a>
+
             {% endif %}
         </section>
 
         <section id="coverPart02">
             {% for article in articles %}
-                {% if article.main == 0 %}   
-                    <a class="articleCover topers" href="index.php?action=article&amp;idText=<?= $article->id_text ?>&amp;idMag=<?= $article->id_mag ?>">
+                {% if article.main == 0 %}
+
+                    <a class="articleCover topers" href="index.php?action=article&amp;value={{article.id_text}}&amp;value2={{magazine.numberMag}}"">
+                        
                         <div class="imgContainer">
                             <img class="articleImg" src="images/{{article.articleCover}}" >
                         </div>
+
                         <h3>{{article.textType}}</h3>
+
                         <div class="teaser">
                             <h2>{{article.title}}</h2>
                             <span>{{article.teaser}}</span>
                         </div>
+
                     </a>
                 {% endif %}
             {% endfor %}
 
             <div id="readersLettersAndSocial" class="topers">
+
                 <a id="readersLetters" href="index.php?action=readersLetters&amp;idMag=<?= $magazine->id_mag ?>">
+                    
                     <h2><i class="fa fa-envelope"></i> Courrier des lecteurs</h2>
                     <hr>
                     <span>Vous nous écrivez, nous vous répondons. N'hésitez pas à nous rejoindre en créant un compte sur le site. Vous pourrez alors entamer le dialogue!</span>
+                
                 </a>
                 <div id="socialMedia">
+
                     <a class="fa fa-facebook-square" href=""></a>
                     <a class="fa fa-twitter-square" href=""></a>
                     <a class="fa fa-youtube-square" href=""></a>
+
                 </div>
+
             </div>
         </section>
 

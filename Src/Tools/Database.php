@@ -5,8 +5,8 @@ namespace Projet5\Tools;
 
 use \PDO ;
 
-class Database {
-
+class Database
+{
     private static $instance = null;
     
     private $dbName = 'magbdd';
@@ -25,9 +25,8 @@ class Database {
 
     public static function getInstance()
     {
-        if (self::$instance === null)
-        {
-        self::$instance = new Database();
+        if (self::$instance === null) {
+            self::$instance = new Database();
         }
     
         return self::$instance;
@@ -37,5 +36,4 @@ class Database {
     {
         return $this->bdd;
     }
-
 }

@@ -170,14 +170,14 @@ class MagManager
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function getAllNumberMag():array // requete pour recuperer les numéros de tous les magazines 
+    public function getAllNumberMag():array // requete pour recuperer les numéros de tous les magazines
     {
         $req= $req = $this->bdd->prepare('SELECT numberMag FROM mag');
         $req->execute();
         return $req->fetchALL(PDO::FETCH_OBJ);
     }
 
-    public function getLastPublishedMag():array // requete pour recuperer le dernier mag publié 
+    public function getLastPublishedMag():array // requete pour recuperer le dernier mag publié
     {
         $req = $this->bdd->prepare('SELECT id_mag
         FROM mag
@@ -235,5 +235,4 @@ class MagManager
         return $req->execute([
             'sameid' => $idMag]);
     }
-    
 }

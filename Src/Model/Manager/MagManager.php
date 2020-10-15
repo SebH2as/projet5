@@ -21,7 +21,7 @@ final class MagManager
         return $this->magRepo->findByLastAndPub();
     }
 
-    public function showByIdAndPub(int $idMag)
+    public function showByIdAndPub(int $idMag): ?Mag
     {
         return $this->magRepo->findByIdAndPub($idMag);
     }
@@ -30,5 +30,4 @@ final class MagManager
     {
         return $this->magRepo->findByNumber($numberMag);
     }
-
 }
