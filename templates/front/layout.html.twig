@@ -34,10 +34,10 @@
                 <a class="navTopLink" href="index.php?action=quiSommesNous&amp;value={{magazine.id_mag}}">Qui sommes nous?</a>
                 
                 {% if user %}
-                    <a class="navTopLink" href="index.php?action=monCompte&amp;id_mag=<?= $magazine->id_mag ?>">Mon compte ( <?=$user->pseudo?> )</a>
+                    <a class="navTopLink" href="index.php?action=monCompte&amp;value={{magazine.id_mag}}">Mon compte ( {{user.pseudo}} )</a>
                 {% else %}
-                    <a class="navTopLink" href="index.php?action=nousRejoindre&amp;id_mag=<?= $magazine->id_mag ?>">Nous rejoindre</a>
-                    <a class="navTopLink" href="index.php?action=connectionPage&amp;id_mag=<?= $magazine->id_mag ?>">Se connecter</a>
+                    <a class="navTopLink" href="index.php?action=nousRejoindre&amp;value={{magazine.id_mag}}">Nous rejoindre</a>
+                    <a class="navTopLink" href="index.php?action=connectionPage&amp;value={{magazine.id_mag}}">Se connecter</a>
                  {% endif %}
 
             </div>

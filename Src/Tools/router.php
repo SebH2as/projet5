@@ -5,13 +5,18 @@ namespace Projet5\Tools;
 
 use Projet5\Controller\ArticleController;
 use Projet5\Controller\MagController;
-use Projet5\Controller\UserController;
+use Projet5\Controller\UsersController;
+
 use Projet5\Model\Manager\ArticleManager;
 use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
+use Projet5\Model\Manager\UsersManager;
+
 use Projet5\Model\Repository\ArticleRepository;
 use Projet5\Model\Repository\LettersRepository;
 use Projet5\Model\Repository\MagRepository;
+use Projet5\Model\Repository\UsersRepository;
+
 use Projet5\Tools\Request;
 use Projet5\View\View;
 
@@ -39,7 +44,9 @@ final class Router
         'previewLetters',
         'previewEdito',
         'editorial',
-        'quiSommesNous'
+        'quiSommesNous',
+        'nousRejoindre',
+        'connectionPage'
     ];
 
     private $actionArticle =
@@ -62,8 +69,6 @@ final class Router
     private $actionUser =
     [
         'monCompte',
-        'nousRejoindre',
-        'connectionPage',
         'addUser',
         'activation',
         'connection',
@@ -133,8 +138,17 @@ final class Router
             $key = array_search($this->request->get('action'), $this->actionUser, true);
             $methode = $this->actionUser[$key];
             if ($methode === $this->request->get('action')) {
-                $controller = new userController();
-                $controller->$methode();
+                $usersRepo = new UsersRepository($this->database);
+                $usersManager = new UsersManager($usersRepo);
+                
+                $magRepo = new MagRepository($this->database);
+                $magManager = new MagManager($magRepo);
+                
+                $lettersRepo = new LettersRepository($this->database);
+                $lettersManager = new LettersManager($lettersRepo);
+                
+                $controller = new UsersController($usersManager, $magManager, $lettersManager, $this->view);
+                $controller->$methode((int) $this->request->get('value'));
                 exit();
             }
         }

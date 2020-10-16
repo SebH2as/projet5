@@ -24,12 +24,12 @@ class Session
         }
     }
 
-    public function setSessionData(string $session_name, ?string $data):void
+    public function setSessionData(string $session_name, $data):void
     {
         $_SESSION[$session_name] = $data;
     }
     
-    public function getSessionData(string $session_name): ?string
+    public function getSessionData(string $session_name)
     {
         if (isset($_SESSION[$session_name])) {
             return $_SESSION[$session_name];

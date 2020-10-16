@@ -5,7 +5,7 @@ namespace Projet5\Model;
 
 use \PDO ;
 use Projet5\Tools\Database;
-use Projet5\Tools\User;
+use Projet5\Tools\Model\User;
 
 class UsersManager
 {

@@ -26,6 +26,26 @@ final class LettersRepository
         return $req->fetch();
     }
 
+    public function findNumberUnpubById(int $idUser): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT COUNT(*) 
+        FROM letters 
+        WHERE id_user = :idUser AND published = 0');
+        $req->execute([
+            'idUser' => (int) $idUser]);
+        return $req->fetch();
+    }
+
+    public function findNumberPubById(int $idUser): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT COUNT(*) 
+        FROM letters 
+        WHERE id_user = :idUser AND published = 1');
+        $req->execute([
+            'idUser' => (int) $idUser]);
+        return $req->fetch();
+    }
+
     public function findByRelatedMag(int $offset, int $nbByPage, int $numberMag): ?array
     {
         $req = $this->database->getConnection()->prepare('SELECT *

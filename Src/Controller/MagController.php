@@ -6,6 +6,8 @@ namespace Projet5\Controller;
 use Projet5\Model\Manager\ArticleManager;
 use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
+use Projet5\Tools\Auth;
+use Projet5\Tools\NoCsrf;
 use Projet5\Tools\Request;
 use Projet5\View\View;
 
@@ -16,6 +18,8 @@ final class MagController
     private LettersManager $lettersManager;
     private View $view;
     private Request $request;
+    private NoCsrf $noCsrf;
+    private Auth $auth;
 
     public function __construct(MagManager $magManager, ArticleManager $articleManager, LettersManager $lettersManager, View $view)
     {
@@ -23,11 +27,15 @@ final class MagController
         $this->articleManager = $articleManager;
         $this->lettersManager = $lettersManager;
         $this->view = $view;
-        $this->request = new request();
+        $this->request = new Request();
+        $this->noCsrf = new noCsrf();
+        $this->auth = new auth();
     }
 
+    //index.php?
     public function lastMagazine(): void//méthode pour afficher la page d'accueil et récupérer le dernier magasine publié avec ses articles
     {
+        $user = $this->auth->user();
         $magazine = $this->magManager->showLastAndPub();
         $articles = $this->articleManager->showByIdmag($magazine->id_mag);
 
@@ -38,6 +46,7 @@ final class MagController
             [
             'template' => 'front/magazine',
             'data' => [
+                'user' => $user,
                 'magazine' => $magazine,
                 'articles' => $articles,
                 'preview' => 0,
@@ -49,8 +58,11 @@ final class MagController
         );
     }
 
+
+    //index.php?action=magByNumber&value=2
     public function magByNumber(int $numberMag): void
     {
+        $user = $this->auth->user();
         $magazine = $this->magManager->showByNumber($numberMag);
         if ($magazine) {
             $articles = $this->articleManager->showByIdmag($magazine->id_mag);
@@ -61,6 +73,7 @@ final class MagController
                 [
                 'template' => 'front/magazine',
                 'data' => [
+                    'user' => $user,
                     'magazine' => $magazine,
                     'articles' => $articles,
                     'preview' => 0,
@@ -72,17 +85,21 @@ final class MagController
             );
             exit();
         }
-        $this->lastMagazine();
+        header('location: index.php');
+        exit();
     }
 
+    //index.php?action=editorial&value=110
     public function editorial(int $idMag):void//méthode pour afficher la page de l'éditorial d'un magazine
     {
+        $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
         
         $this->view->render(
             [
             'template' => 'front/editorial',
             'data' => [
+                'user' => $user,
                 'magazine' => $magazine,
                 'preview' => 0,
                 'active' => 0,
@@ -91,8 +108,10 @@ final class MagController
         );
     }
 
+    //index.php?action=courrier&value=110
     public function courrier(int $idMag):void//méthode pour afficher la page courrier d'un magazine
     {
+        $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
         
         $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->numberMag);
@@ -115,6 +134,7 @@ final class MagController
             [
             'template' => 'front/courrier',
             'data' => [
+                'user' => $user,
                 'magazine' => $magazine,
                 'letters' => $letters,
                 'preview' => 0,
@@ -125,17 +145,62 @@ final class MagController
         );
     }
 
+    //index.php?action=quiSommesNous&value=110
     public function quiSommesNous(int $idMag):void//méthode pour afficher la page Qui sommes nous?
     {
+        $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
 
         $this->view->render(
             [
             'template' => 'front/quiSommesNous',
             'data' => [
+                'user' => $user,
                 'magazine' => $magazine,
                 'preview' => 0,
                 'active' => 0,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=nousRejoindre&value=122
+    public function nousRejoindre(int $idMag):void//méthode pour afficher la page nous rejoindre
+    {
+        $error = null;
+        $token = $this->noCsrf->createToken();
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+
+        $this->view->render(
+            [
+            'template' => 'front/nousRejoindre',
+            'data' => [
+                'magazine' => $magazine,
+                'error' => $error,
+                'preview' => 0,
+                'active' => 0,
+                'token' => $token,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=connectionPage&value=122
+    public function connectionPage(int $idMag):void //méthode pour afficher la page de connection
+    {
+        $error = null;
+        $token = $this->noCsrf->createToken();
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+        
+        $this->view->render(
+            [
+            'template' => 'front/connectionPage',
+            'data' => [
+                'magazine' => $magazine,
+                'error' => $error,
+                'preview' => 0,
+                'active' => 0,
+                'token' => $token,
                 ],
             ],
         );

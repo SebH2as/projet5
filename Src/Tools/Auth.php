@@ -3,36 +3,28 @@ declare(strict_types=1);
 
 namespace Projet5\Tools;
 
-use Projet5\Model\ArticleManager;
-use Projet5\Model\Manager\MagManager;
-use Projet5\Model\UsersManager;
-use Projet5\Tools\DataLoader;
-use Projet5\Tools\Files;
+use Projet5\Model\Entity\User;
+use Projet5\Model\Manager\UsersManager;
+use Projet5\Model\Repository\UsersRepository;
+use Projet5\Tools\Database;
 use Projet5\Tools\Request;
 use Projet5\Tools\Session;
-use Projet5\View\View;
 
 class Auth
 {
-    private $magManager;
-    private $articleManager;
-    private $usersManager;
-    private $view;
-    private $request;
-    private $dataLoader;
-    private $files;
-    private $session;
+    private UsersManager $usersManager;
+    private UsersRepository $usersRepository;
+    private Request $request;
+    private Session $session;
+    private Database $database;
 
     public function __construct()
     {
-        $this->view = new View();
-        $this->magManager = new magManager();
-        $this->articleManager = new articleManager();
-        $this->usersManager = new usersManager();
-        $this->request = new request();
-        $this->dataLoader = new dataLoader();
-        $this->files = new files();
-        $this->session = new session();
+        $this->database = new Database();
+        $this->usersRepository = new UsersRepository($this->database);
+        $this->usersManager = new UsersManager($this->usersRepository);
+        $this->request = new Request();
+        $this->session = new Session();
     }
 
     public function user(): ?user

@@ -30,9 +30,9 @@ final class ArticleRepository
         $req->execute([
             'idText' => (int) $idText]);
         $req->setFetchMode(\PDO::FETCH_CLASS, Article::class);
-        return $data = $req->fetch();
+        $data = $req->fetch();
 
-        return $data === null ? $data : new Article($data['id_text'], $data['id_mag'], $data['textType'], $data['title'], $data['author'], $data['content'], $data['teaser'], $data['articleCover'], $data['date_creation'], $data['main']);
+        return $data  ? $data : null;
     }
 
     public function findNumberPubByType(string $textType): ?array

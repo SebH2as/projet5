@@ -21,6 +21,16 @@ final class LettersManager
         return $this->lettersRepo->findNumberByRelatedMag($numberMag);
     }
 
+    public function countUnpubById(int $idUser): ?array
+    {
+        return $this->lettersRepo->findNumberUnpubById($idUser);
+    }
+
+    public function countPubById(int $idUser): ?array
+    {
+        return $this->lettersRepo->findNumberPubById($idUser);
+    }
+
     public function showByRelatedMag(int $offset, int $nbByPage, int $numberMag): ?array
     {
         return $this->lettersRepo->findByRelatedMag($offset, $nbByPage, $numberMag);

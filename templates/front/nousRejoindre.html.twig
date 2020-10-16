@@ -1,22 +1,32 @@
-<?php $title = 'Nous rejoindre'; ?>
-<?php $separator = '<div id="separator01"></div>'; ?>
-<?php $script = '<script src="js/navbar.js"></script>
-                <script src="js/infoBox.js"></script>
-                <script src="js/formSave.js"></script>
-                <script src="js/mainJoin.js"></script>'; ?>
-<?php $preview = 0 ; ?>
-<?php $active = 0 ; ?>
+{% extends "/front/layout.html.twig" %}
+
+{% block title %}
+    Nous rejoindre
+{% endblock %}
+
+{% block separator %}
+    <div id="separator01"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/navbar.js"></script>
+{% endblock %}
+
+{% block content %}
 
         <div id="sectionImg">
-            <img class="rubricImg" src="images/<?= $magazine[0]->cover ?>" alt="graff">
+            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
         </div>
+
         <section id="article">
+
             <div id="titleArticle">
                 <h2></h2>
                 <h1>NOUS REJOINDRE</h1>
                 <h2></h2>
                 <div id="separator02"></div>
             </div>
+
             <div id="infos">
                 <span>
                     Pour devenir un membre de la communauté Kilométrage rien de plus simple: il vous
@@ -24,10 +34,14 @@
                     lecteurs, pour être éventuellement publié dans le numéro suivant, et vous recevrez, si vous le désirez, notre newsletter.
                 </span>
             </div>
-            <span id="error" class="<?php if ($error === null) echo 'none' ?>"><?= $error ?></span>
+
+            <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
+
             <h2>Formulaire d'inscription</h2>
-            <form id="formSignIn" action="index.php?action=addUser&amp;idMag=<?= $magazine[0]->idMag?> " method="post">
-                <input type="hidden" name="csrf" value="<?php echo $token ?>">
+            
+            <form id="formSignIn" action="index.php?action=addUser&amp;value={{magazine.id_mag}} " method="post">
+                
+                <input type="hidden" name="csrf" value="{{token}}">
                 
                 <label for="pseudo">Choisissez un pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Votre pseudo doit avoir au moins 3 caractères et pas plus de 15. Pas de caractère spéciaux.</span></div></i></label>
                 <input type="text" id="pseudo" name="pseudo" maxlength="15" size="15">
@@ -45,4 +59,7 @@
                 <input type="password" id="password2" name="password2" maxlength="50" size="50">  
                 
                 <input type="submit" id="saver" name="saver" value="Créer votre compte">
+            </form>
+
         </section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "/front/layout.html.twig" %}
+
+{% block title %}
+    Nous rejoindre
+{% endblock %}
+
+{% block separator %}
+    <div id="separator01"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/navbar.js"></script>
+{% endblock %}
+
+{% block content %}
+
+        <div id="sectionImg">
+            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+        </div>
+
+        <section id="article">
+
+            <div id="titleArticle">
+                <h2></h2>
+                <h1>SE CONNECTER</h1>
+                <h2></h2>
+                <div id="separator02"></div>
+            </div>
+
+            <div id="infos">
+                <span>
+                    Pour vous connecter à votre compte personnel, veuillez renseigner le formulaire ci-dessous.
+                </span>
+            </div>
+
+            <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
+
+            <form id="formSignIn" action="index.php?action=connection&amp;value={{magazine.id_mag}}" method="post">
+                
+                <input type="hidden" name="csrf" value="{{token}}">
+                
+                <label for="pseudo">Pseudo:</label>
+                <input type="text" id="pseudo" name="pseudo" maxlength="70" size="70">
+
+                <label for="password">Mdp:</label>
+                <input type="password" id="password" name="password" maxlength="70" size="70">  
+
+                <input type="submit" id="saver" value="Se connecter">
+
+            </form>
+        </section>
+{% endblock %}
