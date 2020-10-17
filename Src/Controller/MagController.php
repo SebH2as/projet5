@@ -59,11 +59,11 @@ final class MagController
     }
 
 
-    //index.php?action=magByNumber&value=2
-    public function magByNumber(int $numberMag): void
+    //index.php?action=magByNumber&idMag=110&numberMag=1
+    public function magByNumber(int $idMag): void
     {
         $user = $this->auth->user();
-        $magazine = $this->magManager->showByNumber($numberMag);
+        $magazine = $this->magManager->showByNumber((int) $this->request->get('numberMag'));
         if ($magazine) {
             $articles = $this->articleManager->showByIdmag($magazine->id_mag);
             
@@ -89,7 +89,7 @@ final class MagController
         exit();
     }
 
-    //index.php?action=editorial&value=110
+    //index.php?action=editorial&idMag=110
     public function editorial(int $idMag):void//méthode pour afficher la page de l'éditorial d'un magazine
     {
         $user = $this->auth->user();
@@ -108,7 +108,7 @@ final class MagController
         );
     }
 
-    //index.php?action=courrier&value=110
+    //index.php?action=courrier&idMag=110
     public function courrier(int $idMag):void//méthode pour afficher la page courrier d'un magazine
     {
         $user = $this->auth->user();
@@ -145,7 +145,7 @@ final class MagController
         );
     }
 
-    //index.php?action=quiSommesNous&value=110
+    //index.php?action=quiSommesNous&idMag=110
     public function quiSommesNous(int $idMag):void//méthode pour afficher la page Qui sommes nous?
     {
         $user = $this->auth->user();
@@ -164,7 +164,7 @@ final class MagController
         );
     }
 
-    //index.php?action=nousRejoindre&value=122
+    //index.php?action=nousRejoindre&idMag=122
     public function nousRejoindre(int $idMag):void//méthode pour afficher la page nous rejoindre
     {
         $error = null;
@@ -185,10 +185,14 @@ final class MagController
         );
     }
 
-    //index.php?action=connectionPage&value=122
+    //index.php?action=connectionPage&idMag=122
     public function connectionPage(int $idMag):void //méthode pour afficher la page de connection
     {
         $error = null;
+        if ($this->request->get('error')) {
+            $error = 'Pseudo ou mot de passe incorrect';
+        }
+        
         $token = $this->noCsrf->createToken();
         $magazine = $this->magManager->showByIdAndPub($idMag);
         

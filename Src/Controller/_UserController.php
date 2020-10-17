@@ -102,9 +102,12 @@ class UserController
             && (string) $this->request->post('password') !== null &&  !empty($this->request->post('password'))
             && (string) $this->request->post('password2') !== null &&  !empty($this->request->post('password2'))) {
                 $error = 'Le pseudo choisi n\'est pas valide';
+                
                 if (mb_strlen($this->request->post('pseudo')) > 3 && mb_strlen($this->request->post('pseudo')) < 15) {
                     $error = 'Le pseudo choisi est déjà utilisé';
+
                     $pseudoThere = $this->usersManager->pseudoUser($this->request->post('pseudo'));
+
                     if (($pseudoThere[0]) < 1) {
                         $error = 'L\'email choisi n\'est pas valide';
                         if (filter_var($this->request->post('mail'), FILTER_VALIDATE_EMAIL)) {

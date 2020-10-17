@@ -1,7 +1,7 @@
 {% extends "/front/layout.html.twig" %}
 
 {% block title %}
-    Les {{textType}}s
+    Les {{rubrique}}s
 {% endblock %}
 
 {% block separator %}
@@ -18,17 +18,17 @@
     </div>
         <section id="listRubric">
              
-            <div id="titleRubric"><h1>LES {{textType |upper }}S</h1><div id="separator02"></div></div>
+            <div id="titleRubric"><h1>LES {{rubrique |upper }}S</h1><div id="separator02"></div></div>
 
             <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
-                <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage - 1}}"></a>
+                <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=articles&amp;idMag={{magazine.id_mag}}&amp;type={{textType}}&amp;currentpage={{currentpage - 1}}"></a>
                 <span>Page {{currentpage}}/{{totalpages}}</span> 
-                <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=articles&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage + 1}}"></a>
+                <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=articles&amp;idMag={{magazine.id_mag}}&amp;type={{textType}}&amp;currentpage={{currentpage + 1}}"></a>
             </div>
 
             {% for article in articles %}
             
-                <a class="containerRubric" href="index.php?action=article&amp;value={{article.id_text}}&amp;value2={{article.numberMag}}">
+                <a class="containerRubric" href="index.php?action=article&amp;idMag={{article.idMag}}&amp;idText={{article.id_text}}">
                     <div id="chronicImgs" class="containImg">
                         <img class="thumbImg" src="images/{{article.articleCover}}" alt="{{article.articleCover}}">
                     </div>

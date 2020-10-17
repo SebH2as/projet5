@@ -13,6 +13,6 @@ final class User
     public ?string $inscription_date;
     public int $confirmkey;
     public int $actived;
-    public ?string $newsletter;
+    public ?int $newsletter;
     public int $role;
 }

@@ -74,11 +74,8 @@ final class Router
         'connection',
         'userDeco',
         'nousEcrire',
-        'modifInfosUser',
-        'modifPassUser',
-        'modifEmailUser',
-        'modifPseudoUser',
-        'modifPass',
+        'modifUser',
+        'modifPassword',
         'modifEmail',
         'modifPseudo',
         'postLetter',
@@ -119,7 +116,7 @@ final class Router
                 $lettersManager = new LettersManager($lettersRepo);
 
                 $controller = new magController($magManager, $articleManager, $lettersManager, $this->view);
-                $controller->$methode((int) $this->request->get('value'));
+                $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
             $key = array_search($this->request->get('action'), $this->actionArticle, true);
@@ -132,7 +129,7 @@ final class Router
                 $articleManager = new ArticleManager($articleRepo);
 
                 $controller = new ArticleController($magManager, $articleManager, $this->view);
-                $controller->$methode((int) $this->request->get('value'), (int) $this->request->get('value2'));
+                $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
             $key = array_search($this->request->get('action'), $this->actionUser, true);
@@ -148,7 +145,7 @@ final class Router
                 $lettersManager = new LettersManager($lettersRepo);
                 
                 $controller = new UsersController($usersManager, $magManager, $lettersManager, $this->view);
-                $controller->$methode((int) $this->request->get('value'));
+                $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
         }

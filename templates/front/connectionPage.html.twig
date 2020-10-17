@@ -35,7 +35,7 @@
 
             <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
 
-            <form id="formSignIn" action="index.php?action=connection&amp;value={{magazine.id_mag}}" method="post">
+            <form id="formSignIn" action="index.php?action=connection&amp;idMag={{magazine.id_mag}}" method="post">
                 
                 <input type="hidden" name="csrf" value="{{token}}">
                 

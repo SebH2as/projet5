@@ -34,12 +34,12 @@
             <img id="headerImg" class="downers" src="images/{{magazine.cover}}" alt="<{{magazine.cover}}">
             
             <a class="fa fa-arrow-circle-left
-            {% if not previous.numberMag  %} hidden {% endif %}" href="index.php?action=magByNumber&amp;value={{magazine.numberMag - 1}}">
+            {% if not previous.numberMag  %} hidden {% endif %}" href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag - 1}}">
             <div class="infoBox hidden"><span>Magazine précédent</span></div>
             </a>
             
             <a class="fa fa-arrow-circle-right
-            {% if not next.numberMag  %} hidden {% endif %}" href="index.php?action=magByNumber&amp;value={{magazine.numberMag + 1}}">
+            {% if not next.numberMag  %} hidden {% endif %}" href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag + 1}}">
             <div class="infoBox hidden"><span>Magazine suivant</span></div>
             </a>
 
@@ -49,7 +49,7 @@
             {% for article in articles %}
                 {% if article.main == 1 %}
                    
-                    <a id="mainArticle" href="index.php?action=article&amp;value={{article.id_text}}&amp;value2={{magazine.numberMag}}">
+                    <a id="mainArticle" href="index.php?action=article&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">
                         
                         <div class="imgContainer">
                             <img id="mainImg" src="images/{{article.articleCover}}" >
@@ -68,7 +68,7 @@
 
             {% if magazine.editorial %}
                 
-                <a id="edito" href="index.php?action=editorial&amp;value={{magazine.id_mag}}">
+                <a id="edito" href="index.php?action=editorial&amp;idMag={{magazine.id_mag}}">
                     <h2><i class="fa fa-bullhorn"></i> Editorial</h2>
                     <hr>
                     <span>
@@ -83,7 +83,7 @@
             {% for article in articles %}
                 {% if article.main == 0 %}
 
-                    <a class="articleCover topers" href="index.php?action=article&amp;value={{article.id_text}}&amp;value2={{magazine.numberMag}}">
+                    <a class="articleCover topers" href="index.php?action=article&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">
                         
                         <div class="imgContainer">
                             <img class="articleImg" src="images/{{article.articleCover}}" >
@@ -102,7 +102,7 @@
 
             <div id="readersLettersAndSocial" class="topers">
 
-                <a id="readersLetters" href="index.php?action=courrier&amp;value={{magazine.id_mag}}">
+                <a id="readersLetters" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}">
                     
                     <h2><i class="fa fa-envelope"></i> Courrier des lecteurs</h2>
                     <hr>

@@ -40,7 +40,7 @@ class Auth
     public function login(string $pseudo, string $password): ?user
     {
         $user = $this->usersManager->getUserByPseudo($pseudo);
-        if ($user === false) {
+        if ($user === null) {
             return null;
         }
         if (password_verify($password, $user->p_w)) {

@@ -26,12 +26,12 @@ final class ArticleController
         $this->auth = new auth();
     }
 
-    //index.php?action=article&value=148&value2=3
-    public function article(int $idText, int $idMag):void//méthode pour afficher la page d'un article
+    //index.php?action=article&idMag=148&idText=3
+    public function article(int $idMag):void//méthode pour afficher la page d'un article
     {
         $user = $this->auth->user();
-        $article = $this->articleManager->ShowById($idText);
-        $magazine = $this->magManager->showByNumber($idMag);
+        $article = $this->articleManager->showById((int) $this->request->get('idText'));
+        $magazine = $this->magManager->showByIdAndPub($idMag);
         if ($article) {
             $this->view->render(
                 [
@@ -48,14 +48,16 @@ final class ArticleController
         }
     }
 
-    //index.php?action=articles&value=122&value2=2
-    public function articles(int $idMag, int $textType):void//méthode pour afficher la page récapitulatrice de toutes les chroniques publiées
+    //index.php?action=articles&idMag=122&type=2
+    public function articles(int $idMag):void//méthode pour afficher la page récapitulatrice de toutes les chroniques publiées
     {
         $type = ['',
                 '',
                 'Chronique',
                 'Essai',
                 'Fiction'];
+
+        $textType = (int) $this->request->get('type');
         
         $totalArticles = $this->articleManager->countPublishedByType($type[$textType]);
         $nbByPage = 6;
@@ -85,7 +87,8 @@ final class ArticleController
                 'active' => $textType,
                 'currentpage' => $currentpage,
                 'totalpages' => $totalpages,
-                'textType' => $type[$textType],
+                'textType' => $textType,
+                'rubrique' => $type[$textType]
                 ],
             ],
         );

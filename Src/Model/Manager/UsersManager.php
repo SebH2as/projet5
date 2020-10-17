@@ -25,4 +25,14 @@ final class UsersManager
     {
         return $this->usersRepo->findUserById($userId);
     }
+
+    public function getAboNewsletter(int $idUser, int $value)
+    {
+        return $this->usersRepo->setAboById($idUser, $value);
+    }
+
+    public function abortAboNewsletter(int $idUser, int $value)
+    {
+        return $this->usersRepo->unsetAboById($idUser, $value);
+    }
 }

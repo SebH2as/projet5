@@ -1,7 +1,7 @@
 {% extends "/front/layout.html.twig" %}
 
 {% block title %}
-    Nous rejoindre
+    Mon compte ({{user.pseudo}})
 {% endblock %}
 
 {% block separator %}
@@ -62,14 +62,14 @@
 
                 </div>
                 <div id="blockLinks">
-                    <a class="countLinks" href="index.php?action=modifPseudoUser&amp;idMag=<?= $magazine[0]->idMag ?>">Modifier mon pseudo</a>
-                    <a class="countLinks" href="index.php?action=modifPassUser&amp;idMag=<?= $magazine[0]->idMag ?>">Modifier mon mot de passe</a>
-                    <a class="countLinks" href="index.php?action=modifEmailUser&amp;idMag=<?= $magazine[0]->idMag ?>">Modifier mon email</a>
-                    <a class="countLinks" href="index.php?action=nousEcrire&amp;idMag=<?= $magazine[0]->idMag ?>">Nous écrire un courrier</a>
+                    <a class="countLinks" href="index.php?action=modifUser&amp;idMag={{magazine.id_mag}}&amp;userData=Pseudo">Modifier mon pseudo</a>
+                    <a class="countLinks" href="index.php?action=modifUser&amp;idMag={{magazine.id_mag}}&amp;userData=Mot de passe">Modifier mon mot de passe</a>
+                    <a class="countLinks" href="index.php?action=modifUser&amp;idMag={{magazine.id_mag}}&amp;userData=Email">Modifier mon email</a>
+                    <a class="countLinks" href="index.php?action=nousEcrire&amp;idMag={{magazine.id_mag}}">Nous écrire un courrier</a>
                     {% if user.newsletter == 0 %} 
-                        <a class="countLinks" href="index.php?action=newsLetterAbo&amp;idMag=<?= $magazine[0]->idMag ?>&amp;message=2">S'abonner à notre newsletter</a>
+                        <a class="countLinks" href="index.php?action=newsLetterAbo&amp;idMag={{magazine.id_mag}}&amp;message=2">S'abonner à notre newsletter</a>
                     {% else %}
-                        <a class="countLinks" href="index.php?action=newsLetterAbo&amp;idMag=<?= $magazine[0]->idMag ?>&amp;message=3">Se désabonner de notre newsletter</a>
+                        <a class="countLinks" href="index.php?action=newsLetterAbo&amp;idMag={{magazine.id_mag}}&amp;message=3">Se désabonner de notre newsletter</a>
                     {% endif %}
                     <a class="countLinks" href="index.php?action=userDeco">Se déconnecter de mon compte</a>
                 </div>
