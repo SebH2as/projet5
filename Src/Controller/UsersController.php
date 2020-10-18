@@ -42,12 +42,12 @@ final class UsersController
                 $user = $this->auth->login($this->request->post('pseudo'), $this->request->post('password'));
 
                 if ($user === null) {
-                    header("Location: index.php?action=connectionPage&value=$idMag&error=true");//rajouter l'erreur
+                    header("Location: index.php?action=connectionPage&idMag=$idMag&error=true");//rajouter l'erreur
                     exit();
                 }
 
                 if ($user->role === 1) {
-                    $this->magController->listMag();//remplacer par un header
+                    header("Location: index.php?action=listMag&idMag=$idMag");
                     exit();
                 }
 
@@ -80,8 +80,8 @@ final class UsersController
             exit();
         }
             
-        if ($user->role === '1') {
-            $this->adminProfil();
+        if ($user->role === 1) {
+            $this->adminProfil();//mettre un header
             exit();
         }
             
@@ -159,7 +159,8 @@ final class UsersController
         );
     }
 
-    public function modifPassword(int $idMag):void
+    
+    public function modifPassword(int $idMag):void//méthode pour modifier son mot de base en tant qu'utilisateur A RETRAVAILLER
     {
         $user = $this->auth->user();
 

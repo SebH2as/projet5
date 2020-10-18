@@ -8,12 +8,12 @@ final class Mag
 {
     public int $id_mag;
     public int $numberMag;
-    public ?string $publication;
-    public ?string $creation_date;
-    public ?string $topics;
-    public ?string $cover;
-    public ?string $title01;
-    public ?string $title02;
-    public ?string $editorial;
-    public ?int $statusPub;
+    public ?string $publication = null;
+    public ?string $creation_date = null;
+    public ?string $topics = null;
+    public ?string $cover = null;
+    public ?string $title01 = null;
+    public ?string $title02 = null;
+    public ?string $editorial = null;
+    public int $statusPub;
 }

@@ -334,6 +334,22 @@ section .columnTitle {
   color: #beab6adf !important;
 }
 
+#oldNumbers #message {
+  font-size: 24px;
+  margin-top: 3vh;
+  background-color: #FBF7B1;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+  border: solid 2px #F8F272;
+  padding: 15px;
+  border-radius: 12px;
+  font-style: italic;
+}
+
+#oldNumbers .none {
+  display: none;
+}
+
 #newMag {
   position: relative;
   width: 60%;

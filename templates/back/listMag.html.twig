@@ -1,0 +1,73 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Liste des magazines
+{% endblock %}
+
+{% block content %}
+
+        <section id="oldNumbers">
+
+            {% if not allMag %}
+
+                <h2>Aucun magazine créé</h2>
+
+                <div class="buttonsPannel"> 
+                    <a class="buttonPannel" id="createMag" href="index.php?action=newMag">Créer un nouveau magazine</a>
+                </div>
+
+            {% else %}
+
+                <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+
+                <h2>Magazines créés</h2>
+
+                <div id="tableContainer">
+
+                    <div id="tableTitles">
+                        <span class="columnTitle">Numéro</span>
+                        <span class="columnTitle">Parution</span>
+                        <span class="columnTitle">Couverture</span>
+                        <span class="columnTitle">Editorial</span>
+                        <span class="columnTitle">Articles</span>
+                        <span class="columnTitle">Une</span>
+                        <span class="columnTitle">Statut</span>
+                    </div>
+
+                    {% for mag in allMag %}
+
+                        <a class="tableRows" href="index.php?action=pannelMag&amp;idMag={{mag.id_mag}}">
+
+                            <span class="tableContent">{{mag.numberMag}}</span>
+
+                            <span class="tableContent">{{mag.publication}}</span>
+
+                            <span class="tableContent">{% if not mag.cover %}non{% else %}oui{% endif %}</span>
+
+                            <span class="tableContent">{% if not mag.editorial %}non rédigé{% else %}rédigé{% endif %}</span>
+
+                            <span class="tableContent">{{mag.articlesNb}}</span>
+
+                            <span class="tableContent">{% if mag.articleMain == 0 %}non{% endif %}{% if mag.articleMain == 1 %}oui{% endif %}</span>
+                                                    
+                            <span class="tableContent">{% if mag.statusPub == 0 %}Sauvegardé{% endif %}{% if mag.statusPub == 1 %}En ligne{% endif %}</span>
+                        </a>
+
+                   {% endfor %}
+
+                </div>
+
+                <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=listMag&amp;currentpage={{currentpage - 1}}"></a>
+                        <span>Page {{currentpage}}/{{totalpages}}</span> 
+                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=listMag&amp;currentpage={{currentpage + 1}}"></a>
+                </div>
+
+                <div class="buttonsPannel"> 
+                    <a class="buttonPannel" id="createMag" href="index.php?action=newMag">Créer un nouveau magazine</a>
+                </div>
+
+            {% endif %}
+        </section>
+
+{% endblock %}

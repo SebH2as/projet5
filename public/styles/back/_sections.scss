@@ -140,6 +140,19 @@ section{
             
             
         }
+        #message{
+            font-size: 24px;
+            margin-top: 3vh;
+            background-color: $secondaryBacgroundColorYellowLight;
+            box-shadow: 0px 2px 10px $blackColor;
+            border: solid 2px $secondaryBacgroundColorYellow;
+            padding: 15px;
+            border-radius: 12px;
+            font-style: italic;
+        }
+        .none{
+            display: none;
+        }
 }
 
 #newMag{

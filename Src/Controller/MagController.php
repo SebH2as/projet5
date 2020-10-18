@@ -209,4 +209,165 @@ final class MagController
             ],
         );
     }
+
+    //index.php?action=listMag
+    public function listMag():void//méthode pour afficher la page d'accueil du back récapitulatrice de tous les magazines créés
+    {
+        $this->auth->requireRole(1);
+
+        $totalMag = $this->magManager->countMag();
+        $nbByPage = 5;
+        $totalpages = (int) ceil($totalMag[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            }
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+        
+        $allMag = $this->magManager->showAllMag((int) $offset, (int) $nbByPage);
+
+        $message = $this->request->get('message');
+        
+        $this->view->render(
+            [
+            'template' => 'back/listMag',
+            'data' => [
+                'allMag' => $allMag,
+                'currentpage' => $currentpage,
+                'totalpages' => $totalpages,
+                'message' => $message,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=newMag
+    public function newMag():void//méthode pour afficher la page de création d'un nouveau magazine
+    {
+        $this->auth->requireRole(1);
+
+        $totalMag = $this->magManager->countMag();
+        $token = $this->noCsrf->createToken();
+
+        $this->view->render(
+            [
+            'template' => 'back/newMag',
+            'data' => [
+                'totalMag' => $totalMag[0],
+                'token' => $token,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=listMag&message=Le%20magazine%20numéro%204%20a%20bien%20été%20créé
+    public function createNewMag():void//méthode pour créer un nouveau numéro de magazine
+    {
+        $this->auth->requireRole(1);
+        
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+            if (!empty($this->request->post('number'))) {
+                $this->magManager->createMag((int) $this->request->post('number'));
+
+                $message = 'Le magazine numéro '. htmlspecialchars($this->request->post('number')) . ' a bien été créé';
+                header("Location: index.php?action=listMag&message=$message");
+                exit();
+            }
+        }
+    }
+
+    //index.php?action=pannelMag&idMag=102
+    public function pannelMag(int $idMag):void//méthode pour afficher la page de gestion d'un magazine
+    {
+        $token = $this->noCsrf->createToken();
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $message = htmlspecialchars($this->request->get('message'));
+        }
+        
+        $magazine = $this->magManager->showById($idMag);
+        $articles = $this->articleManager->showByIdmag($idMag);
+
+        $this->view->render(
+            [
+            'template' => 'back/pannelMag',
+            'data' => [
+                'magazine' => $magazine,
+                'articles' => $articles,
+                'token' => $token,
+                'message' => $message,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=listMag&message=Le%20magazine%20numéro%204%20a%20bien%20été%20supprimmé%20avec%20ses%20articles%20et%20images%20associés
+    public function deleteMag(int $idMag):void//méthode pour supprimmer un magazine avec ses articles et images associés
+    {
+        $this->auth->requireRole(1);
+
+        $magToErase = $this->magManager->showById($idMag);
+        $articlesToErase = $this->articleManager->showByIdmag($idMag);
+
+        if (($magToErase->cover) !== null) {
+            unlink("../public/images/".$dataToErase[0]->cover);
+        }
+        foreach ($articlesToErase as $articleImgToErase) {
+            if (($articleImgToErase->articleCover) !== null) {
+                unlink("../public/images/".$articleImgToErase->articleCover);
+            }
+        }
+        $message = 'Le magazine numéro '. $magToErase->numberMag . ' a bien été supprimmé avec ses articles et images associés';
+        
+        $this->magManager->deleteMagById((int) $this->request->get('idMag'));
+
+        header("Location: index.php?action=listMag&message=$message");
+        exit();
+    }
+
+    //index.php?action=pannelMag&idMag=102&message=le%20magazine%20a%20été%20mis%20en%20ligne
+    public function changeStatusMag(int $idMag): void
+    {
+        $this->auth->requireRole(1);
+
+        $magazine = $this->magManager->showById($idMag);
+
+        if ($magazine->statusPub === 0) {
+            $this->magManager->changeStatusById($idMag, 1);
+            $message = 'le magazine a été mis en ligne';
+        }
+        if ($magazine->statusPub === 1) {
+            $this->magManager->changeStatusById($idMag, 0);
+            $message = 'le magazine a été sauvegardé';
+        }
+
+        header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
+        exit();
+    }
+
+    public function previewMag(int $idMag):void//méthode pour prévisualiser la page d'accueil d'un magazine
+    {
+        $this->auth->requireRole(1);
+
+        $magazine = $this->magManager->showById($idMag);
+        $articles = $this->articleManager->showByIdmag($magazine->id_mag);
+
+        $this->view->render(
+            [
+            'template' => 'back/previewMag',
+            'data' => [
+                'magazine' => $magazine,
+                'articles' => $articles,
+                'preview' => 1,
+                'active' => 1,
+                ],
+            ],
+        );
+    }
 }
