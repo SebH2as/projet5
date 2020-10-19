@@ -60,4 +60,34 @@ final class MagManager
     {
         return $this->magRepo->changeStatusById($idMag, $status);
     }
+
+    public function modifPublication(int $idMag, string $value): bool
+    {
+        return $this->magRepo->modifPublication($idMag, $value);
+    }
+    
+    public function modifTitle01(int $idMag, string $value): bool
+    {
+        return $this->magRepo->modifTitle01($idMag, $value);
+    }
+
+    public function deleteTitle01(int $idMag): bool
+    {
+        return $this->magRepo->deleteTitle01($idMag);
+    }
+
+    public function modifTitle02(int $idMag, string $value): bool
+    {
+        return $this->magRepo->modifTitle02($idMag, $value);
+    }
+
+    public function deleteTitle02(int $idMag): bool
+    {
+        return $this->magRepo->deleteTitle02($idMag);
+    }
+
+    public function modifCover(int $idMag, string $value): bool
+    {
+        return $this->magRepo->modifCover($idMag, $value);
+    }
 }

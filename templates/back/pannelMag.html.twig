@@ -33,7 +33,7 @@
         <div id="contentContainer">
             <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=modifyMag&amp;idMag={{magazine.id_mag}}">
                 
-                <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                <input type="hidden" name="csrf" value="{{token}}">
 
                 <h3><i class="fa fa-arrow-right"></i> Date de parution: <i>{% if not magazine.publication %}à définir{% else %}{{magazine.publication}}{% endif %}</i></h3>
                 <div class="formRow">
@@ -41,7 +41,7 @@
                         <label for="parution">Modifier la date de parution:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
                         <input type="text" id="parution" name="parution" maxlength="30" size="30">    
                     </div>
-                    <input type="submit" class="button01" name="modifPubli" value="Modifier" >
+                    <input type="submit" class="button01" name="modifPublication" value="Modifier" >
                 </div>
                 
                 <h3><i class="fa fa-arrow-right"></i> Image de couverture: <i>{% if not magazine.publication %}à définir{% else %}Définie{% endif %}</i></h3>

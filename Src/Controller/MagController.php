@@ -7,6 +7,7 @@ use Projet5\Model\Manager\ArticleManager;
 use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
 use Projet5\Tools\Auth;
+use Projet5\Tools\DataLoader;
 use Projet5\Tools\NoCsrf;
 use Projet5\Tools\Request;
 use Projet5\View\View;
@@ -20,6 +21,7 @@ final class MagController
     private Request $request;
     private NoCsrf $noCsrf;
     private Auth $auth;
+    private Dataloader $dataLoader;
 
     public function __construct(MagManager $magManager, ArticleManager $articleManager, LettersManager $lettersManager, View $view)
     {
@@ -28,8 +30,9 @@ final class MagController
         $this->lettersManager = $lettersManager;
         $this->view = $view;
         $this->request = new Request();
-        $this->noCsrf = new noCsrf();
-        $this->auth = new auth();
+        $this->noCsrf = new NoCsrf();
+        $this->auth = new Auth();
+        $this->dataLoader = new DataLoader();
     }
 
     //index.php?
@@ -351,6 +354,7 @@ final class MagController
         exit();
     }
 
+    //index.php?action=previewMag&idMag=102
     public function previewMag(int $idMag):void//méthode pour prévisualiser la page d'accueil d'un magazine
     {
         $this->auth->requireRole(1);
@@ -369,5 +373,37 @@ final class MagController
                 ],
             ],
         );
+    }
+
+    public function modifyMag():void//méthode pour modifier un numéro de magazine
+    {
+        $this->auth->requireRole(1);
+        $message = null;
+        
+       
+        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
+            $this->dataLoader->addDataMag('magManager', 'modifPublication', 'idMag', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag');
+
+            $this->dataLoader->addDataMag('magManager', 'modifTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été modifié', 'pannelmag');
+            $this->dataLoader->deleteDataMag('magManager', 'deleteTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été supprimmé', 'pannelmag');
+
+            $this->dataLoader->addDataMag('magManager', 'modifTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été modifié', 'pannelmag');
+            $this->dataLoader->deleteDataMag('magManager', 'deleteTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelmag');
+
+            $this->dataLoader->addImgMag('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag');
+        }
+        
+        if ($this->request->post('modifEdito') !== null) {
+            $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
+            $message = null;
+            $token = $this->noCsrf->createToken();
+            $this->view->render('back/editorial', 'back/layout', compact('data', 'message', 'token'));
+            exit();
+        }
+        
+        
+        /*$token = $this->noCsrf->createToken();
+        $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
+        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));*/
     }
 }

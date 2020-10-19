@@ -99,4 +99,50 @@ final class MagRepository
             'sameid' => $idMag,
             'newStat' => $status]);
     }
+
+    public function modifPublication(int $idMag, string $value): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE mag SET publication = :newValue WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'newValue' => $value]);
+    }
+
+    public function modifTitle01(int $idMag, string $value): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE mag SET title01 = :newValue WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'newValue' => $value]);
+    }
+
+    public function deleteTitle01(int $idMag): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE mag SET title01 = NULL WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag]);
+    }
+    
+    public function modifTitle02(int $idMag, string $value): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE mag SET title02 = :newValue WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'newValue' => $value]);
+    }
+
+    public function deleteTitle02(int $idMag): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE mag SET title02 = NULL WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag]);
+    }
+
+    public function modifCover(int $idMag, string $value): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE mag SET cover = :newValue WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'newValue' => $value]);
+    }
 }
