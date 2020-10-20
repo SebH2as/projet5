@@ -59,4 +59,13 @@ final class LettersRepository
         $req->execute();
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
+
+    public function newLetter(int $user, string $pseudo, string $content)
+    {
+        $req = $this->database->getConnection()->prepare('INSERT INTO letters SET id_user = :user, author = :pseudo, content = :content');
+        return $req->execute([
+            'user' => (int) $user,
+            'pseudo' => (string) $pseudo,
+            'content' => (string) $content]);
+    }
 }

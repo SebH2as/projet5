@@ -71,6 +71,7 @@ final class Router
         'monCompte',
         'addUser',
         'activation',
+        'activationPage',
         'connection',
         'userDeco',
         'nousEcrire',

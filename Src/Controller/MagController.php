@@ -199,6 +199,11 @@ final class MagController
         if ($this->request->get('error')) {
             $error = 'Pseudo ou mot de passe incorrect';
         }
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $message = $this->request->get('message');
+        }
         
         $token = $this->noCsrf->createToken();
         $magazine = $this->magManager->showByIdAndPub($idMag);
@@ -212,6 +217,7 @@ final class MagController
                 'preview' => 0,
                 'active' => 0,
                 'token' => $token,
+                'message' => $message,
                 ],
             ],
         );

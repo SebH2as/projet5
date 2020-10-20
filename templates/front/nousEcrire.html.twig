@@ -1,0 +1,50 @@
+{% extends "/front/layout.html.twig" %}
+
+{% block title %}
+    Nous écrire
+{% endblock %}
+
+{% block separator %}
+    <div id="separator01"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/navbar.js"></script>
+{% endblock %}
+
+{% block content %}
+
+        <div id="sectionImg">
+            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+        </div>
+
+        <section id="article">
+
+            <div id="titleArticle">
+                <h2></h2>
+                <h1>NOUS ECRIRE</h1>
+                <h2></h2>
+                <div id="separator02"></div>
+            </div>
+
+            <div id="infos">
+                <span>
+                   Vous pouvez nous écrire un courrier à l'aide du champ ci-dessous.<br>
+                   Vous serez eventuellement publié dans la rubrique Courrier des lecteurs du numéro suivant et
+                   nous vous répondrons à cette occasion.
+                </span>
+            </div>
+
+            <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
+            
+            <form id="formLetter" action="index.php?action=postLetter&amp;idMag={{magazine.id_mag}}" method="post">
+                <input type="hidden" name="csrf" value="{{token}}">
+                
+                <label for="courrier">Courrier</label>
+                <textarea id="courrier" name="courrier" rows="15" cols="50"></textarea>
+
+                <input type="submit" id="saver" value="Poster">
+            </form>
+
+        </section>
+{% endblock %}

@@ -112,8 +112,8 @@ final class UsersRepository
 
     public function activeAccountByPseudo(string $pseudo): bool
     {
-        $req = $this->database->getConnection()->prepare('UPDATE users SET confirmKey = 1 WHERE pseudo = :pseudo ');
-        $req->execute([
-            'pseudo' => (int) $pseudo]);
+        $req = $this->database->getConnection()->prepare('UPDATE users SET actived = 1 WHERE pseudo = :pseudo ');
+        return $req->execute([
+            'pseudo' => (string) $pseudo]);
     }
 }

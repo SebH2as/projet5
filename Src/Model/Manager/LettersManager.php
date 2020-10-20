@@ -35,4 +35,9 @@ final class LettersManager
     {
         return $this->lettersRepo->findByRelatedMag($offset, $nbByPage, $numberMag);
     }
+
+    public function createLetter(int $user, string $pseudo, string $content): bool
+    {
+        return $this->lettersRepo->newLetter($user, $pseudo, $content);
+    }
 }

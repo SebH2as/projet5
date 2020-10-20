@@ -32,8 +32,7 @@ final class UsersController
         $this->auth = new auth();
     }
 
-    //index.php?action=connectionPage&idMag=122&error=true
-    //index.php?action=monCompte&idMag=122
+    //index.php?action=connection&idMag=122
     public function connection(int $idMag):void //méthode pour se connecter au compte utilisateur ou au backoffice
     {
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
@@ -41,23 +40,26 @@ final class UsersController
             exit();
         }
 
-        if ($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
-        && $this->request->post('password') !== null &&  !empty($this->request->post('password'))) {
-            $user = $this->auth->login($this->request->post('pseudo'), $this->request->post('password'));
-
-            if ($user === null) {
-                header("Location: index.php?action=connectionPage&idMag=$idMag&error=true");
-                exit();
-            }
-
-            if ($user->role === 1) {
-                header("Location: index.php?action=listMag&idMag=$idMag");
-                exit();
-            }
-
-            header("Location: index.php?action=monCompte&idMag=$idMag");
+        if ($this->request->post('pseudo') === null ||  empty($this->request->post('pseudo'))
+        || $this->request->post('password') === null ||  empty($this->request->post('password'))) {
+            header("Location: index.php?action=connectionPage&idMag=$idMag&error=true");
             exit();
         }
+        
+        $user = $this->auth->login($this->request->post('pseudo'), $this->request->post('password'));
+
+        if ($user === null) {
+            header("Location: index.php?action=connectionPage&idMag=$idMag&error=true");
+            exit();
+        }
+
+        if ($user->role === 1) {
+            header("Location: index.php?action=listMag&idMag=$idMag");
+            exit();
+        }
+
+        header("Location: index.php?action=monCompte&idMag=$idMag");
+        exit();
     }
 
     //index.php?action=monCompte&idMag=122
@@ -112,16 +114,28 @@ final class UsersController
     //index.php
     public function userDeco():void//méthode pour se déconnecter en tant qu'utilisateur
     {
+        $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
+        
         session_unset();
         session_destroy();
         session_write_close();
         header('location: index.php');
     }
 
-    //index.php?action=monCompte&idMag=122&message=2
+    //index.php?action=newsLetterAbo&idMag=122
     public function newsLetterAbo(int $idMag):void//méthode pour s'abonner ou se désabonner à la newsletter
     {
         $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
 
         if ($user->newsletter === 0) {
             $this->usersManager->getAboNewsletter((int) $user->id_user, 1);
@@ -169,10 +183,15 @@ final class UsersController
         );
     }
 
-    //index.php?action=monCompte&idMag=122&message=0
+    //index.php?action=modifDataUser&idMag=122
     public function modifDataUser(int $idMag):void//méthode pour modifier une de ses données en tant qu'utilisateur
     {
         $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
 
         $userData = $this->request->get('userData');
 
@@ -371,34 +390,36 @@ final class UsersController
         );
     }
 
+    //index.php?action=activation&idMag=122
     public function activation(int $idMag):void//Méthode pour activer le compte utilisateur
     {
-        $error = null;
-        if ($this->request->get('error') !== null) {
-            $error = $this->request->get('error');
-        }
-        
-        /*if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
-
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
             $error = "Une erreur est survenue, veuillez recommencer";
 
             header("Location: index.php?action=activation&idMag=$idMag&error=$error");
             exit();
-        }*/
+        }
 
         if ($this->request->post('pseudo') === null ||  empty($this->request->post('pseudo'))
         || $this->request->post('code') === null ||  empty($this->request->post('code'))) {
             $error = 'Veuillez renseigner tous les champs';
             
-            header("Location: index.php?action=activation&idMag=$idMag&error=$error");
+            header("Location: index.php?action=activationPage&idMag=$idMag&error=$error");
             exit();
         }
 
         $user = $this->usersManager->getUserByPseudoNotActived($this->request->post('pseudo'));
-        if (($this->request->post('code')) !== $user->confirmkey) {
+        if ($user === null) {
+            $error = 'Le pseudo est erronné ou le compte déjà activé';
+            
+            header("Location: index.php?action=activationPage&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if (((int) $this->request->post('code')) !== $user->confirmkey) {
             $error = 'Le code renseigné n\'est pas valide';
             
-            header("Location: index.php?action=activation&idMag=$idMag&error=$error");
+            header("Location: index.php?action=activationPage&idMag=$idMag&error=$error");
             exit();
         }
         
@@ -407,6 +428,91 @@ final class UsersController
         $message = 'Votre compte a été activé. Vous pouvez maintenant vous connecter';
 
         header("Location: index.php?action=connectionPage&idMag=$idMag&message=$message");
+        exit();
+    }
+
+    //index.php?action=activationPage&idMag=122
+    public function activationPage(int $idMag): void//Méthode pour afficher la page d'activation du compte
+    {
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = $this->request->get('error');
+        }
+
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+        $token = $this->noCsrf->createToken();
+
+        $this->view->render(
+            [
+            'template' => 'front/activationPage',
+            'data' => [
+                'magazine' => $magazine,
+                'preview' => 0,
+                'active' =>0,
+                'token' => $token,
+                'error' =>$error,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=nousEcrire&idMag=122
+    public function nousEcrire(int $idMag): void//Méthode pour afficher la page de rédaction d'un courrier utilisateur
+    {
+        $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
+        
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = $this->request->get('error');
+        }
+
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+        $token = $this->noCsrf->createToken();
+
+        $this->view->render(
+            [
+            'template' => 'front/nousEcrire',
+            'data' => [
+                'magazine' => $magazine,
+                'preview' => 0,
+                'active' =>0,
+                'token' => $token,
+                'error' =>$error,
+                'user' =>$user
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=postLetter&idMag=122
+    public function postLetter(int $idMag): void//Méthode pour poster un courrier utilisateur
+    {
+        $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
+        
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            $error = "Une erreur est survenue, veuillez recommencer";
+
+            header("Location: index.php?action=nousEcrire&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if ($this->request->post('courrier') === null ||  empty($this->request->post('courrier'))) {
+            header("Location: index.php?action=nousEcrire&idMag=$idMag");
+            exit();
+        }
+
+        $this->lettersManager->createLetter((int) $user->id_user, (string) $user->pseudo, (string) $this->request->post('courrier'));
+        header("Location: index.php?action=monCompte&idMag=$idMag&message=1");
         exit();
     }
 }

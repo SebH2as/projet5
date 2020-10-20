@@ -17,7 +17,7 @@
             </div>
             <div id="infos">
                 <span>
-                   Vous pouvez nous écrire un courrier relatif à un magazine particulier à l'aide du champs ci-dessous.
+                   Vous pouvez nous écrire un courrier à l'aide du champs ci-dessous.
                    Vous serez eventuellement publié dans la rubrique Courrier des lecteurs du numéro suivant et
                    nous vous répondrons à cette occasion.
                 </span>
