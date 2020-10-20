@@ -45,7 +45,7 @@
                     </div>
                     <div class="responseLetter">
                         <h2>Notre réponse :</h2>
-                        <span>{{letter.response}}</span>
+                        <span>{{letter.response |striptags}}</span>
                     </div> 
                 </div>
             {% endfor %}

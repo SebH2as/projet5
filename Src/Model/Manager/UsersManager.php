@@ -21,6 +21,11 @@ final class UsersManager
         return $this->usersRepo->findUserByPseudo($pseudo);
     }
 
+    public function getUserByPseudoNotActived(string $pseudo): ?User
+    {
+        return $this->usersRepo->findUserByPseudoNotActived($pseudo);
+    }
+
     public function getUserById(int $userId): ?User
     {
         return $this->usersRepo->findUserById($userId);
@@ -34,5 +39,40 @@ final class UsersManager
     public function abortAboNewsletter(int $idUser, int $value)
     {
         return $this->usersRepo->unsetAboById($idUser, $value);
+    }
+
+    public function modifPass(int $idUser, string $value): bool
+    {
+        return $this->usersRepo->modifPass($idUser, $value);
+    }
+
+    public function countPseudoUser(string $pseudo): ?array
+    {
+        return $this->usersRepo->countPseudoUser($pseudo);
+    }
+
+    public function modifPseudo(int $idUser, string $value): bool
+    {
+        return $this->usersRepo->modifPseudo($idUser, $value);
+    }
+
+    public function countEmailUser(string $email): ?array
+    {
+        return $this->usersRepo->countEmailUser($email);
+    }
+
+    public function modifEmail(int $idUser, string $value): bool
+    {
+        return $this->usersRepo->modifEmail($idUser, $value);
+    }
+
+    public function addUser(string $pseudo, string $email, string $pass, int $key): bool
+    {
+        return $this->usersRepo->addUser($pseudo, $email, $pass, $key);
+    }
+
+    public function activeAccountByPseudo(string $pseudo): bool
+    {
+        return $this->usersRepo->activeAccountByPseudo($pseudo);
     }
 }

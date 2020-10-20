@@ -1,7 +1,7 @@
 {% extends "/front/layout.html.twig" %}
 
 {% block title %}
-    Nous rejoindre
+    Modifier mon {{userData |lower }}
 {% endblock %}
 
 {% block separator %}
@@ -35,7 +35,7 @@
 
             <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
 
-            <form id="formSignIn" action="index.php?action=modif{% if userData == "Mot de passe" %}Password{% else %}{{userData}}{% endif %}&amp;idMag={{magazine.id_mag}}&amp;message=5" method="post">
+            <form id="formSignIn" action="index.php?action=modifDataUser&amp;idMag={{magazine.id_mag}}&amp;userData={{userData}}" method="post">
                 
                 <input type="hidden" name="csrf" value="{{token}}">
                 

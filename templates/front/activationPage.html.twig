@@ -1,0 +1,55 @@
+{% extends "/front/layout.html.twig" %}
+
+{% block title %}
+    Activation
+{% endblock %}
+
+{% block separator %}
+    <div id="separator01"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/navbar.js"></script>
+    <script src="js/infoBox.js"></script>
+{% endblock %}
+
+{% block content %}
+
+        <div id="sectionImg">
+            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+        </div>
+
+        <section id="article">
+
+            <div id="titleArticle">
+                <h2></h2>
+                <h1>ACTIVATION</h1>
+                <h2></h2>
+                <div id="separator02"></div>
+            </div>
+
+            <div id="infos">
+                <span>
+                    Pour activer votre compte, saisissez le code que vous venez de recevoir par email.
+                </span>
+            </div>
+
+            <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
+
+            <h2>confirmation</h2>
+
+            <form id="formSignIn" action="index.php?action=activation&amp;idMag={{magazine.id_mag}}" method="post">
+
+                <input type="hidden" name="csrf" value="{{token}}">
+
+                <label for="pseudo">Entrez votre pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Entrez le pseudo que vous avez choisi précédemment.</span></div></i></label>
+                <input type="text" id="pseudo" name="pseudo" maxlength="15" size="15">
+                
+                <label for="code">Entrez le code de confirmation <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Entrez le code de confirmation que vous avez reçu par email.</span></div></i></label>
+                <input type="text" id="code" name="code" maxlength="15" size="15">
+                
+                <input type="submit" id="saver" name="saver" value="Activation">
+
+            </form>
+        </section>
+{% endblock %}

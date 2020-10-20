@@ -145,4 +145,12 @@ final class MagRepository
             'sameid' => $idMag,
             'newValue' => $value]);
     }
+
+    public function modifEdito(int $idMag, string $value): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE mag SET editorial = :newValue WHERE id_mag = :sameid ');
+        return $req->execute([
+            'sameid' => $idMag,
+            'newValue' => $value]);
+    }
 }

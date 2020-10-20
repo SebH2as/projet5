@@ -316,6 +316,52 @@ section{
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+            #editoMag{
+                margin: 15px;
+                margin-bottom: 0px;
+                width: 95%;
+                height: auto;
+                font-size: 24px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                .formRow{
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 0px;
+                    background-color: $secondaryBacgroundColor02;
+                    .labelInput{
+                        width: 80%;
+                        
+                            span{
+                                margin-left: 15px;
+                            }
+                        }
+                    #editoButton{
+                        @include buttonBack;
+                        width: 20%;
+                        height: 60px;
+                        margin-bottom: 2vh;
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        text-decoration: none;
+                        text-align: center;
+                        color: $blackColor;
+                        background-color: rgb(0, 192, 0);
+                        margin-right: 1.5vh;
+                        &:hover{
+                            background-color: $secondaryBacgroundColorYellowLight;
+                            box-shadow: 0px 2px 10px $blackColor;
+                        }
+                    }
+                    
+                }
+                
+            }
             #formMag{
                 margin: 15px;
                 width: 95%;

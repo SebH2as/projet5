@@ -31,14 +31,25 @@
         </div>
         
         <div id="contentContainer">
+
+            <div id="editoMag">
+                <h3><i class="fa fa-arrow-right"></i> Editorial: <i>{% if not magazine.editorial %}Non rédigé{% else %}Rédigé{% endif %}</i></h3>
+                <div class="formRow">
+                    <div class="labelInput">
+                        <span>Modifier ou relire l'éditorial:</span>  
+                    </div>
+                    <a id="editoButton" href="index.php?action=editorialBack&amp;idMag={{magazine.id_mag}}">Modifier ou relire</a>
+                </div>
+            </div>
+            
             <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=modifyMag&amp;idMag={{magazine.id_mag}}">
                 
                 <input type="hidden" name="csrf" value="{{token}}">
 
-                <h3><i class="fa fa-arrow-right"></i> Date de parution: <i>{% if not magazine.publication %}à définir{% else %}{{magazine.publication}}{% endif %}</i></h3>
+                <h3><i class="fa fa-arrow-right"></i> Date de publication: <i>{% if not magazine.publication %}à définir{% else %}{{magazine.publication}}{% endif %}</i></h3>
                 <div class="formRow">
                     <div class="labelInput">
-                        <label for="parution">Modifier la date de parution:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
+                        <label for="parution">Modifier la date de publication:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
                         <input type="text" id="parution" name="parution" maxlength="30" size="30">    
                     </div>
                     <input type="submit" class="button01" name="modifPublication" value="Modifier" >
@@ -72,16 +83,9 @@
                     <input type="submit" class="modifTitle" name="modifTitle02" value="Modifier">
                     <input type="submit" class="deleteTitle" name="deleteTitle02" value="Supprimmer">
                 </div>
-                
-                <h3><i class="fa fa-arrow-right"></i> Editorial: <i>{% if not magazine.editorial %}Non rédigé{% else %}Rédigé{% endif %}</i></h3>
-                <div class="formRow">
-                    <div class="labelInput">
-                        <label for="title02">Modifier ou relire l'éditorial:</label>  
-                    </div>
-                    <input type="submit" class="button01" name="modifEdito" value="Modfier ou relire">
-                </div>
             </form>
         </div>
+            
     </section>
 
     <section id="articlesMag">

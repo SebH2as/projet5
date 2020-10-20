@@ -27,4 +27,9 @@ class NoCsrf
     {
         return($this->session->getSessionData("token") === $param);
     }
+
+    public function isTokenNotValid($param):bool
+    {
+        return($this->session->getSessionData("token") !== $param);
+    }
 }

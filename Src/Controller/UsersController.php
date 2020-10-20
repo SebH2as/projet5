@@ -36,24 +36,27 @@ final class UsersController
     //index.php?action=monCompte&idMag=122
     public function connection(int $idMag):void //méthode pour se connecter au compte utilisateur ou au backoffice
     {
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
-            if ($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
-            && $this->request->post('password') !== null &&  !empty($this->request->post('password'))) {
-                $user = $this->auth->login($this->request->post('pseudo'), $this->request->post('password'));
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            header("Location: index.php?action=connectionPage&idMag=$idMag&error=true");
+            exit();
+        }
 
-                if ($user === null) {
-                    header("Location: index.php?action=connectionPage&idMag=$idMag&error=true");//rajouter l'erreur
-                    exit();
-                }
+        if ($this->request->post('pseudo') !== null &&  !empty($this->request->post('pseudo'))
+        && $this->request->post('password') !== null &&  !empty($this->request->post('password'))) {
+            $user = $this->auth->login($this->request->post('pseudo'), $this->request->post('password'));
 
-                if ($user->role === 1) {
-                    header("Location: index.php?action=listMag&idMag=$idMag");
-                    exit();
-                }
-
-                header("Location: index.php?action=monCompte&idMag=$idMag");
+            if ($user === null) {
+                header("Location: index.php?action=connectionPage&idMag=$idMag&error=true");
                 exit();
             }
+
+            if ($user->role === 1) {
+                header("Location: index.php?action=listMag&idMag=$idMag");
+                exit();
+            }
+
+            header("Location: index.php?action=monCompte&idMag=$idMag");
+            exit();
         }
     }
 
@@ -67,7 +70,8 @@ final class UsersController
         'Vous êtes maintenant abonné à notre newsletter',
         'Votre abonnememt à notre newsletter a été annulé',
         'Votre pseudo a bien été modifié',
-        'votre Email a bien été modifié'];
+        'votre Email a bien été modifié',
+        'Une erreur est survenue, veuillez recommencer'];
         
         if ($this->request->get('message') !== null) {
             $message = $messageContent[(int) $this->request->get('message')];
@@ -118,11 +122,13 @@ final class UsersController
     public function newsLetterAbo(int $idMag):void//méthode pour s'abonner ou se désabonner à la newsletter
     {
         $user = $this->auth->user();
+
         if ($user->newsletter === 0) {
             $this->usersManager->getAboNewsletter((int) $user->id_user, 1);
             header("Location: index.php?action=monCompte&idMag=$idMag&message=2");
             exit();
         }
+
         $this->usersManager->abortAboNewsletter((int) $user->id_user, 0);
         header("Location: index.php?action=monCompte&idMag=$idMag&message=3");
         exit();
@@ -138,14 +144,18 @@ final class UsersController
             exit();
         }
         
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = $this->request->get('error');
+        }
+        
         $magazine = $this->magManager->showByIdAndPub($idMag);
         $token = $this->noCsrf->createToken();
         $userData = (string) $this->request->get('userData');
-        $error = null;
         
         $this->view->render(
             [
-            'template' => 'front/modifDataUser',
+            'template' => 'front/modifUser',
             'data' => [
                 'magazine' => $magazine,
                 'preview' => 0,
@@ -159,38 +169,244 @@ final class UsersController
         );
     }
 
-    
-    public function modifPassword(int $idMag):void//méthode pour modifier son mot de base en tant qu'utilisateur A RETRAVAILLER
+    //index.php?action=monCompte&idMag=122&message=0
+    public function modifDataUser(int $idMag):void//méthode pour modifier une de ses données en tant qu'utilisateur
     {
         $user = $this->auth->user();
+
+        $userData = $this->request->get('userData');
 
         if ($user === null) {
             header('location: index.php');
             exit();
         }
 
-        $error = 'Une erreur est survenue, veuillez recommencer vos modifications';
-
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
-            if ($this->request->post('password') !== null && !empty($this->request->post('password'))
-                && password_verify($this->request->post('password'), $user->p_w)) {
-                if ($this->request->post('new') !== null && !empty($this->request->post('new'))) {
-                    $error = 'Le nouveau mot de passe choisi n\'est pas valide';
-                    if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('new'))) {
-                        $error = 'Les deux mots de passe renseignés ne correspondent pas';
-                        if ($this->request->post('new') === $this->request->post('new2')) {
-                            //$this->usersManager->modifPass((int) $user->id_user, (string) password_hash($this->request->post('new'), PASSWORD_DEFAULT));
-                            header("Location: index.php?action=monCompte&idMag=$idMag&message=0");
-                            exit();
-                        }
-                    }
-                }
-            }
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            header("Location: index.php?action=monCompte&idMag=$idMag&message=6");
+            exit();
         }
+
+        if ($this->request->post('password') === null || empty($this->request->post('password')) ||
+        $this->request->post('new') === null || empty($this->request->post('new')) ||
+        $this->request->post('new2') === null || empty($this->request->post('new2'))) {
+            $error = 'Au moins un des champs est vide. Veuillez tous les renseigner.';
             
-        $magazine = $this->magManager->findOnlineMagWithArticles((int) $this->request->get('idMag'));
+            header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+            exit();
+        }
+
+        if (password_verify($this->request->post('password'), $user->p_w) === false) {
+            $error = 'Erreur de mot de passe';
+            
+            header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+            exit();
+        }
+
+        if ($this->request->post('new') !== $this->request->post('new2')) {
+            $error = 'Les deux mots de passe renseignés ne correspondent pas';
+            
+            header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+            exit();
+        }
+
+        switch ($userData) {
+            case "Mot de passe":
+
+                if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('new')) === 0) {
+                    $error = 'Le nouveau mot de passe choisi n\'est pas valide';
+                    
+                    header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+                    exit();
+                }
+        
+                $this->usersManager->modifPass((int) $user->id_user, (string) password_hash($this->request->post('new'), PASSWORD_DEFAULT));
+                
+                header("Location: index.php?action=monCompte&idMag=$idMag&message=0");
+                exit();
+                
+                break;
+
+            case "Pseudo":
+
+                if (mb_strlen($this->request->post('new')) < 3 || mb_strlen($this->request->post('new')) > 15) {
+                    $error = 'Le nouveau pseudo choisi n\'est pas valide';
+                    
+                    header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+                    exit();
+                }
+
+                $pseudoThere = $this->usersManager->countPseudoUser($this->request->post('new'));
+                if (($pseudoThere[0]) >= 1) {
+                    $error = 'Le pseudo choisi est déjà utilisé';
+                    
+                    header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+                    exit();
+                }
+
+                $this->usersManager->modifPseudo((int) $user->id_user, (string) $this->request->post('new'));
+
+                header("Location: index.php?action=monCompte&idMag=$idMag&message=4");
+                exit();
+
+                break;
+
+            case "Email":
+
+                if (filter_var($this->request->post('new'), FILTER_VALIDATE_EMAIL) === false) {
+                    $error = 'L\'email choisi n\'est pas valide';
+                    
+                    header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+                    exit();
+                }
+
+                $emailThere = $this->usersManager->countEmailUser($this->request->post('new'));
+                if (($emailThere[0]) >= 1) {
+                    $error = 'L\' email choisi est déjà utilisé';
+                    
+                    header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+                    exit();
+                }
+                
+                $this->usersManager->modifEmail((int) $user->id_user, (string) $this->request->post('new'));
+
+                header("Location: index.php?action=monCompte&idMag=$idMag&message=5");
+                exit();
+
+                break;
+        }
+    }
+
+    //index.php?action=addUser&idMag=122
+    public function addUser(int $idMag):void//méthode pour devenir utilisateur enregistré du site
+    {
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            $error = "Une erreur est survenue, veuillez recommencer";
+            
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if ((string) $this->request->post('pseudo') === null ||  empty($this->request->post('pseudo'))
+        || (string) $this->request->post('mail') === null ||  empty($this->request->post('mail'))
+        || (string) $this->request->post('mail2') === null ||  empty($this->request->post('mail2'))
+        || (string) $this->request->post('password') === null ||  empty($this->request->post('password'))
+        || (string) $this->request->post('password2') === null ||  empty($this->request->post('password2'))) {
+            $error = 'Au moins un des champs est vide. Veuillez tous les renseigner.';
+            
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if (mb_strlen($this->request->post('pseudo')) < 3 || mb_strlen($this->request->post('pseudo')) > 15) {
+            $error = 'Le pseudo choisi n\'est pas valide';
+            
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        $pseudoThere = $this->usersManager->countPseudoUser($this->request->post('pseudo'));
+        if (($pseudoThere[0]) >= 1) {
+            $error = 'Le pseudo choisi est déjà utilisé';
+            
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if (filter_var($this->request->post('mail'), FILTER_VALIDATE_EMAIL) === false) {
+            $error = 'L\'email choisi n\'est pas valide';
+            
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        $emailThere = $this->usersManager->countEmailUser($this->request->post('mail'));
+        if (($emailThere[0]) >= 1) {
+            $error = 'L\' email choisi est déjà utilisé';
+            
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if (($this->request->post('mail')) !== ($this->request->post('mail2'))) {
+            $error = 'Les emails renseignés ne correspondent pas';
+
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if (($this->request->post('password')) !== ($this->request->post('password2'))) {
+            $error = 'Les mots de passe renseignés ne correspondent pas';
+
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')) === 0) {
+            $error = 'Le mot de passe choisi n\'est pas valide';
+            
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        $key = '';
+        for ($i = 1; $i<6 ; $i++) {
+            $key .= random_int(0, 9);
+        }
+
+        $this->usersManager->addUser((string) $this->request->post('pseudo'), (string) $this->request->post('mail'), (string) password_hash($this->request->post('password'), PASSWORD_DEFAULT), (int) $key);
+        
+        $magazine = $this->magManager->showByIdAndPub($idMag);
         $token = $this->noCsrf->createToken();
-        $this->view->render('front/modifPassUser', 'front/layout', compact('magazine', 'user', 'error', 'token'));
+
+        $this->view->render(
+            [
+            'template' => 'front/activationPage',
+            'data' => [
+                'magazine' => $magazine,
+                'preview' => 0,
+                'active' =>0,
+                'token' => $token,
+                ],
+            ],
+        );
+    }
+
+    public function activation(int $idMag):void//Méthode pour activer le compte utilisateur
+    {
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = $this->request->get('error');
+        }
+        
+        /*if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+
+            $error = "Une erreur est survenue, veuillez recommencer";
+
+            header("Location: index.php?action=activation&idMag=$idMag&error=$error");
+            exit();
+        }*/
+
+        if ($this->request->post('pseudo') === null ||  empty($this->request->post('pseudo'))
+        || $this->request->post('code') === null ||  empty($this->request->post('code'))) {
+            $error = 'Veuillez renseigner tous les champs';
+            
+            header("Location: index.php?action=activation&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        $user = $this->usersManager->getUserByPseudoNotActived($this->request->post('pseudo'));
+        if (($this->request->post('code')) !== $user->confirmkey) {
+            $error = 'Le code renseigné n\'est pas valide';
+            
+            header("Location: index.php?action=activation&idMag=$idMag&error=$error");
+            exit();
+        }
+        
+        $this->usersManager->activeAccountByPseudo((string) $this->request->post('pseudo'));
+
+        $message = 'Votre compte a été activé. Vous pouvez maintenant vous connecter';
+
+        header("Location: index.php?action=connectionPage&idMag=$idMag&message=$message");
         exit();
     }
 }

@@ -90,4 +90,9 @@ final class MagManager
     {
         return $this->magRepo->modifCover($idMag, $value);
     }
+
+    public function modifEdito(int $idMag, string $value): bool
+    {
+        return $this->magRepo->modifEdito($idMag, $value);
+    }
 }

@@ -34,6 +34,7 @@
             </div>
 
             <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
+            {% if message %}<span id="message">{{message}}</span>{% endif %}
 
             <form id="formSignIn" action="index.php?action=connection&amp;idMag={{magazine.id_mag}}" method="post">
                 

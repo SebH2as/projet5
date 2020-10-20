@@ -171,6 +171,10 @@ final class MagController
     public function nousRejoindre(int $idMag):void//méthode pour afficher la page nous rejoindre
     {
         $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = $this->request->get('error');
+        }
+        
         $token = $this->noCsrf->createToken();
         $magazine = $this->magManager->showByIdAndPub($idMag);
 
@@ -273,14 +277,18 @@ final class MagController
     {
         $this->auth->requireRole(1);
         
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
-            if (!empty($this->request->post('number'))) {
-                $this->magManager->createMag((int) $this->request->post('number'));
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            $message = "Une erreur est survenue, veuillez recommencer";
+            header("Location: index.php?action=createNewMag");
+            exit();
+        }
 
-                $message = 'Le magazine numéro '. htmlspecialchars($this->request->post('number')) . ' a bien été créé';
-                header("Location: index.php?action=listMag&message=$message");
-                exit();
-            }
+        if (!empty($this->request->post('number'))) {
+            $this->magManager->createMag((int) $this->request->post('number'));
+
+            $message = 'Le magazine numéro '. htmlspecialchars($this->request->post('number')) . ' a bien été créé';
+            header("Location: index.php?action=listMag&message=$message");
+            exit();
         }
     }
 
@@ -319,7 +327,7 @@ final class MagController
         $articlesToErase = $this->articleManager->showByIdmag($idMag);
 
         if (($magToErase->cover) !== null) {
-            unlink("../public/images/".$dataToErase[0]->cover);
+            unlink("../public/images/".$magToErase->cover);
         }
         foreach ($articlesToErase as $articleImgToErase) {
             if (($articleImgToErase->articleCover) !== null) {
@@ -375,35 +383,81 @@ final class MagController
         );
     }
 
-    public function modifyMag():void//méthode pour modifier un numéro de magazine
+    //index.php?action=modifyMag&idMag=102
+    public function modifyMag(int $idMag):void//méthode pour modifier un numéro de magazine
     {
         $this->auth->requireRole(1);
+
         $message = null;
-        
        
-        if ($this->request->post('csrf') !== null && $this->noCsrf->isTokenValid($this->request->post('csrf'))) {
-            $this->dataLoader->addDataMag('magManager', 'modifPublication', 'idMag', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag');
-
-            $this->dataLoader->addDataMag('magManager', 'modifTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été modifié', 'pannelmag');
-            $this->dataLoader->deleteDataMag('magManager', 'deleteTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été supprimmé', 'pannelmag');
-
-            $this->dataLoader->addDataMag('magManager', 'modifTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été modifié', 'pannelmag');
-            $this->dataLoader->deleteDataMag('magManager', 'deleteTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelmag');
-
-            $this->dataLoader->addImgMag('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag');
-        }
-        
-        if ($this->request->post('modifEdito') !== null) {
-            $data = $this->magManager->findMagById((int) $this->request->get('idMag'));
-            $message = null;
-            $token = $this->noCsrf->createToken();
-            $this->view->render('back/editorial', 'back/layout', compact('data', 'message', 'token'));
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            $message = "Une erreur est survenue, veuillez recommencer";
+            header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
             exit();
+        };
+            
+        $this->dataLoader->addDataMag('magManager', 'modifPublication', 'idMag', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag');
+
+        $this->dataLoader->addDataMag('magManager', 'modifTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été modifié', 'pannelmag');
+        $this->dataLoader->deleteDataMag('magManager', 'deleteTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été supprimmé', 'pannelmag');
+
+        $this->dataLoader->addDataMag('magManager', 'modifTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été modifié', 'pannelmag');
+        $this->dataLoader->deleteDataMag('magManager', 'deleteTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelmag');
+
+        $this->dataLoader->addImgMag('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag');
+    }
+
+    //index.php?action=editorialBack&idMag=102
+    public function editorialBack(int $idMag): void
+    {
+        $this->auth->requireRole(1);
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $message = htmlspecialchars($this->request->get('message'));
         }
-        
-        
-        /*$token = $this->noCsrf->createToken();
-        $data = $this->magManager->findMagByIdWithArticles((int) $this->request->get('idMag'));
-        $this->view->render('back/pannelMag', 'back/layout', compact('data', 'message', 'token'));*/
+
+        $token = $this->noCsrf->createToken();
+        $magazine = $this->magManager->showById($idMag);
+
+        $this->view->render(
+            [
+            'template' => 'back/editorial',
+            'data' => [
+                'magazine' => $magazine,
+                'token' => $token,
+                'message' => $message,
+                ],
+            ],
+        );
+    }
+
+    
+    public function addEdito(int $idMag):void//méthode pour modifier ou écrire un édito de magazine
+    {
+        $this->auth->requireRole(1);
+
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            $message = "Une erreur est survenue, veuillez recommencer";
+            header("Location: index.php?action=editorialBack&idMag=$idMag&message=$message");
+            exit();
+        };
+
+        $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
+
+        $magazine = $this->magManager->showById($idMag);
+        $message = "L'éditorial a été modifié";
+        $token = $this->noCsrf->createToken();
+
+        $this->view->render(
+            [
+            'template' => 'back/editorial',
+            'data' => [
+                'magazine' => $magazine,
+                'token' => $token,
+                'message' => $message,
+                ],
+            ],
+        );
     }
 }
