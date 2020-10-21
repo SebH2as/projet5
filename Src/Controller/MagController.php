@@ -20,8 +20,8 @@ final class MagController
     private View $view;
     private Request $request;
     private NoCsrf $noCsrf;
-    private Auth $auth;
     private Dataloader $dataLoader;
+    private Auth $auth;
 
     public function __construct(MagManager $magManager, ArticleManager $articleManager, LettersManager $lettersManager, View $view)
     {
@@ -31,8 +31,8 @@ final class MagController
         $this->view = $view;
         $this->request = new Request();
         $this->noCsrf = new NoCsrf();
-        $this->auth = new Auth();
         $this->dataLoader = new DataLoader();
+        $this->auth = new Auth();
     }
 
     //index.php?
@@ -60,7 +60,6 @@ final class MagController
             ],
         );
     }
-
 
     //index.php?action=magByNumber&idMag=110&numberMag=1
     public function magByNumber(int $idMag): void
@@ -112,7 +111,7 @@ final class MagController
     }
 
     //index.php?action=courrier&idMag=110
-    public function courrier(int $idMag):void//méthode pour afficher la page courrier d'un magazine
+    public function courrier(int $idMag, LetterManager $letterManager):void//méthode pour afficher la page courrier d'un magazine
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
@@ -293,6 +292,7 @@ final class MagController
             $this->magManager->createMag((int) $this->request->post('number'));
 
             $message = 'Le magazine numéro '. htmlspecialchars($this->request->post('number')) . ' a bien été créé';
+            
             header("Location: index.php?action=listMag&message=$message");
             exit();
         }
@@ -401,16 +401,76 @@ final class MagController
             header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
             exit();
         };
+
+        if ($this->request->post('publication') !== null && !empty($this->request->post('publication'))
+        && !empty($this->request->post('modifPublication'))) {
+            $message = 'La date de publication du magazine a été modifié';
+            $this->magManager->modifPublication($idMag, $this->request->post('publication'));
+        }
+
+        if (!empty($this->request->post('modifCover'))) {
+            $cover = $_FILES['cover'];
+            $ext = mb_strtolower(mb_substr($cover['name'], -3)) ;
+            $allowExt = ["jpg", "png"];
+            if (in_array($ext, $allowExt, true)) {
+                $dataToErase = $magazine = $this->magManager->showById($idMag);
+                if (($dataToErase->cover) !== null) {
+                    unlink("../public/images/".$dataToErase->cover);
+                }
+                move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
+            }
+            $message = 'La couverture du magazine a été modifiée';
+            $this->magManager->modifCover($idMag, (string) $cover['name']);
+        }
+
+        if ($this->request->post('title01') !== null && !empty($this->request->post('title01'))
+        && !empty($this->request->post('modifTitle01'))) {
+            $message = 'Le titre 1 du magazine a été modifié';
+            $this->magManager->modifTitle01($idMag, $this->request->post('title01'));
+        }
+
+        if (!empty($this->request->post('deleteTitle01'))) {
+            $message = 'Le titre 1 du magazine a été supprimmé';
+            $this->magManager->deleteTitle01($idMag);
+        }
+
+        if ($this->request->post('title02') !== null && !empty($this->request->post('title02'))
+        && !empty($this->request->post('modifTitle02'))) {
+            $message = 'Le titre 2 du magazine a été modifié';
+            $this->magManager->modifTitle02($idMag, $this->request->post('title02'));
+        }
+
+        if (!empty($this->request->post('deleteTitle02'))) {
+            $message = 'Le titre 2 du magazine a été supprimmé';
+            $this->magManager->deleteTitle02($idMag);
+        }
+
+        $magazine = $this->magManager->showById($idMag);
+        $articles = $this->articleManager->showByIdmag((int) $magazine->id_mag);
+        $token = $this->noCsrf->createToken();
+
+        $this->view->render(
+            [
+            'template' => 'back/pannelMag',
+            'data' => [
+                'magazine' => $magazine,
+                'articles' => $articles,
+                'message' => $message,
+                'token' => $token,
+                ],
+            ],
+        );
             
-        $this->dataLoader->addDataMag('magManager', 'modifPublication', 'idMag', 'parution', 'La date de publication du magazine a été modifié', 'pannelmag');
+        /*$this->dataLoader->addData('magManager', 'modifPublication', 'idMag', 'parution', 'La date de publication du magazine a été modifié', 'pannelMag');
 
-        $this->dataLoader->addDataMag('magManager', 'modifTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été modifié', 'pannelmag');
-        $this->dataLoader->deleteDataMag('magManager', 'deleteTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été supprimmé', 'pannelmag');
+        $this->dataLoader->addData('magManager', 'modifTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été modifié', 'pannelMag');
+        $this->dataLoader->deleteData('magManager', 'deleteTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été supprimmé', 'pannelMag');
 
-        $this->dataLoader->addDataMag('magManager', 'modifTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été modifié', 'pannelmag');
-        $this->dataLoader->deleteDataMag('magManager', 'deleteTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelmag');
+        $this->dataLoader->addData('magManager', 'modifTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été modifié', 'pannelMag');
+        $this->dataLoader->deleteData('magManager', 'deleteTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelMag');
 
-        $this->dataLoader->addImgMag('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelmag');
+        $this->dataLoader->addImg('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelMag');
+        */
     }
 
     //index.php?action=editorialBack&idMag=102

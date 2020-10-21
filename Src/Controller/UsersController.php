@@ -87,7 +87,7 @@ final class UsersController
         }
             
         if ($user->role === 1) {
-            $this->adminProfil();//mettre un header
+            header("Location: index.php?action=listMag&idMag=$idMag");
             exit();
         }
             
@@ -194,11 +194,6 @@ final class UsersController
         }
 
         $userData = $this->request->get('userData');
-
-        if ($user === null) {
-            header('location: index.php');
-            exit();
-        }
 
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
             header("Location: index.php?action=monCompte&idMag=$idMag&message=6");

@@ -60,4 +60,19 @@ final class ArticleRepository
         $req->execute();
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
+
+    public function createArticleByIdMag(int $idMag): bool
+    {
+        $req = $this->database->getConnection()->prepare('INSERT INTO articles SET id_mag = :idMag');
+        return $req->execute([
+            'idMag' => (int) $idMag]);
+    }
+
+    public function addContent(int $idText, string $content): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE articles SET content = :content WHERE id_text = :idText ');
+        return $req->execute([
+            'idText' => $idText,
+            'content' => $content]);
+    }
 }

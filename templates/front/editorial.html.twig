@@ -20,11 +20,11 @@
         <div id="titleArticle">
             <a href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
             <h1>Editorial</h1>
-            <a href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag |html_to_markdown}}&amp;numberMag={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
+            <a href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
             <div id="separator02"></div>
         </div>
         <div id="articleContent">
-            <span>{{magazine.editorial}}</span>
+            <span>{{magazine.editorial |raw}}</span>
         </div>
     </section>
 {% endblock %}

@@ -34,11 +34,19 @@ final class View
         $this->twig->addExtension(new MarkdownExtension());
         $this->twig->addExtension(new IntlExtension());
         $this->twig->addFunction(new \Twig\TwigFunction(
-            'extr',
+            'extrait',
             function ($value) {
                 $espace = mb_strpos($value, ' ', 1000);
                 $extr = mb_substr($value, 0, $espace);
-                return strip_tags(htmlspecialchars_decode($extr)).' (Lire la suite)';
+                return html_entity_decode(strip_tags(htmlspecialchars_decode($extr))).' (Lire la suite)';
+            }
+        ));
+        $this->twig->addFunction(new \Twig\TwigFunction(
+            'decode',
+            function ($value) {
+                if ($value !== null) {
+                    return html_entity_decode((htmlspecialchars_decode($value)));
+                }
             }
         ));
     }

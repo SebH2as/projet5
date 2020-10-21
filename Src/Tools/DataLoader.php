@@ -33,7 +33,7 @@ class DataLoader
         $this->noCsrf = new noCsrf();
     }
 
-    public function addDataMag($manager, $methode, $id, $column, $text): void
+    public function addData($manager, $methode, $id, $column, $text, $template): void
     {
         $message = null;
         
@@ -41,26 +41,52 @@ class DataLoader
             $this->$manager->$methode((int) $this->request->get($id), (string) $this->request->post($column));
 
             $message = $text;
-            $magazine = $this->magManager->showById((int) $this->request->get($id));
-            $articles = $this->articleManager->showByIdmag((int) $magazine->id_mag);
-            $token = $this->noCsrf->createToken();
 
-            $this->view->render(
-                [
-                'template' => 'back/pannelMag',
-                'data' => [
-                    'magazine' => $magazine,
-                    'articles' => $articles,
-                    'message' => $message,
-                    'token' => $token,
-                    ],
-                ],
-            );
-            exit();
+            switch ($template) {
+                case "pannelMag":
+    
+                    $magazine = $this->magManager->showById((int) $this->request->get($id));
+                    $articles = $this->articleManager->showByIdmag((int) $magazine->id_mag);
+                    $token = $this->noCsrf->createToken();
+
+                    $this->view->render(
+                        [
+                        'template' => 'back/pannelMag',
+                        'data' => [
+                            'magazine' => $magazine,
+                            'articles' => $articles,
+                            'message' => $message,
+                            'token' => $token,
+                            ],
+                        ],
+                    );
+                    
+                    break;
+    
+                case "pannelArticle":
+    
+                    $magazine = $this->magManager->showById((int) $this->request->get($id));
+                    $articles = $this->articleManager->showByIdmag((int) $magazine->id_mag);
+                    $token = $this->noCsrf->createToken();
+
+                    $this->view->render(
+                        [
+                        'template' => 'back/pannelMag',
+                        'data' => [
+                            'magazine' => $magazine,
+                            'articles' => $articles,
+                            'message' => $message,
+                            'token' => $token,
+                            ],
+                        ],
+                    );
+                    
+                    break;
+            }
         }
     }
 
-    public function deleteDataMag($manager, $methode, $id, $column, $text): void
+    public function deleteData($manager, $methode, $id, $column, $text, $template): void
     {
         $message = null;
 
@@ -83,11 +109,10 @@ class DataLoader
                     ],
                 ],
             );
-            exit();
         }
     }
 
-    public function addImgMag($manager, $post, $content, $id, $text, $template): void
+    public function addImg($manager, $post, $content, $id, $text): void
     {
         if ($this->request->post($post) !== null) {
             $cover = $_FILES[$content];
@@ -122,7 +147,6 @@ class DataLoader
                         ],
                     ],
                 );
-                exit();
             }
         }
     }

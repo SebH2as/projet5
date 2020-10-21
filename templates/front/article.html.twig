@@ -27,7 +27,7 @@
             <div id="articleContent">
                 <span>Le {{article.date_creation}}</span><h3>Par {{article.author}}</h3>
                 <h2>{{article.title}}</h2>
-                <span>{{article.content |html_to_markdown}} </span>
+                <span>{{decode(article.content) |raw |nl2br}} </span>
             </div>
         </section>
 

@@ -35,4 +35,14 @@ final class ArticleManager
     {
         return $this->articleRepo->findAllPublishedByType($textType, $offset, $nbByPage);
     }
+
+    public function createArticleByIdMag(int $idMag): bool
+    {
+        return $this->articleRepo->createArticleByIdMag($idMag);
+    }
+
+    public function addContent(int $idText, string $content): bool
+    {
+        return $this->articleRepo->addContent($idText, $content);
+    }
 }

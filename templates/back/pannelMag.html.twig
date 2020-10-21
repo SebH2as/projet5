@@ -49,13 +49,13 @@
                 <h3><i class="fa fa-arrow-right"></i> Date de publication: <i>{% if not magazine.publication %}à définir{% else %}{{magazine.publication}}{% endif %}</i></h3>
                 <div class="formRow">
                     <div class="labelInput">
-                        <label for="parution">Modifier la date de publication:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
-                        <input type="text" id="parution" name="parution" maxlength="30" size="30">    
+                        <label for="publication">Modifier la date de publication:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
+                        <input type="text" id="publication" name="publication" maxlength="30" size="30">    
                     </div>
                     <input type="submit" class="button01" name="modifPublication" value="Modifier" >
                 </div>
                 
-                <h3><i class="fa fa-arrow-right"></i> Image de couverture: <i>{% if not magazine.publication %}à définir{% else %}Définie{% endif %}</i></h3>
+                <h3><i class="fa fa-arrow-right"></i> Image de couverture: <i>{% if not magazine.cover %}à définir{% else %}Définie{% endif %}</i></h3>
                 <div class="formRow">
                     <div class="labelInput">
                         <label for="cover">Changer la couverture:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Uniquement .png ou .jpg</span></div></i></label>
