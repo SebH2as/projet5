@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f2c813fc7da297f449cd3d4e03bc2c0",
+    "content-hash": "9076143072071201e629dae3919b8137",
     "packages": [
         {
             "name": "composer/semver",
@@ -2355,7 +2355,7 @@
         },
         {
             "name": "twig/intl-extra",
-            "version": "v3.0.5",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/intl-extra.git",

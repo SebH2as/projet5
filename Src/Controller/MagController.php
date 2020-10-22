@@ -20,7 +20,6 @@ final class MagController
     private View $view;
     private Request $request;
     private NoCsrf $noCsrf;
-    private Dataloader $dataLoader;
     private Auth $auth;
 
     public function __construct(MagManager $magManager, ArticleManager $articleManager, LettersManager $lettersManager, View $view)
@@ -31,7 +30,6 @@ final class MagController
         $this->view = $view;
         $this->request = new Request();
         $this->noCsrf = new NoCsrf();
-        $this->dataLoader = new DataLoader();
         $this->auth = new Auth();
     }
 
@@ -111,7 +109,7 @@ final class MagController
     }
 
     //index.php?action=courrier&idMag=110
-    public function courrier(int $idMag, LetterManager $letterManager):void//méthode pour afficher la page courrier d'un magazine
+    public function courrier(int $idMag):void//méthode pour afficher la page courrier d'un magazine
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
@@ -389,8 +387,72 @@ final class MagController
         );
     }
 
+    public function previewEdito(int $idMag):void
+    {
+        $this->auth->requireRole(1);
+        
+        $magazine = $this->magManager->showById($idMag);
+
+        if ($magazine === null) {
+            header("Location: index.php");
+            exit();
+        }
+
+        $this->view->render(
+            [
+            'template' => 'back/previewEdito',
+            'data' => [
+                'magazine' => $magazine,
+                'preview' => 1,
+                'active' => 0,
+                ],
+            ],
+        );
+    }
+
+    public function previewLetters(int $idMag):void
+    {
+        $this->auth->requireRole(1);
+        
+        $magazine = $this->magManager->showById($idMag);
+
+        if ($magazine === null) {
+            header("Location: index.php");
+            exit();
+        }
+
+        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->numberMag);
+        $nbByPage = 2;
+        $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            }
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+        
+        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->numberMag);
+        
+        $this->view->render(
+            [
+            'template' => 'front/courrier',
+            'data' => [
+                'magazine' => $magazine,
+                'letters' => $letters,
+                'preview' => 0,
+                'currentpage' => $currentpage,
+                'totalpages' => $totalpages,
+                ],
+            ],
+        );
+    }
+
     //index.php?action=modifyMag&idMag=102
-    public function modifyMag(int $idMag):void//méthode pour modifier un numéro de magazine
+    public function modifyMag(int $idMag):void//méthode pour modifier les données d'un magazine
     {
         $this->auth->requireRole(1);
 
@@ -400,7 +462,7 @@ final class MagController
             $message = "Une erreur est survenue, veuillez recommencer";
             header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
             exit();
-        };
+        }
 
         if ($this->request->post('publication') !== null && !empty($this->request->post('publication'))
         && !empty($this->request->post('modifPublication'))) {
@@ -412,15 +474,18 @@ final class MagController
             $cover = $_FILES['cover'];
             $ext = mb_strtolower(mb_substr($cover['name'], -3)) ;
             $allowExt = ["jpg", "png"];
+            
             if (in_array($ext, $allowExt, true)) {
-                $dataToErase = $magazine = $this->magManager->showById($idMag);
+                $dataToErase = $this->magManager->showById($idMag);
+                
                 if (($dataToErase->cover) !== null) {
                     unlink("../public/images/".$dataToErase->cover);
                 }
+                
                 move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
+                $message = 'La couverture du magazine a été modifiée';
+                $this->magManager->modifCover($idMag, (string) $cover['name']);
             }
-            $message = 'La couverture du magazine a été modifiée';
-            $this->magManager->modifCover($idMag, (string) $cover['name']);
         }
 
         if ($this->request->post('title01') !== null && !empty($this->request->post('title01'))
@@ -460,17 +525,6 @@ final class MagController
                 ],
             ],
         );
-            
-        /*$this->dataLoader->addData('magManager', 'modifPublication', 'idMag', 'parution', 'La date de publication du magazine a été modifié', 'pannelMag');
-
-        $this->dataLoader->addData('magManager', 'modifTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été modifié', 'pannelMag');
-        $this->dataLoader->deleteData('magManager', 'deleteTitle01', 'idMag', 'title01', 'Le titre 1 du magazine a été supprimmé', 'pannelMag');
-
-        $this->dataLoader->addData('magManager', 'modifTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été modifié', 'pannelMag');
-        $this->dataLoader->deleteData('magManager', 'deleteTitle02', 'idMag', 'title02', 'Le titre 2 du magazine a été supprimmé', 'pannelMag');
-
-        $this->dataLoader->addImg('magManager', 'modifCover', 'cover', 'idMag', 'La couverture du magazine a été modifiée', 'pannelMag');
-        */
     }
 
     //index.php?action=editorialBack&idMag=102
@@ -498,7 +552,7 @@ final class MagController
         );
     }
 
-    
+    //index.php?action=addEdito&idMag=102
     public function addEdito(int $idMag):void//méthode pour modifier ou écrire un édito de magazine
     {
         $this->auth->requireRole(1);

@@ -6,10 +6,6 @@ namespace Projet5\View;
 
 use Twig\Environment;
 use Twig\Extra\Intl\IntlExtension;
-use Twig\Extra\Markdown;
-use Twig\Extra\Markdown\DefaultMarkdown;
-use Twig\Extra\Markdown\MarkdownExtension;
-use Twig\Extra\Markdown\MarkdownRuntime;
 use Twig\Loader\FilesystemLoader;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
@@ -31,12 +27,11 @@ final class View
             }
         });
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
-        $this->twig->addExtension(new MarkdownExtension());
         $this->twig->addExtension(new IntlExtension());
         $this->twig->addFunction(new \Twig\TwigFunction(
             'extrait',
             function ($value) {
-                $espace = mb_strpos($value, ' ', 1000);
+                $espace = mb_strpos($value, ' ', 1750);
                 $extr = mb_substr($value, 0, $espace);
                 return html_entity_decode(strip_tags(htmlspecialchars_decode($extr))).' (Lire la suite)';
             }

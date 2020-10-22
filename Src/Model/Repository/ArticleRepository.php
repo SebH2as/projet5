@@ -68,9 +68,80 @@ final class ArticleRepository
             'idMag' => (int) $idMag]);
     }
 
+    public function findMostRecentArticle(): ?Article
+    {
+        $req = $this->database->getConnection()->prepare('SELECT * FROM articles ORDER BY date_creation DESC LIMIT 1');
+        $req->execute();
+        $req->setFetchMode(\PDO::FETCH_CLASS, Article::class);
+        $data = $req->fetch();
+
+        return $data  ? $data : null;
+    }
+
     public function addContent(int $idText, string $content): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE articles SET content = :content WHERE id_text = :idText ');
+        return $req->execute([
+            'idText' => $idText,
+            'content' => $content]);
+    }
+
+    public function modifTextType(int $idText, string $textType): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE articles SET textType = :textType WHERE id_text = :idText ');
+        return $req->execute([
+            'idText' => $idText,
+            'textType' => $textType]);
+    }
+
+    public function modifTitle(int $idText, string $content): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE articles SET title = :content WHERE id_text = :idText ');
+        return $req->execute([
+            'idText' => $idText,
+            'content' => $content]);
+    }
+
+    public function modifAuthor(int $idText, string $content): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE articles SET author = :content WHERE id_text = :idText ');
+        return $req->execute([
+            'idText' => $idText,
+            'content' => $content]);
+    }
+
+    public function modifTeaser(int $idText, string $content): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE articles SET teaser = :content WHERE id_text = :idText ');
+        return $req->execute([
+            'idText' => $idText,
+            'content' => $content]);
+    }
+
+    public function modifCover(int $idText, string $content): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE articles SET articleCover = :content WHERE id_text = :idText ');
+        return $req->execute([
+            'idText' => $idText,
+            'content' => $content]);
+    }
+
+    public function deleteArticle(int $idText): void
+    {
+        $req = $this->database->getConnection()->prepare('DELETE FROM articles WHERE id_text = :idText ');
+        $req->execute(['idText' => $idText]);
+    }
+
+    public function unsetMainAllArticles(int $idMag): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE articles SET main = 0 WHERE id_mag = :idMag ');
+        return $req->execute([
+            'idMag' => $idMag]);
+    }
+
+    public function changeMain(int $idText, int $content): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE articles SET main = :content WHERE id_text = :idText ');
         return $req->execute([
             'idText' => $idText,
             'content' => $content]);

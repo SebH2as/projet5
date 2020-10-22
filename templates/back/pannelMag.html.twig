@@ -113,10 +113,10 @@
                 </div>
                 {% for article in articles %}
                     <a class="tableRows" href="index.php?action=pannelArticle&amp;idMag={{magazine.id_mag}}&amp;idText={{article.id_text}}">
-                        <span class="tableContent"><?= $article->dateArticle ?></span>
-                        <span class="tableContent">{{article.textType}}</span>
-                        <span class="tableContent">{{article.title}}</span>
-                        <span class="tableContent">{{article.author}}</span>
+                        <span class="tableContent">{{article.date_creation |date("d/m/Y", "Europe/Paris")}}</span>
+                        <span class="tableContent">{% if not article.textType %}A définir{% else %}{{article.textType}}{% endif %}</span>
+                        <span class="tableContent">{% if not article.title %}A définir{% else %}{{article.title}}{% endif %}</span>
+                        <span class="tableContent">{% if not article.author %}A définir{% else %}{{article.author}}{% endif %}</span>
                         <span class="tableContent">{% if not article.articleCover %}Aucune{% else %}Oui{% endif %}</span>
                         <span class="tableContent">{% if article.main == 0 %}Non{% else %}Oui{% endif %}</span>
                         <span class="tableContent">{% if not article.teaser %}Non rédigé{% else %}Rédigé{% endif %}</span>

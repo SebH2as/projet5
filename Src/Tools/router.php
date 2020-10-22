@@ -62,8 +62,7 @@ final class Router
         'fictions',
         'article',
         'articles',
-        'unsetMain',
-        'setMain'
+        'changeMain'
     ];
 
     private $actionUser =

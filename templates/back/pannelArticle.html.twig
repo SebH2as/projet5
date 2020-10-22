@@ -19,11 +19,11 @@
         
         <div class="buttonsPannel"> 
             <a class="buttonPannel" id="backLink" href="index.php?action=pannelMag&amp;idMag={{magazine.id_mag}}">Retour au magazine</a>
-            <a class="buttonPannel" id="preview" href="index.php?action=previewArticle&amp;idText={{article.id_text}}" target="_blank">Aperçu</a>
+            <a class="buttonPannel" id="preview" href="index.php?action=previewArticle&amp;idMag={{magazine.id_mag}}&amp;idText={{article.id_text}}" target="_blank">Aperçu</a>
             {% if article.main == 0 %}
-            <a class="buttonPannel" id="preview" href="index.php?action=setMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Mettre en une</a>
+            <a class="buttonPannel" id="preview" href="index.php?action=changeMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Mettre en une</a>
             {% else %}
-            <a class="buttonPannel" id="preview" href="index.php?action=unsetMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Retirer de la une</a>
+            <a class="buttonPannel" id="preview" href="index.php?action=changeMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Retirer de la une</a>
             {% endif %}
             <a class="buttonPannel" id="delete" href="index.php?action=deleteArticle&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Supprimer</a>
         </div>

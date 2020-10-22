@@ -19,7 +19,6 @@ final class ArticleController
     private Request $request;
     private Auth $auth;
     private NoCsrf $noCsrf;
-    private Dataloader $dataLoader;
 
     public function __construct(MagManager $magManager, ArticleManager $articleManager, View $view)
     {
@@ -29,7 +28,6 @@ final class ArticleController
         $this->request = new Request();
         $this->auth = new auth();
         $this->noCsrf = new NoCsrf();
-        $this->dataLoader = new DataLoader();
     }
 
     //index.php?action=article&idMag=148&idText=3
@@ -136,31 +134,29 @@ final class ArticleController
         );
     }
 
+    //index.php?action=pannelArticle&idMag=102&idText=169
     public function createNewArticle(int $idMag): void
     {
         $this->auth->requireRole(1);
 
         $magazine = $this->magManager->showByIdAndPub($idMag);
-        $article = $this->articleManager->createArticleByIdMag((int) $magazine->id_mag);
+        $articleNew = $this->articleManager->createArticleByIdMag((int) $magazine->id_mag);
         $token = $this->noCsrf->createToken();
 
-        if ($article === null) {
+        if ($articleNew === null) {
             header("Location: index.php?action=listMag");
             exit();
         }
 
-        $this->view->render(
-            [
-            'template' => 'back/pannelArticle',
-            'data' => [
-                'magazine' => $magazine,
-                'article' => $article,
-                'token' => $token,
-                ],
-            ],
-        );
+        $article = $this->articleManager->showMostRecentArticle();
+        $idText = $article->id_text;
+        $message = 'Nouvel article créé';
+
+        header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&message=$message");
+        exit();
     }
 
+    //index.php?action=pannelArticle&idMag=102&idText=170&message=Le%20contenu%20de%20l%27article%20a%20été%20modifié
     public function addContent(int $idMag): void
     {
         $this->auth->requireRole(1);
@@ -175,25 +171,14 @@ final class ArticleController
  
         $this->articleManager->addContent((int) $this->request->get('idText'), (string) $this->request->post('content'));
 
-        $magazine = $this->magManager->showByIdAndPub($idMag);
-        $article = $this->articleManager->showById((int) $this->request->get('idText'));
-        $token = $this->noCsrf->createToken();
         $message = 'Le contenu de l\'article a été modifié';
 
-        $this->view->render(
-            [
-            'template' => 'back/pannelArticle',
-            'data' => [
-                'magazine' => $magazine,
-                'article' => $article,
-                'token' => $token,
-                'message' => $message,
-                ],
-            ],
-        );
+        header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&message=$message");
+        exit();
     }
 
-    public function modifyArticle():void
+    //index.php?action=pannelArticle&idMag=102&idText=170&message=L%27%20auteur%20de%20l%27article%20a%20été%20modifié
+    public function modifyArticle(int $idMag):void
     {
         $this->auth->requireRole(1);
 
@@ -205,16 +190,126 @@ final class ArticleController
             $message = "Une erreur est survenue, veuillez recommencer";
             header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&message=$message");
             exit();
-        };
+        }
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifRubric', 'rubric', 'La rubrique a été modifiée', 'pannelarticle', 'findArticleById');
+        if ($this->request->post('rubric') !== null && !empty($this->request->post('rubric'))
+        && !empty($this->request->post('modifRubric'))) {
+            $message = 'La rubrique de l\'article a été modifié';
+            $this->articleManager->modifTextType($idText, $this->request->post('rubric'));
+        }
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifTitle', 'title', 'Le titre a été modifiée', 'pannelarticle', 'findArticleById');
+        if ($this->request->post('title') !== null && !empty($this->request->post('title'))
+        && !empty($this->request->post('modifTitle'))) {
+            $message = 'Le titre de l\'article a été modifié';
+            $this->articleManager->modifTitle($idText, $this->request->post('title'));
+        }
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifAuthor', 'author', "L'auteur a été modifiée", 'pannelarticle', 'findArticleById');
+        if ($this->request->post('author') !== null && !empty($this->request->post('author'))
+        && !empty($this->request->post('modifAuthor'))) {
+            $message = 'L\' auteur de l\'article a été modifié';
+            $this->articleManager->modifAuthor($idText, $this->request->post('author'));
+        }
 
-        $this->dataLoader->addData('articleManager', 'idText', 'modifTeaser', 'teaser', "Le teaser a été modifiée", 'pannelarticle', 'findArticleById');
+        if ($this->request->post('teaser') !== null && !empty($this->request->post('teaser'))
+        && !empty($this->request->post('modifTeaser'))) {
+            $message = 'Le teaser de l\'article a été modifié';
+            $this->articleManager->modifTeaser($idText, $this->request->post('teaser'));
+        }
 
-        $this->files->addFiles('articleManager', 'modifCover', 'articleCover', 'idText', "L'image a été modifiée", 'pannelarticle', 'findArticleById');
+        if (!empty($this->request->post('modifCover'))) {
+            $cover = $_FILES['articleCover'];
+            $ext = mb_strtolower(mb_substr($cover['name'], -3)) ;
+            $allowExt = ["jpg", "png"];
+            
+            if (in_array($ext, $allowExt, true)) {
+                $dataToErase = $this->articleManager->showById($idText);
+                
+                if (($dataToErase->articleCover) !== null) {
+                    unlink("../public/images/".$dataToErase->articleCover);
+                }
+                
+                move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
+                $message = 'La couverture de l\'article a été modifié';
+                $this->articleManager->modifCover($idText, (string) $cover['name']);
+            }
+        }
+
+        header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&message=$message");
+        exit();
+    }
+
+    //index.php?action=pannelMag&idMag=102&message=L%27article%20a%20été%20supprimmé
+    public function deleteArticle(int $idMag):void
+    {
+        $this->auth->requireRole(1);
+
+        $idText = (int) $this->request->get('idText');
+
+        $message = null;
+
+        $dataToErase = $this->articleManager->showById($idText);
+
+        if (($dataToErase->articleCover) !== null) {
+            unlink("../public/images/".$dataToErase->articleCover);
+        }
+
+        $this->articleManager->deleteArticle($idText);
+
+        $message ='L\'article a été supprimmé';
+        
+        header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
+        exit();
+    }
+
+    //index.php?action=pannelArticle&idMag=102&idText=135&message=L%27article%20a%20été%20passé%20à%20la%20une
+    public function changeMain(int $idMag):void
+    {
+        $this->auth->requireRole(1);
+
+        $idText = (int) $this->request->get('idText');
+
+        $article = $this->articleManager->showById($idText);
+
+        if ($article->main === 0) {
+            $this->articleManager->unsetMainAllArticles($idMag);
+            $this->articleManager->changeMain($idText, 1);
+
+            $message = 'L\'article a été passé à la une';
+        }
+
+        if ($article->main === 1) {
+            $this->articleManager->changeMain($idText, 0);
+
+            $message = 'L\'article a été retiré de la une';
+        }
+
+        header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&message=$message");
+        exit();
+    }
+
+    
+    public function previewArticle(int $idMag):void
+    {
+        $this->auth->requireRole(1);
+        
+        $article = $this->articleManager->showById((int) $this->request->get('idText'));
+        $magazine = $this->magManager->showById($idMag);
+
+        if ($article === null) {
+            header("Location: index.php");
+            exit();
+        }
+
+        $this->view->render(
+            [
+            'template' => 'back/previewArticle',
+            'data' => [
+                'magazine' => $magazine,
+                'article' => $article,
+                'preview' => 1,
+                'active' => 0,
+                ],
+            ],
+        );
     }
 }

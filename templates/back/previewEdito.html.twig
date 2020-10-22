@@ -1,11 +1,7 @@
 {% extends "/front/layout.html.twig" %}
 
 {% block title %}
-    Editorial
-{% endblock %}
-
-{% block separator %}
-    <div id="separator01"></div>
+    aperçu éditorial
 {% endblock %}
 
 {% block script %}
@@ -21,9 +17,9 @@
     <section id="article">
 
         <div id="titleArticle">
-            <a href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
+            <a href="index.php?action=previewMag&amp;idMag={{magazine.id_mag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
             <h1>Editorial</h1>
-            <a href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
+            <a href="index.php?action=previewMag&amp;idMag={{magazine.id_mag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
             <div id="separator02"></div>
         </div>
 

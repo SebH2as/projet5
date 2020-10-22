@@ -17,18 +17,22 @@
         <div id="sectionImg">
             <img class="rubricImg" src="images/{{article.articleCover}}" alt="{{article.articleCover}}">
         </div>
+
         <section id="article">
+
             <div id="titleArticle">
                 <a href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
                 <h1>{{article.textType |upper }}</h1>
                 <a href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
                 <div id="separator02"></div>
             </div>
+
             <div id="articleContent">
-                <span>Le {{article.date_creation}}</span><h3>Par {{article.author}}</h3>
+                <span>Le {{article.date_creation |date("d/m/Y", "Europe/Paris")}}</span><h3>Par {{article.author}}</h3>
                 <h2>{{article.title}}</h2>
                 <span>{{decode(article.content) |raw |nl2br}} </span>
             </div>
+            
         </section>
 
 {% endblock %}

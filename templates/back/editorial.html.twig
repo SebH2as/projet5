@@ -26,7 +26,7 @@
                 <input type="submit" name="saveEdito" value="Enregistrer"> 
                 
                 <textarea id="writtingSpace" name="contentEdito">
-                    {{magazine.editorial}}
+                    {{decode(magazine.editorial)}}
                 </textarea>
                 <input type="submit" name="saveEdito" value="Enregistrer">
             </form>
