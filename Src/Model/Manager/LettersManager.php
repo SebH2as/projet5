@@ -40,4 +40,39 @@ final class LettersManager
     {
         return $this->lettersRepo->newLetter($user, $pseudo, $content);
     }
+
+    public function countAllLetters(): ?array
+    {
+        return $this->lettersRepo->countAllLetters();
+    }
+
+    public function showAllLetters(int $offset, int $nbByPage): ?array
+    {
+        return $this->lettersRepo->showAllLetters($offset, $nbByPage);
+    }
+
+    public function showLetterById(int $idLetter): Letter
+    {
+        return $this->lettersRepo->findLetterById($idLetter);
+    }
+
+    public function setLetterPublished(int $idLetter, int $content): bool
+    {
+        return $this->lettersRepo->setLetterPublished($idLetter, $content);
+    }
+
+    public function setRelatedMag(int $idLetter, int  $numberMag): bool
+    {
+        return $this->lettersRepo->setRelatedMag($idLetter, $numberMag);
+    }
+
+    public function setResponseById(int $idLetter, string  $content): bool
+    {
+        return $this->lettersRepo->setResponseById($idLetter, $content);
+    }
+
+    public function deleteLetterById(int $idLetter): void
+    {
+        $this->lettersRepo->deleteLetterById($idLetter);
+    }
 }

@@ -2194,6 +2194,13 @@ section .columnTitle {
   margin-bottom: 2vh;
 }
 
+#admin h3 {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
 #admin #message {
   font-size: 24px;
   margin-bottom: 2vh;
@@ -2234,6 +2241,7 @@ section .columnTitle {
           justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  width: 100%;
 }
 
 #admin #formProfil input {
@@ -2251,7 +2259,7 @@ section .columnTitle {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 25%;
+  width: 50%;
 }
 
 #admin #formProfil .buttonReset {
@@ -2303,6 +2311,37 @@ section .columnTitle {
   font-size: 36px;
   margin-top: 2vh;
   margin-bottom: 2vh;
+}
+
+#users #message {
+  font-size: 24px;
+  margin-bottom: 2vh;
+  background-color: #FBF7B1;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+  border: solid 2px #F8F272;
+  padding: 15px;
+  border-radius: 12px;
+  font-style: italic;
+}
+
+#users #error {
+  background-color: red;
+  text-align: center;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  font-size: 24px;
+  color: #fafafa;
+  padding: 15px;
+  border-radius: 12px;
+  font-style: italic;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+  margin-bottom: 2vh;
+}
+
+#users .none {
+  display: none;
 }
 
 #users #tableContainer {

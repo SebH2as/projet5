@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Projet5\Tools;
 
 use Projet5\Controller\ArticleController;
+use Projet5\Controller\LettersController;
 use Projet5\Controller\MagController;
 use Projet5\Controller\UsersController;
 
@@ -40,8 +41,6 @@ final class Router
         'editorialBack',
         'magByNumber',
         'magazine',
-        'courrier',
-        'previewLetters',
         'previewEdito',
         'editorial',
         'quiSommesNous',
@@ -76,19 +75,26 @@ final class Router
         'nousEcrire',
         'modifUser',
         'modifDataUser',
-        'postLetter',
+        'postLetter',//changer pour actionLetter ?
         'newsLetterAbo',
-        'courrier',
-        'userLetter',
-        'relatedMag',
-        'addResponse',
         'validation',
-        'courrierDelete',
         'invalidation',
         'adminProfil',
         'reset',
-        'usersAdmin',
+        'usersBack',
         'deleteUser'
+    ];
+
+    private $actionLetter =
+    [
+        'lettersBack',
+        'letterBack',
+        'courrier',
+        'previewLetters',
+        'setPublished',
+        'relatedMag',
+        'courrierDelete',
+        'setResponse',
     ];
 
     public function __construct()
@@ -117,6 +123,7 @@ final class Router
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
+
             $key = array_search($this->request->get('action'), $this->actionArticle, true);
             $methode = $this->actionArticle[$key];
             if ($methode === $this->request->get('action')) {
@@ -130,6 +137,7 @@ final class Router
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
+
             $key = array_search($this->request->get('action'), $this->actionUser, true);
             $methode = $this->actionUser[$key];
             if ($methode === $this->request->get('action')) {
@@ -143,6 +151,20 @@ final class Router
                 $lettersManager = new LettersManager($lettersRepo);
                 
                 $controller = new UsersController($usersManager, $magManager, $lettersManager, $this->view);
+                $controller->$methode((int) $this->request->get('idMag'));
+                exit();
+            }
+
+            $key = array_search($this->request->get('action'), $this->actionLetter, true);
+            $methode = $this->actionLetter[$key];
+            if ($methode === $this->request->get('action')) {
+                $magRepo = new MagRepository($this->database);
+                $magManager = new MagManager($magRepo);
+                
+                $lettersRepo = new LettersRepository($this->database);
+                $lettersManager = new LettersManager($lettersRepo);
+                
+                $controller = new LettersController($magManager, $lettersManager, $this->view);
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }

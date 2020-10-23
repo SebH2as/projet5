@@ -108,43 +108,6 @@ final class MagController
         );
     }
 
-    //index.php?action=courrier&idMag=110
-    public function courrier(int $idMag):void//méthode pour afficher la page courrier d'un magazine
-    {
-        $user = $this->auth->user();
-        $magazine = $this->magManager->showByIdAndPub($idMag);
-        
-        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->numberMag);
-        $nbByPage = 2;
-        $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
-
-        $currentpage = 1;
-        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
-            $currentpage = (int) $this->request->get('currentpage');
-            if ($currentpage > $totalpages) {
-                $currentpage = $totalpages;
-            }
-        }
-
-        $offset = ($currentpage - 1) * $nbByPage;
-        
-        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->numberMag);
-        
-        $this->view->render(
-            [
-            'template' => 'front/courrier',
-            'data' => [
-                'user' => $user,
-                'magazine' => $magazine,
-                'letters' => $letters,
-                'preview' => 0,
-                'currentpage' => $currentpage,
-                'totalpages' => $totalpages,
-                ],
-            ],
-        );
-    }
-
     //index.php?action=quiSommesNous&idMag=110
     public function quiSommesNous(int $idMag):void//méthode pour afficher la page Qui sommes nous?
     {
@@ -338,7 +301,7 @@ final class MagController
                 unlink("../public/images/".$articleImgToErase->articleCover);
             }
         }
-        $message = 'Le magazine numéro '. $magToErase->numberMag . ' a bien été supprimmé avec ses articles et images associés';
+        $message = 'Le magazine numéro '. $magToErase->numberMag . ' a bien été supprimé avec ses articles et images associés';
         
         $this->magManager->deleteMagById((int) $this->request->get('idMag'));
 
@@ -405,47 +368,6 @@ final class MagController
                 'magazine' => $magazine,
                 'preview' => 1,
                 'active' => 0,
-                ],
-            ],
-        );
-    }
-
-    public function previewLetters(int $idMag):void
-    {
-        $this->auth->requireRole(1);
-        
-        $magazine = $this->magManager->showById($idMag);
-
-        if ($magazine === null) {
-            header("Location: index.php");
-            exit();
-        }
-
-        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->numberMag);
-        $nbByPage = 2;
-        $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
-
-        $currentpage = 1;
-        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
-            $currentpage = (int) $this->request->get('currentpage');
-            if ($currentpage > $totalpages) {
-                $currentpage = $totalpages;
-            }
-        }
-
-        $offset = ($currentpage - 1) * $nbByPage;
-        
-        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->numberMag);
-        
-        $this->view->render(
-            [
-            'template' => 'front/courrier',
-            'data' => [
-                'magazine' => $magazine,
-                'letters' => $letters,
-                'preview' => 0,
-                'currentpage' => $currentpage,
-                'totalpages' => $totalpages,
                 ],
             ],
         );

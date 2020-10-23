@@ -31,6 +31,11 @@ final class UsersManager
         return $this->usersRepo->findUserById($userId);
     }
 
+    public function getAllUserById(int $userId): ?User
+    {
+        return $this->usersRepo->findAllUserById($userId);
+    }
+
     public function getAboNewsletter(int $idUser, int $value)
     {
         return $this->usersRepo->setAboById($idUser, $value);
@@ -74,5 +79,20 @@ final class UsersManager
     public function activeAccountByPseudo(string $pseudo): bool
     {
         return $this->usersRepo->activeAccountByPseudo($pseudo);
+    }
+
+    public function countUsers(): ?array
+    {
+        return $this->usersRepo->countUsers();
+    }
+
+    public function showAllUsers(int $offset, int $nbByPage): ?array
+    {
+        return $this->usersRepo->findAllUsers($offset, $nbByPage);
+    }
+
+    public function deleteUserById(int $idUser): void
+    {
+        $this->usersRepo->deleteUserById($idUser);
     }
 }

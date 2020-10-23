@@ -12,6 +12,6 @@ final class Letter
     public ?string $post_date;
     public ?string $content;
     public ?string $response;
-    public ?string $published;
-    public ?string $magRelated;
+    public ?int $published;
+    public ?int $magRelated;
 }

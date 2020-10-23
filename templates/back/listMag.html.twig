@@ -40,7 +40,7 @@
 
                             <span class="tableContent">{{mag.numberMag}}</span>
 
-                            <span class="tableContent">{{mag.publication}}</span>
+                            <span class="tableContent">{% if not mag.publication %}non définie{% else %}{{mag.publication}}{% endif %}</span>
 
                             <span class="tableContent">{% if not mag.cover %}non{% else %}oui{% endif %}</span>
 

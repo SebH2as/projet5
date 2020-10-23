@@ -68,4 +68,63 @@ final class LettersRepository
             'pseudo' => (string) $pseudo,
             'content' => (string) $content]);
     }
+
+    public function countAllLetters(): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT COUNT(*) FROM letters ');
+        $req->execute();
+        return $req->fetch();
+    }
+
+    public function showAllLetters(int $offset, int $nbByPage): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT *
+        FROM letters 
+        ORDER BY post_date DESC
+        LIMIT :offset, :limitation');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(\PDO::FETCH_OBJ);
+    }
+
+    public function findLetterById(int $idLetter): Letter
+    {
+        $req = $this->database->getConnection()->prepare('SELECT * FROM letters WHERE id_letter = :idLetter ');
+        $req->execute(['idLetter' => (int) $idLetter]);
+        $req->setFetchMode(\PDO::FETCH_CLASS, Letter::class);
+        $data = $req->fetch();
+
+        return $data  ? $data : null;
+    }
+
+    public function setLetterPublished(int $idLetter, int $content): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE letters SET published = :content WHERE id_letter = :idLetter ');
+        return $req->execute([
+            'idLetter' => (int) $idLetter,
+            'content' => (int) $content]);
+    }
+
+    public function setRelatedMag(int $idLetter, int $numberMag): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE letters SET magRelated = :numberMag WHERE id_letter = :idLetter ');
+        return $req->execute([
+            'idLetter' => (int) $idLetter,
+            'numberMag' => (int) $numberMag]);
+    }
+
+    public function setResponseById(int $idLetter, string  $content): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE letters SET response = :content WHERE id_letter = :idLetter ');
+        return $req->execute([
+            'idLetter' => (int) $idLetter,
+            'content' => (string) $content]);
+    }
+
+    public function deleteLetterById(int $idLetter): void
+    {
+        $req = $this->database->getConnection()->prepare('DELETE FROM letters WHERE id_letter = :idLetter ');
+        $req->execute(['idLetter' => $idLetter]);
+    }
 }

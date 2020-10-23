@@ -44,6 +44,17 @@ final class UsersRepository
         return $req->fetchObject(User::class);
     }
 
+    public function findAllUserById(int $userId): ?User
+    {
+        $req = $this->database->getConnection()->prepare('SELECT * , DATE_FORMAT(inscription_date, \'%d/%m/%Y\') AS dateUser FROM users WHERE id_user = :idUser');
+        $req->execute([
+            'idUser' => (string) $userId]);
+        $req->setFetchMode(\PDO::FETCH_CLASS, User::class);
+        $data = $req->fetch();
+
+        return $data  ? $data : null;
+    }
+
     public function setAboById(int $idUser, int $value): void
     {
         $req = $this->database->getConnection()->prepare('UPDATE users SET newsletter = :newvalue WHERE id_user = :idUser ');
@@ -115,5 +126,30 @@ final class UsersRepository
         $req = $this->database->getConnection()->prepare('UPDATE users SET actived = 1 WHERE pseudo = :pseudo ');
         return $req->execute([
             'pseudo' => (string) $pseudo]);
+    }
+
+    public function countUsers(): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT COUNT(id_user) FROM users');
+        $req->execute();
+        return $req->fetch();
+    }
+
+    public function findAllUsers(int $offset, int $nbByPage): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT *
+        FROM users 
+        ORDER BY inscription_date DESC
+        LIMIT :offset, :limitation');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(\PDO::FETCH_OBJ);
+    }
+
+    public function deleteUserById(int $idUser): void
+    {
+        $req = $this->database->getConnection()->prepare('DELETE FROM users WHERE id_user = :idUser ');
+        $req->execute(['idUser' => $idUser]);
     }
 }

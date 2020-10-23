@@ -1,0 +1,70 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Panneau de gestion des données de l'administrateur
+{% endblock %}
+
+{% block content %}
+
+    <section id="admin">
+        <h1>Vous pouvez changer ici votre pseudo, votre mail et votre mot de passe d'administrateur</h1>
+        
+        <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+        
+        <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
+        
+        <form id="formProfil" action="index.php?action=modifDataUser&amp;userData=Pseudo" method="post">
+            <input type="hidden" name="csrf" value="{{token}}">
+
+            <div class="formSeparator">
+                <h3>Nouveau pseudo</h3>
+                <input title="new" class="champ" type="text" name="new" id="new" placeholder="" size="25"/>
+                <label id="labelNew" for="new"></label>
+                <h3>Ressaisissez le nouveau pseudo</h3>
+                <input title="new2" class="champ" type="text" name="new2" id="new2" placeholder="" size="25"/>
+                <label id="labelNew2" for="new2"></label>
+                <h3>Mot de passe</h3>
+                <input title="password" type="password" name="password" class="password" placeholder="" size="50"/>
+                <label id="labelPassword" for="password"></label>
+                <input type="submit" name="resetPseudo" class="buttonReset" value="Changer">
+            </div>
+
+        </form>
+
+        <form id="formProfil" action="index.php?action=modifDataUser&amp;userData=Email" method="post">
+            <input type="hidden" name="csrf" value="{{token}}">
+
+            <div class="formSeparator">                      
+                <h3>Nouvel email</h3>
+                <input title="new" class="champ" type="text" name="new" id="new" placeholder="" size="25"/>
+                <label id="labelNew" for="new"></label>
+                <h3>Ressaisissez le nouvel email</h3>
+                <input title="new2" class="champ" type="text" name="new2" id="new2" placeholder="" size="25"/>
+                <label id="labelNew2" for="new2"></label>
+                <h3>Mot de passe</h3>
+                <input title="password" type="password" name="password" class="password" placeholder="" size="50"/>
+                <label id="labelPassword" for="password"></label>
+                <input type="submit" name="resetEmail" class="buttonReset" value="Changer">
+            </div>  
+
+        </form>  
+
+        <form id="formProfil" action="index.php?action=modifDataUser&amp;userData=Mot de passe" method="post">
+            <input type="hidden" name="csrf" value="{{token}}">
+
+            <div class="formSeparator">     
+                <h3>Nouveau de mot de passe</h3>
+                <input title="new" class="champ" type="text" name="new" id="new" placeholder="" size="25"/>
+                <label id="labelNew" for="new"></label>
+                <h3>Ressaisissez le nouveau mot de passe</h3>
+                <input title="new2" class="champ" type="text" name="new2" id="new2" placeholder="" size="25"/>
+                <label id="labelNew2" for="new2"></label>
+                <h3>Ancien mot de passe</h3>
+                <input title="password" type="password" name="password" class="password" placeholder="" size="50"/>
+                <label id="labelPassword" for="password"></label>
+                <input type="submit" name="resetPass" class="buttonReset" value="Changer">
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

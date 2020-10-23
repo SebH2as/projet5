@@ -95,4 +95,9 @@ final class MagManager
     {
         return $this->magRepo->modifEdito($idMag, $value);
     }
+
+    public function showAllNumberMag(): array
+    {
+        return $this->magRepo->getAllNumberMag();
+    }
 }

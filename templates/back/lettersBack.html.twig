@@ -1,0 +1,52 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Liste des lettres reçues
+{% endblock %}
+
+{% block content %}
+
+        <section id="courrier">
+
+            {% if not letters %}
+                <h2>Aucun courrier reçu</h2>
+            {% else %}
+
+                <h2>Courrier des lecteurs</h2>
+
+                <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+
+                <div id="tableContainer">
+
+                    <div id="tableTitles">
+                        <span class="columnTitle">Membre</span>
+                        <span class="columnTitle">Date de réception</span>
+                        <span class="columnTitle">Réponse</span>
+                        <span class="columnTitle">Magazine associé</span>
+                        <span class="columnTitle">Statut</span>
+                    </div>
+
+                    {% for letter in letters %}
+
+                        <a class="tableRows" href="index.php?action=letterBack&amp;idLetter={{letter.id_letter}}">
+
+                            <span class="tableContent">{{letter.author}}</span>
+                            <span class="tableContent">{{letter.post_date |date("d/m/Y", "Europe/Paris")}}</span>
+                            <span class="tableContent">{% if not letter.response %}aucune{% else %}Rédigée{% endif %}</span>
+                            <span class="tableContent">{% if not letter.magRelated %}aucun{% else %}{{letter.magRelated}}{% endif %}</span>
+                            <span class="tableContent">{% if letter.published == 0 %}En attente de publication{% else %}Publié{% endif %}</span>
+                        </a>
+
+                   {% endfor %}
+                </div>
+
+                <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=lettersBack&amp;currentpage={{currentpage - 1}}"></a>
+                        <span>Page {{currentpage}}/{{totalpages}}</span> 
+                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=lettersBack&amp;currentpage={{currentpage + 1}}"></a>
+                </div>
+
+            {% endif %}
+        </section>
+
+{% endblock %}

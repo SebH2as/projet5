@@ -153,4 +153,11 @@ final class MagRepository
             'sameid' => $idMag,
             'newValue' => $value]);
     }
+
+    public function getAllNumberMag():array // requete pour recuperer les numéros de tous les magazines
+    {
+        $req = $this->database->getConnection()->prepare('SELECT numberMag FROM mag');
+        $req->execute();
+        return $req->fetchALL(\PDO::FETCH_OBJ);
+    }
 }

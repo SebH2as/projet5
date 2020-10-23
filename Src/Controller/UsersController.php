@@ -87,7 +87,7 @@ final class UsersController
         }
             
         if ($user->role === 1) {
-            header("Location: index.php?action=listMag&idMag=$idMag");
+            header("Location: index.php?action=adminProfil&message=$message");
             exit();
         }
             
@@ -204,6 +204,11 @@ final class UsersController
         $this->request->post('new') === null || empty($this->request->post('new')) ||
         $this->request->post('new2') === null || empty($this->request->post('new2'))) {
             $error = 'Au moins un des champs est vide. Veuillez tous les renseigner.';
+
+            if ($user->role === 1) {
+                header("Location: index.php?action=adminProfil&error=$error");
+                exit();
+            }
             
             header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
             exit();
@@ -211,13 +216,23 @@ final class UsersController
 
         if (password_verify($this->request->post('password'), $user->p_w) === false) {
             $error = 'Erreur de mot de passe';
+
+            if ($user->role === 1) {
+                header("Location: index.php?action=adminProfil&error=$error");
+                exit();
+            }
             
             header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
             exit();
         }
 
         if ($this->request->post('new') !== $this->request->post('new2')) {
-            $error = 'Les deux mots de passe renseignés ne correspondent pas';
+            $error = 'Les deux champs renseignés ne correspondent pas';
+
+            if ($user->role === 1) {
+                header("Location: index.php?action=adminProfil&error=$error");
+                exit();
+            }
             
             header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
             exit();
@@ -228,6 +243,11 @@ final class UsersController
 
                 if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('new')) === 0) {
                     $error = 'Le nouveau mot de passe choisi n\'est pas valide';
+
+                    if ($user->role === 1) {
+                        header("Location: index.php?action=adminProfil&error=$error");
+                        exit();
+                    }
                     
                     header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
                     exit();
@@ -244,6 +264,11 @@ final class UsersController
 
                 if (mb_strlen($this->request->post('new')) < 3 || mb_strlen($this->request->post('new')) > 15) {
                     $error = 'Le nouveau pseudo choisi n\'est pas valide';
+
+                    if ($user->role === 1) {
+                        header("Location: index.php?action=adminProfil&error=$error");
+                        exit();
+                    }
                     
                     header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
                     exit();
@@ -252,6 +277,11 @@ final class UsersController
                 $pseudoThere = $this->usersManager->countPseudoUser($this->request->post('new'));
                 if (($pseudoThere[0]) >= 1) {
                     $error = 'Le pseudo choisi est déjà utilisé';
+
+                    if ($user->role === 1) {
+                        header("Location: index.php?action=adminProfil&error=$error");
+                        exit();
+                    }
                     
                     header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
                     exit();
@@ -268,6 +298,11 @@ final class UsersController
 
                 if (filter_var($this->request->post('new'), FILTER_VALIDATE_EMAIL) === false) {
                     $error = 'L\'email choisi n\'est pas valide';
+
+                    if ($user->role === 1) {
+                        header("Location: index.php?action=adminProfil&error=$error");
+                        exit();
+                    }
                     
                     header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
                     exit();
@@ -276,6 +311,11 @@ final class UsersController
                 $emailThere = $this->usersManager->countEmailUser($this->request->post('new'));
                 if (($emailThere[0]) >= 1) {
                     $error = 'L\' email choisi est déjà utilisé';
+
+                    if ($user->role === 1) {
+                        header("Location: index.php?action=adminProfil&error=$error");
+                        exit();
+                    }
                     
                     header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
                     exit();
@@ -509,5 +549,87 @@ final class UsersController
         $this->lettersManager->createLetter((int) $user->id_user, (string) $user->pseudo, (string) $this->request->post('courrier'));
         header("Location: index.php?action=monCompte&idMag=$idMag&message=1");
         exit();
+    }
+
+    public function usersBack(int $idMag): void
+    {
+        $this->auth->requireRole(1);
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $message = htmlspecialchars($this->request->get('message'));
+        }
+
+        $totalUsers = $this->usersManager->countUsers();
+        $nbByPage = 5;
+        $totalpages = (int) ceil($totalUsers[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            }
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+
+
+        $users = $this->usersManager->showAllUsers((int) $offset, (int) $nbByPage);
+        
+        $this->view->render(
+            [
+            'template' => 'back/usersBack',
+            'data' => [
+                'users' => $users,
+                'currentpage' => $currentpage,
+                'totalpages' => $totalpages,
+                'message' => $message,
+                ],
+            ],
+        );
+    }
+
+    public function deleteUser(int $idMag): void
+    {
+        $this->auth->requireRole(1);
+
+        $idUser = (int)$this->request->get('idUser');
+        $user = $this->usersManager->getAllUserById($idUser);
+
+        $message = 'Le membre '. $user->pseudo .' a été supprimé';
+
+        $this->usersManager->deleteUserById($idUser);
+
+        header("Location: index.php?action=usersBack&message=$message");
+        exit();
+    }
+
+    public function adminProfil(int $idMag): void
+    {
+        $this->auth->requireRole(1);
+
+        $token = $this->noCsrf->createToken();
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $message = htmlspecialchars($this->request->get('message'));
+        }
+
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = htmlspecialchars($this->request->get('error'));
+        }
+
+        $this->view->render(
+            [
+            'template' => 'back/adminProfil',
+            'data' => [
+                'error' => $error,
+                'message' => $message,
+                'token' => $token,
+                ],
+            ],
+        );
     }
 }

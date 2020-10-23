@@ -1,0 +1,72 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Courrier de {{letter.author}}
+{% endblock %}
+
+{% block content %}
+
+        <section id="courrier">
+            {% if not letter %}
+                <h2>Aucun courrier ne correspond à cet identifiant</h2>
+            {% else %}
+                <h2>Courrier de {{letter.author}}</h2>
+                <h3>Reçu le {{letter.post_date |date("d/m/Y", "Europe/Paris")}}</h3>
+
+                <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+
+                <div class="buttonsPannel"> 
+                    <a class="buttonPannel" id="preview" href="index.php?action=lettersBack">Retour aux courriers</a>
+                    {% if letter.published == 0 %}
+                        <a class="buttonPannel" id="online" href="index.php?action=setPublished&amp;idLetter={{letter.id_letter}}">Publier</a>
+                    {% else %}
+                        <a class="buttonPannel" id="online" href="index.php?action=setPublished&amp;idLetter={{letter.id_letter}}">Retirer de la publication</a>
+                    {% endif %}
+                    <a class="buttonPannel" id="preview" href="#response">Répondre</a>
+                    <a class="buttonPannel" id="delete" href="index.php?action=courrierDelete&amp;idLetter={{letter.id_letter}}">Supprimer</a>
+                </div>
+
+                <div id="contentContainer">
+                    <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=relatedMag&amp;idLetter={{letter.id_letter}}">
+                        
+                        <input type="hidden" name="csrf" value="{{token}}">
+                        
+                        <h3>Magazine associé: <i>{% if not letter.magRelated %}aucun{% else %}{{letter.magRelated}}{% endif %}</i></h3>
+                            <div class="formRow">
+                                <div class="labelInput">
+                                    <label for="numberMag">Modifier le magazine associé:</label>
+                                        <select list="numberMag" name="numberMag">
+                                            {% for number in numberMags %} 
+                                                <option value="{{number.numberMag}}">Magazine numéro {{number.numberMag}}</option>
+                                            {% endfor %}
+                                        </select>     
+                                </div>
+                                <input type="submit" class="button01" name="modifRelatedMag" value="Associer">
+                            </div>
+                    </form>
+                </div>
+
+                <div id="letterContent">
+                    <h3>Contenu du courrier</h3>
+                    <p>{{decode(letter.content)}}</p>
+                </div>  
+                
+                <div id="response">
+                    <h3>Répondre</h3>
+                    <form id="formEditArticle" action="index.php?action=setResponse&amp;idLetter={{letter.id_letter}}" method="POST">
+                        
+                        <input type="hidden" name="csrf" value="{{token}}">
+                        
+                        <input type="submit" name="saveResponse" value="Enregistrer la réponse"> 
+                        
+                        <textarea id="writtingSpace" name="contentResponse">
+                        {{decode(letter.response)}}
+                        </textarea>
+
+                        <input type="submit" name="saveResponse" value="Enregistrer la réponse">
+                    </form>
+                </div>
+            {% endif %}
+        </section>
+
+{% endblock %}
