@@ -1,0 +1,57 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Gestion des newsletters
+{% endblock %}
+
+{% block content %}
+
+        <section id="newsletter">
+
+            {% if not newsletters %}
+                <h2>Aucune newsletter rédigée</h2>
+
+                <div class="buttonsPannel"> 
+                    <a class="buttonPannel" id="online" href="index.php?action=newNewsletter">Créer une newsletter</a>
+                </div>
+
+            {% else %}
+
+                <h2>Newsletters</h2>
+
+                <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+
+                <div class="buttonsPannel"> 
+                    <a class="buttonPannel" id="online" href="index.php?action=newNewsletter">Créer une newsletter</a>
+                </div>
+
+                <div id="tableContainer">
+
+                    <div id="tableTitles">
+                        <span class="columnTitle">Date de création</span>
+                        <span class="columnTitle">Rédaction</span>
+                        <span class="columnTitle">Envoyée</span>
+                    </div>
+
+                    {% for newsletter in newsletters %}
+
+                        <a class="tableRows" href="index.php?action=newsletterBack&amp;idNewsletter={{newsletter.id_newsletter}}">
+
+                            <span class="tableContent">{{newsletter.redaction_date |date("d/m/Y", "Europe/Paris")}}</span>
+                            <span class="tableContent">{% if not newsletter.content %}Non rédigée{% else %}Rédigée{% endif %}</span>
+                            <span class="tableContent">{% if newsletter.send == 0 %}Non postée{% else %}Postée{% endif %}</span>
+                        </a>
+
+                   {% endfor %}
+                </div>
+
+                <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=newslettersBack&amp;currentpage={{currentpage - 1}}"></a>
+                        <span>Page {{currentpage}}/{{totalpages}}</span> 
+                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=newslettersBack&amp;currentpage={{currentpage + 1}}"></a>
+                </div>
+
+            {% endif %}
+        </section>
+
+{% endblock %}

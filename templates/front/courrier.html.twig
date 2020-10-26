@@ -32,9 +32,9 @@
             {% else %}
 
                 <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
-                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=courrier&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage - 1}}"></a>
+                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage - 1}}"></a>
                     <span>Page {{currentpage}}/{{totalpages}}</span> 
-                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=courrier&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage + 1}}"></a>
+                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage + 1}}"></a>
                 </div>
              
             {% for letter in letters %}
@@ -51,9 +51,9 @@
             {% endfor %}
 
                 <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
-                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=courrier&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage - 1}}"></a>
+                    <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage - 1}}"></a>
                     <span>Page {{currentpage}}/{{totalpages}}</span> 
-                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=courrier&amp;value={{magazine.id_mag}}&amp;value2=2&amp;currentpage={{currentpage + 1}}"></a>
+                    <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage + 1}}"></a>
                 </div>
 
             {% endif %}

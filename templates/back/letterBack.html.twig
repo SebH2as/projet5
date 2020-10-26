@@ -31,7 +31,7 @@
                         
                         <input type="hidden" name="csrf" value="{{token}}">
                         
-                        <h3>Magazine associé: <i>{% if not letter.magRelated %}aucun{% else %}{{letter.magRelated}}{% endif %}</i></h3>
+                        <h3>Magazine associé: <i>Numéro {% if not letter.magRelated %}aucun{% else %}{{letter.magRelated}}{% endif %}</i></h3>
                             <div class="formRow">
                                 <div class="labelInput">
                                     <label for="numberMag">Modifier le magazine associé:</label>

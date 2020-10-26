@@ -6,6 +6,7 @@ namespace Projet5\Controller;
 use Projet5\Model\Manager\ArticleManager;
 use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
+use Projet5\Model\Manager\NewslettersManager;
 use Projet5\Tools\Auth;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\NoCsrf;
@@ -17,15 +18,17 @@ final class LettersController
     private MagManager $magManager;
     private ArticleManager $articleManager;
     private LettersManager $lettersManager;
+    private NewslettersManager $newslettersManager;
     private View $view;
     private Request $request;
     private NoCsrf $noCsrf;
     private Auth $auth;
 
-    public function __construct(MagManager $magManager, LettersManager $lettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
+    public function __construct(MagManager $magManager, LettersManager $lettersManager, NewslettersManager $newslettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
     {
         $this->magManager = $magManager;
         $this->lettersManager = $lettersManager;
+        $this->newslettersManager = $newslettersManager;
         $this->view = $view;
         $this->request = $request;
         $this->auth = $auth;
@@ -319,13 +322,134 @@ final class LettersController
             exit();
         }
 
-        if ($this->request->post('contentResponse') !== null && !empty($this->request->post('contentResponse'))
-        && !empty($this->request->post('saveResponse'))) {
-            $message = 'La réponse au courrier a été enregistrée';
-            $this->lettersManager->setResponseById($idLetter, (string) $this->request->post('contentResponse'));
+        if ($this->request->post('contentResponse') === null || empty($this->request->post('contentResponse'))
+        || empty($this->request->post('saveResponse'))) {
+            header("Location: index.php?action=letterBack&idLetter=$idLetter");
+            exit();
         }
 
+        $message = 'La réponse au courrier a été enregistrée';
+        $this->lettersManager->setResponseById($idLetter, (string) $this->request->post('contentResponse'));
+
         header("Location: index.php?action=letterBack&idLetter=$idLetter&message=$message");
+        exit();
+    }
+
+    //index.php?action=newslettersBack
+    public function newslettersBack(int $idMag): void//méthode pour afficher la page récapitulatrice de tout les courriers dans le back
+    {
+        $this->auth->requireRole(1);
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $message = htmlspecialchars($this->request->get('message'));
+        }
+
+        $totalLetters = $this->newslettersManager->countAllNewsletters();
+        $nbByPage = 5;
+        $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            }
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+
+        $newsletters = $this->newslettersManager->showAllNewsletters((int) $offset, (int) $nbByPage);
+        
+        $this->view->render(
+            [
+            'template' => 'back/newslettersBack',
+            'data' => [
+                'newsletters' => $newsletters,
+                'currentpage' => $currentpage,
+                'totalpages' => $totalpages,
+                'message' => $message,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=newslettersBack&message=Une%20newsletter%20a%20bien%20été%20créée
+    public function newNewsletter(): void
+    {
+        $this->auth->requireRole(1);
+
+        $this->newslettersManager->createNewsletter();
+        $message = 'Une newsletter a bien été créée';
+
+        header("Location: index.php?action=newslettersBack&message=$message");
+        exit();
+    }
+
+    //index.php?action=newsletterBack&idNewsletter=7
+    public function newsletterBack(): void
+    {
+        $this->auth->requireRole(1);
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $message = htmlspecialchars($this->request->get('message'));
+        }
+
+        $idNewsletter = (int)$this->request->get('idNewsletter');
+
+        $newsletter = $this->newslettersManager->showNewslettersById($idNewsletter);
+        $token = $this->noCsrf->createToken();
+
+        $this->view->render(
+            [
+            'template' => 'back/newsletterBack',
+            'data' => [
+                'newsletter' => $newsletter,
+                'token' => $token,
+                'message' => $message,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=newsletterBack&idNewsletter=7&message=Le%20contenu%20de%20la%20newsletter%20a%20bien%20été%20mis%20à%20jour
+    public function addContentNewsletter(): void
+    {
+        $this->auth->requireRole(1);
+
+        $idNewsletter = (int)$this->request->get('idNewsletter');
+
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            $message = "Une erreur est survenue, veuillez recommencer";
+            header("Location: index.php?action=createNewMag");
+            exit();
+        }
+
+        if ($this->request->post('content') === null || empty($this->request->post('content'))
+        || empty($this->request->post('save'))) {
+            header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter");
+            exit();
+        }
+        $this->newslettersManager->setNewsLetterContentById($idNewsletter, (string) $this->request->post('content'));
+
+        $message = 'Le contenu de la newsletter a bien été mis à jour';
+
+        header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&message=$message");
+        exit();
+    }
+
+    public function deleteNewsletter(): void
+    {
+        $this->auth->requireRole(1);
+
+        $idNewsletter = (int)$this->request->get('idNewsletter');
+
+        $message = 'La newsletter a bien été supprimée';
+
+        $this->newslettersManager->deleteNewsletterById($idNewsletter);
+
+        header("Location: index.php?action=newslettersBack&message=$message");
         exit();
     }
 }

@@ -11,11 +11,13 @@ use Projet5\Controller\UsersController;
 use Projet5\Model\Manager\ArticleManager;
 use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
+use Projet5\Model\Manager\NewslettersManager;
 use Projet5\Model\Manager\UsersManager;
 
 use Projet5\Model\Repository\ArticleRepository;
 use Projet5\Model\Repository\LettersRepository;
 use Projet5\Model\Repository\MagRepository;
+use Projet5\Model\Repository\NewslettersRepository;
 use Projet5\Model\Repository\UsersRepository;
 
 use Projet5\Tools\Auth;
@@ -93,6 +95,12 @@ final class Router
         'relatedMag',
         'courrierDelete',
         'setResponse',
+        'newslettersBack',
+        'newNewsletter',
+        'newsletterBack',
+        'addContentNewsletter',
+        'deleteNewsletter',
+        'sendNewsletter'
     ];
 
     public function __construct()
@@ -163,8 +171,11 @@ final class Router
                 
                 $lettersRepo = new LettersRepository($this->database);
                 $lettersManager = new LettersManager($lettersRepo);
+
+                $newslettersRepo = new NewslettersRepository($this->database);
+                $newslettersManager = new NewslettersManager($newslettersRepo);
                 
-                $controller = new LettersController($magManager, $lettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
+                $controller = new LettersController($magManager, $lettersManager, $newslettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }

@@ -1,0 +1,41 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Gestion newsletter du {{newsletter.redaction_date |date("d/m/Y", "Europe/Paris")}}
+{% endblock %}
+
+{% block content %}
+    <section id="newsletter">
+
+        <h2>Newsletter du {{newsletter.redaction_date |date("d/m/Y", "Europe/Paris")}}</h2>
+
+        <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+
+        <div class="buttonsPannel"> 
+            <a id="preview" href="index.php?action=newslettersBack">Retour au panneau de gestion des newsletters</a>
+            <a id="online" href="index.php?action=sendNewsletter&amp;idNewsletter={{newsletter.id_newsletter}}">Poster</a>
+            <a id="delete" href="index.php?action=deleteNewsletter&amp;idNewsletter={{newsletter.id_newsletter}}">Supprimmer</a>               
+        </div>
+    
+    </section>
+
+    <section id="textEditor">
+
+        <div id="contentContainer02">
+
+            <h3>Contenu de la newsletter</h3>
+
+            <form id="formEditArticle" action="index.php?action=addContentNewsletter&amp;idNewsletter={{newsletter.id_newsletter}}" method="POST">
+                <input type="hidden" name="csrf" value="{{token}}">
+                
+                <input type="submit" name="save" value="Enregistrer"> 
+                
+                <textarea id="writtingSpace" name="content">
+                    {{decode(newsletter.content)}}
+                </textarea>
+                <input type="submit" name="save" value="Enregistrer">
+            </form>
+
+        </div>
+    </section>
+{% endblock %}
