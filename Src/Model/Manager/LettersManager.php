@@ -75,4 +75,9 @@ final class LettersManager
     {
         $this->lettersRepo->deleteLetterById($idLetter);
     }
+
+    public function changeLetterAuthor(int $idUser, string $pseudo): bool
+    {
+        return $this->lettersRepo->changeLetterAuthor($idUser, $pseudo);
+    }
 }

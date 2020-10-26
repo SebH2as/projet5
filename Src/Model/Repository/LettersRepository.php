@@ -127,4 +127,12 @@ final class LettersRepository
         $req = $this->database->getConnection()->prepare('DELETE FROM letters WHERE id_letter = :idLetter ');
         $req->execute(['idLetter' => $idLetter]);
     }
+
+    public function changeLetterAuthor(int $idUser, string $pseudo): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE letters SET author = :pseudo WHERE id_User = :idUser ');
+        return $req->execute([
+            'idUser' => (int) $idUser,
+            'pseudo' => (string) $pseudo]);
+    }
 }

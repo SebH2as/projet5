@@ -22,14 +22,74 @@ final class LettersController
     private NoCsrf $noCsrf;
     private Auth $auth;
 
-    public function __construct(MagManager $magManager, LettersManager $lettersManager, View $view)
+    public function __construct(MagManager $magManager, LettersManager $lettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
     {
         $this->magManager = $magManager;
         $this->lettersManager = $lettersManager;
         $this->view = $view;
-        $this->request = new Request();
-        $this->noCsrf = new NoCsrf();
-        $this->auth = new Auth();
+        $this->request = $request;
+        $this->auth = $auth;
+        $this->noCsrf = $noCsrf;
+    }
+
+    //index.php?action=nousEcrire&idMag=122
+    public function nousEcrire(int $idMag): void//Méthode pour afficher la page de rédaction d'un courrier utilisateur
+    {
+        $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
+        
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = $this->request->get('error');
+        }
+
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+        $token = $this->noCsrf->createToken();
+
+        $this->view->render(
+            [
+            'template' => 'front/nousEcrire',
+            'data' => [
+                'magazine' => $magazine,
+                'preview' => 0,
+                'active' =>0,
+                'token' => $token,
+                'error' =>$error,
+                'user' =>$user
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=postLetter&idMag=122
+    public function postLetter(int $idMag): void//Méthode pour poster un courrier utilisateur
+    {
+        $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
+        
+        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
+            $error = "Une erreur est survenue, veuillez recommencer";
+
+            header("Location: index.php?action=nousEcrire&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if ($this->request->post('courrier') === null ||  empty($this->request->post('courrier'))) {
+            header("Location: index.php?action=nousEcrire&idMag=$idMag");
+            exit();
+        }
+
+        $this->lettersManager->createLetter((int) $user->id_user, (string) $user->pseudo, (string) $this->request->post('courrier'));
+        header("Location: index.php?action=monCompte&idMag=$idMag&message=1");
+        exit();
     }
 
     //index.php?action=courrier&idMag=110

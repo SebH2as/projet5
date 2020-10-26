@@ -7,7 +7,6 @@ use Projet5\Model\Manager\ArticleManager;
 use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
 use Projet5\Tools\Auth;
-use Projet5\Tools\DataLoader;
 use Projet5\Tools\NoCsrf;
 use Projet5\Tools\Request;
 use Projet5\View\View;
@@ -22,15 +21,15 @@ final class MagController
     private NoCsrf $noCsrf;
     private Auth $auth;
 
-    public function __construct(MagManager $magManager, ArticleManager $articleManager, LettersManager $lettersManager, View $view)
+    public function __construct(MagManager $magManager, ArticleManager $articleManager, LettersManager $lettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
     {
         $this->magManager = $magManager;
         $this->articleManager = $articleManager;
         $this->lettersManager = $lettersManager;
         $this->view = $view;
-        $this->request = new Request();
-        $this->noCsrf = new NoCsrf();
-        $this->auth = new Auth();
+        $this->request = $request;
+        $this->noCsrf = $noCsrf;
+        $this->auth = $auth;
     }
 
     //index.php?
@@ -122,62 +121,6 @@ final class MagController
                 'magazine' => $magazine,
                 'preview' => 0,
                 'active' => 0,
-                ],
-            ],
-        );
-    }
-
-    //index.php?action=nousRejoindre&idMag=122
-    public function nousRejoindre(int $idMag):void//méthode pour afficher la page nous rejoindre
-    {
-        $error = null;
-        if ($this->request->get('error') !== null) {
-            $error = $this->request->get('error');
-        }
-        
-        $token = $this->noCsrf->createToken();
-        $magazine = $this->magManager->showByIdAndPub($idMag);
-
-        $this->view->render(
-            [
-            'template' => 'front/nousRejoindre',
-            'data' => [
-                'magazine' => $magazine,
-                'error' => $error,
-                'preview' => 0,
-                'active' => 0,
-                'token' => $token,
-                ],
-            ],
-        );
-    }
-
-    //index.php?action=connectionPage&idMag=122
-    public function connectionPage(int $idMag):void //méthode pour afficher la page de connection
-    {
-        $error = null;
-        if ($this->request->get('error')) {
-            $error = 'Pseudo ou mot de passe incorrect';
-        }
-
-        $message = null;
-        if ($this->request->get('message') !== null) {
-            $message = $this->request->get('message');
-        }
-        
-        $token = $this->noCsrf->createToken();
-        $magazine = $this->magManager->showByIdAndPub($idMag);
-        
-        $this->view->render(
-            [
-            'template' => 'front/connectionPage',
-            'data' => [
-                'magazine' => $magazine,
-                'error' => $error,
-                'preview' => 0,
-                'active' => 0,
-                'token' => $token,
-                'message' => $message,
                 ],
             ],
         );

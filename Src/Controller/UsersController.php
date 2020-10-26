@@ -21,15 +21,71 @@ final class UsersController
     private NoCsrf $noCsrf;
     private Auth $auth;
 
-    public function __construct(UsersManager $usersManager, MagManager $magManager, LettersManager $lettersManager, View $view)
+    public function __construct(UsersManager $usersManager, MagManager $magManager, LettersManager $lettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
     {
         $this->magManager = $magManager;
         $this->lettersManager = $lettersManager;
         $this->view = $view;
         $this->usersManager = $usersManager;
-        $this->request = new Request();
-        $this->noCsrf = new noCsrf();
-        $this->auth = new auth();
+        $this->request = $request;
+        $this->auth = $auth;
+        $this->noCsrf = $noCsrf;
+    }
+
+    //index.php?action=nousRejoindre&idMag=122
+    public function nousRejoindre(int $idMag):void//méthode pour afficher la page nous rejoindre
+    {
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = $this->request->get('error');
+        }
+        
+        $token = $this->noCsrf->createToken();
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+
+        $this->view->render(
+            [
+            'template' => 'front/nousRejoindre',
+            'data' => [
+                'magazine' => $magazine,
+                'error' => $error,
+                'preview' => 0,
+                'active' => 0,
+                'token' => $token,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=connectionPage&idMag=122
+    public function connectionPage(int $idMag):void //méthode pour afficher la page de connection
+    {
+        $error = null;
+        if ($this->request->get('error')) {
+            $error = 'Pseudo ou mot de passe incorrect';
+        }
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $message = $this->request->get('message');
+        }
+        
+        $token = $this->noCsrf->createToken();
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+        
+        $this->view->render(
+            [
+            'template' => 'front/connectionPage',
+            'data' => [
+                'magazine' => $magazine,
+                'error' => $error,
+                'preview' => 0,
+                'active' => 0,
+                'token' => $token,
+                'message' => $message,
+                ],
+            ],
+        );
     }
 
     //index.php?action=connection&idMag=122
@@ -288,6 +344,7 @@ final class UsersController
                 }
 
                 $this->usersManager->modifPseudo((int) $user->id_user, (string) $this->request->post('new'));
+                $this->lettersManager->changeLetterAuthor((int) $user->id_user, (string) $this->request->post('new'));
 
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=4");
                 exit();
@@ -489,66 +546,6 @@ final class UsersController
                 ],
             ],
         );
-    }
-
-    //index.php?action=nousEcrire&idMag=122
-    public function nousEcrire(int $idMag): void//Méthode pour afficher la page de rédaction d'un courrier utilisateur
-    {
-        $user = $this->auth->user();
-
-        if ($user === null) {
-            header('location: index.php');
-            exit();
-        }
-        
-        $error = null;
-        if ($this->request->get('error') !== null) {
-            $error = $this->request->get('error');
-        }
-
-        $magazine = $this->magManager->showByIdAndPub($idMag);
-        $token = $this->noCsrf->createToken();
-
-        $this->view->render(
-            [
-            'template' => 'front/nousEcrire',
-            'data' => [
-                'magazine' => $magazine,
-                'preview' => 0,
-                'active' =>0,
-                'token' => $token,
-                'error' =>$error,
-                'user' =>$user
-                ],
-            ],
-        );
-    }
-
-    //index.php?action=postLetter&idMag=122
-    public function postLetter(int $idMag): void//Méthode pour poster un courrier utilisateur
-    {
-        $user = $this->auth->user();
-
-        if ($user === null) {
-            header('location: index.php');
-            exit();
-        }
-        
-        if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
-            $error = "Une erreur est survenue, veuillez recommencer";
-
-            header("Location: index.php?action=nousEcrire&idMag=$idMag&error=$error");
-            exit();
-        }
-
-        if ($this->request->post('courrier') === null ||  empty($this->request->post('courrier'))) {
-            header("Location: index.php?action=nousEcrire&idMag=$idMag");
-            exit();
-        }
-
-        $this->lettersManager->createLetter((int) $user->id_user, (string) $user->pseudo, (string) $this->request->post('courrier'));
-        header("Location: index.php?action=monCompte&idMag=$idMag&message=1");
-        exit();
     }
 
     public function usersBack(int $idMag): void

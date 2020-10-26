@@ -18,6 +18,8 @@ use Projet5\Model\Repository\LettersRepository;
 use Projet5\Model\Repository\MagRepository;
 use Projet5\Model\Repository\UsersRepository;
 
+use Projet5\Tools\Auth;
+use Projet5\Tools\NoCsrf;
 use Projet5\Tools\Request;
 use Projet5\View\View;
 
@@ -44,8 +46,6 @@ final class Router
         'previewEdito',
         'editorial',
         'quiSommesNous',
-        'nousRejoindre',
-        'connectionPage'
     ];
 
     private $actionArticle =
@@ -66,27 +66,25 @@ final class Router
 
     private $actionUser =
     [
+        'nousRejoindre',
+        'connectionPage',
+        'connection',
         'monCompte',
+        'userDeco',
+        'modifUser',
+        'modifDataUser',
         'addUser',
         'activation',
         'activationPage',
-        'connection',
-        'userDeco',
-        'nousEcrire',
-        'modifUser',
-        'modifDataUser',
-        'postLetter',//changer pour actionLetter ?
-        'newsLetterAbo',
-        'validation',
-        'invalidation',
-        'adminProfil',
-        'reset',
         'usersBack',
-        'deleteUser'
+        'deleteUser',
+        'adminProfil',
     ];
 
     private $actionLetter =
     [
+        'nousEcrire',
+        'postLetter',
         'lettersBack',
         'letterBack',
         'courrier',
@@ -102,6 +100,8 @@ final class Router
         $this->database = new Database();
         $this->view = new View();
         $this->request = new request();
+        $this->noCsrf = new noCsrf();
+        $this->auth = new auth();
     }
 
     public function run(): void
@@ -119,7 +119,7 @@ final class Router
                 $lettersRepo = new LettersRepository($this->database);
                 $lettersManager = new LettersManager($lettersRepo);
 
-                $controller = new magController($magManager, $articleManager, $lettersManager, $this->view);
+                $controller = new magController($magManager, $articleManager, $lettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
@@ -133,7 +133,7 @@ final class Router
                 $articleRepo = new ArticleRepository($this->database);
                 $articleManager = new ArticleManager($articleRepo);
 
-                $controller = new ArticleController($magManager, $articleManager, $this->view);
+                $controller = new ArticleController($magManager, $articleManager, $this->view, $this->request, $this->noCsrf, $this->auth);
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
@@ -150,7 +150,7 @@ final class Router
                 $lettersRepo = new LettersRepository($this->database);
                 $lettersManager = new LettersManager($lettersRepo);
                 
-                $controller = new UsersController($usersManager, $magManager, $lettersManager, $this->view);
+                $controller = new UsersController($usersManager, $magManager, $lettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
@@ -164,7 +164,7 @@ final class Router
                 $lettersRepo = new LettersRepository($this->database);
                 $lettersManager = new LettersManager($lettersRepo);
                 
-                $controller = new LettersController($magManager, $lettersManager, $this->view);
+                $controller = new LettersController($magManager, $lettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
@@ -179,7 +179,7 @@ final class Router
         $lettersRepo = new LettersRepository($this->database);
         $lettersManager = new LettersManager($lettersRepo);
 
-        $controller = new magController($magManager, $articleManager, $lettersManager, $this->view);
+        $controller = new magController($magManager, $articleManager, $lettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
         $controller->lastMagazine();
     }
 }

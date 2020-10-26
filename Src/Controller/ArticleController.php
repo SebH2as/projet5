@@ -6,7 +6,6 @@ namespace Projet5\Controller;
 use Projet5\Model\Manager\ArticleManager;
 use Projet5\Model\Manager\MagManager;
 use Projet5\Tools\Auth;
-use Projet5\Tools\DataLoader;
 use Projet5\Tools\NoCsrf;
 use Projet5\Tools\Request;
 use Projet5\View\View;
@@ -20,14 +19,14 @@ final class ArticleController
     private Auth $auth;
     private NoCsrf $noCsrf;
 
-    public function __construct(MagManager $magManager, ArticleManager $articleManager, View $view)
+    public function __construct(MagManager $magManager, ArticleManager $articleManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
     {
         $this->magManager = $magManager;
         $this->view = $view;
         $this->articleManager = $articleManager;
-        $this->request = new Request();
-        $this->auth = new auth();
-        $this->noCsrf = new NoCsrf();
+        $this->request = $request;
+        $this->auth = $auth;
+        $this->noCsrf = $noCsrf;
     }
 
     //index.php?action=article&idMag=148&idText=3
