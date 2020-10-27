@@ -452,4 +452,18 @@ final class LettersController
         header("Location: index.php?action=newslettersBack&message=$message");
         exit();
     }
+
+    public function sendNewsletter(): void
+    {
+        $this->auth->requireRole(1);
+
+        $idNewsletter = (int)$this->request->get('idNewsletter');
+
+        $message = 'La newsletter a été envoyée aux membres abonnés';
+
+        $this->newslettersManager->setNewsLetterSendById($idNewsletter, 1);
+
+        header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&message=$message");
+        exit();
+    }
 }

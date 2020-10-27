@@ -10,8 +10,6 @@ class Sum {
         this.arrayTxts = Array.from(this.txts);
         
         this.heightOfImgs();
-        
-        
         this.linkingArrays();
 
     }

@@ -7,13 +7,24 @@
 {% block content %}
     <section id="newsletter">
 
+        {% if not newsletter %}
+                <h2>Aucune newsletter ne correspond à cet identifiant</h2>
+
+                <div class="buttonsPannel"> 
+                    <a id="preview" href="index.php?action=newslettersBack">Retour au panneau de gestion des newsletters</a>
+                </div>
+
+        {% else %}
+
         <h2>Newsletter du {{newsletter.redaction_date |date("d/m/Y", "Europe/Paris")}}</h2>
 
         <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
 
         <div class="buttonsPannel"> 
             <a id="preview" href="index.php?action=newslettersBack">Retour au panneau de gestion des newsletters</a>
-            <a id="online" href="index.php?action=sendNewsletter&amp;idNewsletter={{newsletter.id_newsletter}}">Poster</a>
+            {% if newsletter.send == 0 %}
+                <a id="online" href="index.php?action=sendNewsletter&amp;idNewsletter={{newsletter.id_newsletter}}">Poster</a>
+            {% endif %}
             <a id="delete" href="index.php?action=deleteNewsletter&amp;idNewsletter={{newsletter.id_newsletter}}">Supprimmer</a>               
         </div>
     
@@ -38,4 +49,5 @@
 
         </div>
     </section>
+    {% endif %}
 {% endblock %}

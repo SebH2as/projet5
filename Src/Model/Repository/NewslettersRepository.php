@@ -64,4 +64,12 @@ final class NewslettersRepository
         $req = $this->database->getConnection()->prepare('DELETE FROM newsletters WHERE id_newsletter = :idNewsletter ');
         $req->execute(['idNewsletter' => $idNewsletter]);
     }
+
+    public function setNewsLetterSendById(int $idNewsletter, int $sendValue): bool
+    {
+        $req = $this->database->getConnection()->prepare('UPDATE newsletters SET send = :sendValue WHERE id_newsletter = :idNewsletter ');
+        return $req->execute([
+            'idNewsletter' => (int) $idNewsletter,
+            'sendValue' => (int) $sendValue]);
+    }
 }

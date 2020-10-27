@@ -45,4 +45,9 @@ final class NewslettersManager
     {
         $this->newslettersRepo->deleteNewsletterById($idNewsletter);
     }
+
+    public function setNewsLetterSendById(int $idNewsletter, int $sendValue): bool
+    {
+        return $this->newslettersRepo->setNewsLetterSendById($idNewsletter, $sendValue);
+    }
 }
