@@ -1485,6 +1485,15 @@ header .hidden span {
   cursor: help;
 }
 
+#article #formSignIn span {
+  text-align: left;
+  width: 80%;
+  font-size: 18px;
+  margin-bottom: 2vh;
+  padding: 1vh;
+  border: 2px solid #030B12;
+}
+
 #article #formSignIn .infoBox {
   position: absolute;
   z-index: 2;
@@ -1537,6 +1546,12 @@ header .hidden span {
   padding: 1vh;
   color: #030B12;
   display: none;
+}
+
+#article #formSignIn #check {
+  margin-top: 2vh !important;
+  width: 20px;
+  height: 20px;
 }
 
 #article #formSignIn #saver {
@@ -1778,6 +1793,10 @@ header .hidden span {
 #article #infosCount #blockLinks .countLinks:hover {
   background-color: #030B12;
   color: #F9FBF2;
+}
+
+#article #infosCount #blockLinks #deleteSelf {
+  background-color: red;
 }
 
 #article .lettersAll {

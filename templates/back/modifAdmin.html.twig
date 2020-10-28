@@ -1,0 +1,37 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Modifier mon {{userData |lower }}
+{% endblock %}
+
+{% block content %}
+
+    <section id="admin">
+
+        <h1>MODIFIER MON {{userData |upper }}</h1>
+        <h3>Vous pouvez modifier votre {{userData |lower }} à l'aide du formulaire ci-dessous.</h3>
+
+        <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
+        
+        <form id="formProfil" action="index.php?action=modifDataUser&amp;userData=Pseudo" method="post">
+            <input type="hidden" name="csrf" value="{{token}}">
+
+            <div class="formSeparator">
+
+                <label for="password">Veuillez saisir votre Mdp actuel:</label>
+                <input type="password" id="password" name="password" maxlength="70" size="70">
+
+                <label for="new">Veuillez entrer un {{userData |lower }}:</label>
+                <input type="text" id="new" name="new" maxlength="50" size="50">
+
+                <label for="new2">Veuillez confirmer votre {{userData |lower }}:</label>
+                <input type="text" id="new2" name="new2" maxlength="50" size="50">
+
+                <input type="submit" name="resetPseudo" class="buttonReset" value="Changer">
+
+            </div>
+
+        </form>
+
+    </section>
+{% endblock %}

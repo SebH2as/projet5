@@ -262,7 +262,7 @@ final class UsersController
             $error = 'Au moins un des champs est vide. Veuillez tous les renseigner.';
 
             if ($user->role === 1) {
-                header("Location: index.php?action=adminProfil&error=$error");
+                header("Location: index.php?action=modifAdmin&error=$error");
                 exit();
             }
             
@@ -274,7 +274,7 @@ final class UsersController
             $error = 'Erreur de mot de passe';
 
             if ($user->role === 1) {
-                header("Location: index.php?action=adminProfil&error=$error");
+                header("Location: index.php?action=modifAdmin&error=$error");
                 exit();
             }
             
@@ -286,7 +286,7 @@ final class UsersController
             $error = 'Les deux champs renseignés ne correspondent pas';
 
             if ($user->role === 1) {
-                header("Location: index.php?action=adminProfil&error=$error");
+                header("Location: index.php?action=modifAdmin&error=$error");
                 exit();
             }
             
@@ -301,7 +301,7 @@ final class UsersController
                     $error = 'Le nouveau mot de passe choisi n\'est pas valide';
 
                     if ($user->role === 1) {
-                        header("Location: index.php?action=adminProfil&error=$error");
+                        header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
                     
@@ -318,11 +318,11 @@ final class UsersController
 
             case "Pseudo":
 
-                if (mb_strlen($this->request->post('new')) < 3 || mb_strlen($this->request->post('new')) > 15) {
+                if (preg_match("(^[a-z]{3,15}\d*$)", $this->request->post('pseudo')) === 0) {
                     $error = 'Le nouveau pseudo choisi n\'est pas valide';
 
                     if ($user->role === 1) {
-                        header("Location: index.php?action=adminProfil&error=$error");
+                        header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
                     
@@ -335,7 +335,7 @@ final class UsersController
                     $error = 'Le pseudo choisi est déjà utilisé';
 
                     if ($user->role === 1) {
-                        header("Location: index.php?action=adminProfil&error=$error");
+                        header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
                     
@@ -357,7 +357,7 @@ final class UsersController
                     $error = 'L\'email choisi n\'est pas valide';
 
                     if ($user->role === 1) {
-                        header("Location: index.php?action=adminProfil&error=$error");
+                        header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
                     
@@ -370,7 +370,7 @@ final class UsersController
                     $error = 'L\' email choisi est déjà utilisé';
 
                     if ($user->role === 1) {
-                        header("Location: index.php?action=adminProfil&error=$error");
+                        header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
                     
@@ -408,8 +408,8 @@ final class UsersController
             exit();
         }
 
-        if (mb_strlen($this->request->post('pseudo')) < 3 || mb_strlen($this->request->post('pseudo')) > 15) {
-            $error = 'Le pseudo choisi n\'est pas valide';
+        if (preg_match("(^[a-z]{3,15}\d*$)", $this->request->post('pseudo')) === 0) {
+            $error = 'Le pseudo choisi ne correspond aux critères définis dans la note d\'information du champ Pseudo';
             
             header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
             exit();
@@ -446,14 +446,21 @@ final class UsersController
         }
 
         if (($this->request->post('password')) !== ($this->request->post('password2'))) {
-            $error = 'Les mots de passe renseignés ne correspondent pas';
+            $error = 'Les mots de passe renseignés dans les deux champs de saisi ne correspondent pas';
 
             header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
             exit();
         }
 
         if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('password')) === 0) {
-            $error = 'Le mot de passe choisi n\'est pas valide';
+            $error = 'Le mot de passe choisi ne correspond aux critères définis dans la note d\'information du champ Mot de passe';
+            
+            header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
+            exit();
+        }
+
+        if ((string) $this->request->post('check') === null ||  empty($this->request->post('check'))) {
+            $error = 'Vous devez accepter nos conditions d\'utilisation pour pouvoir créer votre compte';
             
             header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
             exit();
@@ -625,6 +632,31 @@ final class UsersController
                 'error' => $error,
                 'message' => $message,
                 'token' => $token,
+                ],
+            ],
+        );
+    }
+
+    //index.php?action=modifUser&idMag=122&userData=Pseudo
+    public function modifAdmin(int $idMag):void//méthode pour accéder à une page de modification d'une des données de l'utilisateur
+    {
+        $this->auth->requireRole(1);
+        
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = $this->request->get('error');
+        }
+        
+        $token = $this->noCsrf->createToken();
+        $userData = (string) $this->request->get('userData');
+        
+        $this->view->render(
+            [
+            'template' => 'back/modifAdmin',
+            'data' => [
+                'token' => $token,
+                'error' => $error,
+                'userData' => $userData,
                 ],
             ],
         );

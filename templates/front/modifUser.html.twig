@@ -43,10 +43,10 @@
                 <input type="password" id="password" name="password" maxlength="70" size="70">
 
                 <label for="new">Veuillez entrer un {{userData |lower }}:</label>
-                <input type="text" id="new" name="new" maxlength="50" size="50">
+                <input type="{% if userData == 'Mot de passe' %}password{% else %}text{% endif %}" id="new" name="new" maxlength="50" size="50">
 
                 <label for="new2">Veuillez confirmer votre {{userData |lower }}:</label>
-                <input type="text" id="new2" name="new2" maxlength="50" size="50">
+                <input type="{% if userData == 'Mot de passe' %}password{% else %}text{% endif %}" id="new2" name="new2" maxlength="50" size="50">
 
                 <input type="submit" id="saver" value="Modifier">
 

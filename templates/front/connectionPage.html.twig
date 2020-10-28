@@ -1,7 +1,7 @@
 {% extends "/front/layout.html.twig" %}
 
 {% block title %}
-    Nous rejoindre
+    Se connecter
 {% endblock %}
 
 {% block separator %}
@@ -40,10 +40,10 @@
                 
                 <input type="hidden" name="csrf" value="{{token}}">
                 
-                <label for="pseudo">Pseudo:</label>
+                <label for="pseudo">Pseudo</label>
                 <input type="text" id="pseudo" name="pseudo" maxlength="70" size="70">
 
-                <label for="password">Mdp:</label>
+                <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" maxlength="70" size="70">  
 
                 <input type="submit" id="saver" value="Se connecter">

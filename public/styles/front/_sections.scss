@@ -876,6 +876,15 @@
                 }
                 
             }
+            span{
+                text-align: left;
+                width: 80%;
+                font-size: 18px;
+                margin-bottom: 2vh;
+                padding: 1vh;
+                border: 2px solid $primaryBackgroundColorDark;
+
+            }
             .infoBox{
                 position: absolute;
                 z-index: 2;
@@ -914,6 +923,11 @@
                     color: $primaryBackgroundColorDark;
                     display: none;
                 }
+            }
+            #check{
+                margin-top: 2vh !important;
+                width: 20px;
+                height: 20px;
             }
             #saver{
                 background-color: $secondaryBacgroundColorOrange;
@@ -1101,6 +1115,9 @@
                         background-color: $primaryBackgroundColorDark;
                         color: $primaryBackgroundColorLight;
                     }
+                }
+                #deleteSelf{
+                    background-color: red;
                 }
             }
         }

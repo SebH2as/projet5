@@ -46,7 +46,7 @@
                 
                 <input type="hidden" name="csrf" value="{{token}}">
                 
-                <label for="pseudo">Choisissez un pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Votre pseudo doit avoir au moins 3 caractères et pas plus de 15. Pas de caractère spéciaux.</span></div></i></label>
+                <label for="pseudo">Choisissez un pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Votre pseudo doit avoir au moins 3 caractères et pas plus de 15. Pas de caractères spéciaux. Des chiffres seulement à la fin.</span></div></i></label>
                 <input type="text" id="pseudo" name="pseudo" maxlength="15" size="15">
                 
                 <label for="mail">Entrez votre adresse mail <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Veuillez entrer une adresse mail valide, vous recevrez un mail de confirmation pour valider votre inscription.</span></div></i></label>
@@ -59,7 +59,14 @@
                 <input type="password" id="password" name="password" maxlength="50" size="50">  
                 
                 <label for="password2">Confirmez votre mot de passe</label>
-                <input type="password" id="password2" name="password2" maxlength="50" size="50">  
+                <input type="password" id="password2" name="password2" maxlength="50" size="50">
+
+                <span> Vos données personnelles seront stockées sur un serveur par le site Kilométrage pour une durée de 10 ans.<br>
+                Vous pourrez y accéder, les modifier ou les supprimmer à tout moment par le biais de la page Mon Compte, une fois celui-ci créé.<br>
+                Elles ne seront jamais utilisées à des fins commerciales.</span>
+
+                <label for="check"> J'accepte l'enregistrement de mes données personnelles</label> 
+                <input type="checkbox" id="check" name="check" value="checked"> 
                 
                 <input type="submit" id="saver" name="saver" value="Créer votre compte">
             </form>

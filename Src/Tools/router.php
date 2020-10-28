@@ -81,6 +81,7 @@ final class Router
         'usersBack',
         'deleteUser',
         'adminProfil',
+        'modifAdmin'
     ];
 
     private $actionLetter =
