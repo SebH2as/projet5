@@ -1214,9 +1214,21 @@ header .hidden span {
   padding-left: 1vw;
 }
 
+#listRubric .containText .textInfo .date {
+  font-size: 1vw;
+  padding-left: 1.5vw;
+}
+
 #listRubric .containText .textInfo .title {
   text-align: center;
   font-size: 1.75vw;
+}
+
+#listRubric .containText .textInfo .titles {
+  text-align: center;
+  font-size: 1.75vw;
+  background-color: #030B12;
+  color: #F9FBF2;
 }
 
 #listRubric .containText .textInfo .extract {

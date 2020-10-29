@@ -41,9 +41,19 @@ final class MagManager
         return $this->magRepo->findCountMag();
     }
 
+    public function countPubMag(): ?array
+    {
+        return $this->magRepo->findCountPubMag();
+    }
+
     public function showAllMag(int $offset, int $nbByPage): ?array
     {
         return $this->magRepo->findAllMag($offset, $nbByPage);
+    }
+
+    public function showAllPubMag(int $offset, int $nbByPage): ?array
+    {
+        return $this->magRepo->findAllPubMag($offset, $nbByPage);
     }
 
     public function createMag(int $numberMag): bool

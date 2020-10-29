@@ -45,6 +45,7 @@ final class Router
         'editorialBack',
         'magByNumber',
         'magazine',
+        'magazines',
         'previewEdito',
         'editorial',
         'quiSommesNous',
@@ -75,13 +76,15 @@ final class Router
         'userDeco',
         'modifUser',
         'modifDataUser',
+        'newsletterAbo',
         'addUser',
         'activation',
         'activationPage',
         'usersBack',
         'deleteUser',
         'adminProfil',
-        'modifAdmin'
+        'modifAdmin',
+        'userDeleteSelf'
     ];
 
     private $actionLetter =

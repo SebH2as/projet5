@@ -183,8 +183,29 @@ final class UsersController
         header('location: index.php');
     }
 
+    public function userDeleteSelf(int $idMag): void
+    {
+        $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
+
+        $message = 'Votre compte a été supprimé';
+
+        $this->usersManager->deleteUserById($user->id_user);
+
+        session_unset();
+        session_destroy();
+        session_write_close();
+
+        header("Location: index.php?action=connectionPage&idMag=$idMag&message=$message");
+        exit();
+    }
+
     //index.php?action=newsLetterAbo&idMag=122
-    public function newsLetterAbo(int $idMag):void//méthode pour s'abonner ou se désabonner à la newsletter
+    public function newsletterAbo(int $idMag):void//méthode pour s'abonner ou se désabonner à la newsletter
     {
         $user = $this->auth->user();
 
@@ -308,6 +329,18 @@ final class UsersController
                     header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
                     exit();
                 }
+
+                if (password_verify($this->request->post('new'), $user->p_w) === true) {
+                    $error = 'Le nouveau mot de passe choisi doit être différent de l\'ancien';
+
+                    if ($user->role === 1) {
+                        header("Location: index.php?action=modifAdmin&error=$error");
+                        exit();
+                    }
+                    
+                    header("Location: index.php?action=modifUser&idMag=$idMag&userData=$userData&error=$error");
+                    exit();
+                }
         
                 $this->usersManager->modifPass((int) $user->id_user, (string) password_hash($this->request->post('new'), PASSWORD_DEFAULT));
                 
@@ -318,7 +351,7 @@ final class UsersController
 
             case "Pseudo":
 
-                if (preg_match("(^[a-z]{3,15}\d*$)", $this->request->post('pseudo')) === 0) {
+                if (preg_match("(^[a-z]{3,15}\d*$)", $this->request->post('new')) === 0) {
                     $error = 'Le nouveau pseudo choisi n\'est pas valide';
 
                     if ($user->role === 1) {
@@ -381,6 +414,13 @@ final class UsersController
                 $this->usersManager->modifEmail((int) $user->id_user, (string) $this->request->post('new'));
 
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=5");
+                exit();
+
+                break;
+
+            default:
+
+                header("Location: index.php?action=monCompte&idMag=$idMag&message=6");
                 exit();
 
                 break;

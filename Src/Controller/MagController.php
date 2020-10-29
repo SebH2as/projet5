@@ -88,6 +88,46 @@ final class MagController
         exit();
     }
 
+    //index.php?action=listMag
+    public function magazines(int $idMag):void//méthode pour afficher la page d'accueil du back récapitulatrice de tous les magazines créés
+    {
+        $user = $this->auth->user();
+
+        $totalMag = $this->magManager->countPubMag();
+        $nbByPage = 5;
+        $totalpages = (int) ceil($totalMag[0]/$nbByPage);
+
+        $currentpage = 1;
+        if (($this->request->get('currentpage')) !== null && ($this->request->get('currentpage')) > '0' &&is_numeric($this->request->get('currentpage'))) {
+            $currentpage = (int) $this->request->get('currentpage');
+            if ($currentpage > $totalpages) {
+                $currentpage = $totalpages;
+            }
+        }
+
+        $offset = ($currentpage - 1) * $nbByPage;
+        
+        $magazines = $this->magManager->showAllPubMag((int) $offset, (int) $nbByPage);
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+
+        $message = $this->request->get('message');
+        
+        $this->view->render(
+            [
+            'template' => 'front/magazines',
+            'data' => [
+                'magazines' => $magazines,
+                'currentpage' => $currentpage,
+                'totalpages' => $totalpages,
+                'message' => $message,
+                'magazine' => $magazine,
+                'preview' => 0,
+                'active' => 5,
+                ],
+            ],
+        );
+    }
+
     //index.php?action=editorial&idMag=110
     public function editorial(int $idMag):void//méthode pour afficher la page de l'éditorial d'un magazine
     {

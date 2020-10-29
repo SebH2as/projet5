@@ -656,10 +656,22 @@
                             padding-left: 1vw;
                             
                         }
+                        .date{
+                            
+                            font-size: 1vw;
+                            padding-left: 1.5vw;
+                            
+                        }
                         .title{
                             text-align: center;
                             font-size: 1.75vw;
                             
+                        }
+                        .titles{
+                            text-align: center;
+                            font-size: 1.75vw;
+                            background-color: $primaryBackgroundColorDark;
+                            color: $primaryBackgroundColorLight;
                         }
                         .extract{
                             padding: 1vh;
