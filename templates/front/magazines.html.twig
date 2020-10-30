@@ -34,12 +34,23 @@
                     <img class="thumbImg" src="images/{{mag.cover}}" alt="{{mag.cover}}">
                 </div>
                 <div id="rubricText" class="containText">
+
                     <div class="textInfo">
-                        <h3 class="number">Magazine N°{{mag.numberMag}}</h3>
+                        <h3 class="numberMag">Magazine N°{{mag.numberMag}}</h3>
                         <h3 class="date">{{mag.publication}}</h3>
                         <h3 class="titles">{{mag.title01}}</h3>
                         <h3 class="titles">{{mag.title02}}</h3>
-                        <span>{{mag.chroniqueNb}}</span>
+                        <div class="magContent">
+                            {% if mag.chroniqueNb %}
+                                <span class="articleContent">{{mag.chroniqueNb}} Chroniques</span>
+                            {% endif %}
+                            {% if mag.essaiNb %}
+                                <span class="articleContent">{{mag.essaiNb}} Essais</span>
+                            {% endif %}
+                            {% if mag.fictionNb %}
+                                <span class="articleContent">{{mag.fictionNb}} Fictions</span>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </a>

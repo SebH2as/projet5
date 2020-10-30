@@ -448,7 +448,7 @@ final class UsersController
             exit();
         }
 
-        if (preg_match("(^[a-z]{3,15}\d*$)", $this->request->post('pseudo')) === 0) {
+        if (preg_match("(^[A-Za-z]{3,15}\d*$)", $this->request->post('pseudo')) === 0) {
             $error = 'Le pseudo choisi ne correspond aux critères définis dans la note d\'information du champ Pseudo';
             
             header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
@@ -511,6 +511,10 @@ final class UsersController
             $key .= random_int(0, 9);
         }
 
+        $Email = $this->request->post('mail');
+
+        mail($Email, "Code de validation", $key);
+        
         $this->usersManager->addUser((string) $this->request->post('pseudo'), (string) $this->request->post('mail'), (string) password_hash($this->request->post('password'), PASSWORD_DEFAULT), (int) $key);
         
         $magazine = $this->magManager->showByIdAndPub($idMag);

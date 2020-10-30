@@ -88,7 +88,11 @@ final class MagRepository
 
     public function findAllPubMag(int $offset, int $nbByPage): ?array
     {
-        $req = $this->database->getConnection()->prepare('SELECT mag.id_mag,id_text, title01, title02, main, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date
+        $req = $this->database->getConnection()->prepare('SELECT mag.id_mag,id_text, textType, title01, title02, main, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
+        COUNT(articles.id_text) AS articlesNb,
+        COUNT(IF(articles.textType = "Chronique", 1, NULL))  AS chroniqueNb,
+        COUNT(IF(articles.textType = "Essai", 1, NULL))  AS essaiNb,
+        COUNT(IF(articles.textType = "Fiction", 1, NULL))  AS fictionNb
         FROM mag 
         LEFT JOIN articles ON mag.id_mag = articles.id_mag
         WHERE statusPub = 1
