@@ -9,12 +9,15 @@
     <section id="newMag">
 
         <h2>Créer un nouveau numéro du magazine</h2>
+        <h3> Vous pouvez créer un nouveau numéro de magazine si celui-ci n'est pas déjà utilisé</h3>
+
+        {% if error %}<span id="error">{{error}}</span>{% endif %}
 
         <div id="contentContainer">
             <form id="formNewMag" action="index.php?action=createNewMag" method="post">
                 <input type="hidden" name="csrf" value="{{token}}">
                 <label for="number">Magazine numéro</label>
-                <input type="number" id="number" name="number" min="1" max="50" value="{{totalMag + 1}}" readonly>
+                <input type="number" id="number" name="number" min="1" max="150">
                 <input type="submit" value="Créer">
             </form>
         </div>

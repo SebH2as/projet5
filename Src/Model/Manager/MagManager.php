@@ -110,4 +110,9 @@ final class MagManager
     {
         return $this->magRepo->getAllNumberMag();
     }
+
+    public function countNumberMag(int $number): ?array
+    {
+        return $this->magRepo->countNumberMag($number);
+    }
 }

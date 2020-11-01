@@ -147,6 +147,13 @@ final class UsersRepository
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 
+    public function findAllAboUsers(): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT email FROM users WHERE newsletter = 1 ');
+        $req->execute();
+        return $req->fetchALL(\PDO::FETCH_OBJ);
+    }
+
     public function deleteUserById(int $idUser): void
     {
         $req = $this->database->getConnection()->prepare('DELETE FROM users WHERE id_user = :idUser ');

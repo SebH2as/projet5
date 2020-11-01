@@ -18,7 +18,7 @@ final class ArticleRepository
 
     public function findByIdMag(int $id): ?array
     {
-        $req = $this->database->getConnection()->prepare('SELECT * FROM articles WHERE id_mag = :idmag');
+        $req = $this->database->getConnection()->prepare('SELECT * FROM articles WHERE id_mag = :idmag ORDER BY textType, date_creation DESC');
         $req->execute([
                 'idmag' => (int) $id]);
         return $req->fetchALL(\PDO::FETCH_OBJ);

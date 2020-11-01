@@ -95,4 +95,9 @@ final class UsersManager
     {
         $this->usersRepo->deleteUserById($idUser);
     }
+
+    public function showAllAboUsers(): void
+    {
+        $this->usersRepo->findAllAboUsers();
+    }
 }

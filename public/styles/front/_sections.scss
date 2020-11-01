@@ -649,6 +649,10 @@
                     width: 95%;
                     height: 100%;
                     border: 2px solid $secondaryBacgroundColorOrange;
+                        a{
+                            text-align: center;
+                            
+                        }
                     
                         .number{
                             
@@ -677,7 +681,7 @@
                             
                             font-size: 1vw;
                             padding-left: 1.5vw;
-                            margin-bottom: 1vw;
+                            margin-bottom: none;
                         }
                         .title{
                             text-align: center;
@@ -690,16 +694,21 @@
                             background-color: $primaryBackgroundColorDark;
                             color: $primaryBackgroundColorLight;
                         }
-                        .extract{
-                            padding: 1vh;
-                            padding-top: 0px;
-                            font-size: 1.5vw;
-                            text-align: center;
+                        .contentExtract{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 50%;
+                            .extract{
+                                text-align: center;
+                                padding: 1vh;
+                                padding-top: 0px;
+                                font-size: 1.5vw;
+                                
+                            }
                         }
-                        a{
-                            text-align: center;
-                            
-                        }
+                        
+                        
                 }
         }
 

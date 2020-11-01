@@ -207,14 +207,18 @@ final class MagController
     {
         $this->auth->requireRole(1);
 
-        $totalMag = $this->magManager->countMag();
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = htmlspecialchars($this->request->get('error'));
+        }
+
         $token = $this->noCsrf->createToken();
 
         $this->view->render(
             [
             'template' => 'back/newMag',
             'data' => [
-                'totalMag' => $totalMag[0],
+                'error' => $error,
                 'token' => $token,
                 ],
             ],
@@ -227,19 +231,30 @@ final class MagController
         $this->auth->requireRole(1);
         
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
-            $message = "Une erreur est survenue, veuillez recommencer";
-            header("Location: index.php?action=createNewMag");
+            $error = "Une erreur est survenue, veuillez recommencer";
+            header("Location: index.php?action=newMag");
             exit();
         }
 
-        if (!empty($this->request->post('number'))) {
-            $this->magManager->createMag((int) $this->request->post('number'));
-
-            $message = 'Le magazine numéro '. htmlspecialchars($this->request->post('number')) . ' a bien été créé';
+        $numberThere = $this->magManager->countNumberMag((int) $this->request->post('number'));
+        if (($numberThere[0]) >= 1) {
+            $error = 'Le numéro choisi est déjà utilisé';
             
-            header("Location: index.php?action=listMag&message=$message");
+            header("Location: index.php?action=newMag&error=$error");
             exit();
         }
+
+        if ((int) $this->request->post('number') === null || empty((int) $this->request->post('number'))) {
+            header("Location: index.php?action=newMag&error=$error");
+            exit();
+        }
+            
+        $this->magManager->createMag((int) $this->request->post('number'));
+
+        $message = 'Le magazine numéro '. htmlspecialchars($this->request->post('number')) . ' a bien été créé';
+        
+        header("Location: index.php?action=listMag&message=$message");
+        exit();
     }
 
     //index.php?action=pannelMag&idMag=102

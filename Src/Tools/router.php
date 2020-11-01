@@ -84,7 +84,8 @@ final class Router
         'deleteUser',
         'adminProfil',
         'modifAdmin',
-        'userDeleteSelf'
+        'userDeleteSelf',
+        'sendNewsletter'
     ];
 
     private $actionLetter =
@@ -104,7 +105,7 @@ final class Router
         'newsletterBack',
         'addContentNewsletter',
         'deleteNewsletter',
-        'sendNewsletter'
+        
     ];
 
     public function __construct()
@@ -161,8 +162,11 @@ final class Router
                 
                 $lettersRepo = new LettersRepository($this->database);
                 $lettersManager = new LettersManager($lettersRepo);
+
+                $newslettersRepo = new NewslettersRepository($this->database);
+                $newslettersManager = new NewslettersManager($newslettersRepo);
                 
-                $controller = new UsersController($usersManager, $magManager, $lettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
+                $controller = new UsersController($usersManager, $magManager, $lettersManager, $newslettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }

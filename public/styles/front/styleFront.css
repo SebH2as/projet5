@@ -1209,6 +1209,10 @@ header .hidden span {
   border: 2px solid #E8871E;
 }
 
+#listRubric .containText .textInfo a {
+  text-align: center;
+}
+
 #listRubric .containText .textInfo .number {
   font-size: 2vw;
   padding-left: 1vw;
@@ -1238,7 +1242,7 @@ header .hidden span {
 #listRubric .containText .textInfo .date {
   font-size: 1vw;
   padding-left: 1.5vw;
-  margin-bottom: 1vw;
+  margin-bottom: none;
 }
 
 #listRubric .containText .textInfo .title {
@@ -1253,15 +1257,24 @@ header .hidden span {
   color: #F9FBF2;
 }
 
-#listRubric .containText .textInfo .extract {
+#listRubric .containText .textInfo .contentExtract {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50%;
+}
+
+#listRubric .containText .textInfo .contentExtract .extract {
+  text-align: center;
   padding: 1vh;
   padding-top: 0px;
   font-size: 1.5vw;
-  text-align: center;
-}
-
-#listRubric .containText .textInfo a {
-  text-align: center;
 }
 
 #listRubric .thumbImg {

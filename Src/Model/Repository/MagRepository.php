@@ -186,4 +186,12 @@ final class MagRepository
         $req->execute();
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
+
+    public function countNumberMag(int $number): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT COUNT(numberMag) FROM mag WHERE numberMag = :numberMag');
+        $req->execute([
+            'numberMag' => (int) $number]);
+        return $req->fetch();
+    }
 }

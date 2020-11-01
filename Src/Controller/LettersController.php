@@ -396,6 +396,11 @@ final class LettersController
             $message = htmlspecialchars($this->request->get('message'));
         }
 
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = htmlspecialchars($this->request->get('error'));
+        }
+
         $idNewsletter = (int)$this->request->get('idNewsletter');
 
         $newsletter = $this->newslettersManager->showNewslettersById($idNewsletter);
@@ -408,6 +413,7 @@ final class LettersController
                 'newsletter' => $newsletter,
                 'token' => $token,
                 'message' => $message,
+                'error' => $error,
                 ],
             ],
         );
@@ -450,20 +456,6 @@ final class LettersController
         $this->newslettersManager->deleteNewsletterById($idNewsletter);
 
         header("Location: index.php?action=newslettersBack&message=$message");
-        exit();
-    }
-
-    public function sendNewsletter(): void
-    {
-        $this->auth->requireRole(1);
-
-        $idNewsletter = (int)$this->request->get('idNewsletter');
-
-        $message = 'La newsletter a été envoyée aux membres abonnés';
-
-        $this->newslettersManager->setNewsLetterSendById($idNewsletter, 1);
-
-        header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&message=$message");
         exit();
     }
 }

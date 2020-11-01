@@ -5,6 +5,7 @@ namespace Projet5\Controller;
 
 use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
+use Projet5\Model\Manager\NewslettersManager;
 use Projet5\Model\Manager\UsersManager;
 use Projet5\Tools\Auth;
 use Projet5\Tools\NoCsrf;
@@ -15,16 +16,18 @@ final class UsersController
 {
     private MagManager $magManager;
     private LettersManager $lettersManager;
+    private NewslettersManager $newslettersManager;
     private View $view;
     private ArticleManager $articleManager;
     private Request $request;
     private NoCsrf $noCsrf;
     private Auth $auth;
 
-    public function __construct(UsersManager $usersManager, MagManager $magManager, LettersManager $lettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
+    public function __construct(UsersManager $usersManager, MagManager $magManager, LettersManager $lettersManager, NewslettersManager $newslettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
     {
         $this->magManager = $magManager;
         $this->lettersManager = $lettersManager;
+        $this->newslettersManager = $newslettersManager;
         $this->view = $view;
         $this->usersManager = $usersManager;
         $this->request = $request;
@@ -704,5 +707,52 @@ final class UsersController
                 ],
             ],
         );
+    }
+
+    public function sendNewsletter(): void
+    {
+        $this->auth->requireRole(1);
+
+        $idNewsletter = (int)$this->request->get('idNewsletter');
+
+        $newsletter = $this->newslettersManager->showNewslettersById($idNewsletter);
+
+        if ($newsletter->content === null || empty($newsletter->content)) {
+            $error = 'La newsletter ne contient aucune ligne de texte et ne peut donc être envoyée';
+
+            header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&error=$error");
+            exit();
+        }
+        
+        $usersNb = $this->usersManager->countUsers();
+        $users = $this->usersManager->showAllUsers(0, (int) $usersNb[0]);
+
+        $header="MIME-Version: 1.0\r\n";
+        $header.='Content-Type:text/html; charset="uft-8"'."\n";
+        $header.='Content-Transfer-Encoding: 8bit';
+
+        $message = html_entity_decode((htmlspecialchars_decode($newsletter->content)));
+        
+        if ($users === null) {
+            $error = 'Aucun membre abonné, la newsletter ne peut être envoyée';
+
+            header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&error=$error");
+            exit();
+        }
+
+        for ($i = 0; $i < count($users); ++$i) {
+            if ($users[$i]->newsletter === '1') {
+                //var_dump($users[$i]->email);
+               
+                mail($users[$i]->email, "Newsletter", $message, $header);
+            }
+        }
+        
+        $message = 'La newsletter a été envoyée aux membres abonnés';
+
+        $this->newslettersManager->setNewsLetterSendById($idNewsletter, 1);
+
+        header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&message=$message");
+        exit();
     }
 }
