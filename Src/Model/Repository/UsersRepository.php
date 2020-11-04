@@ -55,18 +55,18 @@ final class UsersRepository
         return $data  ? $data : null;
     }
 
-    public function setAboById(int $idUser, int $value): void
+    public function setAboById(int $idUser, int $value): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE users SET newsletter = :newvalue WHERE id_user = :idUser ');
-        $req->execute([
+        return $req->execute([
             'newvalue' => (int) $value,
             'idUser' => (int) $idUser]);
     }
 
-    public function unsetAboById(int $idUser, int $value): void
+    public function unsetAboById(int $idUser, int $value): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE users SET newsletter = :newvalue WHERE id_user = :idUser ');
-        $req->execute([
+        return $req->execute([
             'newvalue' => (int) $value,
             'idUser' => (int) $idUser]);
     }

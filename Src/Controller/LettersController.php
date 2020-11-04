@@ -51,6 +51,7 @@ final class LettersController
         }
 
         $magazine = $this->magManager->showByIdAndPub($idMag);
+        $numberMags = $this->magManager->showPubNumberMag();
         $token = $this->noCsrf->createToken();
 
         $this->view->render(
@@ -62,7 +63,8 @@ final class LettersController
                 'active' =>0,
                 'token' => $token,
                 'error' =>$error,
-                'user' =>$user
+                'user' =>$user,
+                'numberMags' => $numberMags
                 ],
             ],
         );
@@ -85,23 +87,30 @@ final class LettersController
             exit();
         }
 
+        if ($this->request->post('numberMag') === null || empty($this->request->post('numberMag'))) {
+            $error = "Veuillez associer un thème à votre courrier";
+
+            header("Location: index.php?action=nousEcrire&idMag=$idMag&error=$error");
+            exit();
+        }
+
         if ($this->request->post('courrier') === null ||  empty($this->request->post('courrier'))) {
             header("Location: index.php?action=nousEcrire&idMag=$idMag");
             exit();
         }
 
-        $this->lettersManager->createLetter((int) $user->getId_user(), (string) $user->getPseudo(), (string) $this->request->post('courrier'));
+        $this->lettersManager->createLetter((int) $user->getId_user(), (string) $user->getPseudo(), (string) $this->request->post('courrier'), (int) $this->request->post('numberMag'));
         header("Location: index.php?action=monCompte&idMag=$idMag&message=1");
         exit();
     }
 
     //index.php?action=courrier&idMag=110
-    public function courrier(int $idMag):void//méthode pour afficher la page courrier d'un magazine
+    public function courrier(int $idMag):void//méthode pour afficher la page courrier des lecteurs
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
         
-        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->getNumberMag());
+        $totalLetters =  $this->lettersManager->countPubLetters();
         $nbByPage = 2;
         $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
 
@@ -115,7 +124,7 @@ final class LettersController
 
         $offset = ($currentpage - 1) * $nbByPage;
         
-        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->getNumberMag());
+        $letters = $this->lettersManager->showPubLetters((int) $offset, (int) $nbByPage);
         
         $this->view->render(
             [
@@ -143,7 +152,7 @@ final class LettersController
             exit();
         }
 
-        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->getNumberMag());
+        $totalLetters =  $this->lettersManager->countPubLetters();
         $nbByPage = 2;
         $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
 
@@ -157,7 +166,7 @@ final class LettersController
 
         $offset = ($currentpage - 1) * $nbByPage;
         
-        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->getNumberMag());
+        $letters = $this->lettersManager->showPubLetters((int) $offset, (int) $nbByPage);
         
         $this->view->render(
             [
@@ -245,7 +254,7 @@ final class LettersController
     public function relatedMag(int $idMag): void
     {
         $this->auth->requireRole(1);
-
+        $message = null;
         $idLetter = (int)$this->request->get('idLetter');
 
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
@@ -256,7 +265,7 @@ final class LettersController
 
         if ($this->request->post('numberMag') !== null && !empty($this->request->post('numberMag'))
         && !empty($this->request->post('modifRelatedMag'))) {
-            $message = 'Le courrier a été associé au magazine choisi';
+            $message = 'La thématique du courrier a été modifiée';
             $this->lettersManager->setRelatedMag($idLetter, (int) $this->request->post('numberMag'));
         }
 
@@ -270,23 +279,23 @@ final class LettersController
         $this->auth->requireRole(1);
 
         $idLetter = (int)$this->request->get('idLetter');
-
+        $message = null;
         $letter = $this->lettersManager->showLetterById($idLetter);
 
         if ($letter->getMagRelated() === null) {
-            $message = "Un numéro de magazine doit être associé au courrier avant de le publier";
+            $message = "Une thématique doit être choisie";
             header("Location: index.php?action=letterBack&idLetter=$idLetter&message=$message");
             exit();
         }
 
         if ($letter->getPublished() === 0) {
             $this->lettersManager->setLetterPublished($idLetter, 1);
-            $message = "Le courrier a été publié dans le magazine associé";
+            $message = "Le courrier a été publié";
         }
 
         if ($letter->getPublished() === 1) {
             $this->lettersManager->setLetterPublished($idLetter, 0);
-            $message = "Le courrier a été retiré du magazine associé";
+            $message = "Le courrier a été retiré du courrier des lecteurs";
         }
 
         header("Location: index.php?action=letterBack&idLetter=$idLetter&message=$message");

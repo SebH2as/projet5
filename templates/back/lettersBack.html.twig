@@ -19,10 +19,10 @@
                 <div id="tableContainer">
 
                     <div id="tableTitles">
-                        <span class="columnTitle">Membre</span>
+                        <span class="columnTitle">Envoyé par</span>
                         <span class="columnTitle">Date de réception</span>
                         <span class="columnTitle">Réponse</span>
-                        <span class="columnTitle">Magazine associé</span>
+                        <span class="columnTitle">Thématique</span>
                         <span class="columnTitle">Statut</span>
                     </div>
 
@@ -33,7 +33,7 @@
                             <span class="tableContent">{{letter.author}}</span>
                             <span class="tableContent">{{letter.post_date |date("d/m/Y", "Europe/Paris")}}</span>
                             <span class="tableContent">{% if not letter.response %}aucune{% else %}Rédigée{% endif %}</span>
-                            <span class="tableContent">{% if not letter.magRelated %}aucun{% else %}{{letter.magRelated}}{% endif %}</span>
+                            <span class="tableContent">{% if letter.magRelated == 1000 %}Le site{% elseif letter.magRelated == 1001 %}Actualité{% else %}Magazine n°{{letter.magRelated}}{% endif %}</span>
                             <span class="tableContent">{% if letter.published == 0 %}En attente de publication{% else %}Publié{% endif %}</span>
                         </a>
 

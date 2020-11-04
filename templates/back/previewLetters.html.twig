@@ -18,13 +18,13 @@
 
             <div id="titleArticle">
                 <a href="index.php?action=previewMag&amp;idMag={{magazine.id_mag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
-                <h1>COURRIER</h1>
+                <h1>TOUS LES COURRIERS</h1>
                 <a href="index.php?action=previewMag&amp;idMag={{magazine.id_mag}}"><h3>Magazine N°{{magazine.numberMag}}</h3></a>
                 <div id="separator02"></div>
             </div>
 
         {% if not letters %}
-            <h2 id="noLetters">Aucun courrier reçu pour ce numéro</h2>
+            <h2 id="noLetters">Aucun courrier à ce jour</h2>
         {% else %}
 
             <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
@@ -36,7 +36,7 @@
         {% for letter in letters %}
             <div class="lettersAll">
                 <div class="readerLetter">
-                    <h2>Courrier du {{letter.post_date}} par {{letter.author}} :</h2>
+                    <h2>Courrier du {{letter.post_date |date("d/m/Y", "Europe/Paris")}} envoyé par {{letter.author}} à propos {% if letter.magRelated == 1000 %}du site{% elseif letter.magRelated == 1001 %}de l'actualité{% else %}du magazine n°{{letter.magRelated}}{% endif %} :</h2>
                     <span>{{decode(letter.content) |raw}}</span>
                 </div>
                 <div class="responseLetter">

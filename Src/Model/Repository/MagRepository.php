@@ -187,6 +187,13 @@ final class MagRepository
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 
+    public function getPubNumberMag():array // requete pour recuperer les numéros de tous les magazines
+    {
+        $req = $this->database->getConnection()->prepare('SELECT numberMag FROM mag WHERE statusPub = 1');
+        $req->execute();
+        return $req->fetchALL(\PDO::FETCH_OBJ);
+    }
+
     public function countNumberMag(int $number): ?array
     {
         $req = $this->database->getConnection()->prepare('SELECT COUNT(numberMag) FROM mag WHERE numberMag = :numberMag');

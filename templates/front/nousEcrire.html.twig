@@ -30,7 +30,7 @@
             <div id="infos">
                 <span>
                    Vous pouvez nous écrire un courrier à l'aide du champ ci-dessous.<br>
-                   Vous serez eventuellement publié dans la rubrique Courrier des lecteurs du numéro suivant et
+                   Vous serez eventuellement publié dans la rubrique Courrier des lecteurs et
                    nous vous répondrons à cette occasion.
                 </span>
             </div>
@@ -39,6 +39,15 @@
             
             <form id="formLetter" action="index.php?action=postLetter&amp;idMag={{magazine.id_mag}}" method="post">
                 <input type="hidden" name="csrf" value="{{token}}">
+                
+                <label for="numberMag">Votre courrier concerne:</label>
+                                        <select list="numberMag" name="numberMag">
+                                            <option value="1000">Notre site en général{{number.numberMag}}</option>
+                                            <option value="1001">Un sujet d'actualité{{number.numberMag}}</option>
+                                            {% for number in numberMags %} 
+                                                <option value="{{number.numberMag}}">Le magazine numéro {{number.numberMag}}</option>
+                                            {% endfor %}
+                                        </select> 
                 
                 <label for="courrier">Courrier</label>
                 <textarea id="courrier" name="courrier" rows="15" cols="50"></textarea>

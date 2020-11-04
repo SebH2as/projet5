@@ -36,9 +36,9 @@ final class LettersManager
         return $this->lettersRepo->findByRelatedMag($offset, $nbByPage, $numberMag);
     }
 
-    public function createLetter(int $user, string $pseudo, string $content): bool
+    public function createLetter(int $user, string $pseudo, string $content, int $numberMag): bool
     {
-        return $this->lettersRepo->newLetter($user, $pseudo, $content);
+        return $this->lettersRepo->newLetter($user, $pseudo, $content, $numberMag);
     }
 
     public function countAllLetters(): ?array
@@ -46,9 +46,19 @@ final class LettersManager
         return $this->lettersRepo->countAllLetters();
     }
 
+    public function countPubLetters(): ?array
+    {
+        return $this->lettersRepo->countPubLetters();
+    }
+
     public function showAllLetters(int $offset, int $nbByPage): ?array
     {
         return $this->lettersRepo->showAllLetters($offset, $nbByPage);
+    }
+
+    public function showPubLetters(int $offset, int $nbByPage): ?array
+    {
+        return $this->lettersRepo->showPubLetters($offset, $nbByPage);
     }
 
     public function showLetterById(int $idLetter): Letter

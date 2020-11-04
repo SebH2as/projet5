@@ -111,6 +111,11 @@ final class MagManager
         return $this->magRepo->getAllNumberMag();
     }
 
+    public function showPubNumberMag(): array
+    {
+        return $this->magRepo->getPubNumberMag();
+    }
+
     public function countNumberMag(int $number): ?array
     {
         return $this->magRepo->countNumberMag($number);

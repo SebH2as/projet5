@@ -236,6 +236,13 @@ final class MagController
             exit();
         }
 
+        if(is_numeric ($this->request->post('number')) === false || is_int ($this->request->post('number'))) {
+            $error = 'Veuillez entrer un nombre entier';
+            
+            header("Location: index.php?action=newMag&error=$error");
+            exit();
+        }
+
         $numberThere = $this->magManager->countNumberMag((int) $this->request->post('number'));
         if (($numberThere[0]) >= 1) {
             $error = 'Le numéro choisi est déjà utilisé';
@@ -244,7 +251,7 @@ final class MagController
             exit();
         }
 
-        if ((int) $this->request->post('number') === null || empty((int) $this->request->post('number'))) {
+        if ($this->request->post('number') === null || empty($this->request->post('number'))) {
             header("Location: index.php?action=newMag");
             exit();
         }
@@ -311,7 +318,7 @@ final class MagController
     public function changeStatusMag(int $idMag): void
     {
         $this->auth->requireRole(1);
-
+        $message = null;
         $magazine = $this->magManager->showById($idMag);
 
         if ($magazine->getStatusPub() === 0) {

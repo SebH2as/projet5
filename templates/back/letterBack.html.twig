@@ -31,11 +31,13 @@
                         
                         <input type="hidden" name="csrf" value="{{token}}">
                         
-                        <h3>Magazine associé: <i>Numéro {% if not letter.magRelated %}aucun{% else %}{{letter.magRelated}}{% endif %}</i></h3>
+                        <h3>Thématique: <i>{% if letter.magRelated == 1000 %}Le site{% elseif letter.magRelated == 1001 %}Actualité{% else %}Magazine n°{{letter.magRelated}}{% endif %}</i></h3>
                             <div class="formRow">
                                 <div class="labelInput">
-                                    <label for="numberMag">Modifier le magazine associé:</label>
+                                    <label for="numberMag">Modifier la thématique:</label>
                                         <select list="numberMag" name="numberMag">
+                                            <option value="1000">Le site en général{{number.numberMag}}</option>
+                                            <option value="1001">Un sujet d'actualité{{number.numberMag}}</option>
                                             {% for number in numberMags %} 
                                                 <option value="{{number.numberMag}}">Magazine numéro {{number.numberMag}}</option>
                                             {% endfor %}

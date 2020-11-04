@@ -440,11 +440,11 @@ final class UsersController
             exit();
         }
 
-        if ((string) $this->request->post('pseudo') === null ||  empty($this->request->post('pseudo'))
-        || (string) $this->request->post('mail') === null ||  empty($this->request->post('mail'))
-        || (string) $this->request->post('mail2') === null ||  empty($this->request->post('mail2'))
-        || (string) $this->request->post('password') === null ||  empty($this->request->post('password'))
-        || (string) $this->request->post('password2') === null ||  empty($this->request->post('password2'))) {
+        if ($this->request->post('pseudo') === null ||  empty($this->request->post('pseudo'))
+        || $this->request->post('mail') === null ||  empty($this->request->post('mail'))
+        || $this->request->post('mail2') === null ||  empty($this->request->post('mail2'))
+        || $this->request->post('password') === null ||  empty($this->request->post('password'))
+        || $this->request->post('password2') === null ||  empty($this->request->post('password2'))) {
             $error = 'Au moins un des champs est vide. Veuillez tous les renseigner.';
             
             header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");
@@ -502,7 +502,7 @@ final class UsersController
             exit();
         }
 
-        if ((string) $this->request->post('check') === null ||  empty($this->request->post('check'))) {
+        if ($this->request->post('check') === null ||  empty($this->request->post('check'))) {
             $error = 'Vous devez accepter nos conditions d\'utilisation pour pouvoir créer votre compte';
             
             header("Location: index.php?action=nousRejoindre&idMag=$idMag&error=$error");

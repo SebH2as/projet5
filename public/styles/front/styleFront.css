@@ -1409,6 +1409,24 @@ header .hidden span {
           align-items: center;
 }
 
+#article .countLinks {
+  background-color: #E8871E;
+  border: 2px solid #030B12;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  color: #030B12;
+  font-weight: 900;
+  margin: 2vh;
+  padding: 1vh;
+}
+
+#article .countLinks:hover {
+  background-color: #030B12;
+  color: #F9FBF2;
+}
+
 #article #titleArticle {
   position: relative;
   width: 100%;

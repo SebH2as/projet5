@@ -812,6 +812,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+        .countLinks{
+            background-color: $secondaryBacgroundColorOrange;
+            border: 2px solid $primaryBackgroundColorDark;
+            font-size: 24px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            color: $primaryBackgroundColorDark;
+            font-weight: 900;
+            margin: 2vh;
+            padding: 1vh;
+            &:hover{
+                background-color: $primaryBackgroundColorDark;
+                color: $primaryBackgroundColorLight;
+            }
+        }
         #titleArticle{
             position: relative;
             width: 100%;

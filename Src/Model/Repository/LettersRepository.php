@@ -60,13 +60,14 @@ final class LettersRepository
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 
-    public function newLetter(int $user, string $pseudo, string $content)
+    public function newLetter(int $user, string $pseudo, string $content, int $numberMag)
     {
-        $req = $this->database->getConnection()->prepare('INSERT INTO letters SET id_user = :user, author = :pseudo, content = :content');
+        $req = $this->database->getConnection()->prepare('INSERT INTO letters SET id_user = :user, author = :pseudo, content = :content, magRelated = :numberMag');
         return $req->execute([
             'user' => (int) $user,
             'pseudo' => (string) $pseudo,
-            'content' => (string) $content]);
+            'content' => (string) $content,
+            'numberMag' => (int) $numberMag]);
     }
 
     public function countAllLetters(): ?array
@@ -76,10 +77,30 @@ final class LettersRepository
         return $req->fetch();
     }
 
+    public function countPubLetters(): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT COUNT(*) FROM letters WHERE published = 1 ');
+        $req->execute();
+        return $req->fetch();
+    }
+
     public function showAllLetters(int $offset, int $nbByPage): ?array
     {
         $req = $this->database->getConnection()->prepare('SELECT *
         FROM letters 
+        ORDER BY post_date DESC
+        LIMIT :offset, :limitation');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(\PDO::FETCH_OBJ);
+    }
+
+    public function showPubLetters(int $offset, int $nbByPage): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT *
+        FROM letters 
+        WHERE published = 1
         ORDER BY post_date DESC
         LIMIT :offset, :limitation');
         $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);

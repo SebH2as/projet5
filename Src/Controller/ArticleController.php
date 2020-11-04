@@ -142,7 +142,7 @@ final class ArticleController
         $articleNew = $this->articleManager->createArticleByIdMag($idMag);
         $token = $this->noCsrf->createToken();
 
-        if ($articleNew === null) {
+        if ($articleNew === false) {
             header("Location: index.php?action=listMag");
             exit();
         }
@@ -264,7 +264,7 @@ final class ArticleController
     public function changeMain(int $idMag):void
     {
         $this->auth->requireRole(1);
-
+        $message = null;
         $idText = (int) $this->request->get('idText');
 
         $article = $this->articleManager->showById($idText);
