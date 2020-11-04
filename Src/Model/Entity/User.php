@@ -6,13 +6,58 @@ namespace Projet5\Model\Entity;
 
 final class User
 {
-    public int $id_user;
-    public ?string $pseudo;
-    public ?string $email;
-    public ?string $p_w;
-    public ?string $inscription_date;
-    public int $confirmkey;
-    public int $actived;
-    public ?int $newsletter;
-    public int $role;
+    private int $id_user;
+    private ?string $pseudo;
+    private ?string $email;
+    private ?string $p_w;
+    private ?string $inscription_date;
+    private int $confirmkey;
+    private int $actived;
+    private ?int $newsletter;
+    private int $role;
+
+    public function getId_user(): int
+    {
+        return $this->id_user;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function getP_w(): ?string
+    {
+        return $this->p_w;
+    }
+
+    public function getInscription_date(): ?string
+    {
+        return $this->inscription_date;
+    }
+
+    public function getConfirmkey(): ?int
+    {
+        return $this->confirmkey;
+    }
+
+    public function getActived(): ?int
+    {
+        return $this->actived;
+    }
+
+    public function getNewsletter(): ?int
+    {
+        return $this->newsletter;
+    }
+
+    public function getRole(): ?int
+    {
+        return $this->role;
+    }
 }

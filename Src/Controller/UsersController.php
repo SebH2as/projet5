@@ -17,8 +17,8 @@ final class UsersController
     private MagManager $magManager;
     private LettersManager $lettersManager;
     private NewslettersManager $newslettersManager;
+    private UsersManager $usersManager;
     private View $view;
-    private ArticleManager $articleManager;
     private Request $request;
     private NoCsrf $noCsrf;
     private Auth $auth;
@@ -112,7 +112,7 @@ final class UsersController
             exit();
         }
 
-        if ($user->role === 1) {
+        if ($user->getRole() === 1) {
             header("Location: index.php?action=listMag&idMag=$idMag");
             exit();
         }
@@ -145,13 +145,13 @@ final class UsersController
             exit();
         }
             
-        if ($user->role === 1) {
+        if ($user->getRole() === 1) {
             header("Location: index.php?action=adminProfil&message=$message");
             exit();
         }
             
-        $nbUnpubletters = $this->lettersManager->countUnpubById((int) $user->id_user);
-        $nbPubletters = $this->lettersManager->countPubById((int) $user->id_user);
+        $nbUnpubletters = $this->lettersManager->countUnpubById((int) $user->getId_user());
+        $nbPubletters = $this->lettersManager->countPubById((int) $user->getId_user());
         $magazine = $this->magManager->showByIdAndPub($idMag);
         
         $this->view->render(
@@ -197,7 +197,7 @@ final class UsersController
 
         $message = 'Votre compte a été supprimé';
 
-        $this->usersManager->deleteUserById($user->id_user);
+        $this->usersManager->deleteUserById($user->getId_user());
 
         session_unset();
         session_destroy();
@@ -217,13 +217,13 @@ final class UsersController
             exit();
         }
 
-        if ($user->newsletter === 0) {
-            $this->usersManager->getAboNewsletter((int) $user->id_user, 1);
+        if ($user->getNewsletter() === 0) {
+            $this->usersManager->getAboNewsletter((int) $user->getId_user(), 1);
             header("Location: index.php?action=monCompte&idMag=$idMag&message=2");
             exit();
         }
 
-        $this->usersManager->abortAboNewsletter((int) $user->id_user, 0);
+        $this->usersManager->abortAboNewsletter((int) $user->getId_user(), 0);
         header("Location: index.php?action=monCompte&idMag=$idMag&message=3");
         exit();
     }
@@ -285,7 +285,7 @@ final class UsersController
         $this->request->post('new2') === null || empty($this->request->post('new2'))) {
             $error = 'Au moins un des champs est vide. Veuillez tous les renseigner.';
 
-            if ($user->role === 1) {
+            if ($user->getRole() === 1) {
                 header("Location: index.php?action=modifAdmin&error=$error");
                 exit();
             }
@@ -294,10 +294,10 @@ final class UsersController
             exit();
         }
 
-        if (password_verify($this->request->post('password'), $user->p_w) === false) {
+        if (password_verify($this->request->post('password'), $user->getP_w()) === false) {
             $error = 'Erreur de mot de passe';
 
-            if ($user->role === 1) {
+            if ($user->getRole() === 1) {
                 header("Location: index.php?action=modifAdmin&error=$error");
                 exit();
             }
@@ -309,7 +309,7 @@ final class UsersController
         if ($this->request->post('new') !== $this->request->post('new2')) {
             $error = 'Les deux champs renseignés ne correspondent pas';
 
-            if ($user->role === 1) {
+            if ($user->getRole() === 1) {
                 header("Location: index.php?action=modifAdmin&error=$error");
                 exit();
             }
@@ -324,7 +324,7 @@ final class UsersController
                 if (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,50})", $this->request->post('new')) === 0) {
                     $error = 'Le nouveau mot de passe choisi n\'est pas valide';
 
-                    if ($user->role === 1) {
+                    if ($user->getRole() === 1) {
                         header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
@@ -333,10 +333,10 @@ final class UsersController
                     exit();
                 }
 
-                if (password_verify($this->request->post('new'), $user->p_w) === true) {
+                if (password_verify($this->request->post('new'), $user->getP_w()) === true) {
                     $error = 'Le nouveau mot de passe choisi doit être différent de l\'ancien';
 
-                    if ($user->role === 1) {
+                    if ($user->getRole() === 1) {
                         header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
@@ -345,7 +345,7 @@ final class UsersController
                     exit();
                 }
         
-                $this->usersManager->modifPass((int) $user->id_user, (string) password_hash($this->request->post('new'), PASSWORD_DEFAULT));
+                $this->usersManager->modifPass((int) $user->getId_user(), (string) password_hash($this->request->post('new'), PASSWORD_DEFAULT));
                 
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=0");
                 exit();
@@ -357,7 +357,7 @@ final class UsersController
                 if (preg_match("(^[a-z]{3,15}\d*$)", $this->request->post('new')) === 0) {
                     $error = 'Le nouveau pseudo choisi n\'est pas valide';
 
-                    if ($user->role === 1) {
+                    if ($user->getRole() === 1) {
                         header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
@@ -370,7 +370,7 @@ final class UsersController
                 if (($pseudoThere[0]) >= 1) {
                     $error = 'Le pseudo choisi est déjà utilisé';
 
-                    if ($user->role === 1) {
+                    if ($user->getRole() === 1) {
                         header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
@@ -379,8 +379,8 @@ final class UsersController
                     exit();
                 }
 
-                $this->usersManager->modifPseudo((int) $user->id_user, (string) $this->request->post('new'));
-                $this->lettersManager->changeLetterAuthor((int) $user->id_user, (string) $this->request->post('new'));
+                $this->usersManager->modifPseudo((int) $user->getId_user(), (string) $this->request->post('new'));
+                $this->lettersManager->changeLetterAuthor((int) $user->getId_user(), (string) $this->request->post('new'));
 
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=4");
                 exit();
@@ -392,7 +392,7 @@ final class UsersController
                 if (filter_var($this->request->post('new'), FILTER_VALIDATE_EMAIL) === false) {
                     $error = 'L\'email choisi n\'est pas valide';
 
-                    if ($user->role === 1) {
+                    if ($user->getRole() === 1) {
                         header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
@@ -405,7 +405,7 @@ final class UsersController
                 if (($emailThere[0]) >= 1) {
                     $error = 'L\' email choisi est déjà utilisé';
 
-                    if ($user->role === 1) {
+                    if ($user->getRole() === 1) {
                         header("Location: index.php?action=modifAdmin&error=$error");
                         exit();
                     }
@@ -414,7 +414,7 @@ final class UsersController
                     exit();
                 }
                 
-                $this->usersManager->modifEmail((int) $user->id_user, (string) $this->request->post('new'));
+                $this->usersManager->modifEmail((int) $user->getId_user(), (string) $this->request->post('new'));
 
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=5");
                 exit();
@@ -562,7 +562,7 @@ final class UsersController
             exit();
         }
 
-        if (((int) $this->request->post('code')) !== $user->confirmkey) {
+        if (((int) $this->request->post('code')) !== $user->getConfirmkey()) {
             $error = 'Le code renseigné n\'est pas valide';
             
             header("Location: index.php?action=activationPage&idMag=$idMag&error=$error");
@@ -648,7 +648,7 @@ final class UsersController
         $idUser = (int)$this->request->get('idUser');
         $user = $this->usersManager->getAllUserById($idUser);
 
-        $message = 'Le membre '. $user->pseudo .' a été supprimé';
+        $message = 'Le membre '. $user->getPseudo() .' a été supprimé';
 
         $this->usersManager->deleteUserById($idUser);
 
@@ -717,7 +717,7 @@ final class UsersController
 
         $newsletter = $this->newslettersManager->showNewslettersById($idNewsletter);
 
-        if ($newsletter->content === null || empty($newsletter->content)) {
+        if ($newsletter->getContent() === null || empty($newsletter->getContent())) {
             $error = 'La newsletter ne contient aucune ligne de texte et ne peut donc être envoyée';
 
             header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&error=$error");
@@ -731,7 +731,7 @@ final class UsersController
         $header.='Content-Type:text/html; charset="uft-8"'."\n";
         $header.='Content-Transfer-Encoding: 8bit';
 
-        $message = html_entity_decode((htmlspecialchars_decode($newsletter->content)));
+        $message = html_entity_decode((htmlspecialchars_decode($newsletter->getContent())));
         
         if ($users === null) {
             $error = 'Aucun membre abonné, la newsletter ne peut être envoyée';
@@ -741,10 +741,9 @@ final class UsersController
         }
 
         for ($i = 0; $i < count($users); ++$i) {
-            if ($users[$i]->newsletter === '1') {
-                //var_dump($users[$i]->email);
+            if ($users[$i]->getNewsletter() === '1') {
                
-                mail($users[$i]->email, "Newsletter", $message, $header);
+                mail($users[$i]->getEmail(), "Newsletter", $message, $header);
             }
         }
         

@@ -112,7 +112,7 @@ final class ArticleController
         }
 
         $article = $this->articleManager->showById((int) $this->request->get('idText'));
-        $magazine = $this->magManager->showByIdAndPub($idMag);
+        $magazine = $this->magManager->showById($idMag);
         $token = $this->noCsrf->createToken();
 
         if ($article === null) {
@@ -138,8 +138,8 @@ final class ArticleController
     {
         $this->auth->requireRole(1);
 
-        $magazine = $this->magManager->showByIdAndPub($idMag);
-        $articleNew = $this->articleManager->createArticleByIdMag((int) $magazine->id_mag);
+        $magazine = $this->magManager->showById($idMag);
+        $articleNew = $this->articleManager->createArticleByIdMag($idMag);
         $token = $this->noCsrf->createToken();
 
         if ($articleNew === null) {
@@ -148,7 +148,7 @@ final class ArticleController
         }
 
         $article = $this->articleManager->showMostRecentArticle();
-        $idText = $article->id_text;
+        $idText = $article->getId_text();
         $message = 'Nouvel article créé';
 
         header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&message=$message");
@@ -223,8 +223,8 @@ final class ArticleController
             if (in_array($ext, $allowExt, true)) {
                 $dataToErase = $this->articleManager->showById($idText);
                 
-                if (($dataToErase->articleCover) !== null) {
-                    unlink("../public/images/".$dataToErase->articleCover);
+                if (($dataToErase->getArticleCover()) !== null) {
+                    unlink("../public/images/".$dataToErase->getArticleCover());
                 }
                 
                 move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
@@ -248,8 +248,8 @@ final class ArticleController
 
         $dataToErase = $this->articleManager->showById($idText);
 
-        if (($dataToErase->articleCover) !== null) {
-            unlink("../public/images/".$dataToErase->articleCover);
+        if (($dataToErase->getArticleCover()) !== null) {
+            unlink("../public/images/".$dataToErase->getArticleCover());
         }
 
         $this->articleManager->deleteArticle($idText);
@@ -269,14 +269,14 @@ final class ArticleController
 
         $article = $this->articleManager->showById($idText);
 
-        if ($article->main === 0) {
+        if ($article->getMain() === 0) {
             $this->articleManager->unsetMainAllArticles($idMag);
             $this->articleManager->changeMain($idText, 1);
 
             $message = 'L\'article a été passé à la une';
         }
 
-        if ($article->main === 1) {
+        if ($article->getMain() === 1) {
             $this->articleManager->changeMain($idText, 0);
 
             $message = 'L\'article a été retiré de la une';

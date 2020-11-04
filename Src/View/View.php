@@ -18,14 +18,7 @@ final class View
         $loader = new FilesystemLoader('../templates');
         $this->twig = new Environment($loader, [
             'debug' => true]);
-        $this->twig->addRuntimeLoader(new class implements RuntimeLoaderInterface {
-            public function load($class)
-            {
-                if (MarkdownRuntime::class === $class) {
-                    return new MarkdownRuntime(new DefaultMarkdown());
-                }
-            }
-        });
+
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         $this->twig->addExtension(new IntlExtension());
         $this->twig->addFunction(new \Twig\TwigFunction(

@@ -90,7 +90,7 @@ final class LettersController
             exit();
         }
 
-        $this->lettersManager->createLetter((int) $user->id_user, (string) $user->pseudo, (string) $this->request->post('courrier'));
+        $this->lettersManager->createLetter((int) $user->getId_user(), (string) $user->getPseudo(), (string) $this->request->post('courrier'));
         header("Location: index.php?action=monCompte&idMag=$idMag&message=1");
         exit();
     }
@@ -101,7 +101,7 @@ final class LettersController
         $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
         
-        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->numberMag);
+        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->getNumberMag());
         $nbByPage = 2;
         $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
 
@@ -115,7 +115,7 @@ final class LettersController
 
         $offset = ($currentpage - 1) * $nbByPage;
         
-        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->numberMag);
+        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->getNumberMag());
         
         $this->view->render(
             [
@@ -143,7 +143,7 @@ final class LettersController
             exit();
         }
 
-        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->numberMag);
+        $totalLetters =  $this->lettersManager->countLettersByRelatedMag($magazine->getNumberMag());
         $nbByPage = 2;
         $totalpages = (int) ceil($totalLetters[0]/$nbByPage);
 
@@ -157,7 +157,7 @@ final class LettersController
 
         $offset = ($currentpage - 1) * $nbByPage;
         
-        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->numberMag);
+        $letters = $this->lettersManager->showByRelatedMag((int) $offset, (int) $nbByPage, (int) $magazine->getNumberMag());
         
         $this->view->render(
             [
@@ -273,18 +273,18 @@ final class LettersController
 
         $letter = $this->lettersManager->showLetterById($idLetter);
 
-        if ($letter->magRelated === null) {
+        if ($letter->getMagRelated() === null) {
             $message = "Un numéro de magazine doit être associé au courrier avant de le publier";
             header("Location: index.php?action=letterBack&idLetter=$idLetter&message=$message");
             exit();
         }
 
-        if ($letter->published === 0) {
+        if ($letter->getPublished() === 0) {
             $this->lettersManager->setLetterPublished($idLetter, 1);
             $message = "Le courrier a été publié dans le magazine associé";
         }
 
-        if ($letter->published === 1) {
+        if ($letter->getPublished() === 1) {
             $this->lettersManager->setLetterPublished($idLetter, 0);
             $message = "Le courrier a été retiré du magazine associé";
         }
@@ -300,7 +300,7 @@ final class LettersController
         $idLetter = (int)$this->request->get('idLetter');
         $letter = $this->lettersManager->showLetterById($idLetter);
 
-        $message = 'Le courrier de '. $letter->author .' a été supprimé';
+        $message = 'Le courrier de '. $letter->getAuthor() .' a été supprimé';
 
         $this->lettersManager->deleteLetterById($idLetter);
 

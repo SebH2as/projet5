@@ -37,10 +37,10 @@ final class MagController
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showLastAndPub();
-        $articles = $this->articleManager->showByIdmag($magazine->id_mag);
+        $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
 
-        $previous = $this->magManager->showByNumber($magazine->numberMag - 1);
-        $next = $this->magManager->showByNumber($magazine->numberMag + 1);
+        $previous = $this->magManager->showByNumber($magazine->getNumberMag() - 1);
+        $next = $this->magManager->showByNumber($magazine->getNumberMag() + 1);
 
         $this->view->render(
             [
@@ -64,10 +64,10 @@ final class MagController
         $user = $this->auth->user();
         $magazine = $this->magManager->showByNumber((int) $this->request->get('numberMag'));
         if ($magazine) {
-            $articles = $this->articleManager->showByIdmag($magazine->id_mag);
+            $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
             
-            $next = $this->magManager->showByNumber($magazine->numberMag + 1);
-            $previous = $this->magManager->showByNumber($magazine->numberMag - 1);
+            $next = $this->magManager->showByNumber($magazine->getNumberMag() + 1);
+            $previous = $this->magManager->showByNumber($magazine->getNumberMag() - 1);
             $this->view->render(
                 [
                 'template' => 'front/magazine',
@@ -245,7 +245,7 @@ final class MagController
         }
 
         if ((int) $this->request->post('number') === null || empty((int) $this->request->post('number'))) {
-            header("Location: index.php?action=newMag&error=$error");
+            header("Location: index.php?action=newMag");
             exit();
         }
             
@@ -291,15 +291,15 @@ final class MagController
         $magToErase = $this->magManager->showById($idMag);
         $articlesToErase = $this->articleManager->showByIdmag($idMag);
 
-        if (($magToErase->cover) !== null) {
-            unlink("../public/images/".$magToErase->cover);
+        if (($magToErase->getCover()) !== null) {
+            unlink("../public/images/".$magToErase->getCover());
         }
         foreach ($articlesToErase as $articleImgToErase) {
-            if (($articleImgToErase->articleCover) !== null) {
-                unlink("../public/images/".$articleImgToErase->articleCover);
+            if (($articleImgToErase->getArticleCover()) !== null) {
+                unlink("../public/images/".$articleImgToErase->getArticleCover());
             }
         }
-        $message = 'Le magazine numéro '. $magToErase->numberMag . ' a bien été supprimé avec ses articles et images associés';
+        $message = 'Le magazine numéro '. $magToErase->getNumberMag() . ' a bien été supprimé avec ses articles et images associés';
         
         $this->magManager->deleteMagById((int) $this->request->get('idMag'));
 
@@ -314,11 +314,11 @@ final class MagController
 
         $magazine = $this->magManager->showById($idMag);
 
-        if ($magazine->statusPub === 0) {
+        if ($magazine->getStatusPub() === 0) {
             $this->magManager->changeStatusById($idMag, 1);
             $message = 'le magazine a été mis en ligne';
         }
-        if ($magazine->statusPub === 1) {
+        if ($magazine->getStatusPub() === 1) {
             $this->magManager->changeStatusById($idMag, 0);
             $message = 'le magazine a été sauvegardé';
         }
@@ -333,7 +333,7 @@ final class MagController
         $this->auth->requireRole(1);
 
         $magazine = $this->magManager->showById($idMag);
-        $articles = $this->articleManager->showByIdmag($magazine->id_mag);
+        $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
 
         $this->view->render(
             [
@@ -398,8 +398,8 @@ final class MagController
             if (in_array($ext, $allowExt, true)) {
                 $dataToErase = $this->magManager->showById($idMag);
                 
-                if (($dataToErase->cover) !== null) {
-                    unlink("../public/images/".$dataToErase->cover);
+                if (($dataToErase->getCover()) !== null) {
+                    unlink("../public/images/".$dataToErase->getCover());
                 }
                 
                 move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
@@ -431,7 +431,7 @@ final class MagController
         }
 
         $magazine = $this->magManager->showById($idMag);
-        $articles = $this->articleManager->showByIdmag((int) $magazine->id_mag);
+        $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
         $token = $this->noCsrf->createToken();
 
         $this->view->render(

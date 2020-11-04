@@ -6,8 +6,28 @@ namespace Projet5\Model\Entity;
 
 final class Newsletter
 {
-    public int $id_newsletter;
-    public ?string $content;
-    public ?string $redaction_date;
-    public ?int $send;
+    private int $id_newsletter;
+    private ?string $content;
+    private ?string $redaction_date;
+    private ?int $send;
+
+    public function getId_newsletter(): int
+    {
+        return $this->id_newsletter;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function getRedaction_date(): ?string
+    {
+        return $this->redaction_date;
+    }
+
+    public function getSend(): int
+    {
+        return $this->send;
+    }
 }

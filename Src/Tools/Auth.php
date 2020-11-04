@@ -43,8 +43,8 @@ class Auth
         if ($user === null) {
             return null;
         }
-        if (password_verify($password, $user->p_w)) {
-            $this->session->setSessionData('userId', $user->id_user);
+        if (password_verify($password, $user->getP_w())) {
+            $this->session->setSessionData('userId', $user->getId_user());
             return $user;
         }
         return null;
@@ -53,7 +53,7 @@ class Auth
     public function requireRole(int $role): void
     {
         $user = $this->user();
-        if ($user === null || $user->role !== $role) {
+        if ($user === null || $user->getRole() !== $role) {
             header('location: index.php');
             exit();
         }

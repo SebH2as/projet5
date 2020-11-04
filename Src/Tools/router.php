@@ -30,6 +30,8 @@ final class Router
     private Database $database;
     private View $view;
     private Request $request;
+    private Auth $auth;
+    private NoCsrf $noCsrf;
 
     private $actionMag =
     [
