@@ -236,7 +236,7 @@ final class MagController
             exit();
         }
 
-        if(is_numeric ($this->request->post('number')) === false || is_int ($this->request->post('number'))) {
+        if (is_numeric($this->request->post('number')) === false || is_int($this->request->post('number'))) {
             $error = 'Veuillez entrer un nombre entier';
             
             header("Location: index.php?action=newMag&error=$error");
@@ -391,6 +391,13 @@ final class MagController
             exit();
         }
 
+        if (mb_strlen($this->request->post('publication')) > 30
+        || mb_strlen($this->request->post('title01')) > 70 || mb_strlen($this->request->post('title02')) > 70) {
+            $message = "Le champ renseigné ne respecte pas le nombre de caractères autorisés";
+            header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
+            exit();
+        }
+
         if ($this->request->post('publication') !== null && !empty($this->request->post('publication'))
         && !empty($this->request->post('modifPublication'))) {
             $message = 'La date de publication du magazine a été modifié';
@@ -441,17 +448,8 @@ final class MagController
         $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
         $token = $this->noCsrf->createToken();
 
-        $this->view->render(
-            [
-            'template' => 'back/pannelMag',
-            'data' => [
-                'magazine' => $magazine,
-                'articles' => $articles,
-                'message' => $message,
-                'token' => $token,
-                ],
-            ],
-        );
+        header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
+        exit();
     }
 
     //index.php?action=editorialBack&idMag=102

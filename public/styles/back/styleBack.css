@@ -25,9 +25,8 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -35,7 +34,16 @@ body {
 }
 
 #navBack h2 {
-  font-size: 2vw;
+  font-size: 1.75vw;
+}
+
+#navBack h2 a {
+  text-decoration: none;
+  color: #110B11;
+}
+
+#navBack h2 a:hover {
+  color: #48A9A6;
 }
 
 #navBack #backLinks {
@@ -1407,7 +1415,7 @@ section .columnTitle {
 }
 
 #articleInfos #contentContainer #formMag .formRow .labelInput #teaser {
-  width: 98%;
+  width: 55%;
   padding: 15px;
   font-size: 18px;
   border: solid 2px #110B11;

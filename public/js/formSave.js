@@ -3,10 +3,10 @@ class formSave {
 
         this.form = document.getElementById(form);
         this.input = input;
-
+        
         this.saveInputValue();
         this.setInputValue();
-
+        
     }
 
     saveInputValue()
@@ -15,18 +15,33 @@ class formSave {
             this.input.forEach(element => {
                 sessionStorage.setItem(element.id,  document.getElementById(element.id).value);
             });
-
+            
         })
         
     }
 
     setInputValue()
     {
-        this.input.forEach(element => {
-            element.value = sessionStorage.getItem(element.id); 
-        });
-        sessionStorage.clear();
+        if(document.URL.indexOf("error") >= 0 ){ 
+            this.input.forEach(element => {
+                element.value = sessionStorage.getItem(element.id); 
+            });
+            sessionStorage.clear();
+        }
+
+        else if(document.URL.indexOf("message") >= 0){ 
+            this.input.forEach(element => {
+                element.value = sessionStorage.getItem(element.id); 
+            });
+            sessionStorage.clear();
+        }
+        
+        else {
+            sessionStorage.clear();
+        }
+       
     }
+
 
 }
 

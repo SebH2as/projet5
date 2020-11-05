@@ -191,6 +191,13 @@ final class ArticleController
             exit();
         }
 
+        if (mb_strlen($this->request->post('title')) > 70
+        || mb_strlen($this->request->post('author')) > 30 || mb_strlen($this->request->post('teaser')) > 95) {
+            $message = "Le champ renseigné ne respecte pas le nombre de caractères autorisés";
+            header("Location: index.php?action=pannelArticle&idMag=$idMag&message=$message");
+            exit();
+        }
+
         if ($this->request->post('rubric') !== null && !empty($this->request->post('rubric'))
         && !empty($this->request->post('modifRubric'))) {
             $message = 'La rubrique de l\'article a été modifié';

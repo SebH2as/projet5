@@ -186,6 +186,36 @@ final class UsersController
         header('location: index.php');
     }
 
+    public function confirmDeleteUser(int $idMag): void
+    {
+        $user = $this->auth->user();
+
+        if ($user === null) {
+            header('location: index.php');
+            exit();
+        }
+
+        $magazine = $this->magManager->showByIdAndPub($idMag);
+
+        $message = null;
+        if ($this->request->get('message') !== null) {
+            $error = $this->request->get('message');
+        }
+
+        $this->view->render(
+            [
+            'template' => 'front/confirmDeleteUser',
+            'data' => [
+                'magazine' => $magazine,
+                'preview' => 0,
+                'active' =>0,
+                'user' => $user,
+                'message' => $message,
+                ],
+            ],
+        );
+    }
+
     public function userDeleteSelf(int $idMag): void
     {
         $user = $this->auth->user();
@@ -514,9 +544,9 @@ final class UsersController
             $key .= random_int(0, 9);
         }
 
-        $Email = $this->request->post('mail');
+        //$Email = $this->request->post('mail');
 
-        mail($Email, "Code de validation", $key);
+        //mail($Email, "Code de validation", $key);
         
         $this->usersManager->addUser((string) $this->request->post('pseudo'), (string) $this->request->post('mail'), (string) password_hash($this->request->post('password'), PASSWORD_DEFAULT), (int) $key);
         
@@ -742,7 +772,6 @@ final class UsersController
 
         for ($i = 0; $i < count($users); ++$i) {
             if ($users[$i]->getNewsletter() === '1') {
-               
                 mail($users[$i]->getEmail(), "Newsletter", $message, $header);
             }
         }

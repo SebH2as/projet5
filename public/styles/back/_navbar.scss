@@ -5,11 +5,18 @@
     width: 60%;
     height: 5vh;
     display: flex;
-    justify-content:  space-between;
+    justify-content:  space-around;
     align-items: center;
     z-index: 1;
     h2{
-        font-size: 2vw;
+        font-size: 1.75vw;
+        a{
+            text-decoration: none;
+            color: $blackColor;
+            &:hover{
+                color: $secondaryBacgroundColor02;
+            }
+        }
     }
     #backLinks{
         height: 100%;

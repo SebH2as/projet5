@@ -1,0 +1,47 @@
+{% extends "/front/layout.html.twig" %}
+
+{% block title %}
+    Supprimer {{user.pseudo}}
+{% endblock %}
+
+{% block separator %}
+    <div id="separator01"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/navbar.js"></script>
+{% endblock %}
+
+{% block content %}
+
+        <div id="sectionImg">
+            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+        </div>
+
+        <section id="article">
+
+            <div id="titleArticle">
+                <h2></h2>
+                <h1>SUPRESSION DE MON COMPTE</h1>
+                <div id="separator02"></div>
+                <h2></h2>
+            </div>
+
+            <div id="infos">
+                <span>
+                    Voulez-vous réellement supprimer votre compte Kilométrage?<br>
+                    Vous perdrez toutes vos informations personnelles et vos courriers seront effacés.<br>
+                    Cliquez sur le bouton ci-dessous si vous êtes sur de votre décision.
+                </span>
+            </div>
+
+            {% if message %}
+                <span id="message">{{message}}</span>
+            {% endif %}
+
+            <div id="blockLinks">
+                <a class="countLinks" id="deleteSelf" href="index.php?action=userDeleteSelf&amp;idMag={{magazine.id_mag}}">Supprimmer mon compte</a>
+            </div>
+
+        </section>
+{% endblock %}

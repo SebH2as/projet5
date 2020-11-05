@@ -61,5 +61,4 @@ final class Mag
     {
         return $this->statusPub;
     }
-
 }

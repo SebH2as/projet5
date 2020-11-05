@@ -86,6 +86,7 @@ final class Router
         'deleteUser',
         'adminProfil',
         'modifAdmin',
+        'confirmDeleteUser',
         'userDeleteSelf',
         'sendNewsletter'
     ];
