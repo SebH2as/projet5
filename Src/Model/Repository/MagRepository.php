@@ -78,7 +78,7 @@ final class MagRepository
         FROM mag 
         LEFT JOIN articles ON mag.id_mag = articles.id_mag
         GROUP BY(mag.id_mag)
-        ORDER BY numberMag
+        ORDER BY numberMag DESC
         LIMIT :offset, :limitation ');
         $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
         $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
@@ -105,11 +105,12 @@ final class MagRepository
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 
-    public function newMag(int $numberMag): bool
+    public function newMag(Mag $mag): bool
     {
-        $req = $this->database->getConnection()->prepare('INSERT INTO mag SET numberMag = :newNumb, creation_date = NOW(), statusPub = 0');
+        $req = $this->database->getConnection()->prepare('INSERT INTO mag SET numberMag = :newNumb, creation_date = NOW(), statusPub = :statusPub');
         return $req->execute([
-            'newNumb' => (int) $numberMag]);
+            'newNumb' => $mag->getNumberMag(),
+            'statusPub' => $mag->getStatusPub()]);
     }
 
     public function deleteMagById($idMag): void

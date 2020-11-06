@@ -9,7 +9,8 @@
 
         <h2>Editorial de la revue numéro {{magazine.numberMag}}</h2>
 
-        <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+        {% if message %}<span id="message">{{message}}</span>{% endif %}
+        {% if error %}<span id="error">{{error}}</span>{% endif %}
 
         <a id="backLink" href="index.php?action=pannelMag&amp;idMag={{magazine.id_mag}}">Retour au panneau de gestion du magazine</a>           
     </section>

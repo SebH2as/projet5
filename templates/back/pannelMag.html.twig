@@ -16,7 +16,8 @@
         <h2>magazine numéro {{magazine.numberMag}}</h2> 
         <h3>- Statut:{% if magazine.statusPub == 0 %} Sauvegardé -{% else %} En ligne -{% endif %}</h3>
 
-        <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+        {% if message %}<span id="message">{{message}}</span>{% endif %}
+        {% if error %}<span id="error">{{error}}</span>{% endif %}
 
         <div class="buttonsPannel"> 
             {% if magazine.statusPub == 0 %}

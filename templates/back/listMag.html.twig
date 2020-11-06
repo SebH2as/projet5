@@ -18,7 +18,8 @@
 
             {% else %}
 
-                <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+                {% if message %}<span id="message">{{message}}</span>{% endif %}
+                {% if error %}<span id="error">{{error}}</span>{% endif %}
 
                 <h2>Magazines créés</h2>
 

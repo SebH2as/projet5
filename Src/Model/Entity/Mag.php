@@ -32,6 +32,11 @@ final class Mag
         return $this->numberMag;
     }
 
+    public function setNumberMag(int $value): void
+    {
+        $this->numberMag  = $value;
+    }
+
     public function getPublication(): ?string
     {
         return $this->publication;

@@ -66,29 +66,31 @@ final class MagController
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showByNumber((int) $this->request->get('numberMag'));
-        if ($magazine) {
-            $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
-            
-            $next = $this->magManager->showByNumber($magazine->getNumberMag() + 1);
-            $previous = $this->magManager->showByNumber($magazine->getNumberMag() - 1);
-            $this->view->render(
-                [
-                'template' => 'front/magazine',
-                'data' => [
-                    'user' => $user,
-                    'magazine' => $magazine,
-                    'articles' => $articles,
-                    'preview' => 0,
-                    'active' => 1,
-                    'previous' => $previous,
-                    'next' => $next,
-                    ],
-                ],
-            );
+        
+        if ($magazine === null) {
+            header('location: index.php');
             exit();
         }
-        header('location: index.php');
-        exit();
+        
+        $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
+        
+        $next = $this->magManager->showByNumber($magazine->getNumberMag() + 1);
+        $previous = $this->magManager->showByNumber($magazine->getNumberMag() - 1);
+        
+        $this->view->render(
+            [
+            'template' => 'front/magazine',
+            'data' => [
+                'user' => $user,
+                'magazine' => $magazine,
+                'articles' => $articles,
+                'preview' => 0,
+                'active' => 1,
+                'previous' => $previous,
+                'next' => $next,
+                ],
+            ],
+        );
     }
 
     //index.php?action=listMag
@@ -191,6 +193,7 @@ final class MagController
         $allMag = $this->magManager->showAllMag((int) $offset, (int) $nbByPage);
 
         $message = $this->request->get('message');
+        $error = $this->request->get('error');
         
         $this->view->render(
             [
@@ -200,6 +203,7 @@ final class MagController
                 'currentpage' => $currentpage,
                 'totalpages' => $totalpages,
                 'message' => $message,
+                'error' => $error,
                 ],
             ],
         );
@@ -238,28 +242,16 @@ final class MagController
             header("Location: index.php?action=newMag");
             exit();
         }
+   
+        $newMag = $this->magManager->createMag((int) $this->request->post('number'));
 
-        if (is_numeric($this->request->post('number')) === false || is_int($this->request->post('number'))) {
-            $error = 'Veuillez entrer un nombre entier';
-            
+        if (!$newMag) {
+            $error = $this->session->getSessionData('error');
+            $this->session->setSessionData('error', null);
+
             header("Location: index.php?action=newMag&error=$error");
             exit();
         }
-
-        $numberThere = $this->magManager->countNumberMag((int) $this->request->post('number'));
-        if (($numberThere[0]) >= 1) {
-            $error = 'Le numéro choisi est déjà utilisé';
-            
-            header("Location: index.php?action=newMag&error=$error");
-            exit();
-        }
-
-        if ($this->request->post('number') === null || empty($this->request->post('number'))) {
-            header("Location: index.php?action=newMag");
-            exit();
-        }
-            
-        $this->magManager->createMag((int) $this->request->post('number'));
 
         $message = 'Le magazine numéro '. htmlspecialchars($this->request->post('number')) . ' a bien été créé';
         
@@ -276,9 +268,20 @@ final class MagController
         if ($this->request->get('message') !== null) {
             $message = htmlspecialchars($this->request->get('message'));
         }
+
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = htmlspecialchars($this->request->get('error'));
+        }
         
         $magazine = $this->magManager->showById($idMag);
         $articles = $this->articleManager->showByIdmag($idMag);
+
+        if ($magazine === null) {
+            $error = 'Le magazine demandé n\'existe pas';
+            header("Location: index.php?action=listMag&error=$error");
+            exit();
+        }
 
         $this->view->render(
             [
@@ -288,6 +291,7 @@ final class MagController
                 'articles' => $articles,
                 'token' => $token,
                 'message' => $message,
+                'error' => $error,
                 ],
             ],
         );
@@ -301,12 +305,12 @@ final class MagController
         $magToErase = $this->magManager->showById($idMag);
         $articlesToErase = $this->articleManager->showByIdmag($idMag);
 
-        if (($magToErase->getCover()) !== null) {
+        if (($magToErase->getCover()) !== null && (file_exists("../public/images/".$magToErase->getCover()))) {
             unlink("../public/images/".$magToErase->getCover());
         }
         foreach ($articlesToErase as $articleImgToErase) {
-            if (($articleImgToErase->getArticleCover()) !== null) {
-                unlink("../public/images/".$articleImgToErase->getArticleCover());
+            if (($articleImgToErase->articleCover) !== null && (file_exists("../public/images/".$articleImgToErase->articleCover))) {
+                unlink("../public/images/".$articleImgToErase->articleCover);
             }
         }
         $message = 'Le magazine numéro '. $magToErase->getNumberMag() . ' a bien été supprimé avec ses articles et images associés';
@@ -323,7 +327,15 @@ final class MagController
         $this->auth->requireRole(1);
         $message = null;
 
-        $this->magManager->updateStatusMag($idMag);
+        $update = $this->magManager->updateStatusMag($idMag);
+
+        if (!$update) {
+            $error = $this->session->getSessionData('error');
+            $this->session->setSessionData('error', null);
+
+            header("Location: index.php?action=pannelMag&idMag=$idMag&error=$error");
+            exit();
+        }
 
         $message = $this->session->getSessionData('message');
         $this->session->setSessionData('message', null);
@@ -338,6 +350,13 @@ final class MagController
         $this->auth->requireRole(1);
 
         $magazine = $this->magManager->showById($idMag);
+
+        if ($magazine === null) {
+            $error = 'Le magazine demandé n\'existe pas';
+            header("Location: index.php?action=listMag&error=$error");
+            exit();
+        }
+
         $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
 
         $this->view->render(
@@ -360,7 +379,8 @@ final class MagController
         $magazine = $this->magManager->showById($idMag);
 
         if ($magazine === null) {
-            header("Location: index.php");
+            $error = 'Le magazine demandé n\'existe pas';
+            header("Location: index.php?action=listMag&error=$error");
             exit();
         }
 
@@ -382,6 +402,7 @@ final class MagController
         $this->auth->requireRole(1);
 
         $message = null;
+        $error = null;
        
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
             $message = "Une erreur est survenue, veuillez recommencer";
@@ -389,14 +410,15 @@ final class MagController
             exit();
         }
 
-        if (mb_strlen($this->request->post('publication')) > 30
-        || mb_strlen($this->request->post('title01')) > 70 || mb_strlen($this->request->post('title02')) > 70) {
-            $message = "Le champ renseigné ne respecte pas le nombre de caractères autorisés";
-            header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
+        $update = $this->magManager->updateMag($idMag);
+
+        if (!$update) {
+            $error = $this->session->getSessionData('error');
+            $this->session->setSessionData('error', null);
+
+            header("Location: index.php?action=pannelMag&idMag=$idMag&error=$error");
             exit();
         }
-
-        $this->magManager->updateMag($idMag);
 
         $message = $this->session->getSessionData('message');
         $this->session->setSessionData('message', null);
@@ -415,8 +437,19 @@ final class MagController
             $message = htmlspecialchars($this->request->get('message'));
         }
 
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = htmlspecialchars($this->request->get('error'));
+        }
+
         $token = $this->noCsrf->createToken();
         $magazine = $this->magManager->showById($idMag);
+
+        if ($magazine === null) {
+            $error = 'Le magazine demandé n\'existe pas';
+            header("Location: index.php?action=listMag&error=$error");
+            exit();
+        }
 
         $this->view->render(
             [
@@ -425,6 +458,7 @@ final class MagController
                 'magazine' => $magazine,
                 'token' => $token,
                 'message' => $message,
+                'error' => $error,
                 ],
             ],
         );
@@ -443,7 +477,15 @@ final class MagController
             exit();
         };
 
-        $this->magManager->updateEdito($idMag);
+        $update = $this->magManager->updateEdito($idMag);
+
+        if (!$update) {
+            $error = $this->session->getSessionData('error');
+            $this->session->setSessionData('error', null);
+
+            header("Location: index.php?action=editorialBack&idMag=$idMag&error=$error");
+            exit();
+        }
 
         $message = $this->session->getSessionData('message');
         $this->session->setSessionData('message', null);

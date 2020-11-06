@@ -63,11 +63,6 @@ final class MagManager
         return $this->magRepo->findAllPubMag($offset, $nbByPage);
     }
 
-    public function createMag(int $numberMag): bool
-    {
-        return $this->magRepo->newMag($numberMag);
-    }
-
     public function deleteMagById(int $idMag): void
     {
         $this->magRepo->deleteMagById($idMag);
@@ -88,10 +83,46 @@ final class MagManager
         return $this->magRepo->countNumberMag($number);
     }
 
+    public function createMag(int $number): bool
+    {
+        if (is_numeric($number) === false || is_int($number) === false) {
+            $this->session->setSessionData('error', 'Veuillez entrer un nombre entier');
+            return false;
+        }
+
+        $numberThere = $this->magRepo->countNumberMag($number);
+        if (($numberThere[0]) >= 1) {
+            $this->session->setSessionData('error', 'Le numéro choisi est déjà utilisé');
+            return false;
+        }
+
+        if ($this->request->post('number') === null || empty($this->request->post('number'))) {
+            $this->session->setSessionData('error', 'Une valeur doit être choisie pour que le magazine soit créé');
+            return false;
+        }
+
+        $mag = new Mag();
+        $mag->setNumberMag($number);
+        $mag->setStatusPub(0);
+        $return = $this->magRepo->newMag($mag);
+
+        if (!$return) {
+            $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
+        }
+
+        return $return;
+    }
+
     public function updateMag(int $idMag): bool
     {
         $mag = new Mag();
         $mag->setId_mag($idMag);
+
+        if (mb_strlen($this->request->post('publication')) > 30
+        || mb_strlen($this->request->post('title01')) > 70 || mb_strlen($this->request->post('title02')) > 70) {
+            $this->session->setSessionData('error', 'Le champ renseigné ne respecte pas le nombre de caractères autorisés');
+            return false;
+        }
         
         if ($this->request->post('publication') !== null && !empty($this->request->post('publication'))
         && !empty($this->request->post('modifPublication'))) {
@@ -102,7 +133,7 @@ final class MagManager
             $return = $this->magRepo->modifPublication($mag);
             
             if (!$return) {
-                $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
             }
 
             return $return;
@@ -117,7 +148,7 @@ final class MagManager
             $return = $this->magRepo->modifTitle01($mag);
             
             if (!$return) {
-                $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
             }
             
             return $return;
@@ -131,7 +162,7 @@ final class MagManager
             $return = $this->magRepo->modifTitle01($mag);
             
             if (!$return) {
-                $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
             }
             
             return $return;
@@ -146,7 +177,7 @@ final class MagManager
             $return = $this->magRepo->modifTitle02($mag);
             
             if (!$return) {
-                $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
             }
             
             return $return;
@@ -160,7 +191,7 @@ final class MagManager
             $return = $this->magRepo->modifTitle02($mag);
             
             if (!$return) {
-                $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
             }
             
             return $return;
@@ -170,11 +201,17 @@ final class MagManager
             $cover = $_FILES['cover'];
             $ext = mb_strtolower(mb_substr($cover['name'], -3)) ;
             $allowExt = ["jpg", "png"];
+
+            $fileName = "../public/images/".$cover['name'];
+            if (file_exists($fileName)) {
+                $this->session->setSessionData('error', 'Cette image est déjà utilisée. Veuillez modifier son nom pour l\'uploader à nouveau');
+                return false;
+            }
             
             if (in_array($ext, $allowExt, true)) {
                 $dataToErase = $this->magRepo->findById($idMag);
                 
-                if (($dataToErase->getCover()) !== null) {
+                if (($dataToErase->getCover()) !== null && (file_exists("../public/images/".$dataToErase->getCover()))) {
                     unlink("../public/images/".$dataToErase->getCover());
                 }
                 
@@ -187,13 +224,15 @@ final class MagManager
                 $return = $this->magRepo->modifCover($mag);
 
                 if (!$return) {
-                    $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+                    $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
                 }
-                
                 return $return;
             }
+            $this->session->setSessionData('error', 'L\'image uploadée n\'est pas du bon type');
+            return false;
         }
 
+        $this->session->setSessionData('error', 'Le champ visé ne contient aucune donnée');
         return false;
     }
 
@@ -202,7 +241,7 @@ final class MagManager
         $magazine = $this->magRepo->findById($idMag);
 
         if ($magazine === null) {
-            $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+            $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
             return false;
         }
 
@@ -216,7 +255,7 @@ final class MagManager
             $return = $this->magRepo->updateStatusMag($mag);
             
             if (!$return) {
-                $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
             }
             
             return $return;
@@ -247,7 +286,7 @@ final class MagManager
         $return = $this->magRepo->modifEdito($mag);
 
         if (!$return) {
-            $this->session->setSessionData('message', 'Une erreur est survenue, veuillez recommencer');
+            $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
         }
         
         return $return;
