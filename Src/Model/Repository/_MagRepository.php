@@ -118,28 +118,28 @@ final class MagRepository
         $req->execute(['idMag' => $idMag]);
     }
 
-    public function updateStatusMag(Mag $mag): bool
+    public function changeStatusById(int $idMag, int $status): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE mag SET statusPub = :newStat WHERE id_mag = :sameid ');
         return $req->execute([
-            'sameid' => $mag->getId_mag(),
-            'newStat' => $mag->getStatusPub()]);
+            'sameid' => $idMag,
+            'newStat' => $status]);
     }
 
-    public function modifPublication(Mag $mag): bool
+    public function modifPublication(int $idMag, string $value): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE mag SET publication = :newValue WHERE id_mag = :sameid ');
         return $req->execute([
-            'sameid' =>$mag->getId_mag(),
-            'newValue' => $mag->getPublication()]);
+            'sameid' => $idMag,
+            'newValue' => $value]);
     }
 
-    public function modifTitle01(Mag $mag): bool
+    public function modifTitle01(int $idMag, string $value): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE mag SET title01 = :newValue WHERE id_mag = :sameid ');
         return $req->execute([
-            'sameid' =>$mag->getId_mag(),
-            'newValue' => $mag->getTitle01()]);
+            'sameid' => $idMag,
+            'newValue' => $value]);
     }
 
     public function deleteTitle01(int $idMag): bool
@@ -149,35 +149,35 @@ final class MagRepository
             'sameid' => $idMag]);
     }
     
-    public function modifTitle02(Mag $mag): bool
+    public function modifTitle02(int $idMag, string $value): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE mag SET title02 = :newValue WHERE id_mag = :sameid ');
         return $req->execute([
-            'sameid' =>$mag->getId_mag(),
-            'newValue' => $mag->getTitle02()]);
+            'sameid' => $idMag,
+            'newValue' => $value]);
     }
 
-    public function deleteTitle02(Mag $idMag): bool
+    public function deleteTitle02(int $idMag): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE mag SET title02 = NULL WHERE id_mag = :sameid ');
         return $req->execute([
             'sameid' => $idMag]);
     }
 
-    public function modifCover(Mag $mag): bool
+    public function modifCover(int $idMag, string $value): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE mag SET cover = :newValue WHERE id_mag = :sameid ');
         return $req->execute([
-            'sameid' =>$mag->getId_mag(),
-            'newValue' => $mag->getCover()]);
+            'sameid' => $idMag,
+            'newValue' => $value]);
     }
 
-    public function modifEdito(Mag $mag): bool
+    public function modifEdito(int $idMag, string $value): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE mag SET editorial = :newValue WHERE id_mag = :sameid ');
         return $req->execute([
-            'sameid' =>$mag->getId_mag(),
-            'newValue' => $mag->getEditorial()]);
+            'sameid' => $idMag,
+            'newValue' => $value]);
     }
 
     public function getAllNumberMag():array // requete pour recuperer les numéros de tous les magazines

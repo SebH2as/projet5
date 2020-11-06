@@ -6,10 +6,10 @@ namespace Projet5\Controller;
 use Projet5\Model\Manager\ArticleManager;
 use Projet5\Model\Manager\LettersManager;
 use Projet5\Model\Manager\MagManager;
+use Projet5\Session\Session;
 use Projet5\Tools\Auth;
 use Projet5\Tools\NoCsrf;
 use Projet5\Tools\Request;
-use Projet5\Tools\Session;
 use Projet5\View\View;
 
 final class MagController
@@ -322,11 +322,16 @@ final class MagController
     {
         $this->auth->requireRole(1);
         $message = null;
+        $magazine = $this->magManager->showById($idMag);
 
-        $this->magManager->updateStatusMag($idMag);
-
-        $message = $this->session->getSessionData('message');
-        $this->session->setSessionData('message', null);
+        if ($magazine->getStatusPub() === 0) {
+            $this->magManager->changeStatusById($idMag, 1);
+            $message = 'le magazine a été mis en ligne';
+        }
+        if ($magazine->getStatusPub() === 1) {
+            $this->magManager->changeStatusById($idMag, 0);
+            $message = 'le magazine a été sauvegardé';
+        }
 
         header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
         exit();
@@ -396,10 +401,55 @@ final class MagController
             exit();
         }
 
-        $this->magManager->updateMag($idMag);
+        if ($this->request->post('publication') !== null && !empty($this->request->post('publication'))
+        && !empty($this->request->post('modifPublication'))) {
+            $message = 'La date de publication du magazine a été modifié';
+            $this->magManager->modifPublication($idMag, $this->request->post('publication'));
+        }
 
-        $message = $this->session->getSessionData('message');
-        $this->session->setSessionData('message', null);
+        if (!empty($this->request->post('modifCover'))) {
+            $cover = $_FILES['cover'];
+            $ext = mb_strtolower(mb_substr($cover['name'], -3)) ;
+            $allowExt = ["jpg", "png"];
+            
+            if (in_array($ext, $allowExt, true)) {
+                $dataToErase = $this->magManager->showById($idMag);
+                
+                if (($dataToErase->getCover()) !== null) {
+                    unlink("../public/images/".$dataToErase->getCover());
+                }
+                
+                move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
+                $message = 'La couverture du magazine a été modifiée';
+                $this->magManager->modifCover($idMag, (string) $cover['name']);
+            }
+        }
+
+        if ($this->request->post('title01') !== null && !empty($this->request->post('title01'))
+        && !empty($this->request->post('modifTitle01'))) {
+            $message = 'Le titre 1 du magazine a été modifié';
+            $this->magManager->modifTitle01($idMag, $this->request->post('title01'));
+        }
+
+        if (!empty($this->request->post('deleteTitle01'))) {
+            $message = 'Le titre 1 du magazine a été supprimmé';
+            $this->magManager->deleteTitle01($idMag);
+        }
+
+        if ($this->request->post('title02') !== null && !empty($this->request->post('title02'))
+        && !empty($this->request->post('modifTitle02'))) {
+            $message = 'Le titre 2 du magazine a été modifié';
+            $this->magManager->modifTitle02($idMag, $this->request->post('title02'));
+        }
+
+        if (!empty($this->request->post('deleteTitle02'))) {
+            $message = 'Le titre 2 du magazine a été supprimmé';
+            $this->magManager->deleteTitle02($idMag);
+        }
+
+        $magazine = $this->magManager->showById($idMag);
+        $articles = $this->articleManager->showByIdmag($magazine->getId_mag());
+        $token = $this->noCsrf->createToken();
 
         header("Location: index.php?action=pannelMag&idMag=$idMag&message=$message");
         exit();
@@ -434,8 +484,6 @@ final class MagController
     public function addEdito(int $idMag):void//méthode pour modifier ou écrire un édito de magazine
     {
         $this->auth->requireRole(1);
-        
-        $message = null;
 
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
             $message = "Une erreur est survenue, veuillez recommencer";
@@ -443,12 +491,21 @@ final class MagController
             exit();
         };
 
-        $this->magManager->updateEdito($idMag);
+        $this->magManager->modifEdito((int) $this->request->get('idMag'), (string) $this->request->post('contentEdito'));
 
-        $message = $this->session->getSessionData('message');
-        $this->session->setSessionData('message', null);
+        $magazine = $this->magManager->showById($idMag);
+        $message = "L'éditorial a été modifié";
+        $token = $this->noCsrf->createToken();
 
-        header("Location: index.php?action=editorialBack&idMag=$idMag&message=$message");
-        exit();
+        $this->view->render(
+            [
+            'template' => 'back/editorial',
+            'data' => [
+                'magazine' => $magazine,
+                'token' => $token,
+                'message' => $message,
+                ],
+            ],
+        );
     }
 }

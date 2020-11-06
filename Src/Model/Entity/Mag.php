@@ -22,6 +22,11 @@ final class Mag
         return $this->id_mag;
     }
 
+    public function setId_mag(int $value): void
+    {
+        $this->id_mag  = $value;
+    }
+
     public function getNumberMag(): int
     {
         return $this->numberMag;
@@ -30,6 +35,11 @@ final class Mag
     public function getPublication(): ?string
     {
         return $this->publication;
+    }
+
+    public function setPublication(?string $value): void
+    {
+        $this->publication = $value;
     }
 
     public function getCreation_date(): ?string
@@ -42,9 +52,19 @@ final class Mag
         return $this->cover;
     }
 
+    public function setCover(?string $value): void
+    {
+        $this->cover = $value;
+    }
+
     public function getTitle01(): ?string
     {
         return $this->title01;
+    }
+
+    public function setTitle01(?string $value): void
+    {
+        $this->title01 = $value;
     }
 
     public function getTitle02(): ?string
@@ -52,13 +72,28 @@ final class Mag
         return $this->title02;
     }
 
+    public function setTitle02(?string $value): void
+    {
+        $this->title02 = $value;
+    }
+
     public function getEditorial(): ?string
     {
         return $this->editorial;
     }
 
+    public function setEditorial(?string $value): void
+    {
+        $this->editorial = $value;
+    }
+
     public function getStatusPub(): int
     {
         return $this->statusPub;
+    }
+
+    public function setStatusPub(int $value): void
+    {
+        $this->statusPub = $value;
     }
 }

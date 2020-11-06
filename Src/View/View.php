@@ -24,7 +24,7 @@ final class View
         $this->twig->addFunction(new \Twig\TwigFunction(
             'extrait',
             function ($value) {
-                $espace = mb_strpos($value, ' ', 1250);
+                $espace = mb_strpos($value, ' ', 550);
                 $extr = mb_substr($value, 0, $espace);
                 return html_entity_decode(strip_tags(htmlspecialchars_decode($extr))).' (Lire la suite)';
             }
