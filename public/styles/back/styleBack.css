@@ -1276,6 +1276,18 @@ section .columnTitle {
   font-style: italic;
 }
 
+#articleInfos #error {
+  font-size: 24px;
+  margin-bottom: 3vh;
+  background-color: red;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+  border: solid 2px black;
+  padding: 15px;
+  border-radius: 12px;
+  font-style: italic;
+}
+
 #articleInfos .none {
   display: none;
 }
@@ -1444,7 +1456,6 @@ section .columnTitle {
   font-size: 18px;
   border: solid 2px #110B11;
   margin-left: 15px;
-  margin-bottom: 10px;
 }
 
 #articleInfos #contentContainer #formMag .formRow .labelInput #articleCover {

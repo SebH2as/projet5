@@ -23,9 +23,19 @@ final class Article
         return $this->id_text;
     }
 
+    public function setId_text(int $value): void
+    {
+        $this->id_text  = $value;
+    }
+
     public function getId_mag(): int
     {
         return $this->id_mag;
+    }
+
+    public function setId_mag(int $value): void
+    {
+        $this->id_mag  = $value;
     }
 
     public function getTextType(): ?string
@@ -33,9 +43,19 @@ final class Article
         return $this->textType;
     }
 
+    public function setTextType(string $value): void
+    {
+        $this->textType  = $value;
+    }
+
     public function getTitle(): ?string
     {
         return $this->title;
+    }
+
+    public function setTitle(string $value): void
+    {
+        $this->title  = $value;
     }
 
     public function getAuthor(): ?string
@@ -43,9 +63,19 @@ final class Article
         return $this->author;
     }
 
+    public function setAuthor(string $value): void
+    {
+        $this->author  = $value;
+    }
+
     public function getContent(): ?string
     {
         return $this->content;
+    }
+
+    public function setContent(string $value): void
+    {
+        $this->content  = $value;
     }
 
     public function getTeaser(): ?string
@@ -53,9 +83,19 @@ final class Article
         return $this->teaser;
     }
 
+    public function setTeaser(string $value): void
+    {
+        $this->teaser  = $value;
+    }
+
     public function getArticleCover(): ?string
     {
         return $this->articleCover;
+    }
+
+    public function setArticleCover(string $value): void
+    {
+        $this->articleCover  = $value;
     }
 
     public function getDate_creation(): ?string
@@ -66,5 +106,10 @@ final class Article
     public function getMain(): ?int
     {
         return $this->main;
+    }
+
+    public function setMain(int $value): void
+    {
+        $this->main  = $value;
     }
 }

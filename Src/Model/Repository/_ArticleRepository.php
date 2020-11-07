@@ -61,11 +61,11 @@ final class ArticleRepository
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 
-    public function newArticle(Article $article): bool
+    public function createArticleByIdMag(int $idMag): bool
     {
         $req = $this->database->getConnection()->prepare('INSERT INTO articles SET id_mag = :idMag');
         return $req->execute([
-            'idMag' => $article->getId_mag()]);
+            'idMag' => (int) $idMag]);
     }
 
     public function findMostRecentArticle(): ?Article
@@ -78,58 +78,58 @@ final class ArticleRepository
         return $data  ? $data : null;
     }
 
-    public function updateContent(Article $article): bool
+    public function addContent(int $idText, string $content): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE articles SET content = :content WHERE id_text = :idText ');
         return $req->execute([
-            'idText' =>  $article->getId_text(),
-            'content' =>  $article->getContent()]);
+            'idText' => $idText,
+            'content' => $content]);
     }
 
-    public function modifTextType(Article $article): bool
+    public function modifTextType(int $idText, string $textType): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE articles SET textType = :textType WHERE id_text = :idText ');
         return $req->execute([
-            'idText' => $article->getId_text(),
-            'textType' => $article->getTextType()]);
+            'idText' => $idText,
+            'textType' => $textType]);
     }
 
-    public function modifTitle(Article $article): bool
+    public function modifTitle(int $idText, string $content): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE articles SET title = :content WHERE id_text = :idText ');
         return $req->execute([
-            'idText' => $article->getId_text(),
-            'content' => $article->getTitle()]);
+            'idText' => $idText,
+            'content' => $content]);
     }
 
-    public function modifAuthor(Article $article): bool
+    public function modifAuthor(int $idText, string $content): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE articles SET author = :content WHERE id_text = :idText ');
         return $req->execute([
-            'idText' => $article->getId_text(),
-            'content' => $article->getAuthor()]);
+            'idText' => $idText,
+            'content' => $content]);
     }
 
-    public function modifTeaser(Article $article): bool
+    public function modifTeaser(int $idText, string $content): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE articles SET teaser = :content WHERE id_text = :idText ');
         return $req->execute([
-            'idText' => $article->getId_text(),
-            'content' => $article->getTeaser()]);
+            'idText' => $idText,
+            'content' => $content]);
     }
 
-    public function modifCover(Article $article): bool
+    public function modifCover(int $idText, string $content): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE articles SET articleCover = :content WHERE id_text = :idText ');
         return $req->execute([
-            'idText' => $article->getId_text(),
-            'content' => $article->getArticleCover()]);
+            'idText' => $idText,
+            'content' => $content]);
     }
 
-    public function deleteArticle(Article $article): void
+    public function deleteArticle(int $idText): void
     {
         $req = $this->database->getConnection()->prepare('DELETE FROM articles WHERE id_text = :idText ');
-        $req->execute(['idText' => $article->getId_text()]);
+        $req->execute(['idText' => $idText]);
     }
 
     public function unsetMainAllArticles(int $idMag): bool
@@ -139,11 +139,11 @@ final class ArticleRepository
             'idMag' => $idMag]);
     }
 
-    public function changeMain(Article $article): bool
+    public function changeMain(int $idText, int $content): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE articles SET main = :content WHERE id_text = :idText ');
         return $req->execute([
-            'idText' => $article->getId_text(),
-            'content' => $article->getMain()]);
+            'idText' => $idText,
+            'content' => $content]);
     }
 }

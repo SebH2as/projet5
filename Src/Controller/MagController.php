@@ -138,6 +138,11 @@ final class MagController
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
+
+        if ($magazine === null) {
+            header('location: index.php');
+            exit();
+        }
         
         $this->view->render(
             [
@@ -157,6 +162,11 @@ final class MagController
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
+
+        if ($magazine === null) {
+            header('location: index.php');
+            exit();
+        }
 
         $this->view->render(
             [
@@ -303,6 +313,13 @@ final class MagController
         $this->auth->requireRole(1);
 
         $magToErase = $this->magManager->showById($idMag);
+
+        if ($magToErase === null) {
+            $error = 'Le magazine demandé n\'existe pas';
+            header("Location: index.php?action=listMag&error=$error");
+            exit();
+        }
+
         $articlesToErase = $this->articleManager->showByIdmag($idMag);
 
         if (($magToErase->getCover()) !== null && (file_exists("../public/images/".$magToErase->getCover()))) {
@@ -315,7 +332,7 @@ final class MagController
         }
         $message = 'Le magazine numéro '. $magToErase->getNumberMag() . ' a bien été supprimé avec ses articles et images associés';
         
-        $this->magManager->deleteMagById((int) $this->request->get('idMag'));
+        $this->magManager->deleteMagById($idMag);
 
         header("Location: index.php?action=listMag&message=$message");
         exit();

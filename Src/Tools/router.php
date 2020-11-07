@@ -134,7 +134,7 @@ final class Router
                 $magManager = new MagManager($magRepo, $this->session, $this->request = new request());
 
                 $articleRepo = new ArticleRepository($this->database);
-                $articleManager = new ArticleManager($articleRepo);
+                $articleManager = new ArticleManager($articleRepo, $this->session, $this->request = new request());
 
                 $lettersRepo = new LettersRepository($this->database);
                 $lettersManager = new LettersManager($lettersRepo);
@@ -151,10 +151,10 @@ final class Router
                 $magManager = new MagManager($magRepo, $this->session, $this->request = new request());
 
                 $articleRepo = new ArticleRepository($this->database);
-                $articleManager = new ArticleManager($articleRepo);
+                $articleManager = new ArticleManager($articleRepo, $this->session, $this->request = new request());
 
-                $controller = new ArticleController($magManager, $articleManager, $this->view, $this->request, $this->noCsrf, $this->auth);
-                $controller->$methode((int) $this->request->get('idMag'));
+                $controller = new ArticleController($magManager, $articleManager, $this->view, $this->request, $this->noCsrf, $this->auth, $this->session);
+                $controller->$methode((int) $this->request->get('idMag'), (int) $this->request->get('idText'));
                 exit();
             }
 
@@ -200,7 +200,7 @@ final class Router
         $magManager = new MagManager($magRepo, $this->session, $this->request = new request());
 
         $articleRepo = new ArticleRepository($this->database);
-        $articleManager = new ArticleManager($articleRepo);
+        $articleManager = new ArticleManager($articleRepo, $this->session, $this->request = new request());
 
         $lettersRepo = new LettersRepository($this->database);
         $lettersManager = new LettersManager($lettersRepo);

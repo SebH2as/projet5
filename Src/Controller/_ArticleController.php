@@ -8,7 +8,6 @@ use Projet5\Model\Manager\MagManager;
 use Projet5\Tools\Auth;
 use Projet5\Tools\NoCsrf;
 use Projet5\Tools\Request;
-use Projet5\Tools\Session;
 use Projet5\View\View;
 
 final class ArticleController
@@ -19,9 +18,8 @@ final class ArticleController
     private Request $request;
     private Auth $auth;
     private NoCsrf $noCsrf;
-    private Session $session;
 
-    public function __construct(MagManager $magManager, ArticleManager $articleManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth, Session $session)
+    public function __construct(MagManager $magManager, ArticleManager $articleManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
     {
         $this->magManager = $magManager;
         $this->view = $view;
@@ -29,17 +27,16 @@ final class ArticleController
         $this->request = $request;
         $this->auth = $auth;
         $this->noCsrf = $noCsrf;
-        $this->session = $session;
     }
 
     //index.php?action=article&idMag=148&idText=3
-    public function article(int $idMag, int $idText):void//méthode pour afficher la page d'un article
+    public function article(int $idMag):void//méthode pour afficher la page d'un article
     {
         $user = $this->auth->user();
-        $article = $this->articleManager->showById($idText);
+        $article = $this->articleManager->showById((int) $this->request->get('idText'));
         $magazine = $this->magManager->showByIdAndPub($idMag);
 
-        if ($article === null || $magazine === null) {
+        if ($article === null) {
             header("Location: index.php");
             exit();
         }
@@ -105,7 +102,7 @@ final class ArticleController
     }
 
     //index.php?action=pannelArticle&idMag=102&idText=128
-    public function pannelArticle(int $idMag, int $idText): void
+    public function pannelArticle(int $idMag): void
     {
         $this->auth->requireRole(1);
 
@@ -114,15 +111,12 @@ final class ArticleController
             $message = $this->request->get('message');
         }
 
-        $error = $this->request->get('error');
-
-        $article = $this->articleManager->showById($idText);
+        $article = $this->articleManager->showById((int) $this->request->get('idText'));
         $magazine = $this->magManager->showById($idMag);
         $token = $this->noCsrf->createToken();
 
-        if ($article === null || $magazine === null) {
-            $error = 'Le magazine ou l\'article demandé n\'existe pas';
-            header("Location: index.php?action=listMag&error=$error");
+        if ($article === null) {
+            header("Location: index.php?action=listMag");
             exit();
         }
 
@@ -134,7 +128,6 @@ final class ArticleController
                 'article' => $article,
                 'token' => $token,
                 'message' => $message,
-                'error' => $error,
                 ],
             ],
         );
@@ -146,20 +139,11 @@ final class ArticleController
         $this->auth->requireRole(1);
 
         $magazine = $this->magManager->showById($idMag);
+        $articleNew = $this->articleManager->createArticleByIdMag($idMag);
+        $token = $this->noCsrf->createToken();
 
-        if ($magazine === null) {
-            $error = "Une erreur est survenue, veuillez recommencer";
-            header("Location: index.php?action=listMag&error=$error");
-            exit();
-        }
-
-        $newArticle = $this->articleManager->createArticle($idMag);
-
-        if (!$newArticle) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=pannelMag&idMag=$idMag&error=$error");
+        if ($articleNew === false) {
+            header("Location: index.php?action=listMag");
             exit();
         }
 
@@ -172,9 +156,11 @@ final class ArticleController
     }
 
     //index.php?action=pannelArticle&idMag=102&idText=170&message=Le%20contenu%20de%20l%27article%20a%20été%20modifié
-    public function addContent(int $idMag, int $idText): void
+    public function addContent(int $idMag): void
     {
         $this->auth->requireRole(1);
+
+        $idText = (int) $this->request->get('idText');
 
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
             $message = "Une erreur est survenue, veuillez recommencer";
@@ -182,15 +168,7 @@ final class ArticleController
             exit();
         };
  
-        $update = $this->articleManager->updateContent($idText);
-
-        if (!$update) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&error=$error");
-            exit();
-        }
+        $this->articleManager->addContent((int) $this->request->get('idText'), (string) $this->request->post('content'));
 
         $message = 'Le contenu de l\'article a été modifié';
 
@@ -199,11 +177,13 @@ final class ArticleController
     }
 
     //index.php?action=pannelArticle&idMag=102&idText=170&message=L%27%20auteur%20de%20l%27article%20a%20été%20modifié
-    public function modifyArticle(int $idMag, int $idText):void
+    public function modifyArticle(int $idMag):void
     {
         $this->auth->requireRole(1);
 
         $message = null;
+
+        $idText = (int) $this->request->get('idText');
 
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
             $message = "Une erreur est survenue, veuillez recommencer";
@@ -211,39 +191,75 @@ final class ArticleController
             exit();
         }
 
-        $update = $this->articleManager->updateArticle($idText);
-
-        if (!$update) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&error=$error");
+        if (mb_strlen($this->request->post('title')) > 70
+        || mb_strlen($this->request->post('author')) > 30 || mb_strlen($this->request->post('teaser')) > 95) {
+            $message = "Le champ renseigné ne respecte pas le nombre de caractères autorisés";
+            header("Location: index.php?action=pannelArticle&idMag=$idMag&message=$message");
             exit();
         }
 
-        $message = $this->session->getSessionData('message');
-        $this->session->setSessionData('message', null);
+        if ($this->request->post('rubric') !== null && !empty($this->request->post('rubric'))
+        && !empty($this->request->post('modifRubric'))) {
+            $message = 'La rubrique de l\'article a été modifié';
+            $this->articleManager->modifTextType($idText, $this->request->post('rubric'));
+        }
+
+        if ($this->request->post('title') !== null && !empty($this->request->post('title'))
+        && !empty($this->request->post('modifTitle'))) {
+            $message = 'Le titre de l\'article a été modifié';
+            $this->articleManager->modifTitle($idText, $this->request->post('title'));
+        }
+
+        if ($this->request->post('author') !== null && !empty($this->request->post('author'))
+        && !empty($this->request->post('modifAuthor'))) {
+            $message = 'L\' auteur de l\'article a été modifié';
+            $this->articleManager->modifAuthor($idText, $this->request->post('author'));
+        }
+
+        if ($this->request->post('teaser') !== null && !empty($this->request->post('teaser'))
+        && !empty($this->request->post('modifTeaser'))) {
+            $message = 'Le teaser de l\'article a été modifié';
+            $this->articleManager->modifTeaser($idText, $this->request->post('teaser'));
+        }
+
+        if (!empty($this->request->post('modifCover'))) {
+            $cover = $_FILES['articleCover'];
+            $ext = mb_strtolower(mb_substr($cover['name'], -3)) ;
+            $allowExt = ["jpg", "png"];
+            
+            if (in_array($ext, $allowExt, true)) {
+                $dataToErase = $this->articleManager->showById($idText);
+                
+                if (($dataToErase->getArticleCover()) !== null) {
+                    unlink("../public/images/".$dataToErase->getArticleCover());
+                }
+                
+                move_uploaded_file($cover['tmp_name'], "../public/images/".$cover['name']);
+                $message = 'La couverture de l\'article a été modifié';
+                $this->articleManager->modifCover($idText, (string) $cover['name']);
+            }
+        }
 
         header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&message=$message");
         exit();
     }
 
     //index.php?action=pannelMag&idMag=102&message=L%27article%20a%20été%20supprimmé
-    public function deleteArticle(int $idMag, int $idText):void
+    public function deleteArticle(int $idMag):void
     {
         $this->auth->requireRole(1);
 
+        $idText = (int) $this->request->get('idText');
+
         $message = null;
 
-        $delete = $this->articleManager->deleteArticle($idText);
+        $dataToErase = $this->articleManager->showById($idText);
 
-        if (!$delete) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=listMag&error=$error");
-            exit();
+        if (($dataToErase->getArticleCover()) !== null) {
+            unlink("../public/images/".$dataToErase->getArticleCover());
         }
+
+        $this->articleManager->deleteArticle($idText);
 
         $message ='L\'article a été supprimmé';
         
@@ -252,39 +268,41 @@ final class ArticleController
     }
 
     //index.php?action=pannelArticle&idMag=102&idText=135&message=L%27article%20a%20été%20passé%20à%20la%20une
-    public function changeMain(int $idMag, int $idText):void
+    public function changeMain(int $idMag):void
     {
         $this->auth->requireRole(1);
         $message = null;
+        $idText = (int) $this->request->get('idText');
 
-        $update = $this->articleManager->updateMain($idText, $idMag);
+        $article = $this->articleManager->showById($idText);
 
-        if (!$update) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
+        if ($article->getMain() === 0) {
+            $this->articleManager->unsetMainAllArticles($idMag);
+            $this->articleManager->changeMain($idText, 1);
 
-            header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&error=$error");
-            exit();
+            $message = 'L\'article a été passé à la une';
         }
 
-        $message = $this->session->getSessionData('message');
-        $this->session->setSessionData('message', null);
+        if ($article->getMain() === 1) {
+            $this->articleManager->changeMain($idText, 0);
+
+            $message = 'L\'article a été retiré de la une';
+        }
 
         header("Location: index.php?action=pannelArticle&idMag=$idMag&idText=$idText&message=$message");
         exit();
     }
 
     
-    public function previewArticle(int $idMag, int $idText):void
+    public function previewArticle(int $idMag):void
     {
         $this->auth->requireRole(1);
         
-        $article = $this->articleManager->showById($idText);
+        $article = $this->articleManager->showById((int) $this->request->get('idText'));
         $magazine = $this->magManager->showById($idMag);
 
-        if ($article === null || $magazine === null) {
-            $error = 'Le magazine ou l\'article demandé n\'existe pas';
-            header("Location: index.php?action=listMag&error=$error");
+        if ($article === null) {
+            header("Location: index.php");
             exit();
         }
 

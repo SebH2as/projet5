@@ -739,6 +739,16 @@ section{
         border-radius: 12px;
         font-style: italic;
     }
+    #error{
+        font-size: 24px;
+        margin-bottom: 3vh;
+        background-color: red;
+        box-shadow: 0px 2px 10px $blackColor;
+        border: solid 2px black;
+        padding: 15px;
+        border-radius: 12px;
+        font-style: italic;
+    }
     .none{
         display: none;
     }
@@ -858,7 +868,7 @@ section{
                                     font-size: 18px;
                                     border: solid 2px $blackColor;
                                     margin-left: 15px;
-                                    margin-bottom: 10px;
+                                    
                                 }
                                 #articleCover{
                                     width: 45%;

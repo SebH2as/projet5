@@ -380,7 +380,6 @@ final class UsersController
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=0");
                 exit();
                 
-                break;
 
             case "Pseudo":
 
@@ -415,7 +414,6 @@ final class UsersController
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=4");
                 exit();
 
-                break;
 
             case "Email":
 
@@ -449,14 +447,12 @@ final class UsersController
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=5");
                 exit();
 
-                break;
 
             default:
 
                 header("Location: index.php?action=monCompte&idMag=$idMag&message=6");
                 exit();
 
-                break;
         }
     }
 

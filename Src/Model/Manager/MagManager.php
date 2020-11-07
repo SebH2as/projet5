@@ -85,7 +85,7 @@ final class MagManager
 
     public function createMag(int $number): bool
     {
-        if (is_numeric($number) === false || is_int($number) === false) {
+        if (!is_numeric($number) || !is_int($number)) {
             $this->session->setSessionData('error', 'Veuillez entrer un nombre entier');
             return false;
         }
