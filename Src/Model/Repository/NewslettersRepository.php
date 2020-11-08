@@ -51,18 +51,18 @@ final class NewslettersRepository
         return $data  ? $data : null;
     }
 
-    public function setNewsLetterContentById(int $idNewsletter, string $content): bool
+    public function setNewsLetterContentById(Newsletter $newsletter): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE newsletters SET content = :content WHERE id_newsletter = :idNewsletter ');
         return $req->execute([
-            'idNewsletter' => (int) $idNewsletter,
-            'content' => (string) $content]);
+            'idNewsletter' => $newsletter->getId_newsletter(),
+            'content' => $newsletter->getContent()]);
     }
 
-    public function deleteNewsletterById(int $idNewsletter): void
+    public function deleteNewsletterById(Newsletter $newsletter): void
     {
         $req = $this->database->getConnection()->prepare('DELETE FROM newsletters WHERE id_newsletter = :idNewsletter ');
-        $req->execute(['idNewsletter' => $idNewsletter]);
+        $req->execute(['idNewsletter' => $newsletter->getId_newsletter()]);
     }
 
     public function setNewsLetterSendById(int $idNewsletter, int $sendValue): bool

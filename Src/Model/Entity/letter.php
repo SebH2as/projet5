@@ -20,14 +20,29 @@ final class Letter
         return $this->id_letter;
     }
 
+    public function setId_letter(int $value): void
+    {
+        $this->id_letter  = $value;
+    }
+
     public function getId_user(): int
     {
         return $this->id_user;
     }
 
+    public function setId_user(int $value): void
+    {
+        $this->id_user  = $value;
+    }
+
     public function getAuthor(): ?string
     {
         return $this->author;
+    }
+
+    public function setAuthor(string $value): void
+    {
+        $this->author  = $value;
     }
 
     public function getPost_date(): ?string
@@ -40,9 +55,19 @@ final class Letter
         return $this->content;
     }
 
+    public function setContent(string $value): void
+    {
+        $this->content  = $value;
+    }
+
     public function getResponse(): ?string
     {
         return $this->response;
+    }
+
+    public function setResponse(string $value): void
+    {
+        $this->response  = $value;
     }
 
     public function getPublished(): ?int
@@ -50,8 +75,18 @@ final class Letter
         return $this->published;
     }
 
+    public function setPublished(int $value): void
+    {
+        $this->published  = $value;
+    }
+
     public function getMagRelated(): ?int
     {
         return $this->magRelated;
+    }
+
+    public function setMagRelated(int $value): void
+    {
+        $this->magRelated  = $value;
     }
 }

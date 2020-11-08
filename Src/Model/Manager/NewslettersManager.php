@@ -7,13 +7,20 @@ namespace Projet5\Model\Manager;
 use Projet5\Model\Entity\Newsletter;
 use Projet5\Model\Repository\NewslettersRepository;
 
+use Projet5\Tools\Request;
+use Projet5\Tools\Session;
+
 final class NewslettersManager
 {
     private NewslettersRepository $newslettersRepo;
+    private Request $request;
+    private Session $session;
 
-    public function __construct(NewslettersRepository $newslettersRepo)
+    public function __construct(NewslettersRepository $newslettersRepo, Session $session, Request $request)
     {
         $this->newslettersRepo = $newslettersRepo;
+        $this->request = $request;
+        $this->session = $session;
     }
     
     public function countAllNewsletters(): ?array
@@ -36,14 +43,35 @@ final class NewslettersManager
         return $this->newslettersRepo->findNewslettersById($idNewsletter);
     }
 
-    public function setNewsLetterContentById(int $idNewsletter, string $content): bool
+    public function updateContent(int $idNewsletter): bool
     {
-        return $this->newslettersRepo->setNewsLetterContentById($idNewsletter, $content);
+        if ($this->request->post('content') === null || empty($this->request->post('content'))
+        || empty($this->request->post('save'))) {
+            $this->session->setSessionData('error', 'Aucun contenu n\'a été rdigé');
+            return false;
+        }
+
+        $newsletter = new Newsletter();
+        $newsletter->setId_newsletter($idNewsletter);
+        $newsletter->setContent((string) $this->request->post('content'));
+
+        $return = $this->newslettersRepo->setNewsLetterContentById($newsletter);
+
+        if (!$return) {
+            $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
+        }
+
+        return $return;
     }
 
-    public function deleteNewsletterById(int $idNewsletter): void
+    public function deleteNewsletterById(int $idNewsletter): bool
     {
-        $this->newslettersRepo->deleteNewsletterById($idNewsletter);
+        $newsletter = new Newsletter();
+        $newsletter->setId_newsletter($idNewsletter);
+        
+        $this->newslettersRepo->deleteNewsletterById($newsletter);
+
+        return true;
     }
 
     public function setNewsLetterSendById(int $idNewsletter, int $sendValue): bool

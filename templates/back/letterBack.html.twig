@@ -1,7 +1,7 @@
 {% extends "/back/layout.html.twig" %}
 
 {% block title %}
-    Courrier de {{letter.author}}
+    {% if letter %}Courrier de {{letter.author}}{% else %}ERREUR{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -9,11 +9,13 @@
         <section id="courrier">
             {% if not letter %}
                 <h2>Aucun courrier ne correspond à cet identifiant</h2>
+                {% if error %}<span id="error">{{error}}</span>{% endif %}
             {% else %}
                 <h2>Courrier de {{letter.author}}</h2>
                 <h3>Reçu le {{letter.post_date |date("d/m/Y", "Europe/Paris")}}</h3>
 
-                <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+                {% if message %}<span id="message">{{message}}</span>{% endif %}
+                {% if error %}<span id="error">{{error}}</span>{% endif %}
 
                 <div class="buttonsPannel"> 
                     <a class="buttonPannel" id="preview" href="index.php?action=lettersBack">Retour aux courriers</a>

@@ -11,7 +11,6 @@ use Projet5\Tools\Auth;
 use Projet5\Tools\DataLoader;
 use Projet5\Tools\NoCsrf;
 use Projet5\Tools\Request;
-use Projet5\Tools\Session;
 use Projet5\View\View;
 
 final class LettersController
@@ -24,9 +23,8 @@ final class LettersController
     private Request $request;
     private NoCsrf $noCsrf;
     private Auth $auth;
-    private Session $session;
 
-    public function __construct(MagManager $magManager, LettersManager $lettersManager, NewslettersManager $newslettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth, Session $session)
+    public function __construct(MagManager $magManager, LettersManager $lettersManager, NewslettersManager $newslettersManager, View $view, Request $request, NoCsrf $noCsrf, Auth $auth)
     {
         $this->magManager = $magManager;
         $this->lettersManager = $lettersManager;
@@ -35,7 +33,6 @@ final class LettersController
         $this->request = $request;
         $this->auth = $auth;
         $this->noCsrf = $noCsrf;
-        $this->session = $session;
     }
 
     //index.php?action=nousEcrire&idMag=122
@@ -54,12 +51,6 @@ final class LettersController
         }
 
         $magazine = $this->magManager->showByIdAndPub($idMag);
-
-        if ($magazine === null) {
-            header('location: index.php');
-            exit();
-        }
-
         $numberMags = $this->magManager->showPubNumberMag();
         $token = $this->noCsrf->createToken();
 
@@ -96,16 +87,19 @@ final class LettersController
             exit();
         }
 
-        $newLetter = $this->lettersManager->createLetter((int) $user->getId_user(), (string) $user->getPseudo());
-
-        if (!$newLetter) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
+        if ($this->request->post('numberMag') === null || empty($this->request->post('numberMag'))) {
+            $error = "Veuillez associer un thème à votre courrier";
 
             header("Location: index.php?action=nousEcrire&idMag=$idMag&error=$error");
             exit();
         }
 
+        if ($this->request->post('courrier') === null ||  empty($this->request->post('courrier'))) {
+            header("Location: index.php?action=nousEcrire&idMag=$idMag");
+            exit();
+        }
+
+        $this->lettersManager->createLetter((int) $user->getId_user(), (string) $user->getPseudo(), (string) $this->request->post('courrier'), (int) $this->request->post('numberMag'));
         header("Location: index.php?action=monCompte&idMag=$idMag&message=1");
         exit();
     }
@@ -115,11 +109,6 @@ final class LettersController
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showByIdAndPub($idMag);
-
-        if ($magazine === null) {
-            header('location: index.php');
-            exit();
-        }
         
         $totalLetters =  $this->lettersManager->countPubLetters();
         $nbByPage = 2;
@@ -244,11 +233,6 @@ final class LettersController
             $message = htmlspecialchars($this->request->get('message'));
         }
 
-        $error = null;
-        if ($this->request->get('error') !== null) {
-            $error = htmlspecialchars($this->request->get('error'));
-        }
-
         $token = $this->noCsrf->createToken();
         $numberMags = $this->magManager->showAllNumberMag();
         $letter = $this->lettersManager->showLetterById($idLetter);
@@ -261,37 +245,29 @@ final class LettersController
                 'numberMags' => $numberMags,
                 'token' => $token,
                 'message' => $message,
-                'error' => $error,
                 ],
             ],
         );
     }
 
     //index.php?action=letterBack&idLetter=42&message=Le%20courrier%20a%20été%20associé%20au%20magazine%20choisi
-    public function relatedMag(int $idMag): void//méthode pour modifier le thème associé à un courrier
+    public function relatedMag(int $idMag): void
     {
         $this->auth->requireRole(1);
         $message = null;
         $idLetter = (int)$this->request->get('idLetter');
 
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
-            $error = "Une erreur est survenue, veuillez recommencer";
-            header("Location: index.php?action=lettersBack&error=$error");
+            $message = "Une erreur est survenue, veuillez recommencer";
+            header("Location: index.php?action=createNewMag");
             exit();
         }
 
-        $update = $this->lettersManager->updateRelatedMag($idLetter);
-
-        if (!$update) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=letterBack&idLetter=$idLetter&error=$error");
-            exit();
+        if ($this->request->post('numberMag') !== null && !empty($this->request->post('numberMag'))
+        && !empty($this->request->post('modifRelatedMag'))) {
+            $message = 'La thématique du courrier a été modifiée';
+            $this->lettersManager->setRelatedMag($idLetter, (int) $this->request->post('numberMag'));
         }
-        
-        $message = 'La thématique du courrier a été modifiée';
-            
 
         header("Location: index.php?action=letterBack&idLetter=$idLetter&message=$message");
         exit();
@@ -304,19 +280,23 @@ final class LettersController
 
         $idLetter = (int)$this->request->get('idLetter');
         $message = null;
-        
-        $update = $this->lettersManager->updatePublished($idLetter);
+        $letter = $this->lettersManager->showLetterById($idLetter);
 
-        if (!$update) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=letterBack&idLetter=$idLetter&error=$error");
+        if ($letter->getMagRelated() === null) {
+            $message = "Une thématique doit être choisie";
+            header("Location: index.php?action=letterBack&idLetter=$idLetter&message=$message");
             exit();
         }
 
-        $message = $this->session->getSessionData('message');
-        $this->session->setSessionData('message', null);
+        if ($letter->getPublished() === 0) {
+            $this->lettersManager->setLetterPublished($idLetter, 1);
+            $message = "Le courrier a été publié";
+        }
+
+        if ($letter->getPublished() === 1) {
+            $this->lettersManager->setLetterPublished($idLetter, 0);
+            $message = "Le courrier a été retiré du courrier des lecteurs";
+        }
 
         header("Location: index.php?action=letterBack&idLetter=$idLetter&message=$message");
         exit();
@@ -327,19 +307,11 @@ final class LettersController
         $this->auth->requireRole(1);
 
         $idLetter = (int)$this->request->get('idLetter');
+        $letter = $this->lettersManager->showLetterById($idLetter);
 
-        $delete = $this->lettersManager->deleteLetterById($idLetter);
+        $message = 'Le courrier de '. $letter->getAuthor() .' a été supprimé';
 
-        if (!$delete) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=letterBack&idLetter=$idLetter&error=$error");
-            exit();
-        }
-
-        $message = $this->session->getSessionData('message');
-        $this->session->setSessionData('message', null);
+        $this->lettersManager->deleteLetterById($idLetter);
 
         header("Location: index.php?action=lettersBack&message=$message");
         exit();
@@ -359,17 +331,14 @@ final class LettersController
             exit();
         }
 
-        $update = $this->lettersManager->updateResponse($idLetter);
-
-        if (!$update) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=letterBack&idLetter=$idLetter&error=$error");
+        if ($this->request->post('contentResponse') === null || empty($this->request->post('contentResponse'))
+        || empty($this->request->post('saveResponse'))) {
+            header("Location: index.php?action=letterBack&idLetter=$idLetter");
             exit();
         }
 
         $message = 'La réponse au courrier a été enregistrée';
+        $this->lettersManager->setResponseById($idLetter, (string) $this->request->post('contentResponse'));
 
         header("Location: index.php?action=letterBack&idLetter=$idLetter&message=$message");
         exit();
@@ -420,7 +389,6 @@ final class LettersController
         $this->auth->requireRole(1);
 
         $this->newslettersManager->createNewsletter();
-
         $message = 'Une newsletter a bien été créée';
 
         header("Location: index.php?action=newslettersBack&message=$message");
@@ -466,28 +434,19 @@ final class LettersController
         $this->auth->requireRole(1);
 
         $idNewsletter = (int)$this->request->get('idNewsletter');
-        $newsletter = $this->newslettersManager->showNewslettersById($idNewsletter);
-
-        if ($newsletter === null) {
-            header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter");
-            exit();
-        }
 
         if ($this->request->post('csrf') === null || $this->noCsrf->isTokenNotValid($this->request->post('csrf'))) {
-            $error = "Une erreur est survenue, veuillez recommencer";
+            $message = "Une erreur est survenue, veuillez recommencer";
+            header("Location: index.php?action=createNewMag");
+            exit();
+        }
+
+        if ($this->request->post('content') === null || empty($this->request->post('content'))
+        || empty($this->request->post('save'))) {
             header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter");
             exit();
         }
-
-        $update = $this->newslettersManager->updateContent($idNewsletter);
-
-        if (!$update) {
-            $error = $this->session->getSessionData('error');
-            $this->session->setSessionData('error', null);
-
-            header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&error=$error");
-            exit();
-        }
+        $this->newslettersManager->setNewsLetterContentById($idNewsletter, (string) $this->request->post('content'));
 
         $message = 'Le contenu de la newsletter a bien été mis à jour';
 
@@ -500,13 +459,6 @@ final class LettersController
         $this->auth->requireRole(1);
 
         $idNewsletter = (int)$this->request->get('idNewsletter');
-
-        $newsletter = $this->newslettersManager->showNewslettersById($idNewsletter);
-
-        if ($newsletter === null) {
-            header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter");
-            exit();
-        }
 
         $message = 'La newsletter a bien été supprimée';
 

@@ -183,14 +183,14 @@ final class MagRepository
 
     public function getAllNumberMag():array // requete pour recuperer les numéros de tous les magazines
     {
-        $req = $this->database->getConnection()->prepare('SELECT numberMag FROM mag');
+        $req = $this->database->getConnection()->prepare('SELECT numberMag FROM mag ORDER BY numberMag');
         $req->execute();
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 
     public function getPubNumberMag():array // requete pour recuperer les numéros de tous les magazines
     {
-        $req = $this->database->getConnection()->prepare('SELECT numberMag FROM mag WHERE statusPub = 1');
+        $req = $this->database->getConnection()->prepare('SELECT numberMag FROM mag WHERE statusPub = 1 ORDER BY numberMag');
         $req->execute();
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }

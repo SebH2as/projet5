@@ -16,9 +16,19 @@ final class Newsletter
         return $this->id_newsletter;
     }
 
+    public function setId_newsletter(int $value): void
+    {
+        $this->id_newsletter  = $value;
+    }
+
     public function getContent(): ?string
     {
         return $this->content;
+    }
+
+    public function setContent(string $value): void
+    {
+        $this->content  = $value;
     }
 
     public function getRedaction_date(): ?string
@@ -29,5 +39,10 @@ final class Newsletter
     public function getSend(): int
     {
         return $this->send;
+    }
+
+    public function setSend(int $value): void
+    {
+        $this->send  = $value;
     }
 }
