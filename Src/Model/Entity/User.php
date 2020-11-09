@@ -21,9 +21,19 @@ final class User
         return $this->id_user;
     }
 
+    public function setId_user(int $value): void
+    {
+        $this->id_user  = $value;
+    }
+
     public function getPseudo(): ?string
     {
         return $this->pseudo;
+    }
+
+    public function setPseudo(string $value): void
+    {
+        $this->pseudo  = $value;
     }
 
     public function getEmail(): ?string
@@ -31,9 +41,19 @@ final class User
         return $this->email;
     }
 
+    public function setEmail(string $value): void
+    {
+        $this->email  = $value;
+    }
+
     public function getP_w(): ?string
     {
         return $this->p_w;
+    }
+
+    public function setP_w(string $value): void
+    {
+        $this->p_w  = $value;
     }
 
     public function getInscription_date(): ?string
@@ -46,9 +66,19 @@ final class User
         return $this->confirmkey;
     }
 
+    public function setConfirmkey(int $value): void
+    {
+        $this->confirmkey  = $value;
+    }
+
     public function getActived(): ?int
     {
         return $this->actived;
+    }
+
+    public function setActived(int $value): void
+    {
+        $this->actived  = $value;
     }
 
     public function getNewsletter(): ?int
@@ -56,8 +86,18 @@ final class User
         return $this->newsletter;
     }
 
+    public function setNewsletter(int $value): void
+    {
+        $this->newsletter  = $value;
+    }
+
     public function getRole(): ?int
     {
         return $this->role;
+    }
+
+    public function setRole(int $value): void
+    {
+        $this->role  = $value;
     }
 }

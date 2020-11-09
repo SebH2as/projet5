@@ -207,17 +207,8 @@ final class LettersManager
         $letter = new Letter();
         $letter->setId_letter($idLetter);
         
-        $return = $this->lettersRepo->deleteLetterById($letter);
-
-        if (!$return) {
-            $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
-        }
+        $this->lettersRepo->deleteLetterById($letter);
 
         return true;
-    }
-
-    public function changeLetterAuthor(int $idUser, string $pseudo): bool
-    {
-        return $this->lettersRepo->changeLetterAuthor($idUser, $pseudo);
     }
 }

@@ -5,6 +5,7 @@ namespace Projet5\Tools;
 
 use Projet5\Model\Entity\User;
 use Projet5\Model\Manager\UsersManager;
+use Projet5\Model\Repository\LettersRepository;
 use Projet5\Model\Repository\UsersRepository;
 use Projet5\Tools\Database;
 use Projet5\Tools\Request;
@@ -14,6 +15,7 @@ class Auth
 {
     private UsersManager $usersManager;
     private UsersRepository $usersRepository;
+    private LettersRepository $lettersRepository;
     private Request $request;
     private Session $session;
     private Database $database;
@@ -22,9 +24,10 @@ class Auth
     {
         $this->database = new Database();
         $this->usersRepository = new UsersRepository($this->database);
-        $this->usersManager = new UsersManager($this->usersRepository);
+        $this->lettersRepository = new LettersRepository($this->database);
         $this->request = new Request();
         $this->session = new Session();
+        $this->usersManager = new UsersManager($this->usersRepository, $this->lettersRepository, $this->session, $this->request);
     }
 
     public function user(): ?user

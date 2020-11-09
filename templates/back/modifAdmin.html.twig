@@ -13,7 +13,7 @@
 
         <span id="error" class="{% if not error %}none{% endif %}">{{error}}</span>
         
-        <form id="formProfil" action="index.php?action=modifDataUser&amp;userData=Pseudo" method="post">
+        <form id="formProfil" action="index.php?action=modifDataUser&amp;userData={{userData}}" method="post">
             <input type="hidden" name="csrf" value="{{token}}">
 
             <div class="formSeparator">

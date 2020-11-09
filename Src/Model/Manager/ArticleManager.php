@@ -142,6 +142,8 @@ final class ArticleManager
     
             return $return;
         }
+
+        return false;
     }
 
     public function updateArticle(int $idText): bool

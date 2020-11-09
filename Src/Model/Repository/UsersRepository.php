@@ -55,12 +55,12 @@ final class UsersRepository
         return $data  ? $data : null;
     }
 
-    public function setAboById(int $idUser, int $value): bool
+    public function setAboNewsletter(User $user): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE users SET newsletter = :newvalue WHERE id_user = :idUser ');
         return $req->execute([
-            'newvalue' => (int) $value,
-            'idUser' => (int) $idUser]);
+            'newvalue' => $user->getNewsletter(),
+            'idUser' => $user->getId_user()]);
     }
 
     public function unsetAboById(int $idUser, int $value): bool
@@ -71,12 +71,12 @@ final class UsersRepository
             'idUser' => (int) $idUser]);
     }
 
-    public function modifPass(int $idUser, string $value): bool
+    public function modifPass(User $user): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE users SET p_w = :newValue WHERE id_user = :idUser ');
         return $req->execute([
-            'idUser' => $idUser,
-            'newValue' => $value]);
+            'idUser' => $user->getId_user(),
+            'newValue' => $user->getP_w()]);
     }
 
     public function countPseudoUser(string $pseudo): ?array
@@ -87,12 +87,12 @@ final class UsersRepository
         return $req->fetch();
     }
 
-    public function modifPseudo(int $idUser, string $value): bool
+    public function modifPseudo(User $user): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE users SET pseudo = :newValue WHERE id_user = :idUser ');
         return $req->execute([
-            'idUser' => $idUser,
-            'newValue' => $value]);
+            'idUser' => $user->getId_user(),
+            'newValue' => $user->getPseudo()]);
     }
 
     public function countEmailUser(string $email): ?array
@@ -103,29 +103,30 @@ final class UsersRepository
         return $req->fetch();
     }
 
-    public function modifEmail(int $idUser, string $value): bool
+    public function modifEmail(User $user): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE users SET email = :newValue WHERE id_user = :idUser ');
         return $req->execute([
-            'idUser' => $idUser,
-            'newValue' => $value]);
+            'idUser' => $user->getId_user(),
+            'newValue' => $user->getEmail()]);
     }
 
-    public function addUser(string $pseudo, string $email, string $pass, int $key): bool
+    public function addUser(User $user): bool
     {
         $req = $this->database->getConnection()->prepare('INSERT INTO users SET pseudo = :newpseudo, email = :newemail, p_w = :newpassword, inscription_date = NOW(), confirmkey = :newkey, actived = 0');
         return $req->execute([
-            'newpseudo' => (string) $pseudo,
-            'newemail' => (string) $email,
-            'newkey' => (int) $key,
-            'newpassword' => (string) $pass]);
+            'newpseudo' => $user->getPseudo(),
+            'newemail' => $user->getEmail(),
+            'newkey' => $user->getConfirmkey(),
+            'newpassword' => $user->getP_w()]);
     }
 
-    public function activeAccountByPseudo(string $pseudo): bool
+    public function activeAccountByPseudo(User $user): bool
     {
-        $req = $this->database->getConnection()->prepare('UPDATE users SET actived = 1 WHERE pseudo = :pseudo ');
+        $req = $this->database->getConnection()->prepare('UPDATE users SET actived = :actived WHERE pseudo = :pseudo ');
         return $req->execute([
-            'pseudo' => (string) $pseudo]);
+            'pseudo' => $user->getPseudo(),
+        'actived' => $user->getActived()]);
     }
 
     public function countUsers(): ?array
@@ -154,9 +155,9 @@ final class UsersRepository
         return $req->fetchALL(\PDO::FETCH_OBJ);
     }
 
-    public function deleteUserById(int $idUser): void
+    public function deleteUserById(User $user): void
     {
         $req = $this->database->getConnection()->prepare('DELETE FROM users WHERE id_user = :idUser ');
-        $req->execute(['idUser' => $idUser]);
+        $req->execute(['idUser' => $user->getId_user()]);
     }
 }

@@ -149,11 +149,11 @@ final class LettersRepository
         $req->execute(['idLetter' => $letter->getId_letter()]);
     }
 
-    public function changeLetterAuthor(int $idUser, string $pseudo): bool
+    public function changeLetterAuthor(Letter $letter): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE letters SET author = :pseudo WHERE id_User = :idUser ');
         return $req->execute([
-            'idUser' => (int) $idUser,
-            'pseudo' => (string) $pseudo]);
+            'idUser' => $letter->getId_user(),
+            'pseudo' => $letter->getAuthor()]);
     }
 }

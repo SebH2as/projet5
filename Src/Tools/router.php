@@ -131,13 +131,13 @@ final class Router
             $methode = $this->actionMag[$key];
             if ($methode === $this->request->get('action')) {
                 $magRepo = new MagRepository($this->database);
-                $magManager = new MagManager($magRepo, $this->session, $this->request = new request());
+                $magManager = new MagManager($magRepo, $this->session, $this->request);
 
                 $articleRepo = new ArticleRepository($this->database);
-                $articleManager = new ArticleManager($articleRepo, $this->session, $this->request = new request());
+                $articleManager = new ArticleManager($articleRepo, $this->session, $this->request);
 
                 $lettersRepo = new LettersRepository($this->database);
-                $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request = new request());
+                $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request);
 
                 $controller = new magController($magManager, $articleManager, $lettersManager, $this->view, $this->request, $this->noCsrf, $this->auth, $this->session);
                 $controller->$methode((int) $this->request->get('idMag'));
@@ -148,10 +148,10 @@ final class Router
             $methode = $this->actionArticle[$key];
             if ($methode === $this->request->get('action')) {
                 $magRepo = new MagRepository($this->database);
-                $magManager = new MagManager($magRepo, $this->session, $this->request = new request());
+                $magManager = new MagManager($magRepo, $this->session, $this->request);
 
                 $articleRepo = new ArticleRepository($this->database);
-                $articleManager = new ArticleManager($articleRepo, $this->session, $this->request = new request());
+                $articleManager = new ArticleManager($articleRepo, $this->session, $this->request);
 
                 $controller = new ArticleController($magManager, $articleManager, $this->view, $this->request, $this->noCsrf, $this->auth, $this->session);
                 $controller->$methode((int) $this->request->get('idMag'), (int) $this->request->get('idText'));
@@ -161,19 +161,19 @@ final class Router
             $key = array_search($this->request->get('action'), $this->actionUser, true);
             $methode = $this->actionUser[$key];
             if ($methode === $this->request->get('action')) {
+                $lettersRepo = new LettersRepository($this->database);
+                $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request);
+                
                 $usersRepo = new UsersRepository($this->database);
-                $usersManager = new UsersManager($usersRepo);
+                $usersManager = new UsersManager($usersRepo, $lettersRepo, $this->session, $this->request);
                 
                 $magRepo = new MagRepository($this->database);
-                $magManager = new MagManager($magRepo, $this->session, $this->request = new request());
-                
-                $lettersRepo = new LettersRepository($this->database);
-                $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request = new request());
+                $magManager = new MagManager($magRepo, $this->session, $this->request);
 
                 $newslettersRepo = new NewslettersRepository($this->database);
-                $newslettersManager = new NewslettersManager($newslettersRepo);
+                $newslettersManager = new NewslettersManager($newslettersRepo, $this->session, $this->request);
                 
-                $controller = new UsersController($usersManager, $magManager, $lettersManager, $newslettersManager, $this->view, $this->request, $this->noCsrf, $this->auth);
+                $controller = new UsersController($usersManager, $magManager, $lettersManager, $newslettersManager, $this->view, $this->request, $this->noCsrf, $this->auth, $this->session);
                 $controller->$methode((int) $this->request->get('idMag'));
                 exit();
             }
@@ -182,13 +182,13 @@ final class Router
             $methode = $this->actionLetter[$key];
             if ($methode === $this->request->get('action')) {
                 $magRepo = new MagRepository($this->database);
-                $magManager = new MagManager($magRepo, $this->session, $this->request = new request());
+                $magManager = new MagManager($magRepo, $this->session, $this->request);
                 
                 $lettersRepo = new LettersRepository($this->database);
-                $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request = new request());
+                $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request);
 
                 $newslettersRepo = new NewslettersRepository($this->database);
-                $newslettersManager = new NewslettersManager($newslettersRepo, $this->session, $this->request = new request());
+                $newslettersManager = new NewslettersManager($newslettersRepo, $this->session, $this->request);
                 
                 $controller = new LettersController($magManager, $lettersManager, $newslettersManager, $this->view, $this->request, $this->noCsrf, $this->auth, $this->session);
                 $controller->$methode((int) $this->request->get('idMag'));
@@ -197,13 +197,13 @@ final class Router
         }
 
         $magRepo = new MagRepository($this->database);
-        $magManager = new MagManager($magRepo, $this->session, $this->request = new request());
+        $magManager = new MagManager($magRepo, $this->session, $this->request);
 
         $articleRepo = new ArticleRepository($this->database);
-        $articleManager = new ArticleManager($articleRepo, $this->session, $this->request = new request());
+        $articleManager = new ArticleManager($articleRepo, $this->session, $this->request);
 
         $lettersRepo = new LettersRepository($this->database);
-        $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request = new request());
+        $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request);
 
         $controller = new magController($magManager, $articleManager, $lettersManager, $this->view, $this->request, $this->noCsrf, $this->auth, $this->session);
         $controller->lastMagazine();

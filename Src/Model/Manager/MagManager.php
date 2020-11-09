@@ -273,6 +273,8 @@ final class MagManager
             
             return $return;
         }
+
+        return false;
     }
 
     public function updateEdito(int $idMag): bool
