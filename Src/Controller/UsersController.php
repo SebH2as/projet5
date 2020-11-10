@@ -474,6 +474,11 @@ final class UsersController
             $message = htmlspecialchars($this->request->get('message'));
         }
 
+        $error = null;
+        if ($this->request->get('error') !== null) {
+            $error = htmlspecialchars($this->request->get('error'));
+        }
+
         $totalUsers = $this->usersManager->countUsers();
         $nbByPage = 5;
         $totalpages = (int) ceil($totalUsers[0]/$nbByPage);
@@ -499,6 +504,7 @@ final class UsersController
                 'currentpage' => $currentpage,
                 'totalpages' => $totalpages,
                 'message' => $message,
+                'error' => $error,
                 ],
             ],
         );
@@ -509,11 +515,19 @@ final class UsersController
         $this->auth->requireRole(1);
 
         $idUser = (int)$this->request->get('idUser');
-        $user = $this->usersManager->getAllUserById($idUser);
 
-        $message = 'Le membre '. $user->getPseudo() .' a été supprimé';
+        $delete = $this->usersManager->deleteUserById($idUser);
 
-        $this->usersManager->deleteUserById($idUser);
+        if (!$delete) {
+            $error = $this->session->getSessionData('error');
+            $this->session->setSessionData('error', null);
+
+            header("Location: index.php?action=usersBack&error=$error");
+            exit();
+        }
+
+        $message = $this->session->getSessionData('message');
+        $this->session->setSessionData('message', null);
 
         header("Location: index.php?action=usersBack&message=$message");
         exit();
@@ -589,40 +603,17 @@ final class UsersController
 
         $idNewsletter = (int)$this->request->get('idNewsletter');
 
-        $newsletter = $this->newslettersManager->showNewslettersById($idNewsletter);
+        $send = $this->usersManager->sendNewsletter($idNewsletter);
 
-        if ($newsletter->getContent() === null || empty($newsletter->getContent())) {
-            $error = 'La newsletter ne contient aucune ligne de texte et ne peut donc être envoyée';
-
-            header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&error=$error");
-            exit();
-        }
-        
-        $usersNb = $this->usersManager->countUsers();
-        $users = $this->usersManager->showAllUsers(0, (int) $usersNb[0]);
-
-        $header="MIME-Version: 1.0\r\n";
-        $header.='Content-Type:text/html; charset="uft-8"'."\n";
-        $header.='Content-Transfer-Encoding: 8bit';
-
-        $message = html_entity_decode((htmlspecialchars_decode($newsletter->getContent())));
-        
-        if ($users === null) {
-            $error = 'Aucun membre abonné, la newsletter ne peut être envoyée';
+        if (!$send) {
+            $error = $this->session->getSessionData('error');
+            $this->session->setSessionData('error', null);
 
             header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&error=$error");
             exit();
-        }
-
-        for ($i = 0; $i < count($users); ++$i) {
-            if ($users[$i]->getNewsletter() === '1') {
-                mail($users[$i]->getEmail(), "Newsletter", $message, $header);
-            }
         }
         
         $message = 'La newsletter a été envoyée aux membres abonnés';
-
-        $this->newslettersManager->setNewsLetterSendById($idNewsletter, 1);
 
         header("Location: index.php?action=newsletterBack&idNewsletter=$idNewsletter&message=$message");
         exit();

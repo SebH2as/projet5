@@ -7,6 +7,7 @@ namespace Projet5\Model\Manager;
 use Projet5\Model\Entity\Letter;
 use Projet5\Model\Entity\User;
 use Projet5\Model\Repository\LettersRepository;
+use Projet5\Model\Repository\NewslettersRepository;
 use Projet5\Model\Repository\UsersRepository;
 
 use Projet5\Tools\Request;
@@ -16,13 +17,15 @@ final class UsersManager
 {
     private UsersRepository $usersRepo;
     private LettersRepository $lettersRepo;
+    private NewslettersRepository $newslettersRepo;
     private Request $request;
     private Session $session;
 
-    public function __construct(UsersRepository $usersRepository, LettersRepository $lettersRepository, Session $session, Request $request)
+    public function __construct(UsersRepository $usersRepository, LettersRepository $lettersRepository, NewslettersRepository $newslettersRepository, Session $session, Request $request)
     {
         $this->usersRepo = $usersRepository;
         $this->lettersRepo = $lettersRepository;
+        $this->newslettersRepo = $newslettersRepository;
         $this->session = $session;
         $this->request = $request;
     }
@@ -91,6 +94,15 @@ final class UsersManager
 
     public function deleteUserById(int $idUser): bool
     {
+        $user = $this->usersRepo->findAllUserById($idUser);
+
+        if ($user === null) {
+            $this->session->setSessionData('error', 'l\'utilisateur demandé n\'existe pas');
+            return false;
+        }
+
+        $this->session->setSessionData('message', 'Le membre '. $user->getPseudo() .' a été supprimé');
+        
         $user = new User();
         $user->setId_user($idUser);
         
@@ -99,9 +111,9 @@ final class UsersManager
         return true;
     }
 
-    public function showAllAboUsers(): void
+    public function showAllAboUsers(): array
     {
-        $this->usersRepo->findAllAboUsers();
+        return $this->usersRepo->findAllAboUsers();
     }
 
     public function newUser(): bool
@@ -329,5 +341,41 @@ final class UsersManager
         }
 
         return false;
+    }
+
+    public function sendNewsletter(int $idNewsletter): bool
+    {
+        $newsletter = $this->newslettersRepo->findNewslettersById($idNewsletter);
+
+        if ($newsletter->getContent() === null || empty($newsletter->getContent())) {
+            $this->session->setSessionData('error', 'La newsletter ne contient aucune ligne de texte et ne peut donc être envoyée');
+            return false;
+        }
+        
+        $header="MIME-Version: 1.0\r\n";
+        $header.='Content-Type:text/html; charset="uft-8"'."\n";
+        $header.='Content-Transfer-Encoding: 8bit';
+
+        $message = html_entity_decode((htmlspecialchars_decode($newsletter->getContent())));
+        
+        $users = $this->usersRepo->findAllAboUsers();
+        
+        if (empty($users)) {
+            $this->session->setSessionData('error', 'Aucun membre abonné, la newsletter ne peut être envoyée');
+            return false;
+        }
+
+        for ($i = 0; $i < count($users); ++$i) {
+            
+            //mail($users[$i]->getEmail(), "Newsletter", $message, $header);
+        }
+
+        $return = $this->newslettersRepo->setNewsLetterSendById($newsletter);
+
+        if (!$return) {
+            $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
+        }
+       
+        return $return;
     }
 }

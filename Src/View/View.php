@@ -23,10 +23,17 @@ final class View
         $this->twig->addExtension(new IntlExtension());
         $this->twig->addFunction(new \Twig\TwigFunction(
             'extrait',
-            function ($value) {
-                $espace = mb_strpos($value, ' ', 550);
-                $extr = mb_substr($value, 0, $espace);
-                return html_entity_decode(strip_tags(htmlspecialchars_decode($extr))).' (Lire la suite)';
+            function ($text) {
+                $chars = 1200;
+                if (mb_strlen($text) <= $chars) {
+                    return html_entity_decode(strip_tags(htmlspecialchars_decode($text)));
+                }
+                $text = $text." ";
+                $text = mb_substr($text, 0, $chars);
+                $text = mb_substr($text, 0, mb_strrpos($text, ' '));
+                $text = $text."...";
+                
+                return html_entity_decode(strip_tags(htmlspecialchars_decode($text))).' (Lire la suite)';
             }
         ));
         $this->twig->addFunction(new \Twig\TwigFunction(

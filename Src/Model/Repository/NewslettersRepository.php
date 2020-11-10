@@ -65,11 +65,11 @@ final class NewslettersRepository
         $req->execute(['idNewsletter' => $newsletter->getId_newsletter()]);
     }
 
-    public function setNewsLetterSendById(int $idNewsletter, int $sendValue): bool
+    public function setNewsLetterSendById(Newsletter $newsletter): bool
     {
         $req = $this->database->getConnection()->prepare('UPDATE newsletters SET send = :sendValue WHERE id_newsletter = :idNewsletter ');
         return $req->execute([
-            'idNewsletter' => (int) $idNewsletter,
-            'sendValue' => (int) $sendValue]);
+            'idNewsletter' => $newsletter->getId_newsletter(),
+            'sendValue' => $newsletter->getSend()]);
     }
 }

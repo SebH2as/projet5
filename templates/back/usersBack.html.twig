@@ -12,7 +12,8 @@
         {% else %}
             <h2>Gestion des membres</h2>
 
-            <span id="message" class="{% if not message %}none{% endif %}">{{message}}</span>
+            {% if message %}<span id="message">{{message}}</span>{% endif %}
+            {% if error %}<span id="error">{{error}}</span>{% endif %}
 
             <div id="tableContainer">
 
@@ -32,7 +33,7 @@
                     <div class="tableRows">
                         <span class="tableContent">{{user.pseudo}}</span>
                         <span class="tableContent">{{user.inscription_date |date("d/m/Y", "Europe/Paris")}}</span>
-                        <span class="tableContent">{{user.email}}</span>
+                        <span class="tableContent">{{user.email |slice(0, 8)}}<br>{{user.email |slice(8, 50)}}</span>
                         <span class="tableContent">{% if not user.actived %}Non activé{% else %}Activé{% endif %}</span>
                         <span class="tableContent">{% if user.newsletter == 0 %}Non abonné{% else %}Abonné{% endif %}</span>
                         <span class="tableContent">{% if user.role == 0 %}Membre{% else %}Administrateur{% endif %}</span>

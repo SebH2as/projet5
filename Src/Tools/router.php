@@ -164,14 +164,14 @@ final class Router
                 $lettersRepo = new LettersRepository($this->database);
                 $lettersManager = new LettersManager($lettersRepo, $this->session, $this->request);
                 
+                $newslettersRepo = new NewslettersRepository($this->database);
+                $newslettersManager = new NewslettersManager($newslettersRepo, $this->session, $this->request);
+                
                 $usersRepo = new UsersRepository($this->database);
-                $usersManager = new UsersManager($usersRepo, $lettersRepo, $this->session, $this->request);
+                $usersManager = new UsersManager($usersRepo, $lettersRepo, $newslettersRepo, $this->session, $this->request);
                 
                 $magRepo = new MagRepository($this->database);
                 $magManager = new MagManager($magRepo, $this->session, $this->request);
-
-                $newslettersRepo = new NewslettersRepository($this->database);
-                $newslettersManager = new NewslettersManager($newslettersRepo, $this->session, $this->request);
                 
                 $controller = new UsersController($usersManager, $magManager, $lettersManager, $newslettersManager, $this->view, $this->request, $this->noCsrf, $this->auth, $this->session);
                 $controller->$methode((int) $this->request->get('idMag'));

@@ -73,9 +73,4 @@ final class NewslettersManager
 
         return true;
     }
-
-    public function setNewsLetterSendById(int $idNewsletter, int $sendValue): bool
-    {
-        return $this->newslettersRepo->setNewsLetterSendById($idNewsletter, $sendValue);
-    }
 }
