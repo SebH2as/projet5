@@ -83,9 +83,16 @@ final class MagManager
         return $this->magRepo->countNumberMag($number);
     }
 
-    public function createMag(int $number): bool
+    public function createMag(): bool
     {
-        if (!is_numeric($number) || !is_int($number)) {
+        $number = (int) $this->request->post('number');
+
+        if ($this->request->post('number') === null || empty($this->request->post('number'))) {
+            $this->session->setSessionData('error', 'Une valeur doit être choisie pour que le magazine soit créé');
+            return false;
+        }
+
+        if ($number <= 0) {
             $this->session->setSessionData('error', 'Veuillez entrer un nombre entier');
             return false;
         }
@@ -93,11 +100,6 @@ final class MagManager
         $numberThere = $this->magRepo->countNumberMag($number);
         if (($numberThere[0]) >= 1) {
             $this->session->setSessionData('error', 'Le numéro choisi est déjà utilisé');
-            return false;
-        }
-
-        if ($this->request->post('number') === null || empty($this->request->post('number'))) {
-            $this->session->setSessionData('error', 'Une valeur doit être choisie pour que le magazine soit créé');
             return false;
         }
 

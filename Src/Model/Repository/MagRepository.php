@@ -70,14 +70,30 @@ final class MagRepository
         return $req->fetch();
     }
 
-    public function findAllMag(int $offset, int $nbByPage): ?array
+    /*public function findAllMag(int $offset, int $nbByPage): ?array
     {
         $req = $this->database->getConnection()->prepare('SELECT mag.id_mag,id_text, main, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
         COUNT(articles.id_text) AS articlesNb,
         MAX(articles.main) AS articleMain
-        FROM mag 
+        FROM mag
         LEFT JOIN articles ON mag.id_mag = articles.id_mag
         GROUP BY(mag.id_mag)
+        ORDER BY numberMag DESC
+        LIMIT :offset, :limitation ');
+        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
+        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchALL(\PDO::FETCH_OBJ);
+    }*/
+
+    public function findAllMag(int $offset, int $nbByPage): ?array
+    {
+        $req = $this->database->getConnection()->prepare('SELECT mag.id_mag, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
+        COUNT(articles.id_text) AS articlesNb,
+        MAX(articles.main) AS articleMain
+        FROM mag 
+        LEFT JOIN articles ON mag.id_mag = articles.id_mag
+        GROUP BY mag.id_mag, numberMag, publication, editorial, cover, statusPub, creation_date
         ORDER BY numberMag DESC
         LIMIT :offset, :limitation ');
         $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
@@ -88,7 +104,7 @@ final class MagRepository
 
     public function findAllPubMag(int $offset, int $nbByPage): ?array
     {
-        $req = $this->database->getConnection()->prepare('SELECT mag.id_mag,id_text, textType, title01, title02, main, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
+        $req = $this->database->getConnection()->prepare('SELECT mag.id_mag, title01, title02, numberMag, publication, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
         COUNT(articles.id_text) AS articlesNb,
         COUNT(IF(articles.textType = "Chronique", 1, NULL))  AS chroniqueNb,
         COUNT(IF(articles.textType = "Essai", 1, NULL))  AS essaiNb,
@@ -96,7 +112,7 @@ final class MagRepository
         FROM mag 
         LEFT JOIN articles ON mag.id_mag = articles.id_mag
         WHERE statusPub = 1
-        GROUP BY(mag.id_mag)
+        GROUP BY mag.id_mag, title01, title02, numberMag, publication, cover, statusPub, creation_date
         ORDER BY numberMag DESC
         LIMIT :offset, :limitation ');
         $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
@@ -109,7 +125,7 @@ final class MagRepository
     {
         $req = $this->database->getConnection()->prepare('INSERT INTO mag SET numberMag = :newNumb, creation_date = NOW(), statusPub = :statusPub');
         return $req->execute([
-            'newNumb' => $mag->getNumberMag(),
+            'newNumb' => (int) $mag->getNumberMag(),
             'statusPub' => $mag->getStatusPub()]);
     }
 

@@ -253,7 +253,7 @@ final class MagController
             exit();
         }
    
-        $newMag = $this->magManager->createMag((int) $this->request->post('number'));
+        $newMag = $this->magManager->createMag();
 
         if (!$newMag) {
             $error = $this->session->getSessionData('error');
@@ -263,7 +263,7 @@ final class MagController
             exit();
         }
 
-        $message = 'Le magazine numéro '. htmlspecialchars($this->request->post('number')) . ' a bien été créé';
+        $message = 'Le magazine numéro '. (int) $this->request->post('number') . ' a bien été créé';
         
         header("Location: index.php?action=listMag&message=$message");
         exit();
