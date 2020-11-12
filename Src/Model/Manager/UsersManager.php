@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Projet5\Model\Manager;
 
 use Projet5\Model\Entity\Letter;
+use Projet5\Model\Entity\Newsletter;
 use Projet5\Model\Entity\User;
 use Projet5\Model\Repository\LettersRepository;
 use Projet5\Model\Repository\NewslettersRepository;
@@ -366,11 +367,14 @@ final class UsersManager
         }
 
         for ($i = 0; $i < count($users); ++$i) {
-            
-            //mail($users[$i]->getEmail(), "Newsletter", $message, $header);
+            mail($users[$i]->email, "Newsletter", $message, $header);
         }
 
-        $return = $this->newslettersRepo->setNewsLetterSendById($newsletter);
+        $newsletterPosted = new Newsletter();
+        $newsletterPosted->setId_newsletter($idNewsletter);
+        $newsletterPosted->setSend(1);
+        
+        $return = $this->newslettersRepo->setNewsLetterSendById($newsletterPosted);
 
         if (!$return) {
             $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');

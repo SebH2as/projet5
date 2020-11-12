@@ -22,9 +22,9 @@
             <a class="buttonPannel" id="backLink" href="index.php?action=pannelMag&amp;idMag={{magazine.id_mag}}">Retour au magazine</a>
             <a class="buttonPannel" id="preview" href="index.php?action=previewArticle&amp;idMag={{magazine.id_mag}}&amp;idText={{article.id_text}}" target="_blank">Aperçu</a>
             {% if article.main == 0 %}
-            <a class="buttonPannel" id="preview" href="index.php?action=changeMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Mettre en une</a>
+            <a class="buttonPannel" id="article" href="index.php?action=changeMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Mettre en une</a>
             {% else %}
-            <a class="buttonPannel" id="preview" href="index.php?action=changeMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Retirer de la une</a>
+            <a class="buttonPannel" id="article" href="index.php?action=changeMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Retirer de la une</a>
             {% endif %}
             <a class="buttonPannel" id="delete" href="index.php?action=deleteArticle&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Supprimer</a>
         </div>
@@ -39,7 +39,7 @@
                 <div class="formRow">
                     <div class="labelInput">
                         <label for="rubric">Modifier la rubrique de l'article:</label>
-                        <select list="rubric" name="rubric">
+                        <select id="rubric" name="rubric">
                             <option value="Chronique">Chronique</option>
                             <option value="Essai">Essai</option>
                             <option value="Fiction">Fiction</option>
@@ -50,8 +50,9 @@
                 
                 <h3><i class="fa fa-arrow-right"></i> Titre de l'article: <i>{% if not article.title %}Non défini{% else %}{{article.title}}{% endif %}</i></h3>
                 <div class="formRow">
+                    <div class="infoBox hidden"><span>70 signes maximum</span></div>
                     <div class="labelInput">
-                        <label for="title">Modifier le titre de l'article:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>70 signes maximum</span></div></i></label>
+                        <label for="title">Modifier le titre de l'article:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                         <input type="text" id="title" name="title" maxlength="70" size="70">    
                     </div>
                     <input type="submit" name="modifTitle" value="Modifier">
@@ -59,8 +60,9 @@
                 
                 <h3><i class="fa fa-arrow-right"></i> Auteur: <i>{% if not article.author %}Non défini{% else %}{{article.author}}{% endif %}</i></h3>
                 <div class="formRow">
+                    <div class="infoBox hidden"><span>30 signes maximum</span></div>
                     <div class="labelInput">
-                        <label for="author">Modifier le nom de l'auteur:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
+                        <label for="author">Modifier le nom de l'auteur:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                         <input type="text" id="author" name="author" maxlength="30" size="30">    
                     </div>
                     <input type="submit" name="modifAuthor" value="Modifier">
@@ -68,8 +70,9 @@
 
                 <h3><i class="fa fa-arrow-right"></i> Teaser: <i>{% if not article.teaser %}Non rédigé{% else %}Rédigé{% endif %}</i></h3>
                 <div class="formRow">
+                    <div class="infoBox hidden"><span>95 signes maximum</span></div>
                     <div class="labelInput">
-                        <label for="teaser">Rédiger le teaser:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>95 signes maximum</span></div></i></label>
+                        <label for="teaser">Rédiger le teaser:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                         <input type="text" id="teaser" name="teaser" maxlength="95" size="95" 
                         placeholder="{% if article.teaser %}{{article.teaser}}{% endif %}">    
                     </div>
@@ -78,8 +81,9 @@
                 
                 <h3><i class="fa fa-arrow-right"></i> Image associée à l'article: <i>{% if not article.articleCover %}Non définie{% else %}Définie{% endif %}</i></h3>
                 <div class="formRow">
+                    <div class="infoBox hidden"><span>Uniquement .png ou .jpg</span></div>
                     <div class="labelInput">
-                        <label for="articleCover">Changer l'image:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Uniquement .png ou .jpg</span></div></i></label>
+                        <label for="articleCover">Changer l'image:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                         <input type="file" id="articleCover" name="articleCover">    
                     </div>
                     <input type="submit" name="modifCover" value="Changer">

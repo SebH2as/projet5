@@ -15,7 +15,7 @@
 {% block content %}
 
     <div id="sectionImg">
-        <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+        <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover |slice( 0, -4)}}">
     </div>
 
     <section id="article">

@@ -34,7 +34,7 @@
             <span id="title02" class="lefters">{{magazine.title02}}</span>
             {% endif %}
 
-            <img id="headerImg" class="downers" src="images/{{magazine.cover}}" alt="<{{magazine.cover}}">
+            <img id="headerImg" class="downers" src="images/{{magazine.cover}}" alt="{{magazine.cover |slice( 0, -4)}}">
             
             <a class="fa fa-arrow-circle-left
             {% if not previous.numberMag  %} hidden {% endif %}" href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag - 1}}">
@@ -55,7 +55,7 @@
                     <a id="mainArticle" href="index.php?action=article&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">
                         
                         <div class="imgContainer">
-                            <img id="mainImg" src="images/{{article.articleCover}}" >
+                            <img id="mainImg" src="images/{{article.articleCover}}" alt="{{article.articleCover |slice( 0, -4)}}">
                         </div>
 
                         <h3>{{article.textType}}</h3>
@@ -89,7 +89,7 @@
                     <a class="articleCover topers" href="index.php?action=article&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">
                         
                         <div class="imgContainer">
-                            <img class="articleImg" src="images/{{article.articleCover}}" >
+                            <img class="articleImg" src="images/{{article.articleCover}}" alt="{{article.articleCover |slice( 0, -4)}}">
                         </div>
 
                         <h3>{{article.textType}}</h3>
@@ -123,7 +123,7 @@
 
                     <h2>Le temps à Nantes aujourd'hui</h2>
                     <hr>
-                    <img id="icone" src=""  alt="icone météo">
+                    <img id="icone" src="images/icone.ico"  alt="icone météo">
                     <span id="meteo"></span>
 
                 </div>

@@ -27,7 +27,7 @@
             <a class="buttonPannel" id="online" href="index.php?action=changeStatusMag&amp;idMag={{magazine.id_mag}}">Sauvegarder</a>
             {% endif %}
             <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag={{magazine.id_mag}}" target="_blank">Aperçu</a>
-            <a class="buttonPannel" id="preview" href="#articlesMag">Articles associés</a>
+            <a class="buttonPannel" id="article" href="#articlesMag">Articles associés</a>
             <a class="buttonPannel" id="delete" href="index.php?action=deleteMag&amp;idMag={{magazine.id_mag}}">Supprimer</a>
         </div>
         
@@ -49,17 +49,19 @@
 
                 <h3><i class="fa fa-arrow-right"></i> Date de publication: <i>{% if not magazine.publication %}à définir{% else %}{{magazine.publication}}{% endif %}</i></h3>
                 <div class="formRow">
+                <div class="infoBox hidden"><span>30 signes maximum</span></div>
                     <div class="labelInput">
-                        <label for="publication">Modifier la date de publication:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>30 signes maximum</span></div></i></label>
+                        <label for="publication">Modifier la date de publication:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                         <input type="text" id="publication" name="publication" maxlength="30" size="30">    
                     </div>
                     <input type="submit" class="button01" name="modifPublication" value="Modifier" >
                 </div>
-                
+
                 <h3><i class="fa fa-arrow-right"></i> Image de couverture: <i>{% if not magazine.cover %}à définir{% else %}Définie{% endif %}</i></h3>
                 <div class="formRow">
+                <div class="infoBox hidden"><span>Uniquement .png ou .jpg</span></div>
                     <div class="labelInput">
-                        <label for="cover">Changer la couverture:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Uniquement .png ou .jpg</span></div></i></label>
+                        <label for="cover">Changer la couverture:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                         <input type="file" id="cover" name="cover">    
                     </div>
                     <input type="submit" class="button01" name="modifCover" value="Charger">
@@ -67,23 +69,26 @@
                 
                 <h3><i class="fa fa-arrow-right"></i> Titre 1: <i>{% if not magazine.title01 %}à définir{% else %}{{magazine.title01}}{% endif %}</i></h3>
                 <div class="formRow">
+                <div class="infoBox hidden"><span>70 signes maximum</span></div>
                     <div class="labelInput">
-                        <label for="title01">Modifier le titre 1:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>70 signes maximum</span></div></i></label>
+                        <label for="title01">Modifier le titre 1:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                         <input type="text" id="title01" name="title01" maxlength="70" size="70">    
                     </div>
                     <input type="submit" class="modifTitle" name="modifTitle01" value="Modifier">
                     <input type="submit" class="deleteTitle" name="deleteTitle01" value="Supprimmer">
                 </div>
                 
-                    <h3><i class="fa fa-arrow-right"></i> Titre 2: <i>{% if not magazine.title02 %}à définir{% else %}{{magazine.title02}}{% endif %}</i></h3>
+                <h3><i class="fa fa-arrow-right"></i> Titre 2: <i>{% if not magazine.title02 %}à définir{% else %}{{magazine.title02}}{% endif %}</i></h3>
                 <div class="formRow">
+                <div class="infoBox hidden"><span>70 signes maximum</span></div>
                     <div class="labelInput">
-                        <label for="title02">Modifier le titre 2:<i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>70 signes maximum</span></div></i></label>
+                        <label for="title02">Modifier le titre 2:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                         <input type="text" id="title02" name="title02" maxlength="70" size="70">    
                     </div>
                     <input type="submit" class="modifTitle" name="modifTitle02" value="Modifier">
                     <input type="submit" class="deleteTitle" name="deleteTitle02" value="Supprimmer">
                 </div>
+
             </form>
         </div>
             

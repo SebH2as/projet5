@@ -14,14 +14,14 @@
 
 {% block content %}
     <div id="sectionImg">
-        <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+        <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover |slice( 0, -4)}}">
     </div>
 
     <section id="listRubric">
             
         <div id="titleRubric"><h1>LES MAGAZINES</h1><div id="separator02"></div></div>
 
-        <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+        <div class="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
             <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=magazines&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage - 1}}"></a>
             <span>Page {{currentpage}}/{{totalpages}}</span> 
             <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=magazines&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage + 1}}"></a>
@@ -30,14 +30,16 @@
         {% for mag in magazines %}
 
             <a class="containerRubric" href="index.php?action=magByNumber&amp;idMag={{mag.id_mag}}&amp;numberMag={{mag.numberMag}}">
-                <div id="chronicImgs" class="containImg">
-                    <img class="thumbImg" src="images/{{mag.cover}}" alt="{{mag.cover}}">
+                <div class="containImg">
+                    <img class="thumbImg" src="images/{{mag.cover}}" alt="{{mag.cover |slice( 0, -4)}}">
                 </div>
-                <div id="rubricText" class="containText">
+                <div class="containText">
 
                     <div class="textInfo">
-                        <h3 class="numberMag">Magazine N°{{mag.numberMag}}</h3>
-                        <h3 class="date">{{mag.publication}}</h3>
+                        <div class="numberAndDate">
+                            <h3 class="numberMag">Magazine N°{{mag.numberMag}}</h3>
+                            <h3 class="date">{{mag.publication}}</h3>
+                        </div>
                         <h3 class="titles">{{mag.title01}}</h3>
                         <h3 class="titles">{{mag.title02}}</h3>
                         <div class="magContent">
@@ -57,7 +59,7 @@
         
         {% endfor %}
 
-        <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+        <div class="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
             <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=magazines&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage - 1}}"></a>
             <span>Page {{currentpage}}/{{totalpages}}</span> 
             <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=magazines&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage + 1}}"></a>

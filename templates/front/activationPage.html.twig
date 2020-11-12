@@ -16,15 +16,15 @@
 {% block content %}
 
         <div id="sectionImg">
-            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover |slice( 0, -4)}}">
         </div>
 
         <section id="article">
 
             <div id="titleArticle">
-                <h2></h2>
+                <h2>KILOMETRAGE</h2>
                 <h1>ACTIVATION</h1>
-                <h2></h2>
+                <h2>KILOMETRAGE</h2>
                 <div id="separator02"></div>
             </div>
 
@@ -42,10 +42,16 @@
 
                 <input type="hidden" name="csrf" value="{{token}}">
 
-                <label for="pseudo">Entrez votre pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Entrez le pseudo que vous avez choisi précédemment.</span></div></i></label>
+                <div class="containInfoBox">
+                    <div class="infoBox hidden"><span>Entrez le pseudo que vous avez choisi précédemment.</span></div>
+                </div>
+                <label for="pseudo">Entrez votre pseudo <i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                 <input type="text" id="pseudo" name="pseudo" maxlength="15" size="15">
                 
-                <label for="code">Entrez le code de confirmation <i class=" fa fa-circle"><i class=" fa fa-info"></i><div class="infoBox hidden"><span>Entrez le code de confirmation que vous avez reçu par email.</span></div></i></label>
+                <div class="containInfoBox">
+                    <div class="infoBox hidden"><span>Entrez le code de confirmation que vous avez reçu par email.</span></div>
+                </div>
+                <label for="code">Entrez le code de confirmation <i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                 <input type="text" id="code" name="code" maxlength="15" size="15">
                 
                 <input type="submit" id="saver" name="saver" value="Activation">

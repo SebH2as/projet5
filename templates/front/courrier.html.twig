@@ -15,7 +15,7 @@
 {% block content %}
 
         <div id="sectionImg">
-            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover}}">
+            <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover |slice( 0, -4)}}">
         </div>  
 
         <section id="article">
@@ -35,7 +35,7 @@
                 <h2 id="noLetters">Aucun courrier à ce jour</h2>
             {% else %}
 
-                <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                <div class="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
                     <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage - 1}}"></a>
                     <span>Page {{currentpage}}/{{totalpages}}</span> 
                     <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage + 1}}"></a>
@@ -54,7 +54,7 @@
                 </div>
             {% endfor %}
 
-                <div id="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
+                <div class="pageMovers{% if totalpages < 2 %}Hidden{% endif %}">
                     <a class="fa fa-arrow-circle-o-left {% if currentpage == 1 %} hidden {% endif %}" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage - 1}}"></a>
                     <span>Page {{currentpage}}/{{totalpages}}</span> 
                     <a class="fa fa-arrow-circle-o-right {% if currentpage == totalpages %} hidden {% endif %}" href="index.php?action=courrier&amp;idMag={{magazine.id_mag}}&amp;currentpage={{currentpage + 1}}"></a>

@@ -566,6 +566,25 @@ section .columnTitle {
           box-shadow: 0px 2px 10px #110B11;
 }
 
+#mag .buttonsPannel #article {
+  width: 20%;
+  padding: 15px;
+  margin-top: 15px;
+  border: solid 2px #48A9A6;
+  background-color: #F8F272;
+  border-radius: 12px;
+  font-size: 18px;
+  -webkit-box-shadow: 0px 5px 10px #110B11;
+          box-shadow: 0px 5px 10px #110B11;
+  cursor: pointer;
+}
+
+#mag .buttonsPannel #article:hover {
+  background-color: #FBF7B1;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+}
+
 #mag .buttonsPannel #delete {
   width: 20%;
   padding: 15px;
@@ -773,6 +792,51 @@ section .columnTitle {
   background-color: #48A9A6;
 }
 
+#mag #contentContainer #formMag .formRow .infoBox {
+  position: relative;
+  opacity: 0;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+  z-index: 2;
+}
+
+#mag #contentContainer #formMag .formRow .infoBox span {
+  position: absolute;
+  z-index: 2;
+  top: -8vh;
+  width: 150px;
+  left: 50vh;
+  font-size: 14px;
+  text-align: left;
+  background-color: white;
+  border: 2px solid black;
+  padding: 1vh;
+  color: black;
+}
+
+#mag #contentContainer #formMag .formRow .hidden {
+  position: absolute;
+  z-index: -2;
+  bottom: -5vh;
+  left: -200px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: none;
+}
+
+#mag #contentContainer #formMag .formRow .hidden span {
+  font-size: 14px;
+  background-color: #DDC67B;
+  text-align: center;
+  padding: 1vh;
+  color: #4C5B61;
+  display: none;
+}
+
 #mag #contentContainer #formMag .formRow .labelInput {
   width: 80%;
 }
@@ -796,60 +860,6 @@ section .columnTitle {
   font-size: 24px;
   color: white;
   cursor: help;
-}
-
-#mag #contentContainer #formMag .formRow .labelInput .infoBox {
-  position: absolute;
-  z-index: 2;
-  top: -25px;
-  width: 150px;
-  left: 10px;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  text-align: center;
-  opacity: 0;
-  -webkit-transition: opacity .5s;
-  transition: opacity .5s;
-}
-
-#mag #contentContainer #formMag .formRow .labelInput .infoBox span {
-  font-size: 14px;
-  text-align: left;
-  background-color: white;
-  padding: 1vh;
-  color: black;
-}
-
-#mag #contentContainer #formMag .formRow .labelInput .hidden {
-  position: absolute;
-  z-index: -2;
-  bottom: -5vh;
-  left: -200px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-#mag #contentContainer #formMag .formRow .labelInput .hidden span {
-  font-size: 14px;
-  background-color: #DDC67B;
-  text-align: center;
-  padding: 1vh;
-  color: #4C5B61;
-  display: none;
 }
 
 #mag #contentContainer #formMag .formRow .labelInput #number {
@@ -1245,6 +1255,25 @@ section .columnTitle {
           box-shadow: 0px 2px 10px #110B11;
 }
 
+#articleInfos .buttonsPannel #article {
+  width: 20%;
+  padding: 15px;
+  margin-top: 15px;
+  border: solid 2px #48A9A6;
+  background-color: #F8F272;
+  border-radius: 12px;
+  font-size: 18px;
+  -webkit-box-shadow: 0px 5px 10px #110B11;
+          box-shadow: 0px 5px 10px #110B11;
+  cursor: pointer;
+}
+
+#articleInfos .buttonsPannel #article:hover {
+  background-color: #FBF7B1;
+  -webkit-box-shadow: 0px 2px 10px #110B11;
+          box-shadow: 0px 2px 10px #110B11;
+}
+
 #articleInfos .buttonsPannel #delete {
   width: 20%;
   padding: 15px;
@@ -1345,6 +1374,51 @@ section .columnTitle {
           align-items: center;
   margin-bottom: 15px;
   background-color: #48A9A6;
+}
+
+#articleInfos #contentContainer #formMag .formRow .infoBox {
+  position: relative;
+  opacity: 0;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+  z-index: 2;
+}
+
+#articleInfos #contentContainer #formMag .formRow .infoBox span {
+  position: absolute;
+  z-index: 2;
+  top: -8vh;
+  width: 150px;
+  left: 50vh;
+  font-size: 14px;
+  text-align: left;
+  background-color: white;
+  border: 2px solid black;
+  padding: 1vh;
+  color: black;
+}
+
+#articleInfos #contentContainer #formMag .formRow .hidden {
+  position: absolute;
+  z-index: -2;
+  bottom: -5vh;
+  left: -200px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: none;
+}
+
+#articleInfos #contentContainer #formMag .formRow .hidden span {
+  font-size: 14px;
+  background-color: #DDC67B;
+  text-align: center;
+  padding: 1vh;
+  color: #4C5B61;
+  display: none;
 }
 
 #articleInfos #contentContainer #formMag .formRow .labelInput {
@@ -2301,7 +2375,7 @@ section .columnTitle {
   color: #110B11;
 }
 
-#admin .buttonsPannel #linkTo {
+#admin .buttonsPannel .linkTo {
   width: 20%;
   padding: 15px;
   margin-top: 15px;
@@ -2314,7 +2388,7 @@ section .columnTitle {
   cursor: pointer;
 }
 
-#admin .buttonsPannel #linkTo:hover {
+#admin .buttonsPannel .linkTo:hover {
   background-color: #FBF7B1;
   -webkit-box-shadow: 0px 2px 10px #110B11;
           box-shadow: 0px 2px 10px #110B11;
