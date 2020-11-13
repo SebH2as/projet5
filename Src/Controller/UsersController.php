@@ -510,6 +510,23 @@ final class UsersController
         );
     }
 
+    public function confirmDeleteUserBack():void
+    {
+        $this->auth->requireRole(1);
+
+        $idUser = (int)$this->request->get('idUser');
+        $user = $this->usersManager->getUserById($idUser);
+
+        $this->view->render(
+            [
+            'template' => 'back/confirmDeleteUserBack',
+            'data' => [
+                'user' => $user,
+                ],
+            ],
+        );
+    }
+
     public function deleteUser(int $idMag): void
     {
         $this->auth->requireRole(1);

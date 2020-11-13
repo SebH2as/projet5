@@ -307,6 +307,28 @@ final class MagController
         );
     }
 
+    public function confirmDeleteMag(int $idMag):void
+    {
+        $this->auth->requireRole(1);
+        
+        $magazine = $this->magManager->showById($idMag);
+
+        if ($magazine === null) {
+            $error = 'Le magazine demandé n\'existe pas';
+            header("Location: index.php?action=listMag&error=$error");
+            exit();
+        }
+        
+        $this->view->render(
+            [
+            'template' => 'back/confirmDeleteMag',
+            'data' => [
+                'magazine' => $magazine,
+                ],
+            ],
+        );
+    }
+
     //index.php?action=listMag&message=Le%20magazine%20numéro%204%20a%20bien%20été%20supprimmé%20avec%20ses%20articles%20et%20images%20associés
     public function deleteMag(int $idMag):void//méthode pour supprimmer un magazine avec ses articles et images associés
     {

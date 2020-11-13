@@ -1,0 +1,20 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Suppression du magazine {{magazine.numberMag}}
+{% endblock %}
+
+{% block content %}
+    <section id="articleInfos">
+
+        <h2>Confirmer la suppression de l'article {% if article.title %}"{{article.title}}"{% else %}"sans titre"{% endif %}<br>du magazine numéro {{magazine.numberMag}}</h2> 
+        <h3>Voulez-vous vraiment supprimer cet article ainsi que son image associée?</h3>
+
+        <div class="buttonsPannel"> 
+            <a class="buttonPannel" id="delete" href="index.php?action=deleteArticle&amp;idMag={{magazine.id_mag}}&amp;idText={{article.id_text}}">Supprimer</a>
+            <a class="buttonPannel" id="backLink" href="index.php?action=pannelMag&amp;idMag={{magazine.id_mag}}">Retour au magazine</a>
+        </div>
+        
+        
+    </section>
+{% endblock %}

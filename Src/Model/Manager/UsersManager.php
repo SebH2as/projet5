@@ -366,9 +366,9 @@ final class UsersManager
             return false;
         }
 
-        for ($i = 0; $i < count($users); ++$i) {
+        /*for ($i = 0; $i < count($users); ++$i) {
             mail($users[$i]->email, "Newsletter", $message, $header);
-        }
+        }*/
 
         $newsletterPosted = new Newsletter();
         $newsletterPosted->setId_newsletter($idNewsletter);

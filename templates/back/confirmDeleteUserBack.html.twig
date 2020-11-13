@@ -1,0 +1,26 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Suppression du membre {{user.pseudo}}
+{% endblock %}
+
+{% block content %}
+    <section id="mag">
+        {% if user.role == 1 %}
+
+            <h2>Vous ne pouvez pas supprimer l'administrateur du site</h2> 
+            <h3>Pour toutes questions relatives à un changement d'administrateur veuillez contacter le service technique</h3>
+
+        {% else %}
+
+            <h2>Confirmer la suppression du membre {{user.pseudo}}</h2> 
+            <h3>Voulez-vous vraiment supprimer le membre {{user.pseudo}} ainsi que tous ses courriers associés</h3>
+
+            <div class="buttonsPannel"> 
+                <a class="buttonPannel" id="delete" href="index.php?action=deleteUser&amp;idUser={{user.id_user}}">Supprimer</a>
+            </div>
+
+        {% endif %}
+        
+    </section>
+{% endblock %}

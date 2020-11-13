@@ -322,6 +322,23 @@ final class LettersController
         exit();
     }
 
+    public function confirmDeleteLetter():void
+    {
+        $this->auth->requireRole(1);
+
+        $idLetter = (int)$this->request->get('idLetter');
+        $letter = $this->lettersManager->showLetterById($idLetter);
+
+        $this->view->render(
+            [
+            'template' => 'back/confirmDeleteLetter',
+            'data' => [
+                'letter' => $letter,
+                ],
+            ],
+        );
+    }
+
     public function courrierDelete(int $idMag):void
     {
         $this->auth->requireRole(1);

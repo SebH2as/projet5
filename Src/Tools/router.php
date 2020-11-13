@@ -45,6 +45,7 @@ final class Router
         'modifyMag',
         'previewMag',
         'addEdito',
+        'confirmDeleteMag',
         'deleteMag',
         'changeStatusMag',
         'editorialBack',
@@ -59,6 +60,7 @@ final class Router
     private $actionArticle =
     [
         'addContent',
+        'confirmDeleteArticle',
         'deleteArticle',
         'createNewArticle',
         'pannelArticle',
@@ -90,6 +92,7 @@ final class Router
         'adminProfil',
         'modifAdmin',
         'confirmDeleteUser',
+        'confirmDeleteUserBack',
         'userDeleteSelf',
         'sendNewsletter'
     ];
@@ -105,6 +108,7 @@ final class Router
         'setPublished',
         'relatedMag',
         'courrierDelete',
+        'confirmDeleteLetter',
         'setResponse',
         'newslettersBack',
         'newNewsletter',

@@ -10,6 +10,9 @@
             {% if not letter %}
                 <h2>Aucun courrier ne correspond à cet identifiant</h2>
                 {% if error %}<span id="error">{{error}}</span>{% endif %}
+                <div class="buttonsPannel"> 
+                    <a class="buttonPannel" id="preview" href="index.php?action=lettersBack">Retour aux courriers</a>
+                </div>
             {% else %}
                 <h2>Courrier de {{letter.author}}</h2>
                 <h3>Reçu le {{letter.post_date |date("d/m/Y", "Europe/Paris")}}</h3>
@@ -24,8 +27,8 @@
                     {% else %}
                         <a class="buttonPannel" id="online" href="index.php?action=setPublished&amp;idLetter={{letter.id_letter}}">Retirer de la publication</a>
                     {% endif %}
-                    <a class="buttonPannel" id="preview" href="#response">Répondre</a>
-                    <a class="buttonPannel" id="delete" href="index.php?action=courrierDelete&amp;idLetter={{letter.id_letter}}">Supprimer</a>
+                    <a class="buttonPannel" id="article" href="#response">Répondre</a>
+                    <a class="buttonPannel" id="delete" href="index.php?action=confirmDeleteLetter&amp;idLetter={{letter.id_letter}}">Supprimer</a>
                 </div>
 
                 <div id="contentContainer">

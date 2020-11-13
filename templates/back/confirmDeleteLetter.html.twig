@@ -1,0 +1,19 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Suppression du courrier de {{letter.author}}
+{% endblock %}
+
+{% block content %}
+    <section id="mag">
+
+        <h2>Confirmer la suppression du courrier de {{letter.author}}</h2> 
+        <h3>Voulez-vous vraiment supprimer le courrier de {{letter.author}} ainsi que son éventuelle réponse associée</h3>
+
+        <div class="buttonsPannel"> 
+            <a class="buttonPannel" id="delete" href="index.php?action=courrierDelete&amp;idLetter={{letter.id_letter}}">Supprimer</a>
+        </div>
+        
+        
+    </section>
+{% endblock %}

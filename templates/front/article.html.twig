@@ -27,11 +27,20 @@
                 <div id="separator02"></div>
             </div>
 
+            <a id="goDown" href="#goUp">Aller en bas de la page</a>
+
             <div id="articleContent">
-                <span>Le {{article.date_creation |date("d/m/Y", "Europe/Paris")}}</span><h3>Par {{article.author}}</h3>
+                <div id="dateAndAuthor">
+                    <span>Le {{article.date_creation |date("d/m/Y", "Europe/Paris")}}</span>
+                    <h3>Par {{article.author}}</h3>
+                </div>
+
                 <h2>{{article.title}}</h2>
                 <span>{{decode(article.content) |raw |nl2br}} </span>
+
             </div>
+
+            <a id="goUp" href="#article">Retourner en haut de la page</a>
             
         </section>
 

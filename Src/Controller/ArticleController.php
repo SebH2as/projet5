@@ -228,6 +228,30 @@ final class ArticleController
         exit();
     }
 
+    public function confirmDeleteArticle(int $idMag, int $idText):void
+    {
+        $this->auth->requireRole(1);
+        
+        $article = $this->articleManager->showById($idText);
+        $magazine = $this->magManager->showById($idMag);
+
+        if ($article === null || $magazine === null) {
+            $error = 'Le magazine ou l\'article demandé n\'existe pas';
+            header("Location: index.php?action=listMag&error=$error");
+            exit();
+        }
+        
+        $this->view->render(
+            [
+            'template' => 'back/confirmDeleteArticle',
+            'data' => [
+                'magazine' => $magazine,
+                'article' => $article,
+                ],
+            ],
+        );
+    }
+
     //index.php?action=pannelMag&idMag=102&message=L%27article%20a%20été%20supprimmé
     public function deleteArticle(int $idMag, int $idText):void
     {

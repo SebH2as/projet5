@@ -26,7 +26,7 @@
             {% else %}
             <a class="buttonPannel" id="article" href="index.php?action=changeMain&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Retirer de la une</a>
             {% endif %}
-            <a class="buttonPannel" id="delete" href="index.php?action=deleteArticle&amp;idText={{article.id_text}}&amp;idMag={{magazine.id_mag}}">Supprimer</a>
+            <a class="buttonPannel" id="delete" href="index.php?action=confirmDeleteArticle&amp;idMag={{magazine.id_mag}}&amp;idText={{article.id_text}}">Supprimer</a>
         </div>
         
         <div id="contentContainer">
