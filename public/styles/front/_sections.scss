@@ -1,4 +1,52 @@
+#containLoader{
+    width: 100%;
+    height: 100%;
+    background-color:  $primaryBackgroundColorDark;
+    z-index: 999;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:  $primaryBackgroundColorLight;
+    font-size: 5vh;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    #containCircles{
+        .circle{
+            background-color: $secondaryBacgroundColorOrange;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: grow 1s linear infinite;
+        }
+        .circle:nth-child(2){
+            background-color: $primaryBackgroundColorLight;
+            animation-delay: 0.25s;
+        }
+        
+        animation: rotate 0.5s linear infinite;
+    }
+    span{
+        border-bottom: 5px solid $secondaryBacgroundColorOrange;
+        padding: 5px;
+    }
+}
 
+@keyframes rotate{
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes grow{
+    50% {
+        transform: scale(1);
+    }
+}
 
 #coverPart01
 {

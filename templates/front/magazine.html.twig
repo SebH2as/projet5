@@ -11,6 +11,7 @@
 {% block script %}
     <script src="js/navbar.js"></script>
     <script src="js/observer.js"></script>
+    <script src="js/animation.js"></script>
     <script src="js/infoBox.js"></script>
     <script src="js/fetch.js"></script>
     <script src="js/meteo.js"></script>
@@ -18,6 +19,14 @@
 {% endblock %}
 
 {% block content %}
+        
+        <div id="containLoader">
+            <div id="containCircles">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <span>KILOMETRAGE</span>
+        </div>
         
         <header>
             <span id="number" class="lefters">Magazine numéro {{magazine.numberMag}}</span>
