@@ -673,9 +673,9 @@ section .columnTitle {
 
 #mag #contentContainer #editoMag {
   margin: 15px;
-  margin-bottom: 0px;
+  margin-bottom: 45px;
   width: 95%;
-  height: auto;
+  height: 8vh;
   font-size: 24px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -778,7 +778,7 @@ section .columnTitle {
 
 #mag #contentContainer #formMag .formRow {
   width: 100%;
-  height: 10%;
+  height: 7vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -862,23 +862,7 @@ section .columnTitle {
   cursor: help;
 }
 
-#mag #contentContainer #formMag .formRow .labelInput #number {
-  width: 10%;
-  padding: 15px;
-  font-size: 18px;
-  border: solid 2px #110B11;
-  margin-left: 15px;
-}
-
 #mag #contentContainer #formMag .formRow .labelInput #publication {
-  width: 45%;
-  padding: 15px;
-  font-size: 18px;
-  border: solid 2px #110B11;
-  margin-left: 15px;
-}
-
-#mag #contentContainer #formMag .formRow .labelInput #topics {
   width: 45%;
   padding: 15px;
   font-size: 18px;
@@ -1517,7 +1501,7 @@ section .columnTitle {
 }
 
 #articleInfos #contentContainer #formMag .formRow .labelInput #title {
-  width: 55%;
+  width: 45%;
   padding: 15px;
   font-size: 18px;
   border: solid 2px #110B11;
@@ -3243,7 +3227,7 @@ section .columnTitle {
   }
   section {
     width: 80% !important;
-    min-height: 96vh !important;
+    height: auto !important;
   }
   section h1 {
     font-size: 28px !important;
