@@ -71,7 +71,7 @@
     section
     {
         width: 80% !important;
-        height: auto !important;
+        
         h1{
             font-size: 28px !important;
            
@@ -95,8 +95,15 @@
             margin-bottom: 10px !important;
             margin-top: 10px !important;
         }
+        #contentContainer{
+            width: 80% ;
+            height: auto;
+            margin-bottom: 10vh;
+        }
         #formNewMag{
             width: 80% !important;
+            margin-top: 10vh;
+            margin-bottom: 10vh;
         }
         .formSeparator{
             width: 75% !important;
@@ -182,6 +189,8 @@
     section
     {
         width: 100% !important;
+        height: 110vw;
+        
         .columnTitle{
             font-size: 12px !important;
         }
@@ -201,6 +210,538 @@
             text-align: center !important;
         }
     }
+    .labelInput{
+        width: 80%;
+        
+            label{
+                margin-left: 15px;
+                font-size: 15px;
+                
+                .fa-info{
+                    position: absolute;
+                    right: 35%;
+                    top: 20%;
+                    font-size: 18px;
+                    cursor: help;
+                    color: black;
+                }
+                .fa-circle{
+                    position: relative;
+                    margin-left: 10px;
+                    
+                    font-size: 24px;
+                    
+                    color: white;
+                    cursor: help;
+                }
+            }
+            
+            #publication{
+                width: 45%;
+                padding: 15px;
+                font-size: 18px;
+                border: solid 2px $blackColor;
+                margin-left: 15px;
+            }
+            
+            #cover{
+                width: 45%;
+                padding: 15px;
+                font-size: 14px;
+                border: solid 2px $blackColor;
+                margin-left: 15px;
+            }
+            #title01{
+                width: 55%;
+                padding: 15px;
+                font-size: 18px;
+                border: solid 2px $blackColor;
+                margin-left: 15px;
+            }
+            #title02{
+                width: 55%;
+                padding: 15px;
+                font-size: 18px;
+                border: solid 2px $blackColor;
+                margin-left: 15px;
+            }
+            input{
+                
+                margin-bottom: 10px !important;
+                margin-top: 10px !important;
+                
+            }
+        }
+    #mag {
+        margin-bottom: -10vh;
+    }
+    #articleInfos{
+        margin-bottom: -10vh;
+    }
+    #articlesMag{
+        margin-bottom: 10vh;
+    }
+    #courrier{
+        margin-bottom: 10vh;
+    }
     
+}
+
+/* mobile */
+@media screen and (max-width: 430px) 
+{	
+    #navBack{
+        position: relative;
+        background-color: $secondaryBacgroundColorYellow;
+        border-bottom: solid 2px $blackColor;
+        width: 100%;
+        height: 5vh;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        z-index: 1;
+        h2{
+            font-size: 2vw;
+        }
+        #home{
+            display: none;
+        }
+        #backLinks{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            cursor:pointer;
+            
+            .dropDown{
+                font-size: 1.75vw;
+                background-color: $secondaryBacgroundColor02;
+                border-left: solid 2px $blackColor;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                &:nth-last-of-type(1){
+                    border-right: solid 2px $blackColor;
+                }
+                &:hover .dropdown-content {display: block;}
+                &:hover {background-color: $secondaryBacgroundColorYellowLight;}
+                .dropdown-content {
+                    display: none;
+                    position: absolute;
+                    top: 5vh;
+                    background-color: #f1f1f1;
+                    min-width: 200%;
+                    z-index: 1;
+                    a {
+                        color: black;
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                        font-size: 3vw;
+                        background-color: $secondaryBacgroundColorYellow;
+                        border-bottom: solid 2px $blackColor;
+                        border-left: solid 2px $blackColor;
+                        border-right: solid 2px $blackColor;
+                        &:hover{background-color: $secondaryBacgroundColorYellowLight;}
+                      }
+                    
+                  }
+                a{
+                    text-decoration: none;
+                    color: black;
+                    font-size: 5vw;
+                }
+                span{
+                    font-size: 5vw;
+                }
+                i{
+                    display: none;
+                }
+            }
+        }
+        
+    }
     
+    section{
+        .buttonsPannel{
+            width: 100%;
+            margin-bottom: 5vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            a{
+                text-decoration: none;
+                text-align: center;
+                color: $blackColor;
+                width: 80% !important;
+            }
+        }
+        
+    }
+    
+    #contentContainer{
+        width: 100% !important;
+        height: auto;
+        background-color: $secondaryBacgroundColorYellow;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+            #editoMag{
+                margin: 15px;
+                margin-bottom: 45px;
+                width: 100% !important;
+                width: 90%;
+                height: auto;
+                background-color: $secondaryBacgroundColorYellow;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                        
+                            .formRow{
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center !important;
+                                align-items: center;
+                                background-color: $secondaryBacgroundColor02;
+                                .labelInput{
+                                    width: 100% !important;
+                                    display: flex;
+                                    justify-content: center;
+                                        span{
+                                            text-align: center !important;
+                                            margin: 0px;
+                                        }
+                                    }
+                                #editoButton{
+                                    @include buttonBack;
+                                    width: 80% !important;
+                                    height: 60px;
+                                    margin-bottom: 2vh;
+                                    display: flex;
+                                    justify-content: space-around;
+                                    align-items: center;
+                                    text-decoration: none;
+                                    text-align: center;
+                                    color: $blackColor;
+                                    background-color: rgb(0, 192, 0);
+                                    margin-right: 1.5vh;
+                                    &:hover{
+                                        background-color: $secondaryBacgroundColorYellowLight;
+                                        box-shadow: 0px 2px 10px $blackColor;
+                                    }
+                                }
+                                
+                            }
+                            
+                        
+            }
+            #formMag{
+                margin: 75px !important;
+                width: 95%;
+                height: auto;
+                font-size: 24px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center !important;
+                align-items: flex-start;
+                .formRow{
+                    width: 100%;
+                    height: 25vh !important;
+                    display: flex;
+                    flex-direction: column !important;
+                    justify-content: space-between;
+                    align-items: center ;
+                    margin-bottom: 95px !important;
+                    background-color: $secondaryBacgroundColor02;
+                    i{
+                        display: none !important;
+                    }
+                    .infoBox{
+                        display: none;
+                        position : relative;
+                        opacity: 0 ;
+                        transition: opacity .5s;
+                        z-index: 2;
+                        span{
+                            position: absolute;
+                            z-index: 2;
+                            top: -8vh;
+                            width: 150px;
+                            left: 50vh;
+                            font-size: 14px;
+                            text-align: left;
+                            background-color: white;
+                            border: 2px solid black;;
+                            padding: 1vh;
+                            color: black;
+                        }
+                        
+                    }
+                    .hidden{
+                        position: absolute;
+                        z-index: -2;
+                        bottom: -5vh;
+                        left: -200px;
+                        justify-content: center;
+                        align-items: center;
+                        display: none;
+                        span{
+                            font-size: 14px;
+                            background-color: $primaryBackgroundColorLight;
+                            text-align: center;
+                            padding: 1vh;
+                            color: $primaryBackgroundColorDark;
+                            display: none;
+                        }
+                    }
+                        .labelInput{
+                            width: 80%;
+                            display: flex !important;
+                            flex-direction: column;
+                            align-items: center !important;
+                                label{
+                                    margin-left: 15px;
+                                    
+                                    
+                                    .fa-info{
+                                        position: absolute;
+                                        right: 35%;
+                                        top: 20%;
+                                        font-size: 18px;
+                                        cursor: help;
+                                        color: black;
+                                    }
+                                    .fa-circle{
+                                        position: relative;
+                                        margin-left: 10px;
+                                        
+                                        font-size: 24px;
+                                        
+                                        color: white;
+                                        cursor: help;
+                                    }
+                                }
+                                
+                                #publication{
+                                    width: 45%;
+                                    padding: 15px;
+                                    font-size: 18px;
+                                    border: solid 2px $blackColor;
+                                    margin-left: 15px;
+                                }
+                                
+                                #cover{
+                                    width: 45%;
+                                    padding: 15px;
+                                    font-size: 14px;
+                                    border: solid 2px $blackColor;
+                                    margin-left: 15px;
+                                }
+                                #title01{
+                                    width: 55%;
+                                    padding: 15px;
+                                    font-size: 18px;
+                                    border: solid 2px $blackColor;
+                                    margin-left: 15px;
+                                }
+                                #title02{
+                                    width: 55%;
+                                    padding: 15px;
+                                    font-size: 18px;
+                                    border: solid 2px $blackColor;
+                                    margin-left: 15px;
+                                }
+                                input{
+                                    
+                                    margin-bottom: 10px !important;
+                                    margin-top: 10px !important;
+                                    
+                                }
+                            
+                        }
+                        .button01{
+                            @include buttonBack;
+                            margin: 15px;
+                            width: 80% !important;
+                        }
+                        .modifTitle{
+                            @include buttonBack2;
+                            font-size: 14px;
+                            margin: 15px;
+                            width: 80% !important;
+                        }
+                        .deleteTitle
+                        {
+                            @include buttonBack2;
+                            font-size: 14px;
+                            text-align: center;
+                            background-color: rgb(216, 0, 0);
+                            margin: 15px;
+                            width: 80% !important;
+                        }
+                        
+                }
+                
+            }
+        }
+    #articlesMag{
+        height: auto !important;
+        .buttonsPannel{
+            display: flex;
+            flex-direction: row;
+            justify-content: center !important;
+        }
+        #tableTitles{
+            display: none !important;
+        }
+        .tableRows{
+            display: flex !important;
+            flex-direction: column !important;
+            width: 80% !important;
+            margin-bottom: 10px !important;
+        }
+        .tableContent{
+            
+            width: 100% !important;
+            border: 2px solid $blackColor;
+            border-top: 0px solid $blackColor !important;
+            &:nth-child(1){
+                border-top: 2px solid $blackColor !important;
+            }
+        }
+    }
+
+    #articleInfos{
+        height: auto !important;
+        .buttonsPannel{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center !important;
+        }
+
+        input{
+            width: 80% !important;
+        }
+       
+    }
+
+    #textEditor{
+        height: auto !important;
+        
+        input{
+            width: 80% !important;
+        }
+
+        h3{
+            font-size: 24px !important;
+            text-align: center;
+        }
+
+        #contentContainer02{
+            margin-top: 50px !important;        }
+       
+    }
+
+    #courrier{
+        height: auto !important;
+        .buttonsPannel{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center !important;
+            height: auto !important;
+        }
+
+        .formRow{
+            height: 200px !important;
+        }
+
+        select{
+            width: 80% !important;
+        }
+
+        input{
+            width: 80% !important;
+        }
+       
+    }
+
+    #newsletter{
+        height: auto !important;
+        .buttonsPannel{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center !important;
+            height: auto !important;
+        }
+    }
+
+    #users{
+        #tableTitles{
+            display: none !important;
+        }
+        .tableRows{
+            display: flex !important;
+            flex-direction: column !important;
+            width: 80% !important;
+            margin-bottom: 10px !important;
+        }
+        .tableContent{
+            
+            width: 100% !important;
+            border: 2px solid $blackColor;
+            border-top: 0px solid $blackColor !important;
+            &:nth-child(1){
+                border-top: 2px solid $blackColor !important;
+            }
+        }
+    }
+
+    #newMag{
+        #contentContainer{
+            margin-top: 5vh !important;
+            height: auto;
+        }
+    }
+
+    #oldNumbers{
+        height: auto;
+        .buttonsPannel{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center !important;
+            height: auto !important;
+        }
+
+        #tableTitles{
+            display: none !important;
+        }
+        .tableRows{
+            display: flex !important;
+            flex-direction: column !important;
+            width: 80% !important;
+            margin-bottom: 10px !important;
+        }
+        .tableContent{
+            
+            width: 100% !important;
+            border: 2px solid $blackColor;
+            border-top: 0px solid $blackColor !important;
+            &:nth-child(1){
+                border-top: 2px solid $blackColor !important;
+            }
+        }
+    }
 }

@@ -1,6 +1,6 @@
 body {
   width: 100%;
-  height: 95vh;
+  height: 110vh;
   margin: auto;
   background-color: #4C5B61;
   display: -webkit-box;
@@ -371,9 +371,8 @@ section .columnTitle {
 }
 
 #newMag {
-  position: relative;
   width: 60%;
-  height: 95vh;
+  height: 100vh;
   background-color: #DDC67B;
   z-index: 0;
   display: -webkit-box;
@@ -1840,6 +1839,7 @@ section .columnTitle {
 #courrier {
   position: relative;
   width: 60%;
+  height: auto;
   background-color: #DDC67B;
   z-index: 0;
   display: -webkit-box;
@@ -3227,7 +3227,6 @@ section .columnTitle {
   }
   section {
     width: 80% !important;
-    height: auto !important;
   }
   section h1 {
     font-size: 28px !important;
@@ -3251,8 +3250,15 @@ section .columnTitle {
     margin-bottom: 10px !important;
     margin-top: 10px !important;
   }
+  section #contentContainer {
+    width: 80%;
+    height: auto;
+    margin-bottom: 10vh;
+  }
   section #formNewMag {
     width: 80% !important;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
   }
   section .formSeparator {
     width: 75% !important;
@@ -3360,6 +3366,7 @@ section .columnTitle {
   }
   section {
     width: 100% !important;
+    height: 110vw;
   }
   section .columnTitle {
     font-size: 12px !important;
@@ -3376,6 +3383,696 @@ section .columnTitle {
   section input {
     font-size: 12px !important;
     text-align: center !important;
+  }
+  .labelInput {
+    width: 80%;
+  }
+  .labelInput label {
+    margin-left: 15px;
+    font-size: 15px;
+  }
+  .labelInput label .fa-info {
+    position: absolute;
+    right: 35%;
+    top: 20%;
+    font-size: 18px;
+    cursor: help;
+    color: black;
+  }
+  .labelInput label .fa-circle {
+    position: relative;
+    margin-left: 10px;
+    font-size: 24px;
+    color: white;
+    cursor: help;
+  }
+  .labelInput #publication {
+    width: 45%;
+    padding: 15px;
+    font-size: 18px;
+    border: solid 2px #110B11;
+    margin-left: 15px;
+  }
+  .labelInput #cover {
+    width: 45%;
+    padding: 15px;
+    font-size: 14px;
+    border: solid 2px #110B11;
+    margin-left: 15px;
+  }
+  .labelInput #title01 {
+    width: 55%;
+    padding: 15px;
+    font-size: 18px;
+    border: solid 2px #110B11;
+    margin-left: 15px;
+  }
+  .labelInput #title02 {
+    width: 55%;
+    padding: 15px;
+    font-size: 18px;
+    border: solid 2px #110B11;
+    margin-left: 15px;
+  }
+  .labelInput input {
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+  }
+  #mag {
+    margin-bottom: -10vh;
+  }
+  #articleInfos {
+    margin-bottom: -10vh;
+  }
+  #articlesMag {
+    margin-bottom: 10vh;
+  }
+  #courrier {
+    margin-bottom: 10vh;
+  }
+}
+
+/* mobile */
+@media screen and (max-width: 430px) {
+  #navBack {
+    position: relative;
+    background-color: #F8F272;
+    border-bottom: solid 2px #110B11;
+    width: 100%;
+    height: 5vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    z-index: 1;
+  }
+  #navBack h2 {
+    font-size: 2vw;
+  }
+  #navBack #home {
+    display: none;
+  }
+  #navBack #backLinks {
+    height: 100%;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    cursor: pointer;
+  }
+  #navBack #backLinks .dropDown {
+    font-size: 1.75vw;
+    background-color: #48A9A6;
+    border-left: solid 2px #110B11;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #navBack #backLinks .dropDown:nth-last-of-type(1) {
+    border-right: solid 2px #110B11;
+  }
+  #navBack #backLinks .dropDown:hover .dropdown-content {
+    display: block;
+  }
+  #navBack #backLinks .dropDown:hover {
+    background-color: #FBF7B1;
+  }
+  #navBack #backLinks .dropDown .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 5vh;
+    background-color: #f1f1f1;
+    min-width: 200%;
+    z-index: 1;
+  }
+  #navBack #backLinks .dropDown .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 3vw;
+    background-color: #F8F272;
+    border-bottom: solid 2px #110B11;
+    border-left: solid 2px #110B11;
+    border-right: solid 2px #110B11;
+  }
+  #navBack #backLinks .dropDown .dropdown-content a:hover {
+    background-color: #FBF7B1;
+  }
+  #navBack #backLinks .dropDown a {
+    text-decoration: none;
+    color: black;
+    font-size: 5vw;
+  }
+  #navBack #backLinks .dropDown span {
+    font-size: 5vw;
+  }
+  #navBack #backLinks .dropDown i {
+    display: none;
+  }
+  section .buttonsPannel {
+    width: 100%;
+    margin-bottom: 5vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  section .buttonsPannel a {
+    text-decoration: none;
+    text-align: center;
+    color: #110B11;
+    width: 80% !important;
+  }
+  #contentContainer {
+    width: 100% !important;
+    height: auto;
+    background-color: #F8F272;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #contentContainer #editoMag {
+    margin: 15px;
+    margin-bottom: 45px;
+    width: 100% !important;
+    width: 90%;
+    height: auto;
+    background-color: #F8F272;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #contentContainer #editoMag .formRow {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #48A9A6;
+  }
+  #contentContainer #editoMag .formRow .labelInput {
+    width: 100% !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  #contentContainer #editoMag .formRow .labelInput span {
+    text-align: center !important;
+    margin: 0px;
+  }
+  #contentContainer #editoMag .formRow #editoButton {
+    width: 20%;
+    padding: 15px;
+    margin-top: 15px;
+    border: solid 2px #F8F272;
+    background-color: #48A9A6;
+    border-radius: 12px;
+    font-size: 18px;
+    -webkit-box-shadow: 0px 5px 10px #110B11;
+            box-shadow: 0px 5px 10px #110B11;
+    cursor: pointer;
+    width: 80% !important;
+    height: 60px;
+    margin-bottom: 2vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-decoration: none;
+    text-align: center;
+    color: #110B11;
+    background-color: #00c000;
+    margin-right: 1.5vh;
+  }
+  #contentContainer #editoMag .formRow #editoButton:hover {
+    background-color: #FBF7B1;
+    -webkit-box-shadow: 0px 2px 10px #110B11;
+            box-shadow: 0px 2px 10px #110B11;
+  }
+  #contentContainer #editoMag .formRow #editoButton:hover {
+    background-color: #FBF7B1;
+    -webkit-box-shadow: 0px 2px 10px #110B11;
+            box-shadow: 0px 2px 10px #110B11;
+  }
+  #contentContainer #formMag {
+    margin: 75px !important;
+    width: 95%;
+    height: auto;
+    font-size: 24px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  #contentContainer #formMag .formRow {
+    width: 100%;
+    height: 25vh !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-bottom: 95px !important;
+    background-color: #48A9A6;
+  }
+  #contentContainer #formMag .formRow i {
+    display: none !important;
+  }
+  #contentContainer #formMag .formRow .infoBox {
+    display: none;
+    position: relative;
+    opacity: 0;
+    -webkit-transition: opacity .5s;
+    transition: opacity .5s;
+    z-index: 2;
+  }
+  #contentContainer #formMag .formRow .infoBox span {
+    position: absolute;
+    z-index: 2;
+    top: -8vh;
+    width: 150px;
+    left: 50vh;
+    font-size: 14px;
+    text-align: left;
+    background-color: white;
+    border: 2px solid black;
+    padding: 1vh;
+    color: black;
+  }
+  #contentContainer #formMag .formRow .hidden {
+    position: absolute;
+    z-index: -2;
+    bottom: -5vh;
+    left: -200px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: none;
+  }
+  #contentContainer #formMag .formRow .hidden span {
+    font-size: 14px;
+    background-color: #DDC67B;
+    text-align: center;
+    padding: 1vh;
+    color: #4C5B61;
+    display: none;
+  }
+  #contentContainer #formMag .formRow .labelInput {
+    width: 80%;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center !important;
+        -ms-flex-align: center !important;
+            align-items: center !important;
+  }
+  #contentContainer #formMag .formRow .labelInput label {
+    margin-left: 15px;
+  }
+  #contentContainer #formMag .formRow .labelInput label .fa-info {
+    position: absolute;
+    right: 35%;
+    top: 20%;
+    font-size: 18px;
+    cursor: help;
+    color: black;
+  }
+  #contentContainer #formMag .formRow .labelInput label .fa-circle {
+    position: relative;
+    margin-left: 10px;
+    font-size: 24px;
+    color: white;
+    cursor: help;
+  }
+  #contentContainer #formMag .formRow .labelInput #publication {
+    width: 45%;
+    padding: 15px;
+    font-size: 18px;
+    border: solid 2px #110B11;
+    margin-left: 15px;
+  }
+  #contentContainer #formMag .formRow .labelInput #cover {
+    width: 45%;
+    padding: 15px;
+    font-size: 14px;
+    border: solid 2px #110B11;
+    margin-left: 15px;
+  }
+  #contentContainer #formMag .formRow .labelInput #title01 {
+    width: 55%;
+    padding: 15px;
+    font-size: 18px;
+    border: solid 2px #110B11;
+    margin-left: 15px;
+  }
+  #contentContainer #formMag .formRow .labelInput #title02 {
+    width: 55%;
+    padding: 15px;
+    font-size: 18px;
+    border: solid 2px #110B11;
+    margin-left: 15px;
+  }
+  #contentContainer #formMag .formRow .labelInput input {
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+  }
+  #contentContainer #formMag .formRow .button01 {
+    width: 20%;
+    padding: 15px;
+    margin-top: 15px;
+    border: solid 2px #F8F272;
+    background-color: #48A9A6;
+    border-radius: 12px;
+    font-size: 18px;
+    -webkit-box-shadow: 0px 5px 10px #110B11;
+            box-shadow: 0px 5px 10px #110B11;
+    cursor: pointer;
+    margin: 15px;
+    width: 80% !important;
+  }
+  #contentContainer #formMag .formRow .button01:hover {
+    background-color: #FBF7B1;
+    -webkit-box-shadow: 0px 2px 10px #110B11;
+            box-shadow: 0px 2px 10px #110B11;
+  }
+  #contentContainer #formMag .formRow .modifTitle {
+    width: 10%;
+    padding: 5px;
+    margin-top: 15px;
+    border: solid 2px #F8F272;
+    background-color: #48A9A6;
+    border-radius: 12px;
+    font-size: 18px;
+    -webkit-box-shadow: 0px 5px 10px #110B11;
+            box-shadow: 0px 5px 10px #110B11;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 15px;
+    width: 80% !important;
+  }
+  #contentContainer #formMag .formRow .modifTitle:hover {
+    background-color: #FBF7B1;
+    -webkit-box-shadow: 0px 2px 10px #110B11;
+            box-shadow: 0px 2px 10px #110B11;
+  }
+  #contentContainer #formMag .formRow .deleteTitle {
+    width: 10%;
+    padding: 5px;
+    margin-top: 15px;
+    border: solid 2px #F8F272;
+    background-color: #48A9A6;
+    border-radius: 12px;
+    font-size: 18px;
+    -webkit-box-shadow: 0px 5px 10px #110B11;
+            box-shadow: 0px 5px 10px #110B11;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    background-color: #d80000;
+    margin: 15px;
+    width: 80% !important;
+  }
+  #contentContainer #formMag .formRow .deleteTitle:hover {
+    background-color: #FBF7B1;
+    -webkit-box-shadow: 0px 2px 10px #110B11;
+            box-shadow: 0px 2px 10px #110B11;
+  }
+  #articlesMag {
+    height: auto !important;
+  }
+  #articlesMag .buttonsPannel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+  }
+  #articlesMag #tableTitles {
+    display: none !important;
+  }
+  #articlesMag .tableRows {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+    width: 80% !important;
+    margin-bottom: 10px !important;
+  }
+  #articlesMag .tableContent {
+    width: 100% !important;
+    border: 2px solid #110B11;
+    border-top: 0px solid #110B11 !important;
+  }
+  #articlesMag .tableContent:nth-child(1) {
+    border-top: 2px solid #110B11 !important;
+  }
+  #articleInfos {
+    height: auto !important;
+  }
+  #articleInfos .buttonsPannel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+  }
+  #articleInfos input {
+    width: 80% !important;
+  }
+  #textEditor {
+    height: auto !important;
+  }
+  #textEditor input {
+    width: 80% !important;
+  }
+  #textEditor h3 {
+    font-size: 24px !important;
+    text-align: center;
+  }
+  #textEditor #contentContainer02 {
+    margin-top: 50px !important;
+  }
+  #courrier {
+    height: auto !important;
+  }
+  #courrier .buttonsPannel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+    height: auto !important;
+  }
+  #courrier .formRow {
+    height: 200px !important;
+  }
+  #courrier select {
+    width: 80% !important;
+  }
+  #courrier input {
+    width: 80% !important;
+  }
+  #newsletter {
+    height: auto !important;
+  }
+  #newsletter .buttonsPannel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+    height: auto !important;
+  }
+  #users #tableTitles {
+    display: none !important;
+  }
+  #users .tableRows {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+    width: 80% !important;
+    margin-bottom: 10px !important;
+  }
+  #users .tableContent {
+    width: 100% !important;
+    border: 2px solid #110B11;
+    border-top: 0px solid #110B11 !important;
+  }
+  #users .tableContent:nth-child(1) {
+    border-top: 2px solid #110B11 !important;
+  }
+  #newMag #contentContainer {
+    margin-top: 5vh !important;
+    height: auto;
+  }
+  #oldNumbers {
+    height: auto;
+  }
+  #oldNumbers .buttonsPannel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+    height: auto !important;
+  }
+  #oldNumbers #tableTitles {
+    display: none !important;
+  }
+  #oldNumbers .tableRows {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+    width: 80% !important;
+    margin-bottom: 10px !important;
+  }
+  #oldNumbers .tableContent {
+    width: 100% !important;
+    border: 2px solid #110B11;
+    border-top: 0px solid #110B11 !important;
+  }
+  #oldNumbers .tableContent:nth-child(1) {
+    border-top: 2px solid #110B11 !important;
   }
 }
 

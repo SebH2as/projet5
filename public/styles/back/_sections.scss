@@ -166,9 +166,9 @@ section{
 }
 
 #newMag{
-    position: relative;
+    
     width: 60%;
-    height: 95vh;
+    height: 100vh;
     background-color: $primaryBackgroundColorLight;
     z-index: 0;
     display: flex;
@@ -1113,6 +1113,7 @@ section{
 #courrier{
     position: relative;
     width: 60%;
+    height: auto;
     background-color: $primaryBackgroundColorLight;
     z-index: 0;
     display: flex;
