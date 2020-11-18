@@ -39,7 +39,7 @@
                         <span class="tableContent">{% if user.role == 0 %}Membre{% else %}Administrateur{% endif %}</span>
                         <span class="tableContent">{{user.confirmkey}}</span>
                         <span class="tableContent delete">
-                            <a class="buttonPannel" id="deleteUser" href="index.php?action=confirmDeleteUserBack&amp;idUser={{user.id_user}}">Supprimmer</a>
+                            <a class="buttonPannel deleteUser" href="index.php?action=confirmDeleteUserBack&amp;idUser={{user.id_user}}">Supprimmer</a>
                         </span>
                         
                     </div>

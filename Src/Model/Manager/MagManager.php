@@ -120,6 +120,34 @@ final class MagManager
         $mag = new Mag();
         $mag->setId_mag($idMag);
 
+        if (!empty($this->request->post('deleteTitle01'))) {
+            $this->session->setSessionData('message', 'Le titre 1 du magazine a été supprimmé');
+            
+            $mag->setTitle01(null);
+
+            $return = $this->magRepo->modifTitle01($mag);
+            
+            if (!$return) {
+                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
+            }
+            
+            return $return;
+        }
+
+        if (!empty($this->request->post('deleteTitle02'))) {
+            $this->session->setSessionData('message', 'Le titre 2 du magazine a été supprimmé');
+            
+            $mag->setTitle02(null);
+
+            $return = $this->magRepo->modifTitle02($mag);
+            
+            if (!$return) {
+                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
+            }
+            
+            return $return;
+        }
+
         if (mb_strlen($this->request->post('publication')) > 30
         || mb_strlen($this->request->post('title01')) > 70 || mb_strlen($this->request->post('title02')) > 70) {
             $this->session->setSessionData('error', 'Le champ renseigné ne respecte pas le nombre de caractères autorisés');
@@ -128,6 +156,11 @@ final class MagManager
         
         if ($this->request->post('publication') !== null && !empty($this->request->post('publication'))
         && !empty($this->request->post('modifPublication'))) {
+            if (date_create_from_format('Y-m-d', $this->request->post('publication')) === false) {
+                $this->session->setSessionData('error', 'La date renseignée doit respectée le format jj/mm/aaaa');
+                return false;
+            }
+              
             $this->session->setSessionData('message', 'La date de publication du magazine a été modifié');
 
             $mag->setPublication((string) $this->request->post('publication'));
@@ -156,39 +189,11 @@ final class MagManager
             return $return;
         }
 
-        if (!empty($this->request->post('deleteTitle01'))) {
-            $this->session->setSessionData('message', 'Le titre 1 du magazine a été supprimmé');
-            
-            $mag->setTitle01(null);
-
-            $return = $this->magRepo->modifTitle01($mag);
-            
-            if (!$return) {
-                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
-            }
-            
-            return $return;
-        }
-
         if ($this->request->post('title02') !== null && !empty($this->request->post('title02'))
         && !empty($this->request->post('modifTitle02'))) {
             $this->session->setSessionData('message', 'Le titre 2 du magazine a été modifié');
 
             $mag->setTitle02((string) $this->request->post('title02'));
-
-            $return = $this->magRepo->modifTitle02($mag);
-            
-            if (!$return) {
-                $this->session->setSessionData('error', 'Une erreur est survenue, veuillez recommencer');
-            }
-            
-            return $return;
-        }
-
-        if (!empty($this->request->post('deleteTitle02'))) {
-            $this->session->setSessionData('message', 'Le titre 2 du magazine a été supprimmé');
-            
-            $mag->setTitle02(null);
 
             $return = $this->magRepo->modifTitle02($mag);
             

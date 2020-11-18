@@ -49,7 +49,7 @@
                     <div class="textInfo">
                         <div class="numberAndDate">
                             <h3 class="numberMag">Magazine N°{{mag.numberMag}}</h3>
-                            <h3 class="date">{{mag.publication}}</h3>
+                            <h3 class="date">{{mag.publication |date("m/Y", "Europe/Paris")}}</h3>
                         </div>
                         <h3 class="titles">{{mag.title01}}</h3>
                         <h3 class="titles">{{mag.title02}}</h3>

@@ -32,7 +32,7 @@
             <span id="number" class="lefters">Magazine numéro {{magazine.numberMag}}</span>
 
             {% if magazine.publication %}
-            <span id="publication" class="righters">{{magazine.publication}}</span>
+            <span id="publication" class="righters">{{magazine.publication |date("m/Y", "Europe/Paris")}}</span>
             {% endif %}
 
             {% if magazine.title01 %}

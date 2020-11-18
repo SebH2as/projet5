@@ -18,17 +18,13 @@
                 <a class="navTopLink" >Nous rejoindre</a>
                 <a class="navTopLink" >Se connecter</a>
             </div>
-            <div id="logo" ><?= $separator ?><span>KILOMETRAGE</span></div>
+            <div id="logo" >{% block separator %}{% endblock %}<span>KILOMETRAGE</span></div>
             <div id="navLinks">
                 <a class="navBottomLink" >MAGAZINES</a>
                 <a class="navBottomLink" >CHRONIQUES</a>
                 <a class="navBottomLink" >ESSAIS</a>
-                <a class="navBottomLink" >FICTIONS</a>
-                <!--<a class="navBottomLink fa fa-search"></a>-->
+                <a class="navBottomLink" >FICTIONS</a>   
             </div>           
-            <div id="popupInfos">
-                <p>infos</p>
-            </div>
         {% else %}
                 <div id="navTop">
 
@@ -42,7 +38,7 @@
                  {% endif %}
 
             </div>
-            <div id="logo">{% block separator %}{% endblock %}<span>KILOMETRAGE</span></div>
+            <div id="logo">{{ block('separator') }}<span>KILOMETRAGE</span></div>
             <div id="navLinks">
                 <a class="navBottomLink fa fa-home{% if active == 1 %} active {% endif %}" href="index.php"></a>
                 <a class="navBottomLink{% if active == 5 %} active {% endif %}" href="index.php?action=magazines&amp;idMag={{magazine.id_mag}}">MAGAZINES</a>
