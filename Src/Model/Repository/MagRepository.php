@@ -70,22 +70,6 @@ final class MagRepository
         return $req->fetch();
     }
 
-    /*public function findAllMag(int $offset, int $nbByPage): ?array
-    {
-        $req = $this->database->getConnection()->prepare('SELECT mag.id_mag,id_text, main, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,
-        COUNT(articles.id_text) AS articlesNb,
-        MAX(articles.main) AS articleMain
-        FROM mag
-        LEFT JOIN articles ON mag.id_mag = articles.id_mag
-        GROUP BY(mag.id_mag)
-        ORDER BY numberMag DESC
-        LIMIT :offset, :limitation ');
-        $req->bindValue(':limitation', $nbByPage, \PDO::PARAM_INT);
-        $req->bindValue(':offset', $offset, \PDO::PARAM_INT);
-        $req->execute();
-        return $req->fetchALL(\PDO::FETCH_OBJ);
-    }*/
-
     public function findAllMag(int $offset, int $nbByPage): ?array
     {
         $req = $this->database->getConnection()->prepare('SELECT mag.id_mag, numberMag, publication, editorial, cover, statusPub, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS date,

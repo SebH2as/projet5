@@ -1,0 +1,146 @@
+{% extends "/back/layout.html.twig" %}
+
+{% block title %}
+    Gestion magazine numéro {{magazine.numberMag}}
+{% endblock %}
+
+{% block script %}
+    <script src="js/formSave.js"></script>
+    <script src="js/infoBox.js"></script>
+    <script src="js/mainPannelMag.js"></script>
+{% endblock %}
+
+{% block content %}
+    <section id="mag">
+
+        <h2>magazine numéro {{magazine.numberMag}}</h2> 
+        <h3>- Statut:{% if magazine.statusPub == 0 %} Sauvegardé -{% else %} En ligne -{% endif %}</h3>
+
+        {% if message %}<span id="message">{{message}}</span>{% endif %}
+        {% if error %}<span id="error">{{error}}</span>{% endif %}
+
+        <div class="buttonsPannel"> 
+            {% if magazine.statusPub == 0 %}
+                <a class="buttonPannel" id="online" href="index.php?action=changeStatusMag&amp;idMag={{magazine.id_mag}}">Mettre en ligne</a>
+            {% endif %}
+            {% if magazine.statusPub == 1 %}
+            <a class="buttonPannel" id="online" href="index.php?action=changeStatusMag&amp;idMag={{magazine.id_mag}}">Sauvegarder</a>
+            {% endif %}
+            <a class="buttonPannel" id="preview" href="index.php?action=previewMag&amp;idMag={{magazine.id_mag}}" target="_blank">Aperçu</a>
+            <a class="buttonPannel" id="article" href="#articlesMag">Articles associés</a>
+            <a class="buttonPannel" id="delete" href="index.php?action=confirmDeleteMag&amp;idMag={{magazine.id_mag}}">Supprimer</a>
+        </div>
+
+        <div id="contentContainer">   
+            <form id="formMag" method="POST" enctype="multipart/form-data" action="index.php?action=modifyMag&amp;idMag={{magazine.id_mag}}">
+                
+                <input type="hidden" name="csrf" value="{{token}}">
+
+                <h3><i class="fa fa-arrow-right"></i> Date de publication: <i>{% if not magazine.publication %}à définir{% else %}{{magazine.publication|date("m/Y", "Europe/Paris")}}{% endif %}</i></h3>
+                <div class="formRow">
+                    <div class="infoBox hidden"><span>Date au format jj/mm/aaaa</span></div>
+                    <div class="labelInput">
+                        <label for="publication">Modifier la publication:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
+                        <input type="date" id="publication" name="publication" maxlength="30" size="30">    
+                    </div>
+                    <input type="submit" class="button01" name="modifPublication" value="Modifier" >
+                </div>
+                
+                <h3><i class="fa fa-arrow-right"></i> Titre 1: <i>{% if not magazine.title01 %}à définir{% else %}{{magazine.title01}}{% endif %}</i></h3>
+                <div class="formRow">
+                <div class="infoBox hidden"><span>70 signes maximum</span></div>
+                    <div class="labelInput">
+                        <label for="title01">Modifier le titre 1:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
+                        <input type="text" id="title01" name="title01" maxlength="70" size="70">    
+                    </div>
+                    <input type="submit" class="modifTitle" name="modifTitle01" value="Modifier">
+                    <input type="submit" class="deleteTitle" name="deleteTitle01" value="Supprimmer">
+                </div>
+                
+                <h3><i class="fa fa-arrow-right"></i> Titre 2: <i>{% if not magazine.title02 %}à définir{% else %}{{magazine.title02}}{% endif %}</i></h3>
+                <div class="formRow">
+                <div class="infoBox hidden"><span>70 signes maximum</span></div>
+                    <div class="labelInput">
+                        <label for="title02">Modifier le titre 2:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
+                        <input type="text" id="title02" name="title02" maxlength="70" size="70">    
+                    </div>
+                    <input type="submit" class="modifTitle" name="modifTitle02" value="Modifier">
+                    <input type="submit" class="deleteTitle" name="deleteTitle02" value="Supprimmer">
+                </div>
+
+            </form>
+        </div>
+            
+    </section>
+
+    <section id="textEditor">
+        <div id="contentContainer02">
+
+            <h3><i class="fa fa-arrow-right"></i> Editorial: <i>{% if not magazine.editorial %}Non rédigé{% else %}Rédigé{% endif %}</i></h3>
+
+            <form id="formEditArticle" action="index.php?action=addEdito&amp;idMag={{magazine.id_mag}}" method="POST">
+                <input type="hidden" name="csrf" value="{{token}}">
+                
+                <input type="submit" name="saveEdito" value="Enregistrer"> 
+                
+                <textarea id="writtingSpace" name="contentEdito">
+                    {{decode(magazine.editorial)}}
+                </textarea>
+                <input type="submit" name="saveEdito" value="Enregistrer">
+            </form>
+
+        </div>
+    </section>
+
+    <section id="imgLoader">
+        <form id="formImg" method="POST" enctype="multipart/form-data" action="index.php?action=modifyMag&amp;idMag={{magazine.id_mag}}">
+            <h3><i class="fa fa-arrow-right"></i> Image de couverture: <i>{% if not magazine.cover %}à définir{% else %}Définie{% endif %}</i></h3>
+            <div class="formRow">
+            <div class="infoBox hidden"><span>Uniquement .png ou .jpg</span></div>
+                <div class="labelInput">
+                    <label for="cover">Changer la couverture:<i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
+                    <input type="file" id="cover" name="cover">    
+                </div>
+                <input type="submit" class="button01" name="modifCover" value="Charger">
+            </div>
+        </form>
+    </section>
+
+    <section id="articlesMag">
+
+        {% if not articles %}
+            <h2>Aucun article associé</h2>
+            <div class="buttonsPannel"> 
+                <a class="buttonPannel" id="createArticle" href="index.php?action=createNewArticle&amp;idMag={{magazine.id_mag}}">Créer un nouvel article</a>
+            </div>
+        {% else %}
+            <h2>Articles associés</h2>
+
+            <div class="buttonsPannel"> 
+                <a class="buttonPannel" id="createArticle" href="index.php?action=createNewArticle&amp;idMag={{magazine.id_mag}}">Créer un nouvel article</a>
+            </div>
+            <div id="tableContainer">
+                <div id="tableTitles">
+                    <span class="columnTitle">Date de création</span>
+                    <span class="columnTitle">Rubrique</span>
+                    <span class="columnTitle">Titre</span>
+                    <span class="columnTitle">Auteur</span>
+                    <span class="columnTitle">Image associée</span>
+                    <span class="columnTitle">Article à la une</span>
+                    <span class="columnTitle">Teaser</span>
+                </div>
+                {% for article in articles %}
+                    <a class="tableRows" href="index.php?action=pannelArticle&amp;idMag={{magazine.id_mag}}&amp;idText={{article.id_text}}">
+                        <span class="tableContent">{{article.date_creation |date("d/m/Y", "Europe/Paris")}}</span>
+                        <span class="tableContent">{% if not article.textType %}A définir{% else %}{{article.textType}}{% endif %}</span>
+                        <span class="tableContent">{% if not article.title %}A définir{% else %}{{article.title}}{% endif %}</span>
+                        <span class="tableContent">{% if not article.author %}A définir{% else %}{{article.author}}{% endif %}</span>
+                        <span class="tableContent">{% if not article.articleCover %}Aucune{% else %}Oui{% endif %}</span>
+                        <span class="tableContent">{% if article.main == 0 %}Non{% else %}Oui{% endif %}</span>
+                        <span class="tableContent">{% if not article.teaser %}Non rédigé{% else %}Rédigé{% endif %}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}   
+    </section>
+{% endblock %}
