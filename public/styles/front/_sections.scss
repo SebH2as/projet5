@@ -764,11 +764,12 @@
                 width: 80%;
                 top: 30px;
                 z-index: 3;
+                margin: 0px;
                 
                 .infoBox{
-                    position : relative;
-                    opacity: 0 ;
-                    transition: opacity .5s;
+                    
+                    opacity: 1 ;
+                    transition: opacity 5s;
                     z-index: 2;
                     span{
                         position: absolute;
@@ -786,21 +787,8 @@
                     
                 }
                 .hidden{
-                    position: absolute;
+                    display: none;
                     z-index: -2;
-                    bottom: -5vh;
-                    left: -200px;
-                    justify-content: center;
-                    align-items: center;
-                    display: flex;
-                    span{
-                        font-size: 14px;
-                        background-color: $primaryBackgroundColorLight;
-                        text-align: center;
-                        padding: 1vh;
-                        color: $primaryBackgroundColorDark;
-                        display: none;
-                    }
                 }
             }
             input{

@@ -43,7 +43,7 @@
             <span id="title02" class="lefters">{{magazine.title02}}</span>
             {% endif %}
 
-            <img id="headerImg" class="downers" src="images/{{magazine.cover}}" alt="{{magazine.cover |slice( 0, -4)}}">
+            <img id="headerImg" src="images/{{magazine.cover}}" alt="{{magazine.cover |slice( 0, -4)}}">
             
             <a class="fa fa-arrow-circle-left
             {% if not previous.numberMag  %} hidden {% endif %}" href="index.php?action=magByNumber&amp;idMag={{magazine.id_mag}}&amp;numberMag={{magazine.numberMag - 1}}">

@@ -10,6 +10,7 @@
 
 {% block script %}
     <script src="js/navbar.js"></script>
+    <script src="js/infoBox.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -42,7 +43,13 @@
                 <label for="password">Veuillez saisir votre mot de passe actuel:</label>
                 <input type="password" id="password" name="password" maxlength="70" size="70">
 
-                <label for="new">Veuillez entrer un {{userData |lower }}:</label>
+                <div class="containInfoBox">
+                    <div class="infoBox hidden"><span>{% if userData == 'Pseudo' %}Votre pseudo doit avoir au moins 3 caractères et pas plus de 15. Pas de caractères spéciaux. Des chiffres seulement à la fin.{% endif %}
+                    {% if userData == 'Email' %}Veuillez entrer une adresse mail valide.{% endif %}
+                    {% if userData == 'Mot de passe' %}Votre mot de passe doit avoir au moins 8 caractères, pas plus de 50 et doit comporter au moins une majuscule, un caractère spécial et un chiffre.{% endif %}</span></div>
+                </div>
+
+                <label for="new">Veuillez entrer un {{userData |lower }}: <i class=" fa fa-circle"><i class=" fa fa-info"></i></i></label>
                 <input type="{% if userData == 'Mot de passe' %}password{% else %}text{% endif %}" id="new" name="new" maxlength="50" size="50">
 
                 <label for="new2">Veuillez confirmer votre {{userData |lower }}:</label>

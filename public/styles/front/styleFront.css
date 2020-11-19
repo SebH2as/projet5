@@ -1370,13 +1370,13 @@ header .hidden span {
   width: 80%;
   top: 30px;
   z-index: 3;
+  margin: 0px;
 }
 
 #article #formSignIn .containInfoBox .infoBox {
-  position: relative;
-  opacity: 0;
-  -webkit-transition: opacity .5s;
-  transition: opacity .5s;
+  opacity: 1;
+  -webkit-transition: opacity 5s;
+  transition: opacity 5s;
   z-index: 2;
 }
 
@@ -1395,28 +1395,8 @@ header .hidden span {
 }
 
 #article #formSignIn .containInfoBox .hidden {
-  position: absolute;
-  z-index: -2;
-  bottom: -5vh;
-  left: -200px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-#article #formSignIn .containInfoBox .hidden span {
-  font-size: 14px;
-  background-color: #F9FBF2;
-  text-align: center;
-  padding: 1vh;
-  color: #030B12;
   display: none;
+  z-index: -2;
 }
 
 #article #formSignIn input {
