@@ -34,6 +34,11 @@
         border-bottom: 5px solid $secondaryBacgroundColorOrange;
         padding: 5px;
     }
+    .disclaimer{
+        font-size: 2vh;
+        border-bottom: 0px solid $secondaryBacgroundColorOrange;
+        font-style: italic;
+    }
 }
 
 @keyframes rotate{

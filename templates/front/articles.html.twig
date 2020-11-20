@@ -10,9 +10,20 @@
 
 {% block script %}
     <script src="js/navbar.js"></script>
+    <script src="js/loader.js"></script>
 {% endblock %}
 
 {% block content %}
+
+    <div id="containLoader">
+        <div id="containCircles">
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <span>KILOMETRAGE</span>
+        <span class="disclaimer">Un E-Mag qui carbure...</span>
+    </div>
+
     <div id="sectionImg">
         <img class="rubricImg" src="images/{{magazine.cover}}" alt="{{magazine.cover |slice( 0, -4)}}">
     </div>

@@ -175,9 +175,9 @@ final class UsersManager
             $key .= random_int(0, 9);
         }
 
-        //$Email = $this->request->post('mail');
+        $Email = $this->request->post('mail');
 
-        //mail($Email, "Code de validation", $key);
+        mail($Email, "Code de validation", $key);
 
         $user = new User();
         $user->setPseudo((string) $this->request->post('pseudo'));
@@ -366,9 +366,9 @@ final class UsersManager
             return false;
         }
 
-        /*for ($i = 0; $i < count($users); ++$i) {
+        for ($i = 0; $i < count($users); ++$i) {
             mail($users[$i]->email, "Newsletter", $message, $header);
-        }*/
+        }
 
         $newsletterPosted = new Newsletter();
         $newsletterPosted->setId_newsletter($idNewsletter);

@@ -477,6 +477,12 @@ header .hidden span {
   padding: 5px;
 }
 
+#containLoader .disclaimer {
+  font-size: 2vh;
+  border-bottom: 0px solid #E8871E;
+  font-style: italic;
+}
+
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
