@@ -240,8 +240,8 @@ final class UsersController
         );
     }
 
-    //index.php?action=connectionPage&idMag=122&message=Votre%20compte%20a%20été%20supprimé
-    public function userDeleteSelf(int $idMag): void
+    //index.php?action=userDeleteSelf&idMag=122
+    public function userDeleteSelf(int $idMag): void //méthode pour que l'utilisateur efface son compte et toutes ses données
     {
         $user = $this->auth->user();
 
@@ -465,7 +465,8 @@ final class UsersController
         );
     }
 
-    public function usersBack(int $idMag): void
+    //index.php?action=usersBack&idMag=122
+    public function usersBack(int $idMag): void //méthode pour afficher la page du back de tous les utilisateurs
     {
         $this->auth->requireRole(1);
 
@@ -510,7 +511,8 @@ final class UsersController
         );
     }
 
-    public function confirmDeleteUserBack():void
+    //index.php?action=confirmDeleteUserBack&idUser=122
+    public function confirmDeleteUserBack():void //méthode pour afficher la page de confirmation de suppression d'un utilisateur
     {
         $this->auth->requireRole(1);
 
@@ -527,7 +529,8 @@ final class UsersController
         );
     }
 
-    public function deleteUser(int $idMag): void
+    //index.php?action=deleteUser&idUser=122
+    public function deleteUser(int $idMag): void //méthode pour supprimer un utilisateur
     {
         $this->auth->requireRole(1);
 
@@ -550,7 +553,8 @@ final class UsersController
         exit();
     }
 
-    public function adminProfil(int $idMag): void
+    //index.php?action=adminProfil
+    public function adminProfil(int $idMag): void //méthode pour afficher la page profil de l'admin
     {
         $this->auth->requireRole(1);
         $user = $this->auth->user();
@@ -614,7 +618,8 @@ final class UsersController
         );
     }
 
-    public function sendNewsletter(): void
+    //index.php?action=sendNewsletter&idNewsletter=122
+    public function sendNewsletter(): void //méthode pour envoyer une newsletter
     {
         $this->auth->requireRole(1);
 

@@ -105,7 +105,7 @@ final class ArticleController
     }
 
     //index.php?action=pannelArticle&idMag=102&idText=128
-    public function pannelArticle(int $idMag, int $idText): void
+    public function pannelArticle(int $idMag, int $idText): void //méthode pour afficher la page de gestion d'un article dans le back
     {
         $this->auth->requireRole(1);
 
@@ -140,8 +140,8 @@ final class ArticleController
         );
     }
 
-    //index.php?action=pannelArticle&idMag=102&idText=169
-    public function createNewArticle(int $idMag): void
+    //index.php?action=createNewArticle&idMag=102&idText=169
+    public function createNewArticle(int $idMag): void //méthode pour créer un nouvel article
     {
         $this->auth->requireRole(1);
 
@@ -171,8 +171,8 @@ final class ArticleController
         exit();
     }
 
-    //index.php?action=pannelArticle&idMag=102&idText=170&message=Le%20contenu%20de%20l%27article%20a%20été%20modifié
-    public function addContent(int $idMag, int $idText): void
+    //index.php?action=addContent&idMag=102&idText=169
+    public function addContent(int $idMag, int $idText): void //méthode pour rédiger un article
     {
         $this->auth->requireRole(1);
 
@@ -198,8 +198,8 @@ final class ArticleController
         exit();
     }
 
-    //index.php?action=pannelArticle&idMag=102&idText=170&message=L%27%20auteur%20de%20l%27article%20a%20été%20modifié
-    public function modifyArticle(int $idMag, int $idText):void
+    //index.php?action=modifyArticle&idMag=102&idText=169
+    public function modifyArticle(int $idMag, int $idText):void //méthode pour modifier les infos un article
     {
         $this->auth->requireRole(1);
 
@@ -228,7 +228,8 @@ final class ArticleController
         exit();
     }
 
-    public function confirmDeleteArticle(int $idMag, int $idText):void
+    //index.php?action=confirmDeleteArticle&idMag=102&idText=169
+    public function confirmDeleteArticle(int $idMag, int $idText):void //méthode pour afficher la page de confirmation de suppression d'un article
     {
         $this->auth->requireRole(1);
         
@@ -252,8 +253,8 @@ final class ArticleController
         );
     }
 
-    //index.php?action=pannelMag&idMag=102&message=L%27article%20a%20été%20supprimmé
-    public function deleteArticle(int $idMag, int $idText):void
+    //index.php?action=deleteArticle&idMag=102&idText=169
+    public function deleteArticle(int $idMag, int $idText):void //méthode pour supprimer un article
     {
         $this->auth->requireRole(1);
 
@@ -275,8 +276,8 @@ final class ArticleController
         exit();
     }
 
-    //index.php?action=pannelArticle&idMag=102&idText=135&message=L%27article%20a%20été%20passé%20à%20la%20une
-    public function changeMain(int $idMag, int $idText):void
+    //index.php?action=changeMain&idMag=102&idText=169
+    public function changeMain(int $idMag, int $idText):void //méthode pour changer le status d'un article
     {
         $this->auth->requireRole(1);
         $message = null;
@@ -298,8 +299,8 @@ final class ArticleController
         exit();
     }
 
-    
-    public function previewArticle(int $idMag, int $idText):void
+    //index.php?action=previewArticle&idMag=102&idText=169
+    public function previewArticle(int $idMag, int $idText):void //méthode pour prévisualiser un article
     {
         $this->auth->requireRole(1);
         

@@ -62,7 +62,7 @@ final class MagController
     }
 
     //index.php?action=magByNumber&idMag=110&numberMag=1
-    public function magByNumber(int $idMag): void
+    public function magByNumber(int $idMag): void //méthode pour afficher la page d'un magazine en fonction de son numéro
     {
         $user = $this->auth->user();
         $magazine = $this->magManager->showByNumber((int) $this->request->get('numberMag'));
@@ -242,7 +242,7 @@ final class MagController
         );
     }
 
-    //index.php?action=listMag&message=Le%20magazine%20numéro%204%20a%20bien%20été%20créé
+    //index.php?action=createNewMag
     public function createNewMag():void//méthode pour créer un nouveau numéro de magazine
     {
         $this->auth->requireRole(1);
@@ -307,7 +307,8 @@ final class MagController
         );
     }
 
-    public function confirmDeleteMag(int $idMag):void
+    //index.php?action=confirmDeleteMag&idMag=102
+    public function confirmDeleteMag(int $idMag):void //méthode pour afficher la page de confirmation de suppression d'un mag
     {
         $this->auth->requireRole(1);
         
@@ -329,7 +330,7 @@ final class MagController
         );
     }
 
-    //index.php?action=listMag&message=Le%20magazine%20numéro%204%20a%20bien%20été%20supprimmé%20avec%20ses%20articles%20et%20images%20associés
+    //index.php?action=deleteMag&idMag=102
     public function deleteMag(int $idMag):void//méthode pour supprimmer un magazine avec ses articles et images associés
     {
         $this->auth->requireRole(1);
@@ -360,8 +361,8 @@ final class MagController
         exit();
     }
 
-    //index.php?action=pannelMag&idMag=102&message=le%20magazine%20a%20été%20mis%20en%20ligne
-    public function changeStatusMag(int $idMag): void
+    //index.php?action=changeStatusMag&idMag=102
+    public function changeStatusMag(int $idMag): void //méthode pour changer le status d'un mag
     {
         $this->auth->requireRole(1);
         $message = null;
@@ -411,7 +412,8 @@ final class MagController
         );
     }
 
-    public function previewEdito(int $idMag):void
+    //index.php?action=previewEdito&idMag=102
+    public function previewEdito(int $idMag):void //méthode pour prévisualiser un édito d'un magazine
     {
         $this->auth->requireRole(1);
         
@@ -467,7 +469,7 @@ final class MagController
     }
 
     //index.php?action=editorialBack&idMag=102
-    public function editorialBack(int $idMag): void
+    public function editorialBack(int $idMag): void //méthode pour afficher la page dans le back de l'édito d'un mag
     {
         $this->auth->requireRole(1);
 

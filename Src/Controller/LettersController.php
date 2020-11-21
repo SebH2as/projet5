@@ -267,7 +267,7 @@ final class LettersController
         );
     }
 
-    //index.php?action=letterBack&idLetter=42&message=Le%20courrier%20a%20été%20associé%20au%20magazine%20choisi
+    //index.php?action=relatedMag&idLetter=42
     public function relatedMag(int $idMag): void//méthode pour modifier le thème associé à un courrier
     {
         $this->auth->requireRole(1);
@@ -297,8 +297,8 @@ final class LettersController
         exit();
     }
 
-    //index.php?action=letterBack&idLetter=42&message=Le%20courrier%20a%20été%20retiré%20du%20magazine%20associé
-    public function setPublished(int $idMag): void
+    //index.php?action=setPublished&idLetter=42
+    public function setPublished(int $idMag): void //méthode pour publier un courrier
     {
         $this->auth->requireRole(1);
 
@@ -322,7 +322,8 @@ final class LettersController
         exit();
     }
 
-    public function confirmDeleteLetter():void
+    //index.php?action=courrierDelete&idLetter=42
+    public function confirmDeleteLetter():void //méthode pour afficher la page de confirmation de suppression d'un courrier
     {
         $this->auth->requireRole(1);
 
@@ -339,7 +340,8 @@ final class LettersController
         );
     }
 
-    public function courrierDelete(int $idMag):void
+    //index.php?action=courrierDelete&idLetter=42
+    public function courrierDelete(int $idMag):void //méthode pour supprimer un courrier
     {
         $this->auth->requireRole(1);
 
@@ -362,7 +364,8 @@ final class LettersController
         exit();
     }
 
-    public function setResponse(int $idMag):void
+    //index.php?action=setResponse&idLetter=42
+    public function setResponse(int $idMag):void //méthode pour répondre à un courrier
     {
         $this->auth->requireRole(1);
 
@@ -431,8 +434,8 @@ final class LettersController
         );
     }
 
-    //index.php?action=newslettersBack&message=Une%20newsletter%20a%20bien%20été%20créée
-    public function newNewsletter(): void
+    //index.php?action=newNewsletter
+    public function newNewsletter(): void //méthode créer une newsletter
     {
         $this->auth->requireRole(1);
 
@@ -445,7 +448,7 @@ final class LettersController
     }
 
     //index.php?action=newsletterBack&idNewsletter=7
-    public function newsletterBack(): void
+    public function newsletterBack(): void //méthode pour afficher la page d'une newsletter dans le back
     {
         $this->auth->requireRole(1);
 
@@ -477,8 +480,8 @@ final class LettersController
         );
     }
 
-    //index.php?action=newsletterBack&idNewsletter=7&message=Le%20contenu%20de%20la%20newsletter%20a%20bien%20été%20mis%20à%20jour
-    public function addContentNewsletter(): void
+    //index.php?action=addContentNewsletter&idNewsletter=7
+    public function addContentNewsletter(): void //méthode pour rédiger une newsletter
     {
         $this->auth->requireRole(1);
 
@@ -512,7 +515,8 @@ final class LettersController
         exit();
     }
 
-    public function deleteNewsletter(): void
+    //index.php?action=deleteNewsletter&idNewsletter=7
+    public function deleteNewsletter(): void //méthode pour supprimer une newsletter
     {
         $this->auth->requireRole(1);
 
