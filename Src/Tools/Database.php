@@ -9,7 +9,7 @@ class Database
 {
     private static $instance = null;
     
-    private $dbName = 'magbdd';
+    private $dbName = 'magbddFinal';
     private $dbUser = 'root';
     private $dbPass = '';
     private $dbHost = 'localhost';

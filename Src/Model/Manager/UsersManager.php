@@ -175,9 +175,10 @@ final class UsersManager
             $key .= random_int(0, 9);
         }
 
-        $Email = $this->request->post('mail');
+        //le code ci-dessous est à réactiver pour l'envoie du mail de confirmation lorsque mis en ligne car ne fonctionne pas en local
+        /*$Email = $this->request->post('mail');
 
-        mail($Email, "Code de validation", $key);
+        mail($Email, "Code de validation", $key);*/
 
         $user = new User();
         $user->setPseudo((string) $this->request->post('pseudo'));
@@ -365,10 +366,10 @@ final class UsersManager
             $this->session->setSessionData('error', 'Aucun membre abonné, la newsletter ne peut être envoyée');
             return false;
         }
-
-        for ($i = 0; $i < count($users); ++$i) {
+        //le code ci-dessous est à réativer pour l'envoie de la newsletter lorsque mis en ligne car ne fonctionne pas en local
+        /*for ($i = 0; $i < count($users); ++$i) {
             mail($users[$i]->email, "Newsletter", $message, $header);
-        }
+        }*/
 
         $newsletterPosted = new Newsletter();
         $newsletterPosted->setId_newsletter($idNewsletter);

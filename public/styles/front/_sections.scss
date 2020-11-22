@@ -740,6 +740,62 @@
                 display: none;
             }
         }
+        #errorJs{
+            color: $primaryBackgroundColorDark;
+            background-color: rgb(238, 41, 41);
+            padding: 5px;
+            font-size: 24px;
+            border: 3px solid $primaryBackgroundColorDark;
+            margin-bottom: 2vh;
+            &.none{
+                display: none;
+            }
+        }
+        .pseudoErr{
+            color: $primaryBackgroundColorDark;
+            background-color: rgb(238, 41, 41);
+            padding: 5px;
+            font-size: 24px;
+            border: 3px solid $primaryBackgroundColorDark;
+            margin-bottom: 2vh;
+            &.none{
+                display: none;
+            }
+        }
+        .mailErr{
+            color: $primaryBackgroundColorDark;
+            background-color: rgb(238, 41, 41);
+            padding: 5px;
+            font-size: 24px;
+            border: 3px solid $primaryBackgroundColorDark;
+            margin-bottom: 2vh;
+            &.none{
+                display: none;
+            }
+        }
+        
+        .passErr{
+            color: $primaryBackgroundColorDark;
+            background-color: rgb(238, 41, 41);
+            padding: 5px;
+            font-size: 24px;
+            border: 3px solid $primaryBackgroundColorDark;
+            margin-bottom: 2vh;
+            &.none{
+                display: none;
+            }
+        }
+        .submitErr{
+            color: $primaryBackgroundColorDark;
+            background-color: rgb(238, 41, 41);
+            padding: 5px;
+            font-size: 24px;
+            border: 3px solid $primaryBackgroundColorDark;
+            margin-bottom: 2vh;
+            &.none{
+                display: none;
+            }
+        }
         #message{
             color: $primaryBackgroundColorDark;
             background-color: greenyellow;
